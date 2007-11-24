@@ -1,361 +1,49 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
 <title>Introducción Informal a Matlab y Octave</title>
-<style type="text/css">
-
-/*
-:Author: David Goodger
-:Contact: goodger@users.sourceforge.net
-:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
-:Revision: $Revision: 4224 $
-:Copyright: This stylesheet has been placed in the public domain.
-
-Default cascading style sheet for the HTML output of Docutils.
-
-See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
-customize this style sheet.
-*/
-
-/* used to remove borders from tables and images */
-.borderless, table.borderless td, table.borderless th {
-  border: 0 }
-
-table.borderless td, table.borderless th {
-  /* Override padding for "table.docutils td" with "! important".
-     The right padding separates the table cells. */
-  padding: 0 0.5em 0 0 ! important }
-
-.first {
-  /* Override more specific margin styles with "! important". */
-  margin-top: 0 ! important }
-
-.last, .with-subtitle {
-  margin-bottom: 0 ! important }
-
-.hidden {
-  display: none }
-
-a.toc-backref {
-  text-decoration: none ;
-  color: black }
-
-blockquote.epigraph {
-  margin: 2em 5em ; }
-
-dl.docutils dd {
-  margin-bottom: 0.5em }
-
-/* Uncomment (and remove this text!) to get bold-faced definition list terms
-dl.docutils dt {
-  font-weight: bold }
-*/
-
-div.abstract {
-  margin: 2em 5em }
-
-div.abstract p.topic-title {
-  font-weight: bold ;
-  text-align: center }
-
-div.admonition, div.attention, div.caution, div.danger, div.error,
-div.hint, div.important, div.note, div.tip, div.warning {
-  margin: 2em ;
-  border: medium outset ;
-  padding: 1em }
-
-div.admonition p.admonition-title, div.hint p.admonition-title,
-div.important p.admonition-title, div.note p.admonition-title,
-div.tip p.admonition-title {
-  font-weight: bold ;
-  font-family: sans-serif }
-
-div.attention p.admonition-title, div.caution p.admonition-title,
-div.danger p.admonition-title, div.error p.admonition-title,
-div.warning p.admonition-title {
-  color: red ;
-  font-weight: bold ;
-  font-family: sans-serif }
-
-/* Uncomment (and remove this text!) to get reduced vertical space in
-   compound paragraphs.
-div.compound .compound-first, div.compound .compound-middle {
-  margin-bottom: 0.5em }
-
-div.compound .compound-last, div.compound .compound-middle {
-  margin-top: 0.5em }
-*/
-
-div.dedication {
-  margin: 2em 5em ;
-  text-align: center ;
-  font-style: italic }
-
-div.dedication p.topic-title {
-  font-weight: bold ;
-  font-style: normal }
-
-div.figure {
-  margin-left: 2em ;
-  margin-right: 2em }
-
-div.footer, div.header {
-  clear: both;
-  font-size: smaller }
-
-div.line-block {
-  display: block ;
-  margin-top: 1em ;
-  margin-bottom: 1em }
-
-div.line-block div.line-block {
-  margin-top: 0 ;
-  margin-bottom: 0 ;
-  margin-left: 1.5em }
-
-div.sidebar {
-  margin-left: 1em ;
-  border: medium outset ;
-  padding: 1em ;
-  background-color: #ffffee ;
-  width: 40% ;
-  float: right ;
-  clear: right }
-
-div.sidebar p.rubric {
-  font-family: sans-serif ;
-  font-size: medium }
-
-div.system-messages {
-  margin: 5em }
-
-div.system-messages h1 {
-  color: red }
-
-div.system-message {
-  border: medium outset ;
-  padding: 1em }
-
-div.system-message p.system-message-title {
-  color: red ;
-  font-weight: bold }
-
-div.topic {
-  margin: 2em }
-
-h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
-h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
-  margin-top: 0.4em }
-
-h1.title {
-  text-align: center }
-
-h2.subtitle {
-  text-align: center }
-
-hr.docutils {
-  width: 75% }
-
-img.align-left {
-  clear: left }
-
-img.align-right {
-  clear: right }
-
-ol.simple, ul.simple {
-  margin-bottom: 1em }
-
-ol.arabic {
-  list-style: decimal }
-
-ol.loweralpha {
-  list-style: lower-alpha }
-
-ol.upperalpha {
-  list-style: upper-alpha }
-
-ol.lowerroman {
-  list-style: lower-roman }
-
-ol.upperroman {
-  list-style: upper-roman }
-
-p.attribution {
-  text-align: right ;
-  margin-left: 50% }
-
-p.caption {
-  font-style: italic }
-
-p.credits {
-  font-style: italic ;
-  font-size: smaller }
-
-p.label {
-  white-space: nowrap }
-
-p.rubric {
-  font-weight: bold ;
-  font-size: larger ;
-  color: maroon ;
-  text-align: center }
-
-p.sidebar-title {
-  font-family: sans-serif ;
-  font-weight: bold ;
-  font-size: larger }
-
-p.sidebar-subtitle {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-p.topic-title {
-  font-weight: bold }
-
-pre.address {
-  margin-bottom: 0 ;
-  margin-top: 0 ;
-  font-family: serif ;
-  font-size: 100% }
-
-pre.literal-block, pre.doctest-block {
-  margin-left: 2em ;
-  margin-right: 2em ;
-  background-color: #eeeeee }
-
-span.classifier {
-  font-family: sans-serif ;
-  font-style: oblique }
-
-span.classifier-delimiter {
-  font-family: sans-serif ;
-  font-weight: bold }
-
-span.interpreted {
-  font-family: sans-serif }
-
-span.option {
-  white-space: nowrap }
-
-span.pre {
-  white-space: pre }
-
-span.problematic {
-  color: red }
-
-span.section-subtitle {
-  /* font-size relative to parent (h1..h6 element) */
-  font-size: 80% }
-
-table.citation {
-  border-left: solid 1px gray;
-  margin-left: 1px }
-
-table.docinfo {
-  margin: 2em 4em }
-
-table.docutils {
-  margin-top: 0.5em ;
-  margin-bottom: 0.5em }
-
-table.footnote {
-  border-left: solid 1px black;
-  margin-left: 1px }
-
-table.docutils td, table.docutils th,
-table.docinfo td, table.docinfo th {
-  padding-left: 0.5em ;
-  padding-right: 0.5em ;
-  vertical-align: top }
-
-table.docutils th.field-name, table.docinfo th.docinfo-name {
-  font-weight: bold ;
-  text-align: left ;
-  white-space: nowrap ;
-  padding-left: 0 }
-
-h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
-h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
-  font-size: 100% }
-
-tt.docutils {
-  background-color: #eeeeee }
-
-ul.auto-toc {
-  list-style-type: none }
-
-</style>
+<link href="./default.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+  <h1>Introducción Informal a Matlab y Octave</h1>
+  <p><a href="https://forja.rediris.es/projects/iimyo/">Página en la
+      forja</a> para más información y descargas.</p>
+  <p><a href="./matlab/">Copia desactualizada del libro en HTML</a> para lectura online
+    </p>
 
-<h1>Introducción Informal a Matlab y Octave</h1>
-<p><a href="https://forja.rediris.es/projects/iimyo/">Página en la forja</a> para más información y descargas.</p>
-<div class="document" id="introducci-n">
-<h2 class="title">Sobre el Libro</h2>
-<p>Los objetivos iniciales de este libro son los siguientes:</p>
-<ul class="simple">
-<li>Describir el lenguaje de programación Matlab</li>
-<li>Dar una descripción extensa del funcionamiento del intérprete libre
-Octave y sus ventajas e inconvenientes respecto a la implementación
-propietaria del lenguaje.</li>
-<li>Presentar ejemplos inspirados en el cálculo numérico para dar una
-introducción aplicada de la programación con matlab y octave.</li>
-<li>Realizar las explicaciones de cálculo numérico pertinentes para que
-el lector sea capaz de entender los ejemplos con el mínimo
-conocimiento previo posible.</li>
-</ul>
-<p>Estos objetivos no son inmutables, pueden cambiarse y añadirse otros
-según los escritores del texto.</p>
-<p>La filosofía del libro es la siguiente</p>
-<blockquote>
-Este libro es un proyecto participativo y abierto, por este motivo
-se ha optado por una licencia libre en su distribución.  Su espíritu
-es el de compartir el conocimiento y aceptar cualquier ayuda por
-pequeña que sea.</blockquote>
-<div class="section">
-<h2><a id="c-mo-generar-el-pdf-a-partir-de-la-fuente-del-documento" name="c-mo-generar-el-pdf-a-partir-de-la-fuente-del-documento">Cómo generar el pdf a partir de la fuente del documento</a></h2>
-<div class="section">
-<h3><a id="requisitos" name="requisitos">Requisitos</a></h3>
-<p>La construcción del texto es automatizada, esto hace que los
-requisitos de software sean un poco más exigentes de lo normal.</p>
-<p>Para poder compilar el documento es necesario contar con lo siguiente:</p>
+  <h2 class="title">Sobre el Libro</h2>
+  <p>Los objetivos iniciales de este libro son los siguientes:</p>
+  <ul class="simple">
+    <li>Describir el lenguaje de programación Matlab</li>
+    <li>Dar una descripción extensa del funcionamiento del intérprete libre
+      Octave y sus ventajas e inconvenientes respecto a la implementación
+      propietaria del lenguaje.</li>
+    <li>Presentar ejemplos inspirados en el cálculo numérico para dar una
+      introducción aplicada de la programación con matlab y octave.</li>
+    <li>Realizar las explicaciones de cálculo numérico pertinentes para que
+      el lector sea capaz de entender los ejemplos con el mínimo
+      conocimiento previo posible.</li>
+  </ul>
+  <p>
+    Este libro es un proyecto participativo y abierto, por este motivo
+    se ha optado por una licencia libre en su distribución.  Su espíritu
+    es el de compartir el conocimiento y aceptar cualquier ayuda por
+    pequeña que sea.</p>
+<h3>Licencia</h3>
+El documento y todo el material adicional está bajo la licencia GNU Free Documentation License se explicite o no en los archivos. Las versiones anteriores están bajo una licencia Creative Commons de reconocimiento, compartir-igual, no comercial; estas copias son anteriores a este proyecto.
+<h2>Otros recursos sobre Octave</h2>
 <ul>
-<li><p class="first">Sistema operativo GNU/Linux o *BSD</p>
-<li><p class="first">Octave, preferiblemente la última versión disponible.  Se sabe que
-funciona la versión 2.9.15</p>
-</li>
-<li><p class="first">gnuplot.</p>
-</li>
-<li><p class="first">Python.</p>
-<ul class="simple">
-<li>numpy.</li>
-<li>matplotlib (utilizado para generar algunas figuras con
-características aún no disponibles en
-octave). <a class="reference" href="http://matplotlib.sourceforge.net/">http://matplotlib.sourceforge.net/</a></li>
-<li>scons. <a class="reference" href="http://www.scons.org/">http://www.scons.org/</a></li>
+<li><a href="http://www.gnu.org/software/octave/">Página web del proyecto Octave</a></li>
+<li><a href="http://wiki.octave.org">Wiki del proyecto Octave</a></li>
 </ul>
-</li>
-<li><p class="first">dia (para generar algunos diagramas)http://www.gnome.org/projects/dia/</p>
-</li>
+
+<h2>Otras lecturas de interés</h2>
+<ul>
+<li><a href="./notaautor.html">Nota del autor inicial</a></li>
+<li><a href="http://servidor-da.aero.upm.es/zope/portalda/informacion-general/actividades/curso-de-matlab/">Página del Curso de Matlab </a>del que surgió todo el material.  En ella encontrareis las últimas transparencias del curso y la solución de los ejercicios propuestos en las mismas.  Son útiles para introducirse rápidamente en el tema.</li>
 </ul>
-</div>
-<div class="section">
-<h3><a id="generar-las-figuras" name="generar-las-figuras">Generar las figuras</a></h3>
-<p>Las figuras se crean a partir de los scripts para que sirvan también
-de ejemplo.  El texto no compilará correctamente sin sus figuras. Para
-ello es necesario ir al directorio correspondiente a las figuras y teclear:</p>
-<pre class="literal-block">
-$ python generatefigs.py
-</pre>
-</div>
-<div class="section">
-<h1><a id="notas" name="notas">NOTAS</a></h1>
-<p>Los archivos están codificados en utf-8.  NUNCA jamés utilizar
-codificación latin-1 en el editor.</p>
-</div>
-</div>
+<li><a href="http://qtoctave.wordpress.com/">QtOctave</a>, un front-end multiplataforma para Octave.</li>
 </body>
 </html>
