@@ -3,7 +3,7 @@ relacionados con el libro.  Están todos en el mismo directorio porque
 algunos de ellos comparten figuras o archivos adicionales.
 
 Algunos de los documentos están escritos en restructuredtext, esto
-significa que debe disponerse de distutils para pasarlos a latex o a
+significa que debe disponerse de docutils para pasarlos a latex o a
 html.
 
 Los archivos matlab.rst y matlab2.rst son las transparencias del curso
