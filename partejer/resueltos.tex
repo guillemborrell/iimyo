@@ -999,6 +999,564 @@ Llegamos finalmente a la siguiente gráfica:
 \end{figure}
 
 
+\section{Ejercicio.  Métodos espectrales.}
+\subsection{Introducción}
 
-\section{Ejercicio.  Nociones de turbulencia}
+Los métodos espectrales son útiles cuando se busca una gran precisión
+en problemas de contorno. Por ejemplo, tomemos esta ecuación diferencial
+no lineal\[
+L(u)=u_{xx}-(x^{6}+3x^{2})u=0\]
+con condiciones de contorno:\[
+u(-1)=u(1)=1\]
+
+
+¿Cómo podemos resolver esta ecuación diferencial? Podríamos utilizar
+un esquema de diferencias finitas. Sería sencillo pero... ¿Quien ha
+dicho que vamos a escoger el método más sencillo?
+
+Uno de los objetivos de este ejercicio es realizar una breve introducción
+práctica a los métodos espectrales de resolución de ecuaciones diferenciales.
+Son más complicados y específicos pero más precisos y una herramienta
+más potente en manos expertas.
+
+Los métodos espectrales se basan en descomponer la solución en una
+suma de funciones base que, multiplicadas por una serie de coeficientes,
+aproxima la solución:\[
+u_{N}=\sum_{i=0}^{N}a_{i}\phi_{i}(x)\]
+Definimos el residuo como la diferencia entre la solución exacta y
+la aproximada por nuestro desarrollo:\[
+R(x;a_{i})=u(x)-u_{N}(x;a_{i})\]
+
+
+Los métodos espectrales intentan reducir el residuo en lo posible.
+Para ello se calcula\[
+R(x;a_{i})=\partial_{xx}u_{N}-(x^{6}+3x^{2})u_{N}\]
+e iguala el residuo a cero en determinados puntos del dominio. Esta
+técnica se llama método \emph{Pseudoespectral} o de \emph{Colocación}.
+
+Vamos a intentar resolver la ecuación anterior mediante un método
+pseudoespectral utilizando una base de funciones del tipo:\[
+u_{N}(x;a_{i})=1+(1-x^{2})(a_{0}+a_{1}x+a_{2}x^{2}+\cdots+a_{N}x^{N})\]
+
+
+Si nos fijamos, la elección del desarrollo tiene bastante lógica.
+Es un término constante acorde con las condiciones de contorno, una
+función que asegura que las condiciones de contorno se cumplan siempre
+y un desarrollo polinómico de potencias pares porque se deduce de
+la ecuación que la solución será simétrica.
+
+Con esta solución calcularemos el residuo y lo igualaremos a cero
+en los puntos de Gauss-Chebyshev:\[
+x_{i}=cos\left(\frac{(2i-1)\pi}{2N}\right)\]
+
+
+
+\subsection{Algoritmo.}
+
+Implementar el algoritmo no es tan difícil, lo que es más complicado
+es encontrar la forma óptima de hacerlo en Matlab. Para ello nos crearemos
+un vector de coeficientes \emph{$a=[a_{0},a_{1},a_{2},\ldots,a_{N}]^{T}$}
+\emph{ordenado inversamente a como hace Matlab}. Entonces el polinomio
+se calcularía con:\[
+p(x)=\sum_{i}a_{i}x^{i}\]
+
+
+Un método muy utilizado en estos casos es crear una serie de operadores
+que actúan sobre los coeficientes. Estos operadores son distintos
+para cada caso y se representan como una matriz que multiplicará nuestro
+vector de coeficientes. Necesitamos los operadores $c\cdot$,$\partial_{xx}$,
+$x^{6}$y $x^{2}$%
+\footnote{Nótese que este algoritmo ignora la simetría puesto que tiene en cuenta
+todos los coeficientes, tanto los pares como los impares.%
+}.
+
+
+\subsubsection{Operador $c\cdot$}
+
+El operador de producto por un escalar aplicado a los coeficientes
+de un polinomio es equivalente a:\[
+c\cdot M=c\cdot M_{ij}\]
+siendo $M$ una matriz cualquiera la matriz identidad.
+
+
+\subsubsection{Operador $\partial_{xx}$}
+
+Si tomamos un polinomio:\[
+p(x)=a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots\]
+y lo derivamos dos veces respecto a $x$ el resultado será:\[
+\partial_{xx}p(x)=2\cdot1a_{2}+3\cdot2a_{3}x+4\cdot3a_{4}x^{2}+\cdots\]
+
+
+El efecto sobre el vector de coeficientes $a$ será hacerlo pasar
+de $a=[a_{0},a_{1},a_{2},a_{3},\ldots]^{T}$ a $\partial_{xx}a=[2\cdot1a_{2},3\cdot2a_{3},4\cdot3a_{4},\ldots]^{T}$.
+La matriz que representa esta transformación tiene la forma:\[
+\partial_{xx}=\left[\begin{array}{cccccccc}
+0 & 0 & 2\cdot1 & 0 & 0 & 0 & \cdots & 0\\
+0 & 0 & 0 & 3\cdot2 & 0 & 0 & \cdots & 0\\
+0 & 0 & 0 & 0 & 4\cdot3 & 0 & \cdots & 0\\
+0 & 0 & 0 & 0 & 0 & 5\cdot4 & \cdots & 0\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \ddots & 0\\
+0 & 0 & 0 & 0 & 0 & 0 & 0 & N(N-1)\end{array}\right]\]
+
+
+
+\subsubsection{Los operadores $x^{6}$y $x^{2}$}
+
+Cuando un polinomio\[
+p(x)=a_{0}+a_{1}x+a_{2}x^{2}+a_{3}x^{3}+\cdots\]
+es multiplicado por una potencia de su variable los coeficientes se
+mueven hacia las potencias mayores tantas posiciones como sea la potencia
+de la variable. La matriz será entonces, para el caso $x^{2}$:\[
+x^{2}=\left[\begin{array}{cccc}
+0 & 0 & 0 & \cdots\\
+0 & 0 & 0\\
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 1\\
+\vdots &  &  & \ddots\end{array}\right]\]
+
+
+\lyxline{\normalsize}
+
+Ejercicio1: Crear tres funciones que generen las matrices correspondientes
+a los operadores $\partial_{xx}$(\emph{dxx.m}), y $x^{n}$(\emph{xn.m})
+para un vector $a$ de $M$ elementos.
+
+%
+\framebox{\begin{minipage}[t][1\totalheight]{0.8\columnwidth}%
+Debe tenerse en cuenta que $M=N+1$%
+\end{minipage}}%
+
+
+Solución:\emph{}\\
+\emph{dxx.m}
+
+\begin{lyxcode}
+function~ret=dxx(M)
+
+
+
+\%~~argumentos:
+
+\%~~~~M~::~escalar~entero
+
+\%~~Retorna~el~operador~derivada~segunda~para
+
+\%~~un~vector~de~coeficientes~de~tamano~M
+
+
+
+if~isscalar(M)
+
+~~ret={[}zeros(M-2,1),zeros(M-2,1),diag(2:M-1).{*}diag(1:M-2)];
+
+else
+
+~~disp('M~debe~ser~un~escalar')
+
+end
+\end{lyxcode}
+\emph{xn.m}
+
+\begin{lyxcode}
+function~ret=xn(M,n)
+
+
+
+\%~~argumentos:
+
+\%~~~~M~::~escalar~entero
+
+\%~~~~n~::~escalar~entero
+
+\%~~Retorna~la~matriz~correspondiente~al~operador
+
+\%~~x\textasciicircum{}n~con~n~cualquier~exponente~entero~para~un
+
+\%~~vector~de~coeficientes~de~M~elementos
+
+
+
+if~isscalar(M)~\&\&~isscalar(n)
+
+~~ret={[}zeros(n,M);eye(M)];
+
+else
+
+~~disp~('Ambos~argumentos~deben~ser~escalares')
+
+end
+\end{lyxcode}
+\lyxline{\normalsize}
+
+
+\subsubsection{El operador Residuo.}
+
+Es evidente que los tres operadores anteriores son lineales respecto
+al vector de coeficientes $a$, entonces el operador suma y la multiplicación
+por un escalar van a tener los mismos efectos que en la \emph{realidad:}\[
+R(a)=\partial_{xx}(a)-x^{6}(a)-3x^{2}(a)\]
+van a ser los coeficientes del polinomio del residuo.
+
+Pero aún no hemos construido nuestro operador Residuo. Este es el
+operador aplicado a un polinomio de la forma usual. Nuestro desarrollo
+en funciones base es ligeramente distinto:\[
+a'=(1-x^{2})a\]
+Llamaremos a este operador $b$.
+
+\lyxline{\normalsize}
+
+Ejercicio 2: A partir de las funciones anteriores construir el operador
+$b$ para un vector $a$ de $M$ elementos.
+
+La solución a este ejercicio plantea el siguiente problema: Si intentamos
+utilizar la función cdot juntándola con la función \emph{xn} con n=2
+aparece el inconveniente de que las matrices no son compatibles. Como
+este problema se va a repetir más adelante crearemos una función que
+adapte las matrices y les añada tantos ceros como sea necesario para
+hacerlas compatibles con la matriz mayor. Esta función se llamará
+\emph{join}
+
+Solución:\\
+\emph{join.m}
+
+\begin{lyxcode}
+function~ret=join(A,B)
+
+
+
+\%~~argumentos:
+
+\%~~A~::~Matriz,~real
+
+\%~~B~::~Matriz,~real
+
+\%~~Devuelve~una~copia~de~la~matriz~A~compatible
+
+\%~~con~la~matriz~B~en~el~caso~que~sean~transformaciones
+
+\%~~de~un~vector
+
+
+
+sizA~=~size(A);
+
+sizB~=~size(B);
+
+if~sizA(2)~==~sizB(2)~\&\&~sizA(1)~<~sizB(1)
+
+~~ret={[}A;zeros(sizB(1)-sizA(1),sizA(2))];
+
+else
+
+~~disp('Las~matrices~no~son~compatibles')
+
+~~ret=0;
+
+end
+\end{lyxcode}
+\emph{Creación de la matriz b en función de M:}
+
+\begin{lyxcode}
+function~ret=b(M)
+
+\%~~argumentos:
+
+\%~~M~::~escalar~entero
+
+x2~=~xn(M,2);
+
+ret~=~join(eye(M),x2)-x2;
+\end{lyxcode}
+\lyxline{\normalsize}
+
+Para por fin construir el operador residuo utilizaremos la composición
+de aplicaciones lineales, es decir, el producto matricial:
+
+\[
+R(a')=\partial_{xx}(a')-x^{6}(a')-3x^{2}(a')\]
+\[
+R(a')=(\partial_{xx}\cdot b)(a)-(x^{6}\cdot b)(a)-(3x^{2}\cdot b)(a)\]
+\[
+R(a')=\left[(\partial_{xx}\cdot b)-(x^{6}\cdot b)-(3x^{2}\cdot b)\right](a)\]
+
+
+\lyxline{\normalsize}
+
+Ejercicio 3: Crear a partir de los operadores anteriores la función
+que genere el operador $R$ en función de $M$ teniendo en cuenta
+que los resultados parciales pueden generar vectores de tamaños distintos.
+Esto significa que se va a reproducir el problema que ya encontramos
+en el segundo ejercicio pero esta vez no existe una solución universal.
+
+Solución:\\
+R.m
+
+\begin{lyxcode}
+function~ret=R(M)
+
+\%~Dificil~de~descifrar.~~Comentario~pendiente
+
+\%~Fuciona.
+
+dxxb~=~dxx(M+2){*}b(M);\%~Primer~termino
+
+x6b~=~xn(M+2,6){*}b(M);\%~Segundo~termino
+
+x2\_3b~=~3{*}xn(M+2,2){*}b(M);\%~Tercer~termino
+
+ret~=~join(dxxb,x6b)-x6b-join(x2\_3b,x6b);
+\end{lyxcode}
+\lyxline{\normalsize}
+
+Definimos $a''$ como $a''=R(a)$, o en forma matricial: $a''=R\cdot a$
+
+
+\paragraph{Retener los términos independientes:}
+
+Alguien especialmente observador habrá notado que en el operador $b$
+parece que falta un término, un $+1$. Se ha eliminado de los operadores
+porque al no ser dependiente de ningún coeficiente queda como término
+independiente. Este término debe calcularse a parte%
+\footnote{Parte de la tarea de la elección de buenas funciones base está en
+evitar que aparezcan estos términos independientes.%
+}.
+
+Si pasamos este $+1$ por el operador $L$ obtenemos que el término
+independiente es $x^{6}+3x^{2}$.
+
+
+\subsubsection{Sistema de ecuaciones.}
+
+Ahora nos falta igualar el residuo en los puntos de Gauss-Chebyshev
+a cero. Esto da tantas ecuaciones del tipo $R(x,a_{i})$ como sean
+necesarias. Llamando a un punto en concreto $\xi_{i}$ cada ecuación
+tendrá la forma:\[
+a_{0}^{\prime\prime}+a_{1}^{\prime\prime}\xi_{i}+a_{2}^{\prime\prime}\xi_{i}^{2}+a_{3}^{\prime\prime}\xi_{i}^{3}+\cdots=\xi_{i}^{6}+3\xi^{2}\]
+llamamos entonces al sistema:\[
+Sa''=q\]
+
+
+\lyxline{\normalsize}
+
+Ejercicio 4: Plantear un sistema de ecuaciones anterior para los puntos:\[
+\xi_{i}=cos\left(\frac{(2i-1)\pi}{2M}\right)\]
+
+
+Recordad que el vector $a''$ es de dimensiones diferentes a $a$.
+En el caso que nos ocupa el número de elementos de $a''$ es mayor
+al de $a$. Como el sistema que intentamos resolver en realidad es:\[
+(SR)a=q\]
+la matriz del sistema $S$ debe ser compatible con el operador Residuo
+$R$. Para ello, el número de ecuaciones, el número de filas de $M$,
+debe ser igual al número de elementos de $a$.
+
+Solución:\\
+\emph{SRq.m}
+
+\begin{lyxcode}
+function~{[}S,q]=SRq(R)
+
+\%~~calcula~la~matriz~SR~en~funcion~de~la~matriz~residuo~R
+
+\%~Nodos~de~Gauss~Chebyshev
+
+\%~Tomo~M~de~R
+
+M=size(R)(2);~\%esto~es~legal~en~Octave~pero~ilegal~en~Matlab
+
+~~~~~~~~~~~~~~\%Octave~permite~una~escritura~mucho~mas~compacta
+
+ngc=(cos((2{*}(1:M)-1){*}pi/(2{*}M))).';
+
+grado=size(R)(1);
+
+\%No~hay~mas~remedio~que~utilizar~un~bucle.
+
+S=R';
+
+for~i=0:grado-1
+
+~~S(:,i+1)=ngc.\textasciicircum{}i;
+
+end
+
+q=ngc.\textasciicircum{}6+3{*}ngc.\textasciicircum{}2;
+\end{lyxcode}
+\lyxline{\normalsize}
+
+Ahora sólo nos falta resolver el sistema de ecuaciones final:\[
+(S\cdot R)a=q\]
+siendo q el vector de términos independientes que hemos calculado
+a parte.
+
+\lyxline{\normalsize}
+
+Ejercicio 5: Resolver el sistema de ecuaciones para calcular $a$
+para $M$=5, 10, 20 y 30. Como todo está en función de $M$ no debería
+haber ningún problema.
+
+Solución:
+
+\begin{lyxcode}
+r=R(5);
+
+{[}s,q]=SRq(r);
+
+solM5=(s{*}r)\textbackslash{}q;
+
+
+
+r=R(10);
+
+{[}s,q]=SRq(r);
+
+solM10=(s{*}r)\textbackslash{}q;
+
+
+
+r=R(20);
+
+{[}s,q]=SRq(r);
+
+solM20=(s{*}r)\textbackslash{}q;
+
+
+
+r=R(30);
+
+{[}s,q]=SRq(r);
+
+solM30=(s{*}r)\textbackslash{}q;
+\end{lyxcode}
+\lyxline{\normalsize}
+
+
+\subsection{Análisis de los resultados.}
+
+La solución analítica del problema es {[}Scraton, 1965]:\[
+u(x)=exp\left(\frac{x^{4}-1}{4}\right)\]
+Esto nos permite comparar el resultado obtenido con la solución, algo
+que será imposible hacer en la mayoría de los problemas no lineales.
+
+\lyxline{\normalsize}
+
+Ejercicio 6: Representar gráficamente la solución analítica junto
+con cada una de las soluciones obtenidas anteriormente. Debemos tener
+en cuenta que los coeficientes que hemos obtenido en el ejercicio
+anterior no son de un polinomio Matlab por dos motivos:
+
+\begin{enumerate}
+\item Están almacenados en el orden inverso
+\item El desarrollo polinómico real es de la forma:
+\end{enumerate}
+\[
+u_{N}(x;a_{i})=1+(1-x^{2})(a_{0}+a_{1}x^{1}+a_{2}x^{2}+\cdots+a_{N}x^{N})\]
+Para transformar los coeficientes en el polinomio solución crearemos
+una función llamada \emph{transsol} que nos devolverá el polinomio
+solución.
+
+Solución:\\
+transsol.m
+
+\begin{lyxcode}
+function~ret=transsol(sol)
+
+\%~~argumentos
+
+\%~~~~sol~::~vector~real
+
+\%~~~~~~~~~~~vector~de~coeficientes~solucion~del~problema
+
+sol=rot90(rot90(sol));
+
+sol=conv({[}-1,0,1],sol);
+
+sol(length(sol))++;~\%~Operador~sólo~válido~en~Octave
+
+ret=sol;~~~~~~~~~~~~~~~~~~~~\%~proviene~de~C
+\end{lyxcode}
+Ahora, para representar gráficamente las soluciones:
+
+\begin{lyxcode}
+>\,{}>~x~=~linspace(-1,1,100);
+
+>\,{}>~plot(x,exp((x.\textasciicircum{}4-1)/4));
+
+>\,{}>~hold~on
+
+>\,{}>~plot(x,polyval(transsol(solM5),x));
+
+>\,{}>~plot(x,polyval(transsol(solM10),x));
+
+>\,{}>~plot(x,polyval(transsol(solM20),x));
+
+>\,{}>~plot(x,polyval(transsol(solM30),x));
+\end{lyxcode}
+La precisión del resultado es tan alta que no se distinguen las curvas
+a partir de $M=10$.
+
+\begin{center}
+\includegraphics{figuras/ejercicio_espectral_scripts/solucion}
+
+\includegraphics{figuras/ejercicio_espectral_scripts/error}
+\end{center}
+
+\lyxline{\normalsize}
+
+
+\subsubsection{Convergencia.}
+
+En la mayoría de los casos es imposible saber si la solución que obtenemos
+es la real, lo que sí podemos analizar es si nuestro algoritmo converge
+a una determinada solución. La convergencia de los métodos espectrales
+es, como ya hemos visto, especialmente buena.
+
+Para asegurarnos que la solución converge debemos demostrar que entre
+los términos que obviamos (las potencias mayores) no son lo suficientemente
+relevantes como para influir en la solución. Un gráfico especialmente
+útil es el que representa el logaritmo del módulo de los coeficientes
+en función del número de término que representan.
+
+Calcularemos tomaremos el caso $M=30$ y representaremos $log|a_{n}|$en
+función de $n$.
+\begin{center}
+\includegraphics{figuras/ejercicio_espectral_scripts/convergencia}
+\end{center}
+
+Si se toma la tendencia de los coeficientes el problema converge hacia
+una solución. Lo más sorprendente es que, como la solución es simétrica,
+los coeficientes impares deberían ser nulos.El mayor coeficiente impar
+tiene un valor máximo equivalente al $\epsilon$del real de doble
+precisión lo que nos induce a pensar que el error es debido a la precisión
+numérica del método utilizado.
+
+
+\subsection{Análisis crítico}
+
+Las soluciones del ejercicio anterior no son perfectas, de hecho,
+podrían ser bastante mejores. Se han introducido ciertos errores de
+estilo a drede para poder analizarlos con más detenimiento.
+
+Un pequeño error es el hecho de utilizar condicionales para los errores
+en las dimensiones de las matrices. Si dos argumentos son incompatibles
+en una operación octave tiene todo un sistema de errores dedicado
+a ello, generar errores no estándar puede confundir al usuario al
+dar información redundante. Desde el punto de vista de código tolerante
+a fallos es más interesante una estructura tipo try-catch o una unwind\_protect
+en octave.
+
+Otro pequeño error es utilizar estructuras en octave que no sean portables.
+Desde el punto de vista de un programador experimentado parece siempre
+una buena idea utilizar todo lo que el lenguaje de programación puede
+ofrecer pero este es un caso especial. No es razonable pasar un script
+a alguien pensando que será capaz de resolver la incompatibilidad.
+
+El problema de las incompatibilidades entre Matlab y Octave es muy
+grave, no porque sean muy distintos sino porque sus diferencias son
+sutilezas. En algunos casos Octave corrige inconsistencias de Matlab
+o añade posibilidades. En otros casos es Matlab el que dispone de
+una función perfecta para una tarea pero no Octave. Escribir código
+portable entre los dos intérpretes no es difícil pero requiere haberse
+leído detenidamente el FAQ del proyecto Octave
 

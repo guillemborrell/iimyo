@@ -1,4 +1,4 @@
-from os import system
+from os import system,chdir
 
 dia=['Diagram1','Diagram2','Diagram3','Diagram4','Diagram6',
      'Diagram7','Diagram8','Diagram9','Diagram10','Diagram12',
@@ -39,3 +39,19 @@ for script in python:
         print('*****************')
     except:
         print('figure %s failed, check that matplotlib is installed'%(script))
+
+# tratamiento especial para ejercicio_espectral
+# cuidado con el cambio de directorio, esta parte
+# debe estar siempre al final
+
+chdir('ejercicio_espectral_scripts')
+try:
+    system('octave -q main.m')
+    system('epstopdf solucion.eps')
+    system('epstopdf error.eps')
+    system('epstopdf convergencia.eps')
+    print('************')
+    print('figuras para ejercicio espectral generadas')
+    print('************')
+except:
+    print('figures for ejercicio espectral failed')
