@@ -1,0 +1,169 @@
+#LyX 1.5.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language spanish
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\spacing single
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 1.5cm
+\topmargin 1.5cm
+\rightmargin 1.5cm
+\bottommargin 1.5cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Resolución de los problemas planteados
+\end_layout
+
+\begin_layout Author
+Guillem Borrell i Nogueras
+\end_layout
+
+\begin_layout Section
+Cálculo y ecuaciones diferenciales ordinarias
+\end_layout
+
+\begin_layout Subsection
+Hallar el área entre una curva y su asíntota.
+\end_layout
+
+\begin_layout Standard
+La función 
+\begin_inset Formula $y=\frac{x^{2}-1}{x^{2}+1}$
+\end_inset
+
+ tiene una asíntota horizontal en 
+\begin_inset Formula $y=1$
+\end_inset
+
+, para encontrar dicha área el modo más sencillo es realizar un cambio de
+ variable 
+\begin_inset Formula $\eta=y+1$
+\end_inset
+
+, para que la función 
+\begin_inset Formula $\eta(x)$
+\end_inset
+
+ tenga una asíntota en 
+\begin_inset Formula $\eta=0$
+\end_inset
+
+.
+ Entonces la resolución del problema es sencilla.
+\end_layout
+
+\begin_layout LyX-Code
+>> quad(@(x) (x.^2-1)/(x.^2+1)-1,-Inf,Inf)
+\end_layout
+
+\begin_layout LyX-Code
+ans = -6.2832
+\end_layout
+
+\begin_layout Subsection
+Longitud de un arco de cicloide.
+\end_layout
+
+\begin_layout Standard
+La fórmula de la longitud de arco de una curva plana escrita en forma paramétric
+a es la siguiente:
+\begin_inset Formula \[
+ds=\sqrt{dx^{2}+dy^{2}}\]
+
+\end_inset
+
+multiplicando en ambos lados por 
+\begin_inset Formula $dt$
+\end_inset
+
+ se llega a la expresión
+\begin_inset Formula \[
+ds=\sqrt{x'^{2}+y'^{2}}dt\]
+
+\end_inset
+
+donde 
+\begin_inset Formula $f'$
+\end_inset
+
+ significa derivada en función del parámetro 
+\begin_inset Formula $t$
+\end_inset
+
+.
+ Otra vez esto parece un problema propio del cálculo simbólico pero también
+ puede tener una solución numérica.
+ El principal inconveniente es conseguir una solución que dependa del parámetro
+ 
+\begin_inset Formula $a$
+\end_inset
+
+, es decir, el resultado debe ser una función que tenga 
+\begin_inset Formula $a$
+\end_inset
+
+ como argumento.
+ El único cálculo puramente simbólico que utilizaremos es la derivada para
+ obtener 
+\begin_inset Formula $x'$
+\end_inset
+
+ e 
+\begin_inset Formula $y'$
+\end_inset
+
+.
+\begin_inset Formula \[
+\left\{ \begin{array}{c}
+x'=a(1-\cos t)\\
+y'=a(1+\sin t)\end{array}\right.\]
+
+\end_inset
+
+y la integral planteada queda como
+\begin_inset Formula \[
+s=a\int_{0}^{2\pi}\sqrt{(1-\cos t)^{2}+(1+\sin t)^{2}}dt\]
+
+\end_inset
+
+Parece que hemos tenido suerte y el parámetro 
+\begin_inset Formula $a$
+\end_inset
+
+ es independiente del cálculo de la integral.
+\end_layout
+
+\end_body
+\end_document
