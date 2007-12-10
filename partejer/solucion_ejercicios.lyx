@@ -38,6 +38,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -50,6 +51,52 @@ Resolución de los problemas planteados
 Guillem Borrell i Nogueras
 \end_layout
 
+\begin_layout Section
+Programación
+\end_layout
+
+\begin_layout Enumerate
+Dado el vector 
+\family typewriter
+x=[3 15 9 2 -1 0 -12 9 6 1]
+\family default
+...
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\family typewriter
+(3.*~mod(x,3)+~(~mod(x,3)).*x).*~(~x)
+\family default
+.
+ Esta solución de mérito utiliza la doble negación para crear una máscara.
+ Para entenderla es conveniente comprobar cuál es el resultado de cada parte.
+ La principal complicación es evitar que el cero también se convierta en
+ un tres.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+(5.*mod(x,2)+~mod(x,2)).*x
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+x.*(x>10)
+\family default
+.
+ Una solución que además elimine los elementos nulos sería bastante sofisticada
+ obligada por el hecho que en Matlab no existen 
+\emph on
+list comprehensions
+\emph default
+.
+\end_layout
+
+\end_deeper
 \begin_layout Section
 Cálculo y ecuaciones diferenciales ordinarias
 \end_layout
