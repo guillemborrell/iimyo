@@ -55,7 +55,7 @@ Guillem Borrell i Nogueras
 Programación
 \end_layout
 
-\begin_layout Enumerate
+\begin_layout Itemize
 Dado el vector 
 \family typewriter
 x=[3 15 9 2 -1 0 -12 9 6 1]
@@ -74,6 +74,11 @@ x=[3 15 9 2 -1 0 -12 9 6 1]
  Para entenderla es conveniente comprobar cuál es el resultado de cada parte.
  La principal complicación es evitar que el cero también se convierta en
  un tres.
+ Existen soluciones más sencillas gracias al uso de 
+\family typewriter
+find
+\family default
+.
 \end_layout
 
 \begin_layout Enumerate
@@ -89,14 +94,101 @@ x.*(x>10)
 \family default
 .
  Una solución que además elimine los elementos nulos sería bastante sofisticada
- obligada por el hecho que en Matlab no existen 
-\emph on
-list comprehensions
-\emph default
+ aunque no es complicada gracias al uso de la función 
+\family typewriter
+find
+\family default
+: 
+\family typewriter
+x(find(x>10))
+\family default
 .
+ En los siguientes apartados se demostrará mejor el uso de esta función.
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+x(find(x>mean(x)))=0
+\end_layout
+
+\begin_layout Enumerate
+
+\family typewriter
+x(find(x<mean(x)))=mean(x)
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+Cálculo del número 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+ En la fórmula anterior hay un término recursivo 
+\end_layout
+
+\begin_layout LyX-Code
+function p = recterm(n)
+\end_layout
+
+\begin_layout LyX-Code
+  if (n > 1)
+\end_layout
+
+\begin_layout LyX-Code
+    p = recterm(n-1)+1/((2*n-1).^2.*(2*n+1).^2);
+\end_layout
+
+\begin_layout LyX-Code
+  else
+\end_layout
+
+\begin_layout LyX-Code
+    p = 1/((1).^2.*(3).^2);
+\end_layout
+
+\begin_layout LyX-Code
+  end
+\end_layout
+
+\begin_layout LyX-Code
+end
+\end_layout
+
+\begin_layout Standard
+A partir de este término es sencillo conseguir el valor de 
+\begin_inset Formula $\pi$
+\end_inset
+
+ con
+\end_layout
+
+\begin_layout LyX-Code
+octave> sqrt(recterm(100)*16+8) 
+\end_layout
+
+\begin_layout LyX-Code
+ans =  3.14159260132706 
+\end_layout
+
+\begin_layout Standard
+Es imposible conseguir una precisión de 
+\begin_inset Formula $10^{12}$
+\end_inset
+
+ sin llegar al límite de recursión del intérprete.
+ Esto significa que esta es una mala aproximación de 
+\begin_inset Formula $\pi$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Itemize
+Escribir un programa que transforme de números romanos a decimales.
+\end_layout
+
 \begin_layout Section
 Cálculo y ecuaciones diferenciales ordinarias
 \end_layout
@@ -129,14 +221,6 @@ La función
 
 .
  Entonces la resolución del problema es sencilla.
-\end_layout
-
-\begin_layout LyX-Code
->> quad(@(x) (x.^2-1)/(x.^2+1)-1,-Inf,Inf)
-\end_layout
-
-\begin_layout LyX-Code
-ans = -6.2832
 \end_layout
 
 \begin_layout Subsection
