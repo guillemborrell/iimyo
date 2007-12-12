@@ -1513,7 +1513,7 @@ $ ./test.exe
 
 \subsection{MEX  (+)}
 
-Si octave se extiende mediante archivos \texttt{oct} matlab lo hace
+Si Octave se extiende mediante archivos \texttt{oct} Matlab lo hace
 mediante archivos \texttt{mex}. Los dos métodos de extensión son
 completamente distintos pero Octave también soporta las extensiones de
 Matlab.
@@ -1523,6 +1523,56 @@ intérprete sino que también algunas extensiones de Matlab compilarán
 con la biblioteca de Octave sin ningún cambio. Parece entonces
 justificado describir sin demasiada precisión las funciones
 \texttt{mex}
+
+\subsubsection{Un ejemplo que simplemente funciona.}
+
+Para comprobar que realmente Octave consigue este grado de
+compatibilidad basta con tomar uno de los ejemplos de archivo mex
+dentro de la documentación del propio Matlab.  En él ya se intuyen las
+características más importantes de la programación en C para
+Matlab. Es el siguiente:
+
+\begin{verbatim}
+nclude <string.h>
+#include "mex.h"
+
+void mexFunction(int nlhs, mxArray *plhs[ ],int nrhs, const mxArray *prhs[ ])
+{
+int j;
+double *output;
+double data[] = {1.0, 2.1, 3.0};
+
+
+/* Create the array */
+plhs[0] = mxCreateDoubleMatrix(1,3,mxREAL);
+output = mxGetPr(plhs[0]);
+
+
+/* Populate the output */
+memcpy(output, data, 3*sizeof(double));
+
+}
+\end{verbatim}
+
+Es un programa muy sencillo.  No recibe ningún argumento y se limita a
+copiar un array de tres elementos en el argumento de
+salida. Para compilarla con Octave en la consola de sistema:
+
+\begin{verbatim}
+$> mkoctfile --mex testmex.c
+\end{verbatim}
+
+Esto generará un archivo llamado \texttt{testmex.mex} que es
+equivalente a un archivo \texttt{oct}.  Para probarlo, dentro del
+intérprete:
+
+\begin{verbatim}
+>> testmex()
+ans =
+
+   1.0000   2.1000   3.0000
+\end{verbatim}
+
 
 \section{Optimización de la evaluación de funciones.(+)}
 
