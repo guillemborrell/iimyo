@@ -187,6 +187,18 @@ Es imposible conseguir una precisión de
 
 \begin_layout Itemize
 Escribir un programa que transforme de números romanos a decimales.
+ Aunque puede no parecerlo este es quizás el ejemplo de compilador más sencillo
+ que existe.
+ Si bien los compiladores entienden un lenguaje de programación y lo convierten
+ en código máquina este entenderá números romanos y los convertirá en números
+ decimales.
+ Podría hacerse de un modo parecido a la arquitectura de un compilador,
+ con un parser que descompusiera la estructura del comando según una sintaxis
+ y un intérprete que generara el código decimal.
+ Las posibles combinaciones son: I, IV, V, IX, X, XL, L, XC, C, CD, D, CM
+ y M que son respectivamente 1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500,
+ 900, 1000.
+ Con esta información el mayor el límite del traductor es del número 3999.
 \end_layout
 
 \begin_layout Section

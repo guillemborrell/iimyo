@@ -141,15 +141,14 @@ realizar.
 
 \subsection{Algunas palabras clave y atajos de teclado.}
 
-La consola es un entorno de trabajo más potente de lo que parece.
-Editar directamente en ella es un ejercicio cómodo gracias a una serie
-de atajos de teclado de gran utilidad. Uno de los más potentes es la
-capacidad de auto-completar alguna palabra clave con la tecla de
-tabular, tab completion en inglés. Por ejemplo, si nos encontramos en
-el intérprete Octave y nos acordamos cómo se escribe exactamente la
-función para trasponer una matriz podemos hacer lo siguiente,
-escribimos sólo el inicio de la palabra y luego presionamos la tecla
-de tabular:
+La consola es un entorno de trabajo más potente de lo que parece
+gracias a una serie de atajos de teclado de gran utilidad. Uno de los
+más potentes es la capacidad de auto-completar alguna palabra clave
+con la tecla de tabular, tab completion en inglés. Por ejemplo, si nos
+encontramos en el intérprete Octave y nos acordamos cómo se escribe
+exactamente la función para trasponer una matriz podemos hacer lo
+siguiente, escribimos sólo el inicio de la palabra y luego presionamos
+la tecla de tabular:
 
 \begin{verbatim}
 >> tra<TAB>
@@ -430,8 +429,8 @@ alternativo de algo más de versatilidad.
 Éste es uno de los grandes puntos débiles de Matlab. Ignoro
 el hecho por el que aún no lo soportan.
 
-Lo que no se puede hacer ni en Matlab ni en Octave es poner varias
-funciones en un mismo archivo de función. No es muy difícil ver por
+Lo que no se puede hacer ni en Matlab ni en Octave es acceder a varias
+funciones distintas en un mismo archivo. No es muy difícil ver por
 qué. El lenguaje Matlab, cuando llama a una función, busca por los
 directorios algún archivo que se llame como la función, y luego busca
 una sentencia ejecutable en él. Esto implica que cada archivo sólo
@@ -454,12 +453,12 @@ llamamos con un:
 >> source('header.m')
 \end{verbatim}
 
-\section{Argumentos\index{Argumentos}}
+\section{Argumento\index{Argumentos}}
 
-El concepto preciso de argumento es complejo pero a nosotros nos
-bastará con saber que es cualquier elemento manipulable en un código.
-Los argumentos de un programa de simulación numérica son los números,
-los índices, las matrices, las secuencias...
+El concepto preciso de argumento o valor es complejo pero a nosotros
+nos bastará con saber que es cualquier elemento manipulable en un
+código.  Los argumentos de un programa de simulación numérica son los
+números, los índices, las matrices, las secuencias...
 
 Tenemos que hacer el esfuerzo conceptual de separar el concepto de
 argumento del de variable. Una variable es su contenedor, es lo que
@@ -467,12 +466,12 @@ les da nombre y sirve para manipularlos. Sucede lo mismo en cualquier
 fórmula matemática; siempre se expresa mediante variables y toma
 sentido cuando éstas contienen algún argumento.
 
-Matlab tiene varios tipos de argumentos y varios tipos de variables;
-en consecuencia será valida cualquier combinación entre ellos. Estos
-son los tipos de argumentos soportados%
-\footnote{Los físicos teóricos y los matemáticos encontraran mucho más
+Matlab tiene varios tipos de valores y variables; en consecuencia será
+valida cualquier combinación entre ellos. Estos son los tipos de
+argumentos soportados%
+\footnote{Los físicos teóricos y los matemáticos encontrarán mucho más
   útil Python; lenguaje que probablemente desconozcan. La extensión
-  numérica estándar de Python, Numeric, soporta el tipo \emph{array}
+  numérica estándar de Python, numpy, soporta el tipo \emph{array}
   que es consistente con la definición de tensor. Esto permite operar
   con tensores de varias dimensiones de una forma mucho más natural.
   Es muy recomendable echarle un vistazo, la combinación de Python y
