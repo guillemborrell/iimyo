@@ -151,7 +151,7 @@ rellenar el resto con ceros y finalmente almacenar los datos del nuevo
 vector.
 
 Cuando sumamos dos vectores escalarmente el ciclo de
-verificación-reserva -asignación-cierre se realiza una sola vez.
+verificación-reserva-asignación-cierre se realiza una sola vez.
 Podemos concluir entonces que la operación de ampliación de una matriz
 en Matlab es especialmente lenta.  Aunque no estemos obligados a
 declarar las variables antes de inicializarlas es siempre una buena
@@ -342,15 +342,35 @@ lenguajes de programación los defectos de forma suelen ser los más
 importantes pero ya hemos aprendido que en Matlab es una buena práctica
 programar con la velocidad en mente.
 
-Una solución especialmente eficiente es ver que los grupos de números
-binarios son un conjunto no intersectado en los que las operaciones de
-adición, sustracción y combinación lógicas son triviales. Esto sirve para
-constuir encima de cada matriz una {}``máscara lógica'' que permite
-asignar una etiqueta a cada elemento de la matriz.
+El concepto detrás del \emph{array masking} es que, en lo que respecta
+a la velocidad de ejecución, siempre será más rápido utilizar más
+memoria que ahorrar en ella.  Supongamos por ejemplo que queremos
+quedarnos con todos los elementos mayores a un determinado número en
+una matriz dada. Será más rápido crear una matriz del tamaño de
+nuestro dato y operar con ambas.
+
+Un caso patológico del \emph{array masking} es el caso en el que
+debemos seleccionar elementos de una matriz y crear con ellos otro
+array de menores dimensiones. Este paso contiene todos los problemas
+asociados a la pérdida de velocidad:
+\begin{itemize}
+\item Uso de bucles para leer elementos de una matriz
+\item Una condición lógica que se evalúa para cada elemento
+\item Un vector resultado que va creciendo a medida que se encuentran
+  elementos que cumplen la condición.
+\end{itemize}
+
+El modo más sencillo de crear este tipo de vectores o matrices en, por
+ejemplo, python son las list comprehensions que permiten crear
+directamente un array con una condición lógica.  La clave para
+implementar estos algoritmos de un modo eficiente en Matlab es
+mediante el uso de la función \texttt{find}.
 
 \section{Introducción al debbugging}
+Los comandos de debugging están cambiando en las últimas versiones de
+octave para hacerse más parecidas a las de Matlab.
 
-La traducción de la palabra debugging es {}``quitar los bichos''.  Un
+La traducción de la palabra debugging es ``quitar los bichos''.  Un
 bug o bicho es un error en el código, sus efectos pueden ser evidentes
 o sutiles y la tarea de encontrarlos es mucho más complicada que
 eliminarlos.  Los debuggers son programas especiales para esta tarea
@@ -1491,7 +1511,18 @@ $ ./test.exe
 -0.138889 
 \end{verbatim}
 
+\subsection{MEX  (+)}
 
+Si octave se extiende mediante archivos \texttt{oct} matlab lo hace
+mediante archivos \texttt{mex}. Los dos métodos de extensión son
+completamente distintos pero Octave también soporta las extensiones de
+Matlab.
+
+De este modo Octave no consigue la compatibilidad a nivel de
+intérprete sino que también algunas extensiones de Matlab compilarán
+con la biblioteca de Octave sin ningún cambio. Parece entonces
+justificado describir sin demasiada precisión las funciones
+\texttt{mex}
 
 \section{Optimización de la evaluación de funciones.(+)}
 
@@ -2211,6 +2242,3 @@ Los diagramas de bode son igualmente sencillos de conseguir (figura
 \caption{\label{cap:bode}Gráfica bode del sistema}
 \end{figure}
 
-
-
-\section{Resolución de EDPs, formulación diferencial.}
