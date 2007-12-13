@@ -1,0 +1,1034 @@
+\chapter{Extender Octave con otros
+  lenguajes.\label{sec:Extender-Octave-con}}
+
+\emph{Gran parte de esta sección, sobre todo los ejemplos, se basa en
+  el tutorial {}``Dal segno al Coda'' de Paul Thomas. Podeis
+  encontrarlo en el Wiki del proyecto Octave.}
+
+Octave está escrito en C++, además es el lenguaje desde el que es más
+sencillo extenderlo. Ahora deberíamos preguntarnos cuándo queremos
+extender Octave. Si Matlab es un lenguaje de programación completo
+deberíamos ser capaces de programar cualquier cosa. El problema es que
+programar cualquier cosa no se hace a cualquier precio, los bucles son
+un ejemplo de ello. Imaginemos que tenemos un programa que va
+demasiado lento, que casi todo el tiempo de proceso se debe a la
+evaluación de una función miles de millones de veces y el coste de
+implementarla en otro lenguaje no es demasiado grande. La solución a
+nuestro problema será escribir la función en C++ o en Fortran y luego
+hacer un interfaz para que Octave pueda entenderla.
+
+Para hacerlo antes tendremos que asegurarnos que disponemos de las
+cabeceras (headers) de Octave. No se encuentran en algunos paquetes y
+puede ser que tengamos que instalarlos a parte. Preparar la
+infraestructura es un poco complejo, también necesitaremos un
+compilador en el entorno accesible por consola, preferentemente los de
+la colección gcc (gcc, g++, g77 y gfortran).
+
+Las cabeceras sirven tanto para escribir pequeñas funciones como para
+crear interfaces completos a librerías escritas en C, C++ o Fortran.
+\texttt{mkoctfile} es la herramienta básica del desarrollo de Octave,
+todos los archivos terminados en \texttt{.oct} han sido creados con
+dicha función. Algunas de las librerías utilizadas son FFTW para las
+transformadas rápidas de Fourier, ODEPACK para resolver ecuaciones
+diferenciales ordinarias, UMFPACK para las matrices sparse y ATLAS
+para el cálculo matricial. Los respectivos interfaces son una gran
+fuente de información de cómo adecuar Octave a nuestras necesidades.
+
+
+\section{Una advertencia antes de empezar a programar.}
+
+Es posible que cuando probemos alguno de los ejemplos que se expondrán
+a continuación recibamos un \emph{segmentation fault} o un resultado
+sin ninguna lógica en vez de lo esperado. Muchas veces los programas
+no son compilar y listo, los programadores experimentados en C y C++
+saben de lo que hablo. Otra de las ventajas de los lenguajes
+interpretados es que el intérprete es un binario \emph{standalone}%
+\footnote{Este término informático proveniente de la expresión
+  \emph{to stand alone} es el adjetivo que recibe un programa que
+  despues de ser compilado ya no tiene ninguna dependencia externa;
+  puede tenerlas en tiempo de compilación pero no en tiempo de
+  ejecución. En un sistema operativo tipo UNIX esto es imposible
+  porque todo depende como mínimo de la librería estándar de C.%
+}. Octave es un programa que depende de varias librerías
+externas, glibc, atlas, readline... Todas estas librerías deben ser
+compiladas previamente de tal modo que sean compatibles con el
+intérprete de Octave. Es normal que alguna de las dependenicas se
+construya con un compilador distinto al que se utilice para Octave.
+Normalmente no tendremos ningún problema pero esto no implica que no
+se produzcan jamás.
+
+Un ejemplo de ellos es cuando intentamos añadir código externo a
+Octave con el programa mkoctfile. Lo que estamos haciendo es compilar
+un archivo escrito en C++ con el compilador del sistema que puede ser
+distinto al que se utilizó para Octave. Es incluso probable que los
+compiladores sean incompatibles como por ejemplo el GCC4 y el intel
+C++ compiler. Debemos tener en cuenta que Octave es a partir de ahora
+un verdadero entorno de desarrollo, único y monolítico. Si queremos
+ponernos a jugar de verdad lo mejor será que compilemos nosotros
+mismos Octave con el compilador del sistema. Si somos incapaces de
+hacerlo instalaremos el compilador con el que se construyó nuestro
+Octave así como las librerías propias de C y C++ sobre las que
+funciona.
+
+Si podemos tener problemas con los compiladores de C++ con los de
+Fortran debemos prepararnos para sufrir de lo lindo. Octave se compila
+con gcc3, sin soporte para Fortran 95. Si queremos utilizar código en
+este dialecto tendremos que utilizar gcc4 pero entonces las versiones
+de las librerías de C++ serán incompatibles. Disponemos de dos
+opciones:
+
+\begin{enumerate}
+\item Seguir con gcc3, escribir código en Fortran 77 y compilar con
+  g77.
+\item Pasarnos a la rama inestable de Octave, compilarla con gcc4 y
+  gfortran y rezar para que no rompa nada.
+\end{enumerate}
+Por suerte estos problemas desaparecerán cuando gcc4 se consolide.
+
+
+\section{Extender Octave con C++}
+
+Una vez tengamos toda la infraestructura preparada podemos acoplar
+cualquier función escrita en C++ a Octave. La diferencia entre los
+archivos \texttt{.oct} y los \texttt{.mex} de Matlab es que en este
+caso contamos con cabeceras que nos permiten manipular directamente
+los argumentos de Octave. El header principal es \texttt{oct.h}, en él
+se encuentran las definiciones de todos los argumentos necesarios.
+
+Empezaremos con el siguiente archivo de ejemplo que llamaremos
+\texttt{eqlorentz.cc}:
+
+\begin{verbatim}
+#include <octave/oct.h>
+DEFUN_DLD (eqlorentz,args, ,
+    "Ecuacion de Lorentz en C++")
+    {
+    ColumnVector xdot (3);
+    ColumnVector x (args(0).vector_value());
+    int a=10;
+    int b=28;
+    double c=8./3;
+    xdot(0) = a*(x(1)-x(0));
+    xdot(1) = x(0)*(b-x(2))-x(1);
+    xdot(2) = x(0)*x(1)-c*x(2);
+    
+    return octave_value (xdot);
+    }
+\end{verbatim}
+Esta es la función de la ecuación diferencial del atractor de Lorentz:
+$$
+\begin{array}{l}
+  \dot{x}=a(y-x)\\
+  \dot{y}=x(b-z)-y\\
+  \dot{z}=xy-cz\end{array}\qquad con\qquad 
+a=10,\,\, b=28,\,\, c=\frac{8}{3}$$
+
+Encontraremos el script que resuelve el problema en el ejercicio
+\ref{sec:Ejercicio ode}.  Tenemos que evaluar la ecuación del atractor
+un mínimo de 5000 veces, nos ahorraremos algo de tiempo escribiendo la
+función en C++ y convirtiéndola en una función de Octave con:
+
+\begin{verbatim}
+bash ~/> mkoctfile eqlorentz.cc
+\end{verbatim}
+
+El resultado será un archivo llamado \texttt{eqlorentz.oct} que es
+equivalente a cualquier archivo de función:
+
+\begin{verbatim}
+>> help eqlorentz
+eqlorentz is the dynamically-linked function from the file
+/home/guillem/sync/CursoScripting/ejercicios/eqlorentz.oct
+Ecuacion de Lorentz en C++
+>> eqlorentz([1,1,1],1)
+ans =
+    0.00000
+   26.00000
+   -1.66667
+\end{verbatim}
+
+Otra posibilidad interesante es la de crear subrutinas optimizadas
+para un tipo determinado de hardware. No es lo mismo llamar a una
+subrutina que funcionaría en cualquier PC que optimizarla para
+utilizar todas las posibilidades de un Xeon o de un Opteron.
+\texttt{mkoctfile} no es más que un interface a los compiladores de la
+família gcc, podemos pasarle parámetros de compilación para conseguir
+una optimización máxima.
+
+\subsection{Llamar funciones desde C++}
+
+A medida que nos introduzcamos en la programación de extensiones para
+Octave es probable que tengamos la necesidad de tomar funciones como
+argumentos.  Un posible ejemplo de ello sería una rutina de integración
+de una EDO; sin la función es imposible integrar nada.
+
+Llamar una función desde Octave no es difícil pero tampoco es trivial.
+Disponemos del tipo \texttt{octave\_function} que contiene todos
+los métodos necesarios, el problema (si es que lo es) es que debe
+referirse al argumento como un puntero.  Un \texttt{octave\_function} va a ser
+siempre un puntero a una función.  Lo demás es ser un poco congruente
+con la definición hecha anteriormente; una función se llama
+mediante el método \texttt{do\_multi\_index\_op} que recibe como argumentos
+el número de variables de entrada y un \texttt{octave\_value\_list} con
+los mismos.  La salida será también un \texttt{octave\_value\_list}.
+
+Ya en octave, para pasar las funciones debemos utilizar un function
+handle, una función anónima o la función \texttt{inline}, de otro modo
+Octave no sabrá que uno de los argumentos es una función.  Para que
+la propia rutina lo compruebe se utilizan los métodos 
+\texttt{is\_function\_handle} y \texttt{is\_inline\_function}.
+
+Para ilustrar todo lo anterior utilizaremos el siguiente ejemplo:
+
+\begin{verbatim}
+/*testfh.cc*/
+# include <octave/oct.h>
+
+DEFUN_DLD(testfh,args, ,
+          "testing how C++ can call an octave function")
+{
+  octave_value_list tmp;
+  octave_value_list inval;
+  octave_function *input_fcn=0;
+  if (args(0).is_function_handle() || args(0).is_inline_function())
+    input_fcn = args(0).function_value();
+  else
+    {
+      error("this is not a function handle nor an inline function");
+      return octave_value(-1);
+    }
+  double x = args(1).double_value();
+  inval.append(octave_value(x));
+  tmp = input_fcn->do_multi_index_op(1,inval);
+  return tmp;
+}
+\end{verbatim}
+
+Esta función recibe un function handle o un inline y un escalar de doble
+precisión. Retorna la función evaluada en el punto definido por el escalar.
+Para compilarlo haremos:
+
+\begin{verbatim}
+bash~/> mkoctfile testfh.cc
+\end{verbatim}
+
+Ya dentro de Octave ensayaremos su funcionamiento:
+
+\begin{verbatim}
+>> testfh('sin',.123)
+error: this is not a function handle nor an inline function
+>> testfh(@sin,pi/2)
+ans = 1
+>> testfh(@(x) sin(x)*exp(x/2),pi/4)
+ans = 1.0472
+>> testfh(inline('sin(x)*exp(x/2)'),pi/4)
+ans = 1.0472
+\end{verbatim}
+
+Como vemos es capaz de entender function handles, function handles y
+funciones inline.  Esta capacidad abre significativamente el abanico
+de posibilidades de octave.  Las funciones escritas en C++ ya no son
+algo monolítico, es decir, una subrutina tonta que sólo es capaz de
+recibir y devolver valores.  Ahora podemos interactuar con toda
+la plataforma de octave, incluso con las funciones pasadas por
+cabecera.
+
+\section{Extender Octave con Fortran}
+
+Fortran es el lenguaje de cálculo científico por excelencia. Se ha
+abandonado paulatinamente durante los últimos años por el hecho de que
+no había ningún compilador libre de Fortran 95. Este hueco ha sido
+llenado por los compiladores G95 y gfortran%
+\footnote{gfortran es un fork del proyecto G95 por desavenencias en el
+  desarrollo con su creador. gfortran está dentro de gcc mientras que
+  G95 es un proyecto a parte.%
+}. Ahora cualquier desarrollador puede programar en Fortran sin
+necesidad de aceptar licencias restrictivas sobre su código.
+
+Evidentemente el lenguaje de extensión natural de Octave es C++ pero
+disponemos de la cabecera \texttt{f77-fcn} para comunicarnos con
+subrutinas escritas en Fortran. Siendo Fortran tan popular en el
+ámbito científico es lógico que Octave le de un trato especial.
+Desgraciadamente la capacidad de integración de Fortran en Octave es
+bastante limitada debido sobre todo a las dificultades de comunicación
+entre C y Fortran.  Otros lenguajes interpretados cumplen mucho mejor
+la labor de comunicarse con sus primos compilados como Python, Java o
+Ruby.
+
+
+\subsection{¿Por qué Fortran?}
+
+Las subrutinas escritas en Fortran no son más rápidas en Octave que
+las escritas en C++ sin embargo Fortran tiene otras muchas ventajas.
+Fortran es, además de un lenguaje para aplicaciones científicas por
+excelencia, el único en el que el uso de memoria es puramente
+matricial.  Cuando declaramos un array en Fortran 95 lo hacemos con
+rango, no sólo con la cantidad de memoria necesaria. Fortran es
+claramente mejor que cualquier otro lenguaje de programación cuando
+hay que calcular con variables de gran tamaño. Cuando operamos con
+vectores, matrices y tensores a la vez es muy fácil equivocarse en los
+índices o {}``pisar'' fuera de la matriz. Fortran reserva memoria de
+una manera estricta y no tolera un mal uso de ella.
+
+Otro motivo de peso es la manera radicalmente distinta en la que
+Fortran y C tratan los arrays.  Mientras en Fortran el uso de la
+memoria está detrás del concepto de array, en C no es más que una
+sucesión de posiciones de memoria contiguas.  Cuando uno aprende C sin
+ser un experto en ordenadores el concepto de puntero se le hace
+tremendamente antinatural; más aún si la experiencia previa es en
+Fortran. C es un lenguaje especialmente pequeño, esa es su gran
+ventaja; pero no por ello es más simple o genera menos sutilezas.
+Veamos por ejemplo los dos programas siguientes en C++.  En ellos se
+pretende llamar a la ecuación diferencial de Lorentz y sacar el
+resultado por pantalla.
+
+\begin{verbatim}
+#include <iostream>
+using namespace std;
+
+void lorentz(double t,double *y,double *yp)
+{
+  const int a=10;
+  const int b=28;
+  const double c=8./3;
+  yp[0]=a*(y[1]-y[0]);
+  yp[1]=y[0]*(b-y[2])-y[1];
+  yp[2]=y[0]*y[1]-c*y[2];
+}
+
+int main(int argc,char *argv[])
+{
+  double y[3];
+  double yp[3];
+
+  y[0]=1.;
+  y[1]=1.;
+  y[2]=1.;
+  lorentz(1.,y,yp);
+  int i;
+  for (i=0;i<3;i++)
+    {
+      cout << yp[i] << '\n';
+    }
+  return 0;
+}
+\end{verbatim}
+
+La salida por pantalla es la siguiente:
+\begin{verbatim}
+guillem@desktop:~$ ./a.out
+0
+26
+-1.66667
+\end{verbatim}
+
+Que es precisamente el resultado de la ecuación diferencial. Llama la
+atención el hecho que en la cabecera no hemos definido ningun array
+sino punteros.  En la cabecera de la función las definiciones
+
+\begin{verbatim}
+*double
+double[3]
+double[]
+\end{verbatim}
+Son equivalentes.
+
+Ahora pensamos que a lo mejor C++ es muy listo y que podemos
+ahorrarnos el bucle para obtener el resultado.  Probamos lo siguiente:
+
+\begin{verbatim}
+#include <iostream>
+using namespace std;
+
+void lorentz(double t,double *y,double *yp)
+{
+  const int a=10;
+  const int b=28;
+  const double c=8./3;
+  yp[0]=a*(y[1]-y[0]);
+  yp[1]=y[0]*(b-y[2])-y[1];
+  yp[2]=y[0]*y[1]-c*y[2];
+}
+
+int main(int argc,char *argv[])
+{
+  double y[3];
+  double yp[3];
+
+  y[0]=1.;
+  y[1]=1.;
+  y[2]=1.;
+  lorentz(1.,y,yp);
+  int i;
+  cout << yp << '\n';
+  
+  return 0;
+}
+\end{verbatim}
+
+Y al ejecutar el programa:
+\begin{verbatim}
+0xbfce1360
+\end{verbatim}
+El programa ha escupido una dirección de memoria.  Para un programador
+experimentado en C esto resultará tan obvio como desconcertante para
+el resto de los mortales.  La relación entre los arrays y los punteros
+es de amor-odio.  Salpica cualquier programa escrito en C o en C++ y
+puede llegar a ser una tortura cuando sólo nos interesan los arrays.
+Fortran no sólo es más seguro sino que ayuda a programar con pocos
+errores tanto en la implementación del algoritmo como en el uso de la
+memoria.
+
+Otra ventaja importante es que la biblioteca estándar de Fortran
+contiene funciones orientadas al cálculo científico y que la mayoría
+de las bibliotecas de cálculo numérico están pensadas para comunicarse
+con Fortran y no con C o C++.
+
+
+\subsection{La difícil comunicación entre C y Fortran}
+\label{sec:comunica-c-fort}
+Fortran y C son lenguajes diametralmente opuestos, sobretodo en el uso
+de la memoria. Mientras C permite al usuario jugar con las direcciones
+de memoria de un modo transparente, incluso accediendo explícitamente
+a los registros; Fortran utiliza la memoria en sentido estricto y
+dejando pocas libertades al usuario. La gran diferencia entre ambos es
+sin duda las llamadas a funciones y subrutinas, C llama por valor y
+Fortran por referencia. ¿Qué significa eso? No olvidemos que Matlab
+está escrito en C y Octave en C++, ambos utilizan una infraestructura
+equivalente a cualquier programa en C. Para entender bien qué es una
+llamada por valor y una llamada por referencia es necesario que
+entendamos qué es una dirección de memoria y qué es un puntero.
+
+Los ordenadores tienen tres tipos de memoria: la memoria cache, la
+memoria física y la memoria virtual. La más importante de ellas para
+un programa es la memoria física y es en la que debemos pensar cuando
+programamos. Entrar en más disquisiciones sobre arquitectura de
+ordenadores ahora sería inútil. Los programas no son más que procesos
+de gestión de memoria; es almacenar algo en un sitio y decir qué hay
+que hacer con ello. Si queremos sumar 2 más 2 tendremos que almacenar
+un 2 en una posición de memoria, un 2 en otra, pasarlas por un sumador
+y luego almacenar el resultado. Los lenguajes de programación de alto
+nivel permiten escribir programas sin tener que pensar en todas estas
+sutilezas.
+
+Cuando en un código asignamos una variable a un argumento:
+
+\begin{verbatim}
+a=2
+\end{verbatim}
+
+estamos haciendo dos cosas: primero reservamos el espacio en memoria
+necesario para almacenar un 2 y luego le estamos asignando el nombre
+de una variable. El nombre está sólidamente unido a la posición de
+memoria. Ahora supongamos que queremos referirnos a la variable a.
+Podemos hacerlo de dos maneras. La primera es llamar el contenido de
+a, es decir, 2. La segunda es referirnos a la variable según la
+posición de memoria que ocupa. Llamamos posición de memoria a el punto
+de la memoria física en el que se encuentra \emph{realmente} contenida
+la variable y se expresa mediante una \emph{dirección de memoria} que
+suele ser una cadena de 8 caracteres.
+
+Esto nos permite distinguir entre dos tipos esenciales de variables,
+las que contienen un valor y las que apuntan a una determinada
+dirección de memoria. Las primeras se llaman variables y las segundas
+reciben el nombre de \emph{punteros}. Los programadores experimentados
+en C y C++ dominan el concepto de puntero pero los que no lo hayan
+oído en su vida lo entenderán mejor con este pequeño programa en C:
+
+\begin{verbatim}
+#include <stdio.h>
+int a;
+int *ptr;
+int main(int argc, char *argv[])
+{
+  a=2;
+  ptr =  &a;
+  printf("a es %i \n",a);
+  printf("la direccion de a es %p \n",ptr);
+  printf("el puntero ptr contiene %i \n",*ptr);
+  return 0;
+}
+\end{verbatim}
+
+Primero declaramos una variable de tipo entero y luego un puntero del
+mismo tipo, luego le asignamos a la variable el valor de 2 y el
+puntero a la posición de memoria de la variable. Imprimimos en
+pantalla el resultado para saber qué contiene cada una de ellas y el
+resultado es el siguiente:
+
+\begin{verbatim}
+a es 2
+la direccion de a es 0x403020
+el puntero ptr contiene 2
+\end{verbatim}
+
+Una vez hemos entendido la diferencia entre una posición de memoria y
+el valor que esta contiene daremos el siguiente paso. Supongamos que
+acabamos de escribir una función o una subrutina. Esta unidad de
+programa necesita argumentos adicionales para funcionar especificados
+en su cabecera. Si la función no recibe los argumentos necesarios en
+tiempo de ejecución recibiremos un error. Pero acabamos de ver que
+para el ordenador es equivalente recibir un valor que la posición de
+memoria del bloque que la contiene. En un programa parecido al
+anterior definimos la una función suma:
+
+\begin{verbatim}
+#include <stdio.h>
+
+int a,b;
+int sum(int a,int b)
+{ 
+  int result;
+  result=a+b;
+  return result;
+}
+
+int main(int argc, char *argv[])
+{
+  a=2;
+  b=3;
+  int resultado=sum(a,b);
+  printf("la suma de %i y %i es %i \n",a,b,resultado);
+  return 0;
+
+}
+\end{verbatim}
+
+¿Qué hace C para pasar los valores a la función? C pasa los argumentos
+a las funciones por valor. Esto significa que las memoria utilizada
+por la función y por el programa principal son independientes. Cuando
+pasamos los argumentos a la función suma se copia su valor a las
+variables locales sin tocar las globales; la función espera un valor,
+no una dirección de memoria; espera un 2, no un 0x748361.
+
+Fortran es diametralmente opuesto a C en este sentido. Todas las
+variables de Fortran son en realidad punteros. Fortran no sabe de
+valores reales, sólo está interesado en posiciones de memoria. La
+identificación entre la memoria y la variable es absoluta. Vamos a
+descifrar lo dicho hasta ahora mediante un programa ejemplo:
+
+\begin{verbatim}
+program test
+integer :: a,b,c
+a=2
+b=3
+call sum(a,b,c)
+write(*,*) c
+end program test
+
+
+subroutine sum(arg1,arg2,resultado)
+  integer, intent(in) :: arg1,arg2
+  integer, intent(out) :: resultado
+  resultado=arg1+arg2
+end subroutine sum
+\end{verbatim}
+
+Cuando llamamos a la subrutina sum no estamos pasando los valores 2 y
+3 sino que estamos identificando las posiciones de memoria. Le estamos
+diciendo a la subrutina que su arg1 se encuentra en la posición de a y
+arg2 en la de b. Por eso tenemos que declarar las variables en las
+subrutinas con el atributo intent; estamos operando con las mismas
+posiciones de memoria, si nos equivocamos no podemos volver atrás.
+Esto se llama pasar los argumentos por \emph{referencia}. Este punto
+de vista es mucho menos versatil pero evita el uso de más memoria de
+la necesaria. Por eso Fortran es un lenguaje muy indicado para manejar
+variables de gran tamaño.
+
+Esto significa que programando en C tendremos que pasar punteros y no
+variables a las funciones escritas en Fortran.
+
+
+\subsection{Llamar una función de C desde Fortran o la manera más difícil de sumar 2+2}
+
+Para entender mejor el significado de la llamada por referencia en
+Fortran vamos a aprovechar que los archivos objeto creados con el GCC
+son independientes del frontend utilizado.  La estrategia es la
+siguiente, crearemos una función en C que sume la primera y la segunda
+variable y retorne el resultado en la tercera.  El código es el
+siguiente:
+\begin{verbatim}
+void c_function_(int *a,int *b,int *c)
+{
+  *c=*a+*b;
+}
+\end{verbatim}
+Algunas observaciones importantes:
+\begin{enumerate}
+\item Las funciones del tipo \texttt{void} son equivalentes a las
+  subrutinas en Fortran.
+\item El nombre de la función va seguido de una barra baja (trailing
+  underscore) para que el nombre de la subrutina generada sea
+  compatible con Fortran.  Ignoro el por qué pero de otro modo no
+  funciona.
+\item Como la función espera una asignación de argumentos por
+  referencia espera punteros a las variables.  En la función debemos
+  ser consecuentes y utilizar el operador de retorno de referencia
+  para hacer la operación.
+\end{enumerate}
+Compilamos la función con:
+\begin{verbatim}
+bash$~/> gcc -c c_function.c
+\end{verbatim}
+
+Sólo falta crear el programa que implemente la llamada.  Es el
+siguente:
+\begin{verbatim}
+program fortran_c_call
+
+  integer :: a,b,c
+
+  a=2
+  b=2
+
+  call c_function(a,b,c)
+
+  write(*,*) c
+end program fortran_c_call
+\end{verbatim}
+Lo compilamos y lo ejecutamos:
+\begin{verbatim}
+bash$~/> gfortran fortran_c_call.f90 c_function.o
+bash$~/> a.out
+        4
+\end{verbatim}
+Esta operación es imposible si el código objeto generado es
+incompatible. Por muy extraño que parezca este tipo de
+interoperabilidad es típica de un sistema UNIX.  Aunque C y Fortran
+puedan parecer a veces agua y aceite no debemos olvidar que los
+compiladores de Fortran no son más que programas escritos en C.
+
+\subsection{Punteros y arrays}
+
+El tipo esencial de Fortran es el array. Un array es un bloque de
+memoria que contiene elementos del mismo tipo. Definimos un array
+siempre con el apellido de su tipo; hablamos de array de enteros,
+array de reales de doble precisión... En las variantes de Fortran más
+recientes los arrays tienen rango. Fortran no trata del mismo modo un
+array de rango 2 que uno de rango 3, ordenará los elementos de un modo
+distinto para optimizar la lectura y la escritura. Hemos dicho que
+todas las variables son en realidad punteros; un array es un puntero
+al primer elemento, una sentencia de reserva de la memoria necesaria y
+una regla de lectura y escritura. Si intentamos leer un elemento fuera
+de los límites del array Fortran nos dará un error en tiempo de
+ejecución
+
+C no tiene ningún método para definir arrays, C sólo sabe reservar
+memoria. Si intentamos emular el comportamiento de Fortran debemos
+tener mucha precaución. Por mucho que intentemos reservar la memoria
+justa y no llamar ningún elemento que no exista dentro de la variable
+el rango desaparece. Para C estas dos declaraciones:
+
+\begin{verbatim}
+array[15];
+array[3][5];
+\end{verbatim}
+son equivalentes. Será muy importante utilizar las cabeceras de Octave
+porque nos proporcionarán los tipos necesarios para utilizar
+cómodamente matrices y arrays.
+
+
+\subsection{Escritura de \emph{wrappers} para funciones en
+  Fortran.}
+
+Aunque este es un conveniente importante no se requieren grandes
+conocimientos de C++ para escribir uno. Para escribir un wrapper a la
+ecuación diferencial del atractor de Lorentz:
+
+\begin{verbatim}
+subroutine eqlorentzfsub(x,xdot)
+  real(8),dimension(:),intent(in) :: x
+  real(8),dimension(:),intent(out) :: xdot
+  real(8) :: a=10d0,b=28d0
+  real(8) :: c
+  c=8d0/3d0
+  xdot(1)= a*(x(2)-x(1))
+  xdot(2)= x(1)*(b-x(3)-x(2))
+  xdot(3)= x(1)*x(2)-c*x(3)
+end subroutine eqlorentzfsub
+\end{verbatim}
+El wrapper correspondiente para esta función es el siguiente:
+
+\begin{verbatim}
+#include <octave/oct.h>
+#include "f77-fcn.h"
+extern "C" int F77_FUNC (eqlorentzfsub,
+                           EQLORENTZFSUB)(double*,double*);
+DEFUN_DLD(eqlorentzf,args, ,"xdot=eqlorentz(x)")
+{
+  octave_value_list retval;
+  ColumnVector wargin(args(0).vector_value());
+  ColumnVector wargout(3);
+  F77_FUNC(eqlorentzfsub,EQLORENTZFSUB)(wargin.fortran_vec(),
+                                        wargout.fortran_vec());
+  retval.append(wargout);
+  return retval;
+}
+\end{verbatim}
+Hacemos siempre uso de los objetos propocionados por las cabeceras de
+octave, para ello se supone que tenemos nociones de programación
+orientada a objetos. El wrapper sirve únicamente para pasar las
+variables de entrada y salida a punteros que Fortran sea capaz de
+reconocer.  Las variables de entrada y salida de la función para
+octave van a ser \texttt{x} y \texttt{xdot} y las someteremos siempre
+a las mismas transformaciones hasta ser punteros:
+
+\begin{enumerate}
+\item Recogeremos la variable de entrada de la función que Octave
+  dejará en la variable \texttt{args}. Si es un escalar podemos
+  utilizar una variable propia de C, si queremos un vector o una
+  matriz tendremos que utilizar un tipo propio de Octave. En el caso
+  del wrapper anterior declaramos un \texttt{ColumnVector} llamado
+  \texttt{wargin} inicializado con la variable \texttt{args(0)} en
+  forma de vector.
+\item Declararemos la variable de salida, en este caso otro
+  \texttt{ColumnVector}, al que también asignaremos un puntero.
+  También declararemos la variable de retorno de la función de Octave,
+  siempre como \texttt{octave\_value\_list}.
+\item Llamaremos la función previamente compilada en Fortran mediante
+  \texttt{F77\_FUNC} a la que pasaremos como argumentos los punteros
+  que hemos creado para ella, en nuestro caso \texttt{argin} y
+  \texttt{argout}. Previamente y fuera de la función
+  \texttt{DEFUN\_DLD} declararemos la función externa donde
+  definiremos \textbf{todos los argumentos como punteros a las
+    variables de entrada y salida}.
+\item Pasaremos la variable de salida \texttt{wargout} a la variable
+  \texttt{retval} de retorno de la función en Fortran.
+\end{enumerate}
+Una vez tengamos la función y el wrapper escritos compilaremos la
+función en Fortran con \textbf{un compilador compatible con el que se
+  ha compilado octave}. El wrapper llamará al código objeto que se
+haya creado con el archivo de Fortran. Los comandos son los
+siguientes:
+
+  \begin{verbatim}
+bash$~/> gfortran -c eqlorentzfsub.f
+
+bash$~/> mkoctfile eqlorentzf.cc eqlorentzfsub.o
+\end{verbatim}
+Una vez realizado el proceso aparecerá un archivo llamado
+\texttt{eqlorentzf.oct} que ya es una función que Octave es capaz de
+entender. La llamaremos en Octave del modo usual:
+
+\begin{verbatim}
+>> eqlorentzf([1,2,3])
+ans =
+   10
+   23
+   -6
+\end{verbatim}
+La necesidad de que los dos compiladores sean compatibles es un gran
+contratiempo. De momento Octave sólo se puede compilar con la versión
+3 del compilador GCC que sólo es capaz de compilar código en Fortran
+77. Si intentamos mezclar archivos compilados con gcc 4, que entiende
+Fortran 95, y gcc 3 muy probablemente tendremos un Segmentation Fault.
+De momento nos conformaremos con escribir código en Fortran 77, aunque
+no por mucho tiempo. Sólo como ejemplo la misma función en Fortran 77
+se escribiría como:
+
+\begin{verbatim}
+      subroutine eqlorentzfsub(x,xdot)
+      real*8 x(*),xdot(*)
+      real*8 a,b,c
+
+      a=10d0
+      b=28d0
+      c=8d0/3d0
+
+      xdot(1)= a*(x(2)-x(1))
+      xdot(2)= x(1)*(b-x(3)-x(2))
+      xdot(3)= x(1)*x(2)-c*x(3)
+
+      end subroutine eqlorentzfsub
+\end{verbatim}
+Podemos escribir wrappers que sean capaces de retornar los mensajes de
+error de la subrutina. Para ello es necesario que el wrapper llame a
+la función \texttt{F77\_XFCN} en vez de \texttt{F77\_FUNC}. Por
+ejemplo, un wrapper para la subrutina siguiente%
+\footnote{La subrutina está escrita en Fortran 77. Aunque se considere
+  una variante obsoleta de Fortran es necesario conocer sus
+  particularidades porque es el lenguaje en el que están escritas la
+  mayoría de las bibliotecas de funciones. Es por ello que Octave
+  prefiere utilizar una nomenclatura orientada a Fortran 77. Esto no
+  genera ningún problema porque el código objeto generado por los
+  compiladores de Fortran 77 es compatible con los de Fortran 95.
+  Wrappers más sofisticados como f2py ya incorporan una sintaxis
+  parecida a Fortran 95.%
+}:
+\begin{verbatim}
+      SUBROUTINE TNINE (IOPT, PARMOD, PS, X, Y, Z, BX, BY, BZ)
+      INTEGER IOPT
+      DOUBLE PRECISION PARMOD(10), PS, X, Y, Z, BX, BY, BZ    
+C     Este es un ejemplo para probar un wrapper.
+C     Asigna la suma de PARMOD a PS, y X, Y, Z a BX, BY, BZ
+      INTEGER I
+      PS = 0D0
+      DO I=1, 10
+         PS = PS + PARMOD (I)
+      END DO
+      BX = X
+      BY = Y
+      BZ = Z
+      END
+\end{verbatim}
+sería:
+
+\begin{verbatim}
+#include <octave/oct.h>
+#include "f77-fcn.h"
+extern "C"
+{
+  int F77_FUNC (tnine, TNINE) (const int & IOPT, const double* PARMOD,
+                               double & PS,
+                               const double & X, const double & Y,
+                               const double & Z,
+                               double & BX, double & BY, double & BZ );
+}
+DEFUN_DLD (t96, args, ,
+           "- Loadable Function: [PS, BX, BY, BZ] = t96 (PM, X, Y, Z) \n\
+ \n\
+Returns the sum of PM in PS and X, Y, and Z in BX, BY, and BZ.")
+{
+  octave_value_list retval;
+  const int dummy_integer = 0;
+  Matrix pm;
+  const double x = args(1).double_value(), y = args(2).double_value(),
+  z = args(3).double_value();
+  double ps, bx, by, bz;
+  pm = args(0).matrix_value ();
+  F77_XFCN (tnine, TNINE,
+           (dummy_integer, pm.fortran_vec(), ps, x, y, z, bx, by, bz) );
+  if (f77_exception_encountered)
+    {
+      error ("unrecoverable error in t96");
+      return retval;
+    }
+  retval(0) = octave_value (ps);
+  retval(1) = octave_value (bx);
+  retval(2) = octave_value (by);
+  retval(3) = octave_value (bz);
+  return retval;
+}
+\end{verbatim}
+Para convertir el archivo y el wrapper en una función de Octave
+introducimos en la consola:
+
+\begin{verbatim}
+bash $~/> mkoctfile t96.cc tnine.f
+\end{verbatim}
+Y ya podemos llamarla como cualquier otra función de la colección:
+
+\begin{verbatim}
+>> help t96
+t96 is the dynamically-linked function from the file
+/home/guillem/Desktop/sandbox/t96.oct
+- Funcion: [PS, BX, BY, BZ] = t96 (PM, X, Y, Z)
+Asigna la suma de PM a PS y  X, Y, Z a BX, BY, BZ.
+>> [uno,dos,tres,cuatro]=t96(1:10,pi,e,4)
+uno = 55
+dos = 3.1416
+tres = 2.7183
+cuatro = 4
+\end{verbatim}
+
+Hemos declarado todas las variables de la subrutina, tanto las
+internas como las externas, para que si se produce un error en la
+parte escrita en Fortran Octave sea capaz de encontrarlo. El wrapper
+se encarga de tomar los argumentos de entrada, convertirlos en algo
+que Fortran sea capaz de entender y recoger el resultado.
+
+Octave también soporta la definición de los tipos derivados de
+Fortran.  Para la subrutina:
+
+\begin{verbatim}
+subroutine f95sub2(din,dout)
+type              ::        mytype
+  real*8          ::        mydouble
+  integer*4       ::        myint
+end type mytype
+type (mytype)     ::        din , dout
+dout%mydouble = din%mydouble ** float( din%myint )
+dout%myint = din%myint * din%myint
+end subroutine f95sub2
+\end{verbatim}
+
+Primero la compilaremos con
+
+\begin{verbatim}
+bash $ ~/> gfortran -c f95sub.f90
+\end{verbatim}
+
+Escribiremos el wrapper:
+\begin{verbatim}
+#include <octave/oct.h>
+#include <octave/f77-fcn.h>
+struct mystruct {
+  double mydouble;
+  int myint;
+  };
+extern "C" int F77_FUNC (f95sub,f95SUB) ( mystruct &, mystruct &); 
+DEFUN_DLD (f95demo, args , ,"[w,z] = f95demo( x , y ) \
+returns w  = x ^y and z = y * y for integer y") {
+  octave_value_list retval;
+  mystruct dinptr , doutptr;
+  dinptr.mydouble = args(0).scalar_value();
+  dinptr.myint = int( args(1).scalar_value() );
+  F77_FUNC (f95sub,f95SUB) (dinptr,doutptr );
+  retval.append( octave_value( doutptr.mydouble ) );
+  retval.append( octave_value( double( doutptr.myint  ) ) );
+  return retval;
+}
+\end{verbatim}
+Y finalmente llamaremos a \texttt{mkoctfile}:
+\begin{verbatim}
+bash$~/>mkoctfile f95demo.cc f95sub.o
+\end{verbatim}
+
+\section{Extender C++ con Octave}
+
+Octave es un proyecto de software libre con un diseño bastante
+acertado.  Tanto es así que las librerías de extensón de Octave junto
+con la capacidad de incrustar el intérprete en una aplicación hace que
+Octave sea una biblioteca de lo más completa. Esto proporciona a
+Octave una cualidad no tan esperada; \textbf{puede utilizarse como
+  extensión natural de C++ para el cálculo científico}. La cabecera
+oct.h proporciona todos los tipos necesaros para el cálculo numérico,
+matrices, vectores fila y columna, operaciones matriciales y
+vectoriales... ¡Incluso resolución de EDOs! Para abrir boca nada mejor
+que un pequeño experimento con un programa de lo más simple:
+
+\begin{verbatim}
+/*testoctavestandalone.cc*/
+#include <iostream>
+#include <oct.h>
+int main(void)
+{
+  std::cout << "Octave y c++ \n";
+  Matrix a=identity_matrix(2,2);
+  std::cout << a;
+}
+\end{verbatim}
+
+Para compilarlo utilizaremos la aplicación \texttt{mkoctfile} como
+viene siendo habitual pero con la opción \texttt{-{}-link-stand-alone}
+para generar un ejecutable.
+
+\begin{verbatim}
+$ mkoctfile --link-stand-alone testoctavestandalone.cc -o test.exe
+\end{verbatim}
+Y lo ejecutaremos, en un entorno UNIX...
+
+\begin{verbatim}
+$ ./test.exe
+Octave y c++
+ 1 0
+ 0 1
+\end{verbatim}
+
+La biblioteca en C++ de Octave es mucho más potente como demuestra el
+siguiente ejemplo:
+
+\begin{verbatim}
+/*test2.cc*/
+#include <iostream>
+#include <oct.h>
+int main(void)
+{
+  Matrix a=Matrix(2,2);
+  ColumnVector b=ColumnVector(2);
+  a(0,0)=2.;
+  a(1,0)=5.;
+  a(0,1)=-6.;
+  a(1,1)=3.;
+  b(0)=1.;
+  b(1)=0.;
+  std::cout << a.solve(b);
+  return 0;
+}
+\end{verbatim}
+donde resolvemos el siguiente sistema de ecuaciones:
+
+$$
+\left(\begin{array}{cc}
+    2 & -6\\
+    5 & 3\end{array}\right)x= \left(\begin{array}{c}
+    1\\
+    0\end{array}\right)$$
+
+
+\begin{verbatim}
+$ mkoctfile --link-stand-alone test2.cc -o test.exe
+$ ./test.exe 
+0.0833333 
+-0.138889 
+\end{verbatim}
+
+\section{MEX  (+)}
+
+Si Octave se extiende mediante archivos \texttt{oct} Matlab lo hace
+mediante archivos \texttt{mex}. Los dos métodos de extensión son
+completamente distintos pero Octave también soporta las extensiones de
+Matlab.
+
+De este modo Octave no consigue la compatibilidad a nivel de
+intérprete sino que también algunas extensiones de Matlab compilarán
+con la biblioteca de Octave sin ningún cambio. Parece entonces
+justificado describir sin demasiada precisión las funciones
+\texttt{mex}
+
+\subsection{Un ejemplo que simplemente funciona.}
+
+Para comprobar que realmente Octave consigue este grado de
+compatibilidad basta con tomar uno de los ejemplos de archivo mex
+dentro de la documentación del propio Matlab.  En él ya se intuyen las
+características más importantes de la programación en C para
+Matlab. Es el siguiente:
+
+\begin{verbatim}
+nclude <string.h>
+#include "mex.h"
+
+void mexFunction(int nlhs, mxArray *plhs[ ],int nrhs, const mxArray *prhs[ ])
+{
+int j;
+double *output;
+double data[] = {1.0, 2.1, 3.0};
+
+
+/* Create the array */
+plhs[0] = mxCreateDoubleMatrix(1,3,mxREAL);
+output = mxGetPr(plhs[0]);
+
+
+/* Populate the output */
+memcpy(output, data, 3*sizeof(double));
+
+}
+\end{verbatim}
+
+Es un programa muy sencillo.  No recibe ningún argumento y se limita a
+copiar un array de tres elementos en el argumento de
+salida. Para compilarla con Octave en la consola de sistema:
+
+\begin{verbatim}
+$> mex testmex.c
+\end{verbatim}
+
+o bien
+
+\begin{verbatim}
+$> mkoctfile --mex testmex.c
+\end{verbatim}
+
+
+Esto generará un archivo llamado \texttt{testmex.mex} que es
+equivalente a un archivo \texttt{oct}.  Para probarlo, dentro del
+intérprete:
+
+\begin{verbatim}
+>> testmex()
+ans =
+
+   1.0000   2.1000   3.0000
+\end{verbatim}
+
