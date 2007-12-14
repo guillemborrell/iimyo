@@ -976,6 +976,33 @@ con la biblioteca de Octave sin ningún cambio. Parece entonces
 justificado describir sin demasiada precisión las funciones
 \texttt{mex}
 
+
+\subsection{El tipo mxArray}
+
+Octave, al estar escrito en C++, es más estricto en el uso de
+memoria. Difícilmente dentro del código escrito en C++ vamos a
+utilizar arrays, siempre optaremos por los tipos proporcionados por la
+librería de Octave para C++.
+
+Escribir extensiones para Matlab es más simple en ese sentido, los
+argumentos de entrada y de salida no son más que un array de punteros
+a \texttt{mxArray}.  Esto simplifica el código a escribir pero puede
+generar errores de segmentación porque no se ejecuta ningún control de
+tipos. Por si aún no ha quedado del todo claro, es significativo que
+en Octave sólo se pueda retornar un \texttt{octave_value} o un
+\texttt{octave_value_list}.
+
+Si se está ampliando el intérprete de Octave los programadores en C++
+preferirán los archivos \texttt{oct} y los programadores en C los
+\texttt{mex}. En el caso de Matlab no hay discusión posible.
+
+Como suele suceder en los lenguajes interpretados, el tipo estándar,
+en este caso \texttt{mxArray}, es en realidad una estructura C de la
+que no es importante conocer demasiados detalles.  El modo usual de
+crear, introducir y extraer elementos de la estructura es mediante las
+funciones de la propia API; entonces el conocimiento y la experiencia
+de la misma es lo que permite escribir mejores extensiones.
+
 \subsection{Un ejemplo que simplemente funciona.}
 
 Para comprobar que realmente Octave consigue este grado de
@@ -1032,3 +1059,25 @@ ans =
    1.0000   2.1000   3.0000
 \end{verbatim}
 
+De este primer ejemplo se deduce que la llamada \texttt{mexFunction}
+requiere cuatro argumentos:
+
+% use packages: array
+\begin{tabular}{ll}
+nlhs & Número de argumentos de salida \\ 
+plhs & Array de punteros a los argumentos de salida \\ 
+nrhs & Número de argumentos de entrada \\ 
+prhs & Array de punteros a los argumentos de entrada.
+\end{tabular}
+
+Es importante recordar que \emph{los argumentos de entrada no pueden}
+modificarse dentro del archivo \texttt{mex} puesto que pertenecen
+al intérprete.  Nunca es una buena manera cambiar variables que no
+sabemos cómo están representadas en memoria.
+
+También en este ejemplo hemos aprendido las primeras funciones de la
+API: \texttt{mxCreateDoubleMatrix} y \texttt{mxGetPtr}; no es
+necesario decir muchos sobre qué hacen.  Un detalle que sí puede pasar
+inadvertido es que mientras el puntero \texttt{prhs} puede ser un
+puntero nulo, \texttt{plhs} tendrá siempre como mínimo un elemento
+puesto que el intérprete siempre está esperando como mínimo un valor.
