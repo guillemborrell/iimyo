@@ -5,7 +5,8 @@ dia=['Diagram1','Diagram2','Diagram3','Diagram4','Diagram6',
      'Diagram13']
 octave=['figuraejemplo1','figuraejemplo2','calor','calorevol',
         'bodeplot','nyquistplot','excontour','excontour2',
-        'exrandsparse','fitting','interpeq','chebyshevnodes']
+        'exrandsparse','fitting','interpeq','chebyshevnodes',
+        'operaciones']
 python=['figuraejemplo3','figuraejemplo4','figuraejemplo5',
         'figuraejemplo6','figuraejemplo7','fzero']
 

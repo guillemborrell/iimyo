@@ -1,0 +1,813 @@
+#LyX 1.5.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 0
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Section
+Introducción a la Simulación de la Turbulencia.
+\end_layout
+
+\begin_layout Standard
+Este texto ha sido traducido y adaptado de 
+\begin_inset LatexCommand htmlurl
+name "http://www.cs.berkeley.edu/~demmel/cs267/lecture24/lecture24.html"
+target "http://www.cs.berkeley.edu/~demmel/cs267/lecture24/lecture24.html"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+¿Qué es la turbulencia?
+\end_layout
+
+\begin_layout Standard
+Una de las particularidades de la Mecánica de Fluidos como disciplina dentro
+ de la Física es que disponemos de unas ecuaciones, las de Navier-Stokes,
+ que describen el movimiento de los fuidos como medio continuo en la mayoría
+ de las escalas de la naturaleza.
+ Estas ecuaciones, aún relativamente simplificadas, representan un desafío
+ para quien desee encontrar una solución numérica.
+\end_layout
+
+\begin_layout Standard
+De un modo poco riguroso se puede decir que las ecuaciones de Navier-Stokes
+ cuentan con todos los elementos que pueden complicar una ecuación diferencial:
+ un término no estacionario, un término no lineal, varias escalas a tener
+ en cuenta...
+ Una de las realidades físicas aún no completamente comprendidas que describen
+ dichas ecuaciones es el fenómeno de la turbulencia.
+\end_layout
+
+\begin_layout Standard
+También sin demasiado rigor se puede decir que la turbulencia es un desorden
+ natural que aparece en un fluido y que es su mecanismo principal para disipar
+ su energía mecánica.
+ Esto es debido a que el movimiento en escalas grandes tiene longitudes
+ características demasiado grandes como para disipar dicha energía.
+ Este movimiento genera estructuras cada vez más pequeñas hasta que la viscosida
+d, que actúa en longitudes menores, puede actuar como término disipador.
+\end_layout
+
+\begin_layout Standard
+Este fenómeno aparecerá cada vez que exista un movimiento donde sus longitudes
+ y velocidades sean lo suficientemente grandes.
+ No deben serlo demasiado puesto que la turbulencia aparece en casi cualquier
+ movimiento de un fluido, ya sea la sangre en las arterias o el viento alrededor
+ de un edificio.
+\end_layout
+
+\begin_layout Standard
+Si la turbulencia es un proceso inherente al movimiento de un fluido también
+ deberá formar parte de la Mecánica de Fluidos Computacional.
+ El gran problema de la simulación de la turbulencia es que la disipación
+ se produce en escalas mucho más pequeñas que las características en las
+ simulaciones de flujos industriales.
+ Esto implica que para simular completamente el movimiento de un fluido
+ sea necesaria una discretización del dominio demasiado fina para los recursos
+ computacionales actuales.
+ Por ejemplo, para simular con toda la precisión necesaria el flujo de aire
+ alrededor de una placa de unos 10 centímetros de lado se necesitan del
+ orden de 
+\begin_inset Formula $10^{8}$
+\end_inset
+
+ puntos.
+\end_layout
+
+\begin_layout Standard
+Aunque esta precisión sólo se alcanza en la investigación de la turbulencia
+ en sí misma cualquier código que resuelva de forma aproximada las ecuaciones
+ de Navier-Stokes estará seriamente condicionado por el hardware disponible.
+ 
+\end_layout
+
+\begin_layout Standard
+El siguiente ejemplo es un ejemplo de una formulación alternativa de aplicación
+ en la Mecánica de Fluidos Computacional.
+ Se trata de, en vez de utilizar las variables primitivas de un experimento
+ como la velocidad y la presión, tomar unas variables más convenientes para
+ el problema que se desea abordar.
+ Es también una pequeña demostración de las técnicas de mejora del algoritmo
+ que pueden acortar significativamente el tiempo de ejecución.
+\end_layout
+
+\begin_layout Standard
+Se pretende resolver las ecuaciones de Navier-Stokes en régimen incompresible
+ en un dominio bidimensional periódico para un número de Reynolds dado utilizand
+o diferencias finitas centradas equiespaciadas de segundo orden.
+ Se demuestra que en este caso no existe verdadera turbulencia puesto que
+ para que se rompan los vórtices es imprescindible la existencia de una
+ tercera dimensión.
+ Sin embargo este ejemplo es también útil para comprobar cómo se comporta
+ la vorticidad en entornos casi bidimensionales como es el caso de la atmósfera
+ terrestre.
+\end_layout
+
+\begin_layout Subsection
+El algoritmo de cálculo
+\end_layout
+
+\begin_layout Standard
+Para resolver las ecuaciones de Navier-Stokes en régimen incompresible en
+ 2 dimensiones se utilizan las variables vorticidad 
+\begin_inset Formula $\omega=\nabla\times\vec{u}$
+\end_inset
+
+ y función de corriente 
+\begin_inset Formula $\phi$
+\end_inset
+
+.
+ El motivo es que gracias a esta formulación alternativa la ecuación de
+ continuidad (
+\begin_inset Formula $\nabla\cdot\vec{u}=0$
+\end_inset
+
+) se cumple de forma natural.
+ Nuestras ecuaciones son entonces:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\partial_{t}\omega+\partial_{x}\omega\partial_{y}\phi-\partial_{y}\omega\partial_{x}\phi=Re^{-1}\nabla^{2}\omega\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+\nabla^{2}\phi=-\omega\]
+
+\end_inset
+
+Como se puede apreciar son dos ecuaciones completamente desacopladas.
+ En cada instante temporal 
+\begin_inset Formula $n$
+\end_inset
+
+ se tiene como dato 
+\begin_inset Formula $\omega$
+\end_inset
+
+, resolviendo la ecuación de Poisson se obtiene 
+\begin_inset Formula $\phi$
+\end_inset
+
+ y se integra la ecuación de cantidad de movimiento para hallar la vorticidad
+ en el instante de tiempo siguiente.
+ Si se utiliza un método de integración explícito, el cálculo que más exigente
+ desde el punto de vista computacional es la resolución de la ecuación de
+ Poisson para calcular la función de corriente.
+\end_layout
+
+\begin_layout Standard
+Existen en la literatura numerosos métodos para resolver la ecuación de
+ Poisson.
+ Es una de las ecuaciones más comunes en la física y por consiguiente un
+ problema ampliamente estudiado.
+ De todos los métodos posibles el que es quizás más eficiente es la resolución
+ mediante la transformada rápida de Fourier
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+La ventaja de utilizar la transformada rápida de Fourier en vez de resolver
+ el sistema de ecuaciones se debe al rendimiento de ambas operaciones.
+ Resolver un sistema de ecuaciones requere del orden de 
+\begin_inset Formula $\sim N^{2}$
+\end_inset
+
+ operaciones, siendo 
+\begin_inset Formula $N$
+\end_inset
+
+ el número de elementos de la matriz.
+ En cambio, realizar una transformada rápida de Fourier requere del órden
+ de 
+\begin_inset Formula $N\log N$
+\end_inset
+
+ operaciones.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename operaciones.eps
+	width 10cm
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En la gráfica anterior se puede apreciar que a partir de 100000 elementos
+ la diferencia entre ambos cálculos es ya de 4 ordenes de magnitud.
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Si se escribe el operador de Laplace de un modo matricial para una matriz
+ 
+\begin_inset Formula $U$
+\end_inset
+
+ se llega a la siguiente expresión:
+\begin_inset Formula \[
+TU+UT=B\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+donde T es la matriz de diferencias finitas:
+\begin_inset Formula \[
+T=\left[\begin{array}{ccccc}
+2 & -1\\
+-1 & 2 & -1\\
+ & -1 & 2\\
+ &  &  & \ddots & -1\\
+ &  &  & -1 & 2\end{array}\right]\]
+
+\end_inset
+
+
+\begin_inset Formula $U$
+\end_inset
+
+ es la matriz incógnita y 
+\series bold
+
+\begin_inset Formula $B$
+\end_inset
+
+ 
+\series default
+es la matriz del término independiente.
+ El paso siguiente es, sabiendo que 
+\begin_inset Formula $T$
+\end_inset
+
+ es una matriz regular diagonalizamos la matriz mediante una factorización:
+\begin_inset Formula \[
+(Q\Lambda Q^{-1})U+U(Q\Lambda Q^{-1})=B\]
+
+\end_inset
+
+y aislamos 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+:
+\begin_inset Formula \[
+\Lambda(Q^{-1}UQ)+(Q^{-1}UQ)\Lambda=Q^{-1}BQ\]
+
+\end_inset
+
+Ecuación que puede reescribirse como:
+\begin_inset Formula \[
+\Lambda\bar{U}+\bar{U}\Lambda=\bar{B}\]
+
+\end_inset
+
+donde 
+\begin_inset Formula $\bar{U}=Q^{-1}UQ$
+\end_inset
+
+ y 
+\begin_inset Formula $\bar{B}=Q^{-1}BQ$
+\end_inset
+
+.
+ Este paso permite resolver de forma exacta la ecuación para 
+\begin_inset Formula $\bar{U}$
+\end_inset
+
+ porque la matriz 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ es diagonal:
+\begin_inset Formula \[
+\bar{U}(j,k)=\frac{\bar{B}(j,k)}{\Lambda(j,j)+\Lambda(k,k)}\]
+
+\end_inset
+
+En estos momentos el algoritmo queda a expensas de encontrar un modo eficiente
+ de calcular las matrices 
+\begin_inset Formula $Q$
+\end_inset
+
+ y 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+.
+ Al ser la matriz de una transformación ortogonal simétrica 
+\begin_inset Formula $Q$
+\end_inset
+
+ tiene la particularidad que 
+\begin_inset Formula $Q^{-1}=Q^{T}=Q$
+\end_inset
+
+, igualdad que facilitará aún más nuestros cálculos.
+ Afortunadamente se conoce la expresión analítica para los autovalores y
+ autovectores de 
+\begin_inset Formula $T$
+\end_inset
+
+, que son respectivamente 
+\begin_inset Formula $\Lambda(j,j)$
+\end_inset
+
+ y las columnas de 
+\begin_inset Formula $Q$
+\end_inset
+
+.
+\begin_inset Formula \[
+\Lambda(j,j)=2\left(1-\cos\left(\frac{j\pi}{n+1}\right)\right)\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+Q(j,k)=\sin\left(\frac{jk\pi}{n+1}\right)\sqrt{\frac{2}{n+1}}\]
+
+\end_inset
+
+Aquí es donde empieza la magia de este algoritmo.
+ Se demuestra que realizar la transformada rápida de Fourier a un vector
+ 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+ de tamaño 
+\begin_inset Formula $M$
+\end_inset
+
+ es equivalente a multiplicarlo por la matriz
+\begin_inset Formula \[
+F(i,j)=e^{\left(\frac{2\pi i}{M}\right)((j-1)(k-1))}\]
+
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+Esta fórmula se demuestra por las propiedades de la raíz enésima primitiva
+ de 1.
+ Los índices empiezan en 0 hasta 
+\begin_inset Formula $M-1$
+\end_inset
+
+ porque en la transformada discreta de Fourier existe un modo 0.
+\end_layout
+
+\end_inset
+
+Utilizando la ecuación de Euler podemos demostrar que multiplicar un vector
+ por 
+\begin_inset Formula $F$
+\end_inset
+
+ es equivalente a multiplicar un vector por 
+\begin_inset Formula $Q$
+\end_inset
+
+.
+ Con 
+\begin_inset Formula $M=2(n+1)$
+\end_inset
+
+
+\begin_inset Formula \[
+F(j,k)=\cos\left(\frac{\pi(j-1)(k-1)}{(n+1)}\right)+i\sin\left(\frac{\pi(j-1)(k-1)}{(n+1)}\right)\]
+
+\end_inset
+
+Comparando esta expresión con la de 
+\begin_inset Formula $Q$
+\end_inset
+
+ podemos demostrar que:
+\begin_inset Formula \[
+Q=\mathcal{I}(F[1:n,1:n])\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+Q\vec{v}=\mathcal{I}(\mathcal{F}(\vec{w})[1:n])\]
+
+\end_inset
+
+Donde el vector 
+\begin_inset Formula $\vec{w}$
+\end_inset
+
+ es el vector 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+ extendido para poder realizar la FFT teniendo en cuenta que la matriz 
+\begin_inset Formula $Q$
+\end_inset
+
+ es una submatriz 
+\begin_inset Formula $F$
+\end_inset
+
+
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+Para construir la matriz 
+\begin_inset Formula $F$
+\end_inset
+
+ los índices empiezan en 0 y sus dimensiones son de 
+\begin_inset Formula $M^{2}=2(n+1)^{2}$
+\end_inset
+
+, siendo 
+\begin_inset Formula $n$
+\end_inset
+
+ la longitud del vector 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+.
+ Para que los cálculos sean idénticos el vector a operar debe modificarse
+ en concordancia respecto a estos índices.
+ Entonces el vector 
+\begin_inset Formula $\vec{w}$
+\end_inset
+
+ será la concatenación de un cero, el vector 
+\begin_inset Formula $\vec{v}$
+\end_inset
+
+ y una serie de ceros hasta que el tamaño de 
+\begin_inset Formula $\vec{w}$
+\end_inset
+
+ sea precisamente de 
+\begin_inset Formula $2(n+1)$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+El algoritmo se puede reducir entonces a tres pasos:
+\end_layout
+
+\begin_layout Enumerate
+Cálculo de 
+\begin_inset Formula $\bar{B}$
+\end_inset
+
+ a partir de 
+\begin_inset Formula $B$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Cálculo de 
+\begin_inset Formula $\bar{U}$
+\end_inset
+
+ a partir de 
+\begin_inset Formula $\bar{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Cálculo de 
+\begin_inset Formula $U$
+\end_inset
+
+ a partir de 
+\begin_inset Formula $\bar{U}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Esta operación es la misma que realizar una transformada en seno del vector
+ 
+\begin_inset Formula $\vec{w}$
+\end_inset
+
+.
+ Existen otros algoritmos también basados en la FFT mucho más eficientes
+ pero este tiene la ventaja de ser relativamente simple y fácil de explicar.
+\end_layout
+
+\begin_layout Standard
+Esta misma estrategia no se puede utilizar en el caso del término no lineal
+\begin_inset Formula \[
+\partial_{t}\omega+\partial_{x}\omega\partial_{y}\phi-\partial_{y}\omega\partial_{x}\phi=Re^{-1}\nabla^{2}\omega\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+precisamente porque su carácter no lineal introduce un producto entre dos
+ series.
+ Esto causa una mayor complicación en el operador evitable puesto que si
+ elige un esquema de integración explícito no es necesario resolver ningún
+ sistema de ecuaciones.
+ Si reescribimos la ecuación para convertirla en una integración temporal
+ tipo Euler:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\partial_{t}\omega=\partial_{x}\phi\partial_{y}\omega-\partial_{y}\phi\partial_{x}\omega+Re^{-1}\nabla^{2}\omega\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+\omega^{n+1}=\omega^{n}+\Delta t(D(\phi,\omega)+Re^{-1}L\omega)\]
+
+\end_inset
+
+donde 
+\begin_inset Formula $D(\phi,\omega)$
+\end_inset
+
+ es el operador no lineal y 
+\begin_inset Formula $L$
+\end_inset
+
+ es el operador lineal o de Laplace.
+ Podríamos utilizar cualquier algoritmo explícito de integración temporal.
+ Los más utilizados son los Runge Kutta porque ofrecen más precisión con
+ menores requisitos de memoria.
+ Entonces lo último necesario para completar el algoritmo es implementar
+ el operador no lineal, sencillo en diferencias finitas, y estimar el CFL
+ para que el esquema de integración sea estable, en nuestro caso tomaremos
+ un 
+\begin_inset Formula $\Delta t$
+\end_inset
+
+ de un orden de magnitud menor a 
+\begin_inset Formula $\Delta x^{2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Implementación.
+\end_layout
+
+\begin_layout Standard
+Si bien el algoritmo puede parecer terriblemente complejo la implementación
+ es sorprendentemente simple.
+ Para empezar escribiremos la función que realiza el producto 
+\begin_inset Formula $Q\vec{v}$
+\end_inset
+
+ extendido a una matriz, es decir, 
+\begin_inset Formula $QV$
+\end_inset
+
+ donde se operará sobre cada columna de 
+\begin_inset Formula $V$
+\end_inset
+
+ como si fuera un vector.
+\end_layout
+
+\begin_layout LyX-Code
+function [ret]=QV(V) 
+\end_layout
+
+\begin_layout LyX-Code
+%% 
+\end_layout
+
+\begin_layout LyX-Code
+%% Discrete Sinus Transform 
+\end_layout
+
+\begin_layout LyX-Code
+%% 
+\end_layout
+
+\begin_layout LyX-Code
+%% ret=QV(V) 
+\end_layout
+
+\begin_layout LyX-Code
+%% 
+\end_layout
+
+\begin_layout LyX-Code
+%% This is a helper function for a Poisson solver using 
+\end_layout
+
+\begin_layout LyX-Code
+%% Fast Fourier Transform.
+  Implements the Qv product along 
+\end_layout
+
+\begin_layout LyX-Code
+%% all the columns of the V matrix.
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+[n,m]=size(V); 
+\end_layout
+
+\begin_layout LyX-Code
+V1=[zeros(1,m);V;zeros(n+1,m)];%Builds the array to FFT
+\end_layout
+
+\begin_layout LyX-Code
+V2=imag(fft(V1));  
+\end_layout
+
+\begin_layout LyX-Code
+ret=V2(2:n+1,:); 
+\end_layout
+
+\begin_layout Standard
+Ahora sólo hay que implementar los tres pasos del algoritmo con esta función:
+\end_layout
+
+\begin_layout LyX-Code
+function X=poisson(B)   
+\end_layout
+
+\begin_layout LyX-Code
+%%   
+\end_layout
+
+\begin_layout LyX-Code
+%% ret = poisson(B)   
+\end_layout
+
+\begin_layout LyX-Code
+%%   
+\end_layout
+
+\begin_layout LyX-Code
+%% Solve the discrete Poisson equation on an n-by-n grid   
+\end_layout
+
+\begin_layout LyX-Code
+%% with right hand side B
+\end_layout
+
+\begin_layout LyX-Code
+[n,m]=size(B);   
+\end_layout
+
+\begin_layout LyX-Code
+%% Form eigenvalues of matrix
+\end_layout
+
+\begin_layout LyX-Code
+L=2*(1-cos((1:n)*pi/(n+1))); 
+\end_layout
+
+\begin_layout LyX-Code
+%% Form reciprocal sums of eigenvalues   
+\end_layout
+
+\begin_layout LyX-Code
+%% Include scale factor 2/(n+1) (We want Q, but F!)
+\end_layout
+
+\begin_layout LyX-Code
+LL=(2/(n+1))*ones(n,n)./(L'*ones(1,n)+ones(n,1)*L);
+\end_layout
+
+\begin_layout LyX-Code
+%% Solve, using QV   
+\end_layout
+
+\begin_layout LyX-Code
+X = QV(B');
+\end_layout
+
+\begin_layout LyX-Code
+X = QV(X');
+\end_layout
+
+\begin_layout LyX-Code
+X = LL.*X;
+\end_layout
+
+\begin_layout LyX-Code
+X = QV(X');
+\end_layout
+
+\begin_layout LyX-Code
+X = QV(X'); 
+\end_layout
+
+\begin_layout Standard
+Para el término no lineal implementaremos cada operador por separado:
+\end_layout
+
+\end_body
+\end_document
