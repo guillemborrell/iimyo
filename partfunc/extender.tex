@@ -989,8 +989,8 @@ argumentos de entrada y de salida no son más que un array de punteros
 a \texttt{mxArray}.  Esto simplifica el código a escribir pero puede
 generar errores de segmentación porque no se ejecuta ningún control de
 tipos. Por si aún no ha quedado del todo claro, es significativo que
-en Octave sólo se pueda retornar un \texttt{octave_value} o un
-\texttt{octave_value_list}.
+en Octave sólo se pueda retornar un \texttt{octave\_value} o un
+\texttt{octave\_value\_list}.
 
 Si se está ampliando el intérprete de Octave los programadores en C++
 preferirán los archivos \texttt{oct} y los programadores en C los
@@ -1015,7 +1015,8 @@ Matlab. Es el siguiente:
 nclude <string.h>
 #include "mex.h"
 
-void mexFunction(int nlhs, mxArray *plhs[ ],int nrhs, const mxArray *prhs[ ])
+void mexFunction(int nlhs, mxArray *plhs[ ],
+                 int nrhs, const mxArray *prhs[ ])
 {
 int j;
 double *output;
@@ -1077,7 +1078,21 @@ sabemos cómo están representadas en memoria.
 
 También en este ejemplo hemos aprendido las primeras funciones de la
 API: \texttt{mxCreateDoubleMatrix} y \texttt{mxGetPtr}; no es
-necesario decir muchos sobre qué hacen.  Un detalle que sí puede pasar
-inadvertido es que mientras el puntero \texttt{prhs} puede ser un
-puntero nulo, \texttt{plhs} tendrá siempre como mínimo un elemento
-puesto que el intérprete siempre está esperando como mínimo un valor.
+necesario decir mucho sobre cuál es su misión.  Un detalle que sí
+puede pasar inadvertido es que mientras el puntero \texttt{prhs} puede
+ser un puntero nulo, \texttt{plhs} tendrá siempre como mínimo un
+elemento puesto que el intérprete siempre está esperando como mínimo
+un valor para la variable \texttt{ans}
+
+\subsection{Paso de argumentos}
+Las funciones \texttt{mex} son, como su propio nombre indica,
+funciones. Su labor es recibir argumentos y devolver otros una vez
+realizados los cálculos correspondientes.
+
+El tipo de los argumentos, tanto de entrada como de salida, es
+\texttt{mxArray}. No se realiza ninguna verificación de tipo así que
+si el intérprete pasa a la función un valor con un tipo incorrecto es
+muy posible que reciba a cambio un error de segmentación.  Esto nos
+obligará a, siempre que escribamos una función \texttt{mex} comprobar
+convenientemente los argumentos de entrada. Una función útil para ello
+es \texttt{mexErrMsgTxt}.
