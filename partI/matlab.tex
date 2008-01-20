@@ -1,4 +1,3 @@
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{MATLAB}
 
@@ -2343,6 +2342,17 @@ función, es algo completamente distinto. La función es anónima porque
 no tiene ningún nombre fijo, seguirá siendo la misma función
 independientemente del nombre de la variable.
 
+Las funcoines anónimas también pueden encapsularse como muestra el
+ejemplo anterior\footnote{Este código provoca un error de segmentación
+en Matlab 7.0.0.19901 (R14) y Octave en versiones inferiores a
+2.9.12}:
+
+\begin{verbatim}
+>> intbessel=@(y) quad(@(x) besselj(2.5,x),0,y);
+>> intbessel(1.3)
+ans =  0.035244
+\end{verbatim}
+
 
 \subsubsection{Funciones como argumentos de funciones.}
 
@@ -2416,6 +2426,10 @@ Esta estructura permite hacer
 
 \subsubsection{Acceso a las variables desde las funciones anónimas.}
 
+\emph{Esta sección ha quedado desactualizada para Octave versión
+  superior a 2.9.0 en la que las funciones anónimas se comportan igual
+  que las de Matlab.}
+
 Otra pequeña diferencia entre Matlab y Octave es cómo las funciones
 anónimas entienden las variables dadas en la cabecera. En Octave, una
 función anónima es estrictamente una función a parte. Las variables
@@ -2430,7 +2444,7 @@ a partir de una función anónima debemos hacerlo como
 \begin{verbatim}
 >> func=@(x,y) exp(-(x. ^2+y. ^2)) 
 func =
-@(x, y) exp (-(x . ^ 2 + y . ^ 2)) 
+@(x, y) exp (-(x.^ 2 + y.^ 2)) 
 \end{verbatim}
 Y llamamos la nueva función del modo usual:
 
@@ -2447,7 +2461,7 @@ algunas de ellas externamente:
 >> a=2;
 >> func=@(x) exp(-(x. ^2+a. ^2)) 
 func =
-@(x) exp (-(x . ^ 2 + a . ^ 2))
+@(x) exp (-(x.^ 2 + a.^ 2))
 \end{verbatim}
 De este modo estamos pidiendo que la función tome una variable que en
 realidad es externa como propia. En Octave esto da un error en el
@@ -2797,3 +2811,179 @@ En el archivo de nombre \emph{nombrearchivo} encontraremos la línea:
 \begin{verbatim}
 >> texto='graba todo lo que ponemos aquí';
 \end{verbatim}
+
+
+\section{Análisis crítico del lenguaje Matlab}
+
+\emph{Esta sección es una visión un poco personal de Matlab en
+  comparación con otros lenguajes de programación superiores.}
+
+Matlab no es un buen lenguaje de programación.  Que seamos capaces de
+entenderlo fácilmente a pesar de sus defectos no lo hace bueno porque
+sencillo no significa correcto ni directo significa consistente.
+Matlab tiene defectos y algunos de ellos muy graves.
+
+Esta sección proviene de una discusión con los miembros del
+departamento de Máticas de la Escuela Técnica Superior de Ingenieros
+Navales. En aquella escuela Matlab se utiliza para impartir cursos de
+programación.  Mi visión era que Matlab inyecta ciertos malos vicios
+que lo descartan como plataforma para la enseñanza de la
+programación.  Si uno debe aprender a andar no es normal que empiece
+con zancos; del mismo modo no es normal que quien empieza a
+programar tome como norma peligrosas particularidades.
+
+Algunos inconvenientes han sido solucionados por el intérprete Octave
+como extensiones al propio lenguaje.
+
+\subsection{Paréntesis y corchetes. Tuples y celdas}
+
+Matlab hereda de Fortran una inconsistencia que es pecata minuta. En
+muchos lenguajes se pueden ordenar las variables como tuples. Un tuple
+no es más que un conjunto ordenado, (a) sería una variable, (a,b) una
+doble, (a,b,c) una triple: un tuple es la generalización para n
+elementos. En breve entenderemos la importancia de este tipo derivado.
+
+Si se desea llevar la consistencia de un lenguaje al límite se pide
+que la notación para la asignación sea igual a la de la llamada.  Si
+para crear una matriz se usan corchetes es preferible que la llamada a
+los subíndices también se haga con corchetes.  Esto es discutible
+porque uno puede considerar que tras crear una matriz obtiene una
+función::
+
+\begin{verbatim}
+  m(2,3)
+\end{verbatim}
+
+\texttt{m} es una matriz-función y los subíndices son los argumentos
+en la llamada.
+
+Pero los tuples tienen una función, la de agrupar variables.  Si nos
+fijamos en cómo es una llamada a una función entenderemos
+perfectamente la notación escogida en muchos lenguajes para un tuple:
+
+\begin{verbatim}
+  f(a,b)
+\end{verbatim}
+
+Podemos imaginar que lo que la función \texttt{f} tiene a la derecha
+es un tuple y cada argumento de la llamada es un elemento del mismo.
+
+Todo este discurso sirve para entender que la definición de las
+funciones en Matlab es inconsistente:
+
+\begin{verbatim}
+function [x,y]=f(a,b)...
+\end{verbatim}
+
+Si \texttt{(a,b)} es un doble... ¿Por qué si lo que retorna es
+exactamente lo mismo, un doble, debemos utilizar la misma notación que
+las matrices?  Esto no sería tan grave si no fuera porque Matlab
+verdaderamente tiene un tipo para estos casos: las celdas.
+
+Ahora podríamos pensar que por lo menos las celdas se comportarán como
+verdaderos tuples per no.  Si intentamos una doble asignación:
+
+\begin{verbatim}
+>> {a,b}={1,2}
+error: invalid lvalue function called in expression
+\end{verbatim}
+
+¿Qué es entonces una celda?  ¿Es una verdadera estructura de
+variables?  ¿Es la asignación del valor de retorno de una función un
+caso tan especial para tener esa notación tan exótica?
+
+Mi sugerecia sería definir las funciones como sigue:
+
+\begin{verbatim}
+function {x,y}=f(a,b)
+\end{verbatim}
+
+para que la asignación
+
+\begin{verbatim}
+{x,y}=f(2,3)
+\end{verbatim}
+
+tenga sentido y convierta las celdas en auténticas
+tuplas. Desgraciadamente este cambio rompería todos los códigos
+existentes por lo que no es posible.
+
+\subsection{La notación del punto}
+
+\subsection{Versatilidad o por qué prefiero el intérprete Octave.}
+
+A medida que uno adquiere experiencia programando empieza a utilizar
+estructuras más sofisticadas de forma natural.  Este paso suele
+realizarse en Matlab cuando el uso de las funciones anónimas es
+frecuente. 
+
+También son de uso común las abreviaturas que, además de ahorrarnos
+alguna que otra línea de código, también lo hacen más leíble. Un
+ejemplo de ello son los prefijos y sufijos.  Si disponemos de una
+función que retorna una matriz y sólo nos interesa la primera fila de
+la misma podríamos escribir el siguiente código
+
+\begin{verbatim}
+  dummy=func(x)
+  a=dummy(1,:)
+\end{verbatim}
+
+Pero si estamos utilizando el intérprete Octave podremos utilizar la
+llamada de índices como sufíjo de la siguiente manera:
+
+\begin{verbatim}
+  dummy=func(x)(1,:)
+\end{verbatim}
+
+Código mucho más leíble para los ojos expertos.
+
+Otro caso interesante es el de los operadores \texttt{==},
+\texttt{++}, \texttt{--}, \texttt{+=} y \texttt{-=} muy utilizados en
+C.  Matlab no los soporta, en cambio Octave sí. Sustituyen esas líneas tan
+feas del estilo de 
+
+\begin{verbatim}
+a=a+4
+\end{verbatim}
+
+Por un más leíble
+
+\begin{verbatim}
+a+=4
+\end{verbatim}
+
+
+\subsection{La orientación a objetos}
+
+Aunque se ha discutido ampliamente sobre la ideonidad de la orientacón
+a objetos nadie parece dudar que un lenguaje de programación moderno
+debe soportar este paradigma. La manera más común de definir un objeto
+es mediante una clase, entonces un objeto es una \emph{instancia} de
+una clase previamente definida.
+
+Las clases no son más que tipos derivados en los que uno puede definir
+métodos, variables privadas y públicas... y la instancia se crea bien
+por declaración (lenguajes estáticos) o por llamada (lenguajes
+dinámicos).  Desgraciadamente Matlab optó por un modelo mucho menos
+común en el que se define la instancia como una estructura de
+funciones ordenada mediante directorios.
+
+Creo que esta es una decisión equivocada y provocará que la
+orientación a objetos de Matlab nunca llegue a utilizarse activamente.
+
+\subsection{Módulos y funciones}
+
+\subsection{Matlab 2 y otros lenguajes de programación}
+
+El \emph{Matlab Monkey} puede definirse como aquél programador tan
+acostumbrado a Matlab que es ya incapaz de reconocer todo lo anterior
+como defectos.  El otro gran síntoma es el de utilizar Matlab
+absolutamente para todo.
+
+El languaje Matlab prácticamente no ha cambiado desde su creación, por
+consguiente no ha resuelto sus defectos y ha añadido otros
+nuevos. Parece claro que el único aliciente de programar en Matlab es
+la biblioteca de funciones.  Hagámonos entonces la pregunta siguiente:
+si existiera un lenguaje mejor con la misma biblioteca de
+funciones... ¿Seguiríamos programando en Matlab?  Si la respuesta es
+sí somos \emph{Matlab Monkeys}

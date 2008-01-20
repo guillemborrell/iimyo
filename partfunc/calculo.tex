@@ -210,19 +210,10 @@ los datos
 Un ejemplo del segundo caso puede ser el siguiente:
 
 \begin{verbatim}
-pending
+  x=rand(10,10);y=rand(10,10);z=rand(10,10);
+  f=@(x1,y1) interp2(x,y,z,x1,y1);
+  quad2dg(f,0,0.5,0,0.5);
 \end{verbatim}
-
-En este caso hay que recordar que Matlab y Octave utilizan métodos
-funciones y algoritmos completamente distintos para la
-integral. Mientras Matlab parece que reduce el problema a una serie de
-integrales en una dimensión Octave utiliza fórmulas de cuadratura en
-dos dimensiones. Las funcoines tienen nombres distintos (no hay
-ninguna \texttt{dblquad} en Octave) para que los usuarios san
-conscientes de esta diferencia.\footnote{Los algoritmos de integración
-por cuadratura numérica escalan mal con el número de dimensiones a
-integrar.  En el caso de funciones de muchas dimensiones es más
-eficiente utilizar la integración Montecarlo.}
 
 Este tipo de cálculos son especialemente lentos, el porqué es bien
 sencillo.  Una de las operaciones más lentas en Matlab en comparación
@@ -235,6 +226,25 @@ interpolación de cúbico (splines) a lineal.
 
 \subsection{Integración en dos dimensiones.  Diferencias entre Matlab
   y Octave}
+
+Hay que recordar que Matlab y Octave utilizan métodos
+funciones y algoritmos completamente distintos para la
+integral. Mientras Matlab parece que reduce el problema a una serie de
+integrales en una dimensión Octave utiliza fórmulas de cuadratura en
+dos dimensiones. Las funcoines tienen nombres distintos (no hay
+ninguna \texttt{dblquad} en Octave) para que los usuarios san
+conscientes de esta diferencia.\footnote{Los algoritmos de integración
+por cuadratura numérica escalan mal con el número de dimensiones a
+integrar.  En el caso de funciones de muchas dimensiones es más
+eficiente utilizar la integración Montecarlo.}
+
+He tenido experiencias francamente malas con la integración
+bidimensional en Matlab, sobretodo con integrales con dominios grandes
+o integrales impropias convergentes.  Quizás la manera más sencilla de
+conseguir que Matlab de un resultado erróneo es integrar la campana de
+Gauss bidimensional en todo el espacio real bidimensional. Octave, en
+cambio, consigue llegar a un resultado correcto con la integración por
+cuadratura de Gauss.
 
 \section{Ecuaciones diferenciales\index{ecuaciones diferenciales} ordinarias.}
 
