@@ -394,69 +394,18 @@ a more appropriate integration quadrature should be used
 
 \subsection{Solución del ejercicio}
 
-Tenemos múltiples opciones:
-
 \begin{itemize}
-\item Con \texttt{inline}
-
-
-  \begin{itemize}
-  \item Matlab:\\
-    \\
-    \begin{minipage}[c]{1\textwidth}%
-
+\item Matlab:
 \begin{verbatim}
->> dblquad(inline('exp(-(x.*x+y.*y))'),-10,10,-10,10)
-
+>> dblquad(@(x,y) exp(-(x.^2+y.^2)),-10,10,-10,10)
 ans = 3.1416
-
 \end{verbatim}
-    \end{minipage}%
-
-  \item Octave:\\
-    \\
-    \begin{minipage}[c]{1\textwidth}%
-
+\item Octave:
 \begin{verbatim}
->> quad2dg(inline('exp(-(x.*x+y.*y))'),-10,10,-10,10)
-
+>> quad2dg(@(x,y) exp(-(x.^2+y.^2)),-10,10,-10,10)
 ans = 3.1416
-
 \end{verbatim}
-    \end{minipage}%
-
-  \end{itemize}
-\item Con una función anónima:
-
-  \begin{itemize}
-  \item Matlab:\\
-    \\
-    \begin{minipage}[c]{1\linewidth}%
-
-  \begin{verbatim}
->> dblquad(@(x,y) exp(-(x. ^2+y. ^2)),-10,10,-10,10)
-
-ans = 3.1416
-
-\end{verbatim}
-\end{minipage}%
-
-\item Octave:\\
-\\
-\begin{minipage}[c]{1\linewidth}% 
-
-\begin{verbatim}
->> quad2dg(@(x,y) exp(-(x. ^2+y. ^2)),-10,10,-10,10)
-
-ans = 3.1416
-
-\end{verbatim}
-\end{minipage}
-
 \end{itemize}
-\end{itemize}
-
-
 
 \section{Ejercicio\label{sec:Ejercicio-Laplace}.  Resolución de la
   ecuación de Laplace en un dominio bidimensional}

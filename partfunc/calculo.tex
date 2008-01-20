@@ -131,33 +131,110 @@ discreta de puntos.
 
 \section{Integrales\index{Integrales}}
 
-La integración numérica es un vasto campo del cálculo numérico y así
+La integración es un vasto campo del cálculo numérico y así
 se refleja en Matlab. Podemos hacer tanto integrales en una dimensión
 como en dos. Las rutinas más relevantes son:
 
 \begin{description}
-\item [quad\texttt{\index{quad}}]Integración numérica de una función analítica
-introducida a través de un archivo de función o por una sentencia
-\texttt{inline}, es en este tipo de funciones donde el inlining tiene
-más utilidad. Por ejemplo, para integrar $\int_{0}^{10}\exp(x^{4})\  dx$
-haremos \texttt{quad(inline('exp(-x\textasciicircum{}4)'),0,10)}.
-La función nos permite introducir la tolerancia requerida para el
-resultado, cuando pasemos este argumento es importante que no sea
-mayor que la precisión numérica con la que estemos trabajando o haremos
-que el programa produzca un error. También podemos pasarle otros argumentos
-para aumentar la precisión como marcar ciertos puntos donde la función
-puede presentar singularidades.
-\item [quadl\texttt{\index{quadl}}]Su uso es idéntico que la función anterior
-pero contiene un algoritmo de cuadratura de mayor precisión.
-\item [dblquad\texttt{\index{dblquad}}]\texttt{quad2dc\index{quad2dc}}
-y \texttt{quad2dg\index{quad2dg}} en Octave. Calcula la integral
-doble de una función de dos variables. Obviamente la frontera de integración
-serán cuatro constantes.
+\item [quad\texttt{\index{quad}}]Integración numérica de una función
+\item [quadl\texttt{\index{quadl}}]Su uso es idéntico que la función
+  anterior pero contiene un algoritmo de cuadratura de mayor
+  precisión.
+\item [dblquad\texttt{\index{dblquad}}] Calcula la integral
+  doble de una función de dos variables. \texttt{quad2dc\index{quad2dc}}
+  y \texttt{quad2dg\index{quad2dg}} en Octave.  En el primer caso
+  utiliza una cuadratura de Gauss-Chebyshev y en el segundo utiliza un
+  esquema de integración de Gauss.
 \item [triplequad\texttt{\index{triplequad}}]No existe aún en Octave.
-Calcula la integral de volúmen de una función de tres variables.
-\item [trapz\texttt{\index{trapz}}]Aplica la regla del trapecio para calcular
-la integral numérica de una serie discreta de puntos.
+  Calcula la integral de volúmen de una función de tres variables.
+\item [trapz\texttt{\index{trapz}}]Aplica la regla del trapecio para
+  calcular la integral numérica de una serie discreta de puntos.
 \end{description}
+
+El único misterio que puede tener la integración numérica es cómo
+pasar la función a integrar como argumento.  La manera recomendada de
+hacerlo es, como siempre en el que una función sea un argumento, con
+un function handle o una función anónima.
+
+Por ejemplo, para calcular esta integral:
+
+\[  \int_o^{2\pi} \sin(x)\cos(pi)\ dx\]
+
+utilizaremos el código siguiente:
+
+\begin{verbatim}
+>> quad(@(x) sin(x)*cos(x),0,2*pi)
+\end{verbatim}
+
+Difícilmente encontraremos un caso en el que, teniendo la forma de la
+función analitica, sea necesario más que una función anónima.  Las
+dudas llegan cuando se quiere integrar una serie de datos y no se
+dispone de ninguna función.
+
+Si disponemos de una serie de datos unidimensional $(x,y)$ uno puede
+acudir directamente a la regla del trapecio.  Podemos utilizar una
+interpolación con splines para llegar hasta orden 3 en la
+integración. El truco es crear una función anónima que llame a la
+interpolación como sigue:
+
+\begin{verbatim}
+>> x=1:10;y=rand(1,10);
+>> f=@(x1) interp1(x,y,x1);
+>> quad(f,1,10)
+ans =  3.9732
+\end{verbatim}
+
+Es muy sencillo demostrar que utilizar esta técnica en una dimensión
+no es necesario
+
+\begin{verbatim}
+>> format long
+>> quad(f,1,10)
+ans =  3.9732
+>> trapz(x,y)
+ans =  3.9732
+\end{verbatim}
+
+Donde sí es útil es cuando se quiere integrar una superficie que no se
+ha definido analíticamente sino que se dispone de una serie de puntos
+de la forma $(x,y,z)$.  Distinguiremos dos casos según cómo se ordenen
+los datos
+
+\begin{itemize}
+\item Si los datos están ordenados en una malla estructurada puede
+  utilizarse \texttt{interp2} para generar la función.
+\item Si los datos no obedecen a ningún orden la interpolación se hará
+  con la función \texttt{griddata}
+\end{itemize}
+
+Un ejemplo del segundo caso puede ser el siguiente:
+
+\begin{verbatim}
+pending
+\end{verbatim}
+
+En este caso hay que recordar que Matlab y Octave utilizan métodos
+funciones y algoritmos completamente distintos para la
+integral. Mientras Matlab parece que reduce el problema a una serie de
+integrales en una dimensión Octave utiliza fórmulas de cuadratura en
+dos dimensiones. Las funcoines tienen nombres distintos (no hay
+ninguna \texttt{dblquad} en Octave) para que los usuarios san
+conscientes de esta diferencia.\footnote{Los algoritmos de integración
+por cuadratura numérica escalan mal con el número de dimensiones a
+integrar.  En el caso de funciones de muchas dimensiones es más
+eficiente utilizar la integración Montecarlo.}
+
+Este tipo de cálculos son especialemente lentos, el porqué es bien
+sencillo.  Una de las operaciones más lentas en Matlab en comparación
+con otros lenguajes de programación es la llamada a una función.  Si
+se integra con matrices que contengan más de miles de puntos puede ser
+que exista un problema de rendimiento.  En este caso es recomendable,
+antes de quizás escribirse un algoritmo de integración propio,
+modificar el parámetro de error máximo o reducir el orden de la
+interpolación de cúbico (splines) a lineal.
+
+\subsection{Integración en dos dimensiones.  Diferencias entre Matlab
+  y Octave}
 
 \section{Ecuaciones diferenciales\index{ecuaciones diferenciales} ordinarias.}
 
