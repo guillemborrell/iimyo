@@ -2839,23 +2839,20 @@ como extensiones al propio lenguaje.
 
 Matlab hereda de Fortran una inconsistencia que es pecata minuta. En
 muchos lenguajes se pueden ordenar las variables como tuples. Un tuple
-no es más que un conjunto ordenado, (a) sería una variable, (a,b) una
-doble, (a,b,c) una triple: un tuple es la generalización para n
+no es más que un conjunto ordenado, (a) sería una variable, (a,b) un
+doble, (a,b,c) un triple: un tuple es la generalización para n
 elementos. En breve entenderemos la importancia de este tipo derivado.
 
 Si se desea llevar la consistencia de un lenguaje al límite se pide
 que la notación para la asignación sea igual a la de la llamada.  Si
 para crear una matriz se usan corchetes es preferible que la llamada a
 los subíndices también se haga con corchetes.  Esto es discutible
-porque uno puede considerar que tras crear una matriz obtiene una
-función::
+porque uno puede considerar que tras crear una matriz se obtiene una
+función y que los subíndices son los argumentos en la llamada:
 
 \begin{verbatim}
   m(2,3)
 \end{verbatim}
-
-\texttt{m} es una matriz-función y los subíndices son los argumentos
-en la llamada.
 
 Pero los tuples tienen una función, la de agrupar variables.  Si nos
 fijamos en cómo es una llamada a una función entenderemos
@@ -2890,7 +2887,8 @@ error: invalid lvalue function called in expression
 
 ¿Qué es entonces una celda?  ¿Es una verdadera estructura de
 variables?  ¿Es la asignación del valor de retorno de una función un
-caso tan especial para tener esa notación tan exótica?
+caso tan especial para tener esa notación tan exótica? No es más que
+un tipo derivado que hace lo que le da la gana.
 
 Mi sugerecia sería definir las funciones como sigue:
 
@@ -2909,6 +2907,18 @@ tuplas. Desgraciadamente este cambio rompería todos los códigos
 existentes por lo que no es posible.
 
 \subsection{La notación del punto}
+
+El bug más común en códigos Matlab aparece por el dichoso punto que
+distingue las operaciones matriciales y vectoriales. Es un caso en el
+que el remedio es aún peor que la enfermedad.  Si un prefijo es la
+manera más breve de modificar un operador una omisión puede provocar
+graves dolores de cabeza.
+
+Por lo menos en caso de duda siempre podemos utilizar las funciones
+para el producto, la potencia y la división en vez del operador.  A mi
+parecer la mejor distinción sería seguir a fortran: todas las
+operaciones son escalares y las matriciales requieren una función en
+vez de un operador.
 
 \subsection{Versatilidad o por qué prefiero el intérprete Octave.}
 
@@ -2973,6 +2983,15 @@ orientación a objetos de Matlab nunca llegue a utilizarse activamente.
 
 \subsection{Módulos y funciones}
 
+¿Por qué una función en cada archivo? ¿Por qué para escribir códigos
+no triviales nos vemos obligados a movernos entre una docena de
+archivos que perfectamente podrían juntarse en un módulo?  Es la mayor
+y más grave estupidez de el intérprete Matlab que por lo menos ha sido
+solucionado en Octave a costa de romper la compatibilidad.
+
+Ignoro por qué aún no se ha subsanado el error pero sin duda alguna es
+el defecto más sangrante de todos.
+
 \subsection{Matlab 2 y otros lenguajes de programación}
 
 El \emph{Matlab Monkey} puede definirse como aquél programador tan
@@ -2986,4 +3005,34 @@ nuevos. Parece claro que el único aliciente de programar en Matlab es
 la biblioteca de funciones.  Hagámonos entonces la pregunta siguiente:
 si existiera un lenguaje mejor con la misma biblioteca de
 funciones... ¿Seguiríamos programando en Matlab?  Si la respuesta es
-sí somos \emph{Matlab Monkeys}
+sí somos \emph{Matlab Monkeys}.
+
+Octave es un humilde esfuerzo para paliar alguno de estos
+inconvenientes aunque la política de conseguir una compatibilidad
+máxima, por otro lado completamente comprensible, impide mayores
+cambios.  Aunque esta sección deje Octave en un mal lugar por parecer
+un mero imitador su labor es tremendamente importante por dos
+razones. Hay millones de líneas escritas en Matlab que no serán nunca
+portadas a otro lenguaje y demuestra a los desarrolladores de Matlab
+que es importante distinguir entre el lenguaje de programación y la
+biblioteca de funciones.  Si se extiende es incluso posible que
+Mathworks termine tomándolo en consideración. Siempre he dicho que la
+existencia de Octave beneficia indirectamente a Matlab porque la
+existencia de software libre siempre aumenta la difusión de una
+aplicación.
+
+Dentro de la competencia comercial la alternativa más
+razonable es Mathematica pero su uso parece más adecuado a las
+necesidades de físicos y matemáticos.
+
+Mi apuesta personal es numpy y scipy (\url{http://scipy.org}). La idea
+es dotar a un lenguaje de programación existente y más conveniente de
+todas las funciones necesarias. Desde el inicio del proyecto ha ido
+ganando usuarios desilusionados o hastiados con Matlab que encuentran
+en Python un lenguaje directo, consistente y elegante.  La maquinaria
+interna de Python es bastante parecida a la de Matlab pero el primero
+es mucho más fácil de extender.
+
+Además las perspectivas de crecimiento de Python son mucho más
+optimistas.  Hay muchas más manos y ojos sobre el código y numpy no es
+más que una pequeña pieza dentro de una gran maquinaria.
