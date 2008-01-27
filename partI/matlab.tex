@@ -747,21 +747,6 @@ secuencia =
    1   3   5   7   9
 \end{verbatim}
 
-\subsubsection{¿Por qué las secuencias no son vectores?}
-
-Hay una diferencia esencial entre las sentencias y los vectores. La
-diferencia es que una sentencia no se almacena en memoria. Es un
-concepto un poco complejo y requiere entender el funcionamiento
-interno de Matlab pero intentaremos explicarlo de un modo sencillo.
-
-Si definimos un vector éste se almacena en memoria; tenemos un
-argumento que contiene todos los elementos y se pueden llamar del modo
-usual.  En cambio una secuencia es como una función que cuenta
-elementos.  Si la llamamos por primera vez (siempre de forma
-implícita) nos da el primer elemento; si la llamamos por segunda vez
-nos devuelve el segundo, y así sucesivamente. Todo esto se hace de
-modo interno y es un proceso muy rápido, por eso se usan muy a menudo.
-
 
 \subsubsection{Contadores no enteros.}
 
@@ -837,6 +822,13 @@ primera a la tercera.
 Si omitimos los elementos de la secuencia y dejamos sólo el símbolo
 \texttt{:}, el resultado será que tomaremos todos los elementos de la
 fila o de la columna.
+
+Además de una secuencia los índices pueden introducirse mediante
+vectores:
+
+\begin{verbatim}
+>> qwe=foo([1,2],[1,2])
+\end{verbatim}
 
 \subsection{Números Complejos \index{Números Complejos}}
 
@@ -1788,12 +1780,12 @@ endswitch
 has escogido el numero 2
 \end{verbatim}
 
-\subsection{La sentencia \texttt{for\index{for}}}
+\subsection{Las sentencias \texttt{for\index{for}} y \texttt{while\index{while}}}
 
 Así es como se denomina el contador o sentencia \texttt{do} en Matlab.
 Su estructura es:
 
-  \begin{verbatim}
+\begin{verbatim}
 for [variable contador]=[secuencia del contador]
   cuerpo [dependiente o no de la variable contador]
 endfor 
@@ -1856,7 +1848,6 @@ endfor
 \end{verbatim}
 
 
-\subsection{La sentencia \texttt{while\index{while}}}
 
 En vez de controlar el bucle mediante un contador es muy útil
 controlarlo mediante una condición lógica. Para eso podemos usar una
@@ -1895,6 +1886,52 @@ controlados por una condición lógica no permiten la paralelización en
 el caso que tengamos una versión para varios procesadores de Matlab o
 Octave.
 
+\subsubsection{Mal uso de \texttt{while}}
+
+Uno de los argumentos posibles para el uso de \texttt{while} en
+sustitución de \texttt{for} es que el contador se reasigna en cada
+iteración, es decir, el bucle no es consciente de las operaciones que
+se realicen con el índice.
+
+En otros lenguajes de programación como C o Fortran sucede todo lo
+contrario: todas las operaciones con el índice son válidas porque el
+bucle no se encarga de reasignarle el valor siguiente. Se limita a
+darle un valor inicial, incrementarlo el entero dado y pararlo según
+una condicion lógica.
+
+El bucle \texttt{for} en Matlab no es un bucle en el sentido clásico
+sino que es un iterador\footnote{En informática se define iterador
+  como un objeto que permite a un programa recorrer todos los
+  elementos de un tipo iterable independientemente del tipo de los
+  elements.} sobre un vector. En la programación moderna los bucles
+han desaparecido en favor de los iteradores porque los segundos son
+mucho más polivalentes y seguros.  Para demostrar qué significa esto
+de iterador sobre un vector nos sirve este simple ejemplo.
+Generaremos una serie de Fibonacci en un vector y luego iteraremos
+sobre el mismo.
+
+\begin{verbatim}
+>> fib=[1,1,2,3,5,8]
+fib =
+
+   1   1   2   3   5   8
+
+>> for i=fib
+> disp(i)
+> end
+ 1
+ 1
+ 2
+ 3
+ 5
+ 8
+\end{verbatim}
+
+Son más seguros porque permiten iterar sobre una secuencia tan
+compleja como sea necesaria sin arriesgarse a definir una condición
+sin fin.  Esta propiedad deja con poco uso la sentencia
+\texttt{while} mucho menos potentes y más arriesgadas desde el punto
+de vista de la programación pura.
 
 \subsection{La sentencia \texttt{do-until\index{do-until}}}
 
@@ -2167,6 +2204,12 @@ ans = 0
 \end{verbatim}
 
 \subsection{\texttt{inline\index{inline}}}
+
+\emph{El uso que se le da a la función inline en esta sección queda
+  perfectamente cubierto por las funciones anónimas.  El uso de inline
+  queda restringido a la evaluación de una cadena de texto como
+  función, no para la declaración de funciones.  Este apartado debe
+  reescribirse}
 
 Si Matlab no puede definir funciones completas dentro de un script
 significa que para escribir cualquier expresión matemática no básica
@@ -2459,9 +2502,9 @@ algunas de ellas externamente:
 
 \begin{verbatim}
 >> a=2;
->> func=@(x) exp(-(x. ^2+a. ^2)) 
+>> func=@(x) exp(-(x.^2+a.^2)) 
 func =
-@(x) exp (-(x.^ 2 + a.^ 2))
+@(x) exp (-(x.^2 + a.^2))
 \end{verbatim}
 De este modo estamos pidiendo que la función tome una variable que en
 realidad es externa como propia. En Octave esto da un error en el
@@ -2481,9 +2524,9 @@ Pero si hacemos exactamente lo mismo en Matlab...
 
 \begin{verbatim}
 >> a=2;
->> func=@(x) exp(-(x. ^2+a. ^2))
+>> func=@(x) exp(-(x.^2+a.^2))
 func =
-    @(x) exp(-(x. ^2+a. ^2))
+    @(x) exp(-(x.^2+a.^2))
 >> func(2)
 ans =
    3.3546e-04
