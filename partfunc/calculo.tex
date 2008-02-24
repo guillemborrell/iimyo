@@ -68,45 +68,6 @@ $$\frac{s^{2}+s+1}{s^{3}-5s^{2}+8s-4}=
 
 \end{description}
 
-\subsection{Evaluación de
-  funciones.\label{sub:Evaluaci=F3n-de-funciones.}}
-
-Los polinomios son una parte importantísima del cálculo numérico
-porque son su nexo fundamental con el cálculo simbólico. Uno de los
-elementos fundamentales en el cálculo numérico es la aproximación de
-una función analítica por otra con una expresión numérica lo más
-equivalente posible.  Todas las funciones analíticas no existen
-realmente dentro de un programa de cálculo numérico por limitaciones
-del propio ordenador; la aritmética exacta es algo prohibitivo. La
-evaluación de funciones se realiza por series de potencias almacenadas
-por sus coeficientes; este es el funcionamiento de la evaluación de
-cualquier función analítica en un programa de cálculo numérico. Las
-series de potencias acotan el error con el número de términos y el
-orden de la serie; a mayor precisión más términos a evaluar. Por
-ejemplo, si Matlab quiere obtener el valor de la función seno en un
-punto evaluará la serie:
-
-$$\sin x=\sum_{k=0}^{\infty}\frac{(-1)^{k}}{(2k+1)!}x^{2k+1}$$
-
-O si quiere evaluar la función de Bessel de primera especie:
-
-$$J_{n}(x)=\left(\frac{x}{2}\right)^{n}\sum_{k=0}^{\infty}
-\frac{(-\frac{1}{4}x^{2})^{k}}{k!(k+n)!}$$
-
-Si este es el funcionamiento interno de Matlab será muy beneficioso
-que tengamos esto en cuenta cada vez que tengamos que evaluar
-funciones especialmente pesadas. No necesitamos aritmética exacta,
-evaluar una precisión mayor a la de la máquina es malgastar recursos.
-
-Supongamos que tenemos una función con una gran cantidad de funciones
-trigonométricas. Es probable que alguna vez en nuestra vida tengamos
-funciones de dos y tres líneas de código. Evaluarla entera es una
-pérdida de recursos. Imaginemos además que estemos integrando una
-ecuación diferencial cuyo término es esta misma función. Evaluando
-todos los términos no estamos ganando precisión; estamos sumando y
-restando polinomios de un orden mayor al que queremos con valores que
-se cancelan continuamente. Utilizando la interpolación polinómica
-podemos acelerar cualquier código hasta en un órden de magnitud.
 
 
 \section{Derivadas\index{Derivadas}}

@@ -183,7 +183,7 @@ en las que $X$ representa una base de funciones. El objetivo es
 minimizar el funcional error representado por la expresión
 
 $$
-\chi^{2}=\sum_{i=1}^{N}\left[
+\E^{2}=\sum_{i=1}^{N}\left[
   \frac{y_{i}-\sum_{k=1}^{N}a_{k}X_{k}(x_{i})}{\sigma_{i}}\right]^{2}
 $$
 
@@ -526,7 +526,7 @@ $N-1$ suponiendo $N$ el número de puntos de la serie. El polinomio
 será entonces:
 $$ p(x)=\sum_{i}^{N}a_{i}x^{i-1}$$
 problema que se cerrará con la condición de que $p(x_{i})=y_{i}$.  Al
-final se llega a la misma ecuación de siempre:\[ Ac=y\] donde $A$ es
+final se llega a la misma ecuación de siempre: $Ac=y$ donde $A$ es
 la matriz de Vandermonde generada con los puntos $x_{i}$, $c$ el
 vector de incógnitas de los coeficientes y $y$ el vector de puntos de
 la serie $y_{i}$. El vector de coeficientes se genera con este código:
