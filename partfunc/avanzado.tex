@@ -295,38 +295,7 @@ Sin embargo es una sutileza sujeta al estilo de programación.
 Personalmente encuentro las variables globales mucho más intuitivas.
 
 
-% \subsection{La función \texttt{clear}}
-
-% Más adelante en este capítulo, en la sección \ref{sec:comunica-c-fort}
-% y por si aún es ajeno a nosotros este concepto, hablaremos de la
-% llamada por valor y la llamada por referencia.  Matlab, como C, llama
-% por valor.  Esta característica unida a que podemos iniciar variables
-% sin declararlas previamente hace que estemos acumulando memoria en
-% uso.  Se llama pérdida de memoria, \emph{memory leak} al defecto que
-% se presenta cuando una variable inútil no es destruida y la memoria
-% que reserva liberada.
-
-% Algunos lenguajes disponen de un recolector automático de basura pero
-% no es el caso de Matlab.  Si creamos una función que utiliza variables
-% internas \textbf{Matlab no liberará la memoria que hayan utilizado}
-% cuando termine su ejecución.  Si esta función reserva una gran
-% cantidad de memoria es muy importante que nos acordemos de utilizar la
-% función \texttt{clear} para liberar la memoria utilizada. Incluso
-% Fortran, sin recolector de basura y que pasa los argumentos por
-% referencia, no tolera estos errores puesto que manda la memoria
-% reservada en las subrutinas a un stack o un heap; en el caso de
-% desbordarlo da un error en tiempo de ejecución.  Las variables
-% verdaderamente grandes requieren una reserva de memoria estática.
-
-% En la mayoría de los programas esto no será necesario, hay que
-% trabajar con matrices verdaderamente grandes para ocupar una parte
-% significativa de la memoria de un ordenador moderno.  Pero es siempre
-% una práctica muy higiénica liberar la memoria al final de cada
-% función.  Al igual que en Fortran, la responsabilidad de que un
-% programa no tenga pérdidas de memoria recae en el programador, no en
-% el lenguaje o sus herramientas.
-
-\section{Array Masking(+)}
+\section{Array Masking}
 
 Cuando necesitamos controlar el flujo de ejecución de un programa y este
 flujo necesita ciertas condiciones lógicas solemos utilizar una 
@@ -365,6 +334,23 @@ ejemplo, python son las list comprehensions que permiten crear
 directamente un array con una condición lógica.  La clave para
 implementar estos algoritmos de un modo eficiente en Matlab es
 mediante el uso de la función \texttt{find}.
+
+Supongamos que queremos pasar todos los elementos de un vector mayores
+que cero a una nueva variable:
+
+\begin{verbatim}
+>> d = [2,-3,4,-2,3,4,-1]
+d =
+
+   2  -3   4  -2   3   4  -1
+
+>> d(find(d>0))
+ans =
+
+   2   4   3   4
+\end{verbatim}
+
+Quizás algunos hayan visto la luz con esto.
 
 \section{Introducción al debbugging}
 Los comandos de debugging están cambiando en las últimas versiones de
@@ -1263,6 +1249,4 @@ Los diagramas de bode son igualmente sencillos de conseguir (figura
 
 \caption{\label{cap:bode}Gráfica bode del sistema}
 \end{figure}
-
-
 

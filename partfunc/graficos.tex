@@ -453,3 +453,98 @@ mientras que en el plano $z=0$ dibuja las curvas de nivel.
 eje $y$ en una gráfica tridimensional. Suele se más preciso que el
 ratón ya que nos ayuda a controlar las rotaciones con ángulos conocidos.
 \end{description}
+
+\section{Las funciones \texttt{get} y \texttt{set}}
+
+Estas dos funciones son quizás las más útiles de toda la maquinaria de
+representación gráfica de Matlab y las últimas que se aprenden a
+utilizar en la mayoría de los cursos.
+
+Para representar datos gráficamente con calidad se hacen necesarias
+más opciones que las de un simple plot, algunos colores y unos pocos
+formatos de linea. La ventaja de las funciones \texttt{get} y
+\texttt{set} es que la manipulación del aspecto de un gráfico es
+independiente de la representación de datos.  Entenderemos muy
+fácilmente el funcionamiento de estos comandos si volvemos brevemente
+al comando plot.
+
+Si en vez de ejecutar el comando como sugerimos anteriormente le
+pedimos que devuelva un resultado:
+
+\begin{verbatim}
+>> p=plot([1,2,3])
+\end{verbatim}
+
+A parte de obtener la ventana habitual dispondremos de un
+\emph{handle} al propio gráfico.  Este \emph{handle} tiene en Octave
+3.0.0 la estructura siguiente:
+
+\begin{verbatim}
+>> get(p)
+ans =
+{
+  tag =
+  type = line
+  parent = -1.8402
+  children = [](0x0)
+  __modified__ =  1
+  xdata =
+
+     1
+     2
+     3
+
+  ydata =
+
+     1
+     2
+     3
+
+  zdata = [](0x0)
+  ldata = [](0x0)
+  udata = [](0x0)
+  xldata = [](0x0)
+  xudata = [](0x0)
+  color =
+
+     0   0   1
+
+  linestyle = -
+  linewidth =  0.50000
+  marker = none
+  markeredgecolor = auto
+  markerfacecolor = none
+  markersize =  1
+  keylabel =
+  interpreter = tex
+}
+\end{verbatim}
+
+Este no es el único modo de obtener el handle de un gráfico, también
+podemos utilizar las funciones siguientes:
+
+\begin{center}
+\begin{tabular}{cl}
+GCF & get current figure (handle a la figura activa)\\
+GCA & get current axes (handle a los ejes de la figura activa) \\
+GCO & get current object (handle al objeto activo) \\
+GCBF & handle a la figura padre del objeto activo\\
+GCBO & handle al objeto padre del objeto activo\\
+\end{tabular}
+\end{center}
+
+
+Cada una de las componentes de esta estructura es accesible por
+separado:
+
+\begin{verbatim}
+>> get(p,'linestyle')
+ans = -
+\end{verbatim}
+
+Entonces la función \texttt{set} sirve para modificar cualquiera de
+estas propiedades como en el ejemplo siguiente:
+
+\begin{verbatim}
+
+\end{verbatim}
