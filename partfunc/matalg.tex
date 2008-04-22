@@ -213,10 +213,10 @@ notación matricial.
 
 
 \subsection{\label{sub:Creaci=F3n-directa-de}Creación directa de matrices de
-rango mayor que 2.}
+dimensión mayor que 2.}
 
 La notación y la salida por pantalla de Matlab está pensada para el
-cálculo matricial, es decir, mantenernos siempre por debajo del rango
+cálculo matricial, es decir, mantenernos siempre por debajo de dimensión
 3. La notación está pensada para separar filas y columnas pero nada
 más; no hay ninguna notación capaz de separar entre planos matriciales;
 no hay ninguna extensión tensorial.
@@ -267,6 +267,25 @@ ans(:,:,5) =
   0  0  0  1  0
   0  0  0  0  1
  \end{verbatim}
+
+Nótese el uso de la función \texttt{cat}\index{cat}, que sirve para
+concatenar matrices según una dimensión dada.  El uso de esta función
+no tiene sentido en dimensión 2 porque sigue siendo válida la notación
+matricial siempre que las matrices sean compatibles.
+
+\begin{verbatim}
+>> a=rand(3,3);
+>> b=rand(3,3);
+>> [a;b]
+ans =
+
+   0.144247   0.309926   0.765909
+   0.491205   0.703972   0.599172
+   0.159777   0.492780   0.011471
+   0.697402   0.491215   0.672040
+   0.739107   0.386584   0.191049
+   0.229403   0.854104   0.309640
+\end{verbatim}
 
 \section{Sistemas de ecuaciones lineales.}
 
