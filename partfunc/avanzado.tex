@@ -1229,7 +1229,7 @@ sistema en la sesión para hacer el diagrama de Nyquist basta con:
 \begin{verbatim}
 >> nyquist(TOTAL)
 \end{verbatim} Lo que genera la figura (\ref{fig:nyquist}). %
-\begin{figure}
+\begin{figure}[!h]
  \centering
     \includegraphics[width=12cm, keepaspectratio]{figuras/nyquistplot}
 
@@ -1250,3 +1250,167 @@ Los diagramas de bode son igualmente sencillos de conseguir (figura
 \caption{\label{cap:bode}Gráfica bode del sistema}
 \end{figure}
 
+\section{Análisis Numérico de Ecuaciones en Derivadas Parciales}
+
+Muchos problemas físicos pueden describirse mediante ecuaciones en
+derivadas parciales: la transmisión del calor, el movimiento de los
+fluidos, la resistencia de los materiales, la probabilidad que tiene
+un electrón de estar en un orbital alrededor del núcleo.
+Desgraciadamente pocas ecuaciones en derivadas parciales tienen
+solución analítica.  En algunos casos, como las ecuaciones de
+Navier-Stokes que describen el movimiento de un fluido no se ha
+llegado ni a demostrar la existencia y unicidad de la solución.
+
+Sin embargo sí podemos resolverlas numéricamente con más o menos
+dificultades. El abanico de ecuaciones es tan amplio como los métodos
+para resolverlas.
+
+Sería una estupidez intentar abreviar aquí toda una rama de la
+matemática aplicada así que me limitaré a escribir un par de
+ejemplos de cómo se utilizaría el lenguaje Matlab para resolver
+ciertos casos reales.
+
+\subsection{Resolución de la ecuación del calor con simetría axial por
+  volúmenes finitos en un cilindro.}
+
+
+La ecuación del calor no estacionaria para un volúmen de control sin
+término convectivo se puede escribir como:\[
+\partial_{t}U=-\vec{q}\cdot\vec{n}\]
+La variación temporal (positiva) de energía interna es igual al flujo
+de calor entrante a través de su frontera descrita por el vector normal
+saliente. La expresión de la energía interna es:\[
+U=\int_{V}cT\ dm=\int_{V}\rho cT\ dV\]
+y la del flujo de calor:\[
+\vec{q}=-\int_{\partial V}k\nabla T\ dS\]
+En todos los cálculos sucesivos se supondrá un volúmen finito centrado
+en la celda compuesto por una porción radial del tubo. En él sólo
+se considerará el gradiente radial de temperaturas. Combinando las
+ecuaciones anteriores se obtiene la ecuación para el volumen de control:\[
+\partial_{t}\int_{V}\rho cT\ dV=\vec{n}\cdot k\int_{\partial V}\nabla T\ dS\]
+Agrupando todas las constantes y simplificando las integrales debido
+a la simetría cilíndrica:\[
+\frac{\rho c}{k}\partial_{t}T\int_{V}\ dV=\vec{n}\cdot\nabla T\int_{\partial V}\ dS\]
+Y resolviendo las integrales por unidad de longitud del cilindro,
+donde $\int_{V}dV\simeq2\pi r\ dr$ , $\int_{\partial V}dS=2\pi r$
+, $\nabla T=\partial_{r}T$ y $C_{T}=\frac{\rho c}{k}$:\[
+C_{T}\partial_{t}T\ r\ dr=r_{e}\partial_{r}T|_{r_{e}}-r_{i}\partial_{r}T|_{r_{i}}\]
+El último paso antes de la resolución numérica es discretizar espacialmente
+la ecuación con $dr=\Delta r_{j}$ y $r=r_{j}$ teniendo en cuenta
+que el elemento está centrado en el cuerpo.\[
+C_{T}(\partial_{t}T_{j})r_{j}\Delta r_{j}=r_{e}\left.\frac{\Delta T}{\Delta r}\right|_{r_{e}}-r_{i}\left.\frac{\Delta T}{\Delta r}\right|_{r_{i}}\]
+Siguiendo con la discretización ($\Delta r_{j}=\frac{r_{j+1}-r_{j-1}}{2}$,$r_{e}=\frac{r_{j+1}+r_{j}}{2}$,$r_{i}=\frac{r_{j}+r_{j-1}}{2}$,$\left.\frac{\Delta T}{\Delta r}\right|_{r_{e}}=\frac{T_{j+1}-T_{j}}{r_{j+1}-r_{j}}$
+y $\left.\frac{\Delta T}{\Delta r}\right|_{r_{i}}=\frac{T_{j}-T_{j-1}}{r_{j}-r_{j-1}}$):\[
+\partial_{t}T_{j}=\frac{2}{C_{T}r_{j}}\frac{1}{r_{j+1}-r_{j-1}}\left(\frac{r_{j+1}+r_{j}}{2}\frac{T_{j+1}-T_{j}}{r_{j+1}-r_{j}}-\frac{r_{j}+r_{j-1}}{2}\frac{T_{j}-T_{j-1}}{r_{j}-r_{j-1}}\right)\]
+Suponiendo una discretización equiespaciada:\[
+\partial_{t}T_{j}=\frac{1}{C_{T}r_{j}}\frac{1}{\Delta r^{2}}\left(\left(r_{j}+\frac{\Delta r}{2}\right)(T_{j+1}-T_{j})-\left(r_{j}-\frac{\Delta r}{2}\right)(T_{j}-T_{j-1})\right)\]
+y finalmente:\[
+\partial_{t}T_{j}=\frac{1}{C_{T}\Delta r^{2}}\left(\left(1+\frac{\Delta r}{2r_{j}}\right)T_{j+1}-2T_{j}+\left(1-\frac{\Delta r}{2r_{j}}\right)T_{j-1}\right)\]
+Llegamos a una expresión que puede ser integrada en el tiempo numéricamente.
+De modo que el sistema de ecuaciones resultante es:\[
+d_{t}T_{j}=\frac{1}{C_{T}\Delta r^{2}}\left[\begin{array}{ccccc}
+\cdots &  &  &  & 0\\
+ & \ddots\\
+ & 1-\frac{\Delta r}{2r_{j}} & -2 & 1+\frac{\Delta r}{2r_{j}}\\
+ &  &  & \ddots\\
+0 &  &  &  & \cdots\end{array}\right]T_{j}\]
+que a partir de ahora se expresará como \[
+\dot{T}=AT\]
+
+
+Los elementos del contorno tendrán además la contribución de el calor
+que reciben por convección:\[
+\vec{q}_{conv}=\int_{\partial V}h(T_{\infty}-T)dS=\bar{h}(T_{\infty}-T)_{\partial V}\int_{\partial V}dS\]
+Entonces, para el elemento del interior del tubo y teniendo en cuenta
+que su espesor es de la mitad que los elementos interiores porque
+está centrado en la cara.
+
+\[
+(1/2)C_{T}\partial_{t}T\ r\ dr=r_{e}\partial_{r}T|_{r_{e}}+r_{i}\frac{h_{i}}{k}(T_{i}-T_{1})\]
+\[
+\partial_{t}T_{1}=\frac{2}{C_{T}\Delta r^{2}}\left(\left(1+\frac{\Delta r}{2r_{1}}\right)T_{2}-\left(2+\frac{h_{i}}{k}\right)T_{1}+\Delta r^{}\frac{h_{i}}{k}T_{i}\right)\]
+y para el del exterior, también con la mitad de espesor:\[
+(1/2)C_{T}\partial_{t}T\ r\ dr=r_{e}\frac{h_{e}}{k}(T_{e}-T_{N})-r_{i}\partial_{r}T|_{r_{i}}\]
+\[
+\partial_{t}T_{N}=\frac{2}{C_{T}\Delta r^{2}}\left(\Delta r\frac{h_{e}}{k}T_{e}-\left(2+\frac{h_{e}}{k}\right)T_{N}+\left(1-\frac{\Delta r}{2r_{N}}\right)T_{N-1}\right)\]
+
+
+Con lo que la matriz del sistema es:\[
+d_{t}T_{j}=\frac{1}{C_{T}\Delta r^{2}}\left[\begin{array}{ccccc}
+-4-2\Delta r\frac{h_{i}}{k} & 2+\frac{\Delta r}{r_{j}} &  &  & 0\\
+ & \ddots\\
+ & 1-\frac{\Delta r}{2r_{j}} & -2 & 1+\frac{\Delta r}{2r_{j}}\\
+ &  &  & \ddots\\
+0 &  &  & 2-\frac{\Delta r}{r_{j}} & -4-2\Delta r\frac{h_{e}}{k}\end{array}\right]T_{j}+\left[\begin{array}{c}
+2\Delta rT_{i}\frac{h_{i}}{k}\\
+\vdots\\
+0\\
+\vdots\\
+2\Delta rT_{e}\frac{h_{e}}{k}\end{array}\right]\]
+que a partir de ahora se expresará como\[
+\dot{T}=AT+b\]
+Esta es la forma que esperan las rutinas disponibles de integración
+de problemas de Cauchy de modo que no será necesario implementar ningún
+algoritmo de integración temporal. 
+
+Obtendremos todos los perfiles de temperatura con este script.
+
+\begin{verbatim}
+function xdot=sistema(x,t)
+
+A=evalin('base','A','none');
+b=evalin('base','b','none');
+
+xdot=A*x+b;
+\end{verbatim}
+
+\begin{verbatim}
+% Constantes del problema
+k=100; %W/(mK)
+rho=1000;
+c=2400;
+hi=1000;
+he=1000;
+ri=0.1;
+re=0.2;
+N=10;
+Ti=100;
+Te=0;
+
+% Constantes derivadas
+CT=rho*c/k;
+dr=(re-ri)/(N-1);
+r=linspace(ri,re,N);
+
+A=zeros(N,N); %Allocating
+
+%Diagonal principal
+pd=zeros(N,1);
+pd(1)=-4-2*dr*hi/k;
+pd(N)=-4-2*dr*he/k;
+pd(2:N-1)=-2*ones(N-2,1);
+
+A=diag(pd,0);
+
+%Diagonal superior
+ud=zeros(N-1,1);
+ud(1:N-1) = 1+dr./(2*r(1:N-1));
+
+A=A+diag(ud,1);
+
+%Diagonal inferior
+ld=zeros(N-1,1);
+ld(1:N-1) = 1-dr./(2*r(2:N));
+
+A=A+diag(ld,-1);
+A=1./(CT*dr.^2).*A;
+
+b=zeros(N,1);
+b(1)=2*dr*Ti*hi/k;
+b(N)=2*dr*Te*he/k;
+
+
+tic;
+T=lsode(@sistema,zeros(N,1),linspace(0,100,100));
+toc
+\end{verbatim}
