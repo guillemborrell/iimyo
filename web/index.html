@@ -5,6 +5,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Introducción Informal a Matlab y Octave</title>
 <style type="text/css">
+body{
+margin:20px;
+}
+
 h1 {
 font-family: sans-serif;
 border-bottom: medium solid #ff0000;
@@ -27,13 +31,13 @@ list-style-type: square;
 </style>
 </head>
 <body>
-<div style="margin:20px;">
+
   <h1>Introducción Informal a Matlab y Octave</h1>
   <p> 	&rarr;<a href="https://forja.rediris.es/projects/iimyo/">Página en la
       forja</a> para más información y descargas.</p>
   <p> 	&rarr;<a href="./matlab/">Copia desactualizada del libro en HTML</a> para lectura online
-    </p>
-
+  </p>
+  
   <h2 class="title">Sobre el Libro</h2>
   <p>Los objetivos iniciales de este libro son los siguientes:</p>
   <ul class="simple">
@@ -52,104 +56,108 @@ list-style-type: square;
     se ha optado por una licencia libre en su distribución.  Su espíritu
     es el de compartir el conocimiento y aceptar cualquier ayuda por
     pequeña que sea.</p>
-<h3>Licencia</h3> El documento y todo el material adicional está bajo
-la licencia GNU Free Documentation License se explicite o no en los
-archivos. Las versiones anteriores están bajo una licencia Creative
-Commons de reconocimiento, compartir-igual, no comercial; estas copias
-son anteriores a este proyecto.
-
-<h3>Copias impresas</h3>
-<div>
-
-<img style="float:right; margin-left:10px; padding-left:10px"
-src="portada.jpg" alt="portada" width="200" />
-
-<p>Al ser un proyecto de documentación casi cualquier fuente impresa
-quedará desactualizada en unos pocos meses.  El método recomendado
-para obtener una copia impresa del libro es hacer un checkout del
-repositorio, instalar las herramientas necesarias, generarse el pdf e
-imprimirlo. Asimismo el pdf disponible en la sección de descargas está
-razonablemente actualizado.  Los adictos a los documentos a base de
-árboles muertos pueden adquirir una copia impresa
-en <a href="http://www.lulu.com/content/2495137">lulu</a>,
-un conocido servicio de impresión online, por 20€.</p>
-<p>La intención es dotar al libro de una referencia isbn si se vende
-razonablemente bien. La intención última de este servicio no es
-lucrarse económicamente sino intentar calibrar el interés comercial y
-poner una copia impresa en manos de quien quiera y no pueda imprimir
-200 páginas económicamente. </p>
-
-</div>
-<h2>Otros recursos sobre Octave</h2>
-<ul>
-<li><a href="http://www.gnu.org/software/octave/">Página web del
-proyecto Octave</a></li>
-<li><a href="http://wiki.octave.org">Wiki del proyecto Octave</a></li>
-<li><a href="http://octave.sourceforge.net/">Página web de
-    octave-forge, una colección de toolkits para Octave.</a>También
-    en esta página podemos encontrar</li>
-<ul>
-  <li>El <a href="http://www.gnu.org/software/octave/doc/interpreter/">Manual
-  de Octave</a> actualizado a la última versión.</li>
-  <li>El <a href="http://octave.sourceforge.net/doc/index.html">índice</a>
-  de todas las funciones disponibles tanto en Octave como en los
-  toolkits de octave-forge.</li>
-  <li>La <a href="http://octave.sourceforge.net/doxygen/html/index.html">documentación
-  de la API</a> de liboctave para ampliar el intérprete mediante
-  C++.</li>
-</ul>
-</ul>
-
-<h2>Otras lecturas de interés</h2>
-<ul>
-<li><a href="./notaautor.html">Nota del autor inicial</a></li>
-<li><a href="http://servidor-da.aero.upm.es/zope/portalda/informacion-general/actividades/curso-de-matlab/">Página
-del Curso de Matlab </a>del que surgió todo el material.  En ella
-encontrareis las últimas transparencias del curso y la solución de los
-ejercicios propuestos en las mismas.  Son útiles para introducirse
-rápidamente en el tema.</li>
-<li><a href="http://qtoctave.wordpress.com/">QtOctave</a>, un
-front-end multiplataforma para Octave.</li>
-<li><a href="http://www.springer.com/east/home/generic/search/results?SGWID=5-40109-22-156994933-0">Cálculo
-    científico con Matlab y Octave</a>. Poco después que yo publicara
-    en la red el libro aparecía este de la misma temática. Para más
-    inri los autores fueron mis profesores de "Modellistica Numerica
-    per Problemi Differenziali" en el Politecnico di Milano durante
-    mi año de Erasmus.  Alfio Quarterioni es el autor de uno de los
-    libros de referencia sobre métodos espectrales y un investigador
-    de renombre
-    internacional. <a href="http://mox.polimi.it/~fausal/">Fausto
-    Saleri</a> es una persona encantadora, sospecho que la mayor
-    parte del libro es suya.  Aunque no he podido analizar el libro
-    con mucho detenimiento es sin duda el recurso comercial más
-    recomendable y cercano a IIMyO aunque mucho más dirigido al
-    cálculo numérico.  El original está en italiano y desconozco
-    quién lo tradujo.</li>
-</ul>
+  
+  <h3>Licencia</h3> El documento y todo el material adicional está bajo
+  la licencia GNU Free Documentation License se explicite o no en los
+  archivos. Las versiones anteriores están bajo una licencia Creative
+  Commons de reconocimiento, compartir-igual, no comercial; estas copias
+  son anteriores a este proyecto.
+  
+  <h3>Copias impresas</h3>
+  <div>
+    <img style="float:right; margin-left:10px; padding-left:10px"
+	 src="portada.jpg" alt="portada" width="200" />
+    <p>Al ser un proyecto de documentación casi cualquier fuente impresa
+      quedará desactualizada en unos pocos meses.  El método recomendado
+      para obtener una copia impresa del libro es hacer un checkout del
+      repositorio, instalar las herramientas necesarias, generarse el pdf
+      e imprimirlo. Asimismo el pdf disponible en la sección de descargas
+      está razonablemente actualizado.  Los adictos a los documentos a
+      base de árboles muertos pueden adquirir una copia impresa
+      en <a href="http://www.lulu.com/content/2495137">lulu</a>,
+      un conocido servicio de impresión online, por unos 20€ gastos de
+      envío incluidos</p>
+    
+    <p>Este servicio es sin ningún ánimo de lucro. El precio relativamente
+      elevado se debe a la comisión que se lleva Lulu y los gastos de
+      envío (el precio de coste según ellos es de unos 8€). En la
+      actualidad estoy buscando algún servicio de publicaciones
+      universitario que esté dispuesto a darle al texto un ISBN y a
+      imprimirlo y distribuirlo a un precio razonable. </p>
+    
+  </div>
+  <h2>Otros recursos sobre Octave</h2>
+  <ul>
+    <li><a href="http://www.gnu.org/software/octave/">Página web del
+	proyecto Octave</a></li>
+    <li><a href="http://wiki.octave.org">Wiki del proyecto Octave</a></li>
+    <li><a href="http://octave.sourceforge.net/">Página web de
+	octave-forge, una colección de toolkits para Octave.</a>También
+      en esta página podemos encontrar</li>
+    <ul>
+      <li>El <a href="http://www.gnu.org/software/octave/doc/interpreter/">Manual
+	  de Octave</a> actualizado a la última versión.</li>
+      <li>El <a href="http://octave.sourceforge.net/doc/index.html">índice</a>
+	de todas las funciones disponibles tanto en Octave como en los
+	toolkits de octave-forge.</li>
+      <li>La <a href="http://octave.sourceforge.net/doxygen/html/index.html">documentación
+	  de la API</a> de liboctave para ampliar el intérprete mediante
+	C++.</li>
+    </ul>
+  </ul>
+  
+  <h2>Otras lecturas de interés</h2>
+  <ul>
+    <li><a href="./notaautor.html">Nota del autor inicial</a></li>
+    <li><a href="./FAQ.html">Preguntas más frecuentes</a></li>
+    <li><a href="http://servidor-da.aero.upm.es/zope/portalda/informacion-general/actividades/curso-de-matlab/">Página
+	del Curso de Matlab </a>del que surgió todo el material.  En ella
+      encontrareis las últimas transparencias del curso y la solución de los
+      ejercicios propuestos en las mismas.  Son útiles para introducirse
+      rápidamente en el tema.</li>
+    <li><a href="http://qtoctave.wordpress.com/">QtOctave</a>, un
+      front-end multiplataforma para Octave.</li>
+    <li><a href="http://www.springer.com/east/home/generic/search/results?SGWID=5-40109-22-156994933-0">Cálculo
+	científico con Matlab y Octave</a>. Poco después que yo publicara
+      en la red el libro aparecía este de la misma temática. Para más
+      inri los autores fueron mis profesores de "Modellistica Numerica
+      per Problemi Differenziali" en el Politecnico di Milano durante
+      mi año de Erasmus.  Alfio Quarterioni es el autor de uno de los
+      libros de referencia sobre métodos espectrales y un investigador
+      de renombre
+      internacional. <a href="http://mox.polimi.it/~fausal/">Fausto
+	Saleri</a> es una persona encantadora, sospecho que la mayor
+      parte del libro es suya.  Aunque no he podido analizar el libro
+      con mucho detenimiento es sin duda el recurso comercial más
+      recomendable y cercano a IIMyO aunque mucho más dirigido al
+      cálculo numérico.  El original está en italiano y desconozco
+      quién lo tradujo.</li>
+  </ul>
+  
+  <h2>Agradecimientos</h2>
+  
+  <p>Me gustaría agradecer el apoyo tanto material
+    como personal de los departamentos de Motopropulsión y
+    Termofluidodinámica, Matemática Aplicada y Fundamentos Matemáticos
+    de la ETSI Aeronáuticos de la UPM.
+  </p>
+  
+  <p>A la Universidad de La Rioja y a Juan José Martín por la
+    extraordinaria acogida que tuve en Logroño donde me dieron la
+    oportunidad de entrar bastantes bares de la Calle del Laurel y a la
+    Oficina de Software Libre de la Universidad de Cádiz por el interés
+    que han mostrado en este texto.</p>
+  
+  <p>Finalmente desearía quejarme públicamente de todos los emails de
+    desconocidos solicitándome ayudarles en sus investigaciones y
+    deberes de Cálculo Numérico con Matlab a los que respondo por
+    pura buena voluntad. Después de resolver sus dudas ninguno ha
+    mostrado el más mínimo interés por colaborar en el proyecto.</p>
+  
+  <div style="text-align:center;">
+    <img src="https://forja.rediris.es/themes/rediris/images/logo.png" />
+  </div>
+  
 
 </body>
 </html>
-<h2>Agradecimientos</h2>
-
-<p>Me gustaría agradecer el apoyo tanto material
-  como personal de los departamentos de Motopropulsión y
-  Termofluidodinámica, Matemática Aplicada y Fundamentos Matemáticos
-  de la ETSI Aeronáuticos de la UPM.
-</p>
-
-<p>A la Universidad de La Rioja y a Juan José Martín por la
-  extraordinaria acogida que tuve en Logroño donde me dieron la
-  oportunidad de entrar bastantes bares de la Calle del Laurel y a la
-  Oficina de Software Libre de la Universidad de Cádiz por el interés
-  que han mostrado en este texto.</p>
-
-<p>Finalmente desearía quejarme públicamente de todos los emails de
-  desconocidos solicitándome ayudarles en sus investigaciones y
-  deberes de Cálculo Numérico con Matlab a los que respondo por
-  pura buena voluntad. Después de resolver sus dudas ninguno ha
-  mostrado el más mínimo interés por colaborar en el proyecto.</p>
-
-<div style="text-align:center;">
-<img src="https://forja.rediris.es/themes/rediris/images/logo.png" />
-</div>
-</div>
