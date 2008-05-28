@@ -72,10 +72,12 @@ anterior nos queda el símbolo de entrada:
 ¿Qué hacemos a parte de quedarnos paralizados? Pues si esto es una
 calculadora vamos a usarlo como una calculadora:
 
-\begin{verbatim}
+
+\begin{lstlisting}
 >> 2+2
-ans = 4
-\end{verbatim}
+ans = 4  
+\end{lstlisting}
+
 
 Este ejemplo no sirve para nada pero resume perfectamente el uso de
 Matlab. En el fondo es una calculadora programable con unas
@@ -94,17 +96,17 @@ programación orientada a matemáticas. Si queremos calcular el seno de
 $\frac{\pi}{2}$ lo que haremos será llamar a la función como se haría
 sobre el papel:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> sin(pi/2)
 ans = 1
-\end{verbatim}
+\end{lstlisting}
 Entonces nada impide usar el mismo concepto para resolver problemas
 mucho más complejos:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> quad(@(x) besselj(2.5,x),0,4.5)
 ans = 1.1178
-\end{verbatim}
+\end{lstlisting}
 Acabamos de hacer la siguiente integral de la función real de Bessel
 de primera especie:
 
@@ -364,12 +366,12 @@ manualmente esta tarea puede requerir unos cuantos minutos pero si
 disponemos de un intérprete de \emph{python} en el sistema lo
 conseguiremos con:
 
-  \begin{verbatim}
+\begin{lstlisting}[language=Python]
 >>> import os
 >>> for file in os.listdir('.'):
 ...     if file.find('abc') >= 0:
 ...         os.system('mv %s %s%s' %(file,file,'_'))
-\end{verbatim}
+\end{lstlisting}
 Parece fácil. ¿Verdad? Si para los administradores de sistemas
 conocer un lenguaje interpretado de propósito general es así de útil
 ¿Por qué no iba a serlo para un ingeniero? ¿Cuántas líneas de código
