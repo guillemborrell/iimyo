@@ -72,9 +72,10 @@ en varios capítulos para no romper el hilo conceptual.
 A partir de ahora escribiremos un comando escrito en la consola de la
 siguiente manera:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> %Esto es un comentario puesto en la consola de Matlab
-\end{verbatim}
+\end{lstlisting}
+
 Escribiremos todas las palabras clave con letra de formato fijo como
 esta función: \texttt{sin(x)}.
 
@@ -123,16 +124,16 @@ sumas y restas. Por ejemplo, para realizar la siguiente operación:
 $$\frac{1}{\frac{2}{0.1^{1/2}}-\frac{0.4}{2^{1/3}}}$$
 introduciremos enla consola:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> 1/((2/0.1 ^(1/2))-(0.4/2 ^(1/3)))
-\end{verbatim}
+\end{lstlisting}
 
 Evidentemente Matlab no distingue entre elementos numéricos y
 variables, la ecuación:
 $$\frac{a}{\frac{b}{c{}^{d}}-\frac{e}{g^{f}}}$$
-\begin{verbatim}
+\begin{lstlisting}
 >> a/(b/c^d-e/g^f)
-\end{verbatim}
+\end{lstlisting}
 
 Los paréntesis sirven para variar el orden normal de las operaciones a
 realizar.
@@ -149,10 +150,10 @@ exactamente la función para trasponer una matriz podemos hacer lo
 siguiente, escribimos sólo el inicio de la palabra y luego presionamos
 la tecla de tabular:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> tra<TAB>
 trace      transpose  trapz
-\end{verbatim}
+\end{lstlisting}
 
 Esta es una característica común de casi todas las consolas
 existentes, ya sea una consola de UNIX o el Command Prompt de Windows.
@@ -195,9 +196,9 @@ conozcamos su uso y sus funcionalidades%
   cualquier función que escribamos%
 }. Para acceder a la ayuda de una función teclearemos
 
-\begin{verbatim}
->> help  {nombre de la función}
-\end{verbatim}
+\begin{lstlisting}
+>> help  {nombre de la funcion}
+\end{lstlisting}
 
 Esto significa que debemos saber cómo se llama la función. Si
 introducimos \texttt{help} sin ningún argumento nos aparecerá una
@@ -231,9 +232,9 @@ varias variables.  Matlab tiene una extensísima biblioteca de funciones,
 la mayoría de ellas son archivos con la extensión \texttt{.m} que
 lee el intérprete.  Pero el intérprete no puede saber por ciencia infusa
 dónde se encuentran dichas funciones.  Si en la consola introducimos:
-\begin{verbatim}
+\begin{lstlisting}
 >> sin(x)
-\end{verbatim}
+\end{lstlisting}
 ¿Cómo sabe Matlab dónde se encuentra la función seno?  La respuesta es
 que Matlab ya sabe en qué directorios del sistema puede encontrar
 archivos \texttt{.m} desde su instalación.
@@ -264,19 +265,19 @@ En Matlab se define una función del siguiente modo:\footnote{El comando
   En Matlab no es necesario porque cada función está asociada a un
   único archivo, el final del mismo hace de texttt{end}.}:
 
-\begin{verbatim}
+\begin{lstlisting}
 function [variables_de_salida]= nombre(variables_de_entrada)
   Comandos que terminamos asignando a las variables de salida
 {end}
-\end{verbatim}
+\end{lstlisting}
  
 Por ejemplo,si queremos implementar una función que sume dos escalares 
 debemos hacer lo siguiente:
 
-\begin{verbatim}
+\begin{lstlisting}
 function [c]=suma(a,b)
   c=a+b;
-\end{verbatim}
+\end{lstlisting}
 
 Y lo guardaremos en un archivo que se llame igual que la función; en
 el caso del ejemplo será \texttt{suma.m}. Luego lo guardaremos en nuestro
@@ -306,17 +307,17 @@ varios modos:
   los directorios de búsqueda de funciones el intérprete ejecutará
   toda la secuencia de comandos introduciéndole el nombre del script
 \end{itemize}
-\begin{verbatim}
+\begin{lstlisting}
 >> nombre_del_archivo
-\end{verbatim}
+\end{lstlisting}
 \begin{itemize}
 \item Fuera del intérprete. Dentro de una consola llamando el
   intérprete con el nombre de archivo como argumento. Por ejemplo, en
   una consola cualquiera:
 \end{itemize}
-\begin{verbatim}
+\begin{lstlisting}
 $> matlab nombre_del_archivo
-\end{verbatim}
+\end{lstlisting}
 
 Podemos llamar a funciones en nuestros scripts siempre que sea con
 variables que hayamos inicializado antes de la llamada. El concepto es
@@ -335,10 +336,10 @@ Taylor en 0 de la función seno. Para ello editamos el archivo nuevo de
 nombre \texttt{aprsin.m} en el directorio que nos diga Matlab o Octave
 según el caso y pondremos en ella lo siguiente:
 
-\begin{verbatim}
+\begin{lstlisting}
 function out=aprsin(x)
   out=x-x^3/6;
-\end{verbatim}
+\end{lstlisting}
 
 Vemos que asignamos a la variable \texttt{out} las operaciones
 que hacemos sobre la variable de entrada \texttt{x}. La idea es
@@ -347,14 +348,14 @@ hayamos guardado en el directorio de trabajo esta función puede ser llamada
 por el intérprete de Matlab o por cualquier script.
 Para probarlo nos vamos a la consola y tecleamos:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> y=aprsin(1.3)
-\end{verbatim}
+\end{lstlisting}
 que debe darnos como resultado:
 
-\begin{verbatim}
+\begin{lstlisting}
 y = 0.93383
-\end{verbatim}
+\end{lstlisting}
 Aún es pronto para algunos conceptos, hay que aclarar un par de
 cuestiones:
 
@@ -378,18 +379,18 @@ Vamos a comparar nuestra aproximación de la función seno con la
 función exacta y lo vamos a escribir en un guión. Para ello creamos el
 archivo \texttt{comparar.m} y escribimos lo siguiente en él:
 
-\begin{verbatim}
+\begin{lstlisting}
 x=linspace(-pi,+pi,100);
 for i=1:100
     y(i)=aprsin(x(i));
 end
 plot(x,[y;sin(x)])
-\end{verbatim}
+\end{lstlisting}
 Para ejecutarlo vamos a la consola y tecleamos:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> comparar
-\end{verbatim}
+\end{lstlisting}
 E inmediatamente va a aparecer la figura \ref{cap:figura-ejemplo1}:
 
 
@@ -415,12 +416,12 @@ relación entre funciones, los scripts y Matlab.
 o en un script.  Cualquier función debe ser un archivo independiente
 por simple que esta sea}. Por ejemplo, si en Matlab escribimos:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> function c=suma(a,b)
 ??? function c=suma(a,b)
     |
 Error: Function definitions are not permitted at the prompt or in scripts.
-\end{verbatim}
+\end{lstlisting}
 Recibimos un error.  En cambio Octave puede definir funciones tanto
 en el intérprete como en un script, algo que dota a este intérprete
 alternativo de algo más de versatilidad.
@@ -448,9 +449,9 @@ sea la sentencia \texttt{function} y a continuación escribimos todas
 las funciones que necesitemos. Luego, en el programa principal lo
 llamamos con un:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> source('header.m')
-\end{verbatim}
+\end{lstlisting}
 
 \section{Argumento\index{Argumentos}}
 
@@ -486,7 +487,7 @@ es un lenguaje de cálculo matricial es porque todos los números son en
 el fondo matrices. El número $1$ puede ser escalar, vector y matriz a
 la vez sin ningún problema:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> a=1
 a = 1
 >> a(1)
@@ -495,12 +496,12 @@ ans = 1
 ans = 1
 >> a(1,1,1)
 ans = 1
-\end{verbatim}
+\end{lstlisting}
 Tampoco distingue si sus elementos son enteros o reales, todos los
 números tienen la misma precisión en coma flotante, que es doble
 precisión siempre que no le indiquemos lo contrario. Las entradas
 
-\begin{verbatim}
+\begin{lstlisting}
 >> a=105
 a = 105
 >> a=1.05e+2
@@ -509,7 +510,7 @@ a = 105
 a = 105
 >> a=105.
 a = 105
-\end{verbatim}
+\end{lstlisting}
 
 son equivalentes. Estas son las dos características más importantes
 del lenguaje.
@@ -518,23 +519,23 @@ Las matrices se estiran y encogen sin ninguna limitación ni en el
 tamaño ni en las dimensiones. Si intentamos llenar el décimo elemento
 de un vector \textbf{inexistente} con un 1.
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo(10)=1
-\end{verbatim}
+\end{lstlisting}
 el programa lo va a hacer sin ningún problema
 
-\begin{verbatim}
+\begin{lstlisting}
 foo =   
   0  0  0  0  0  0  0  0  0  1
-\end{verbatim}
+\end{lstlisting}
 y si ahora le pido
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo(11,4)=2
-\end{verbatim}
+\end{lstlisting}
 obtengo
 
-\begin{verbatim}
+\begin{lstlisting}
 foo =   
   0  0  0  0  0  0  0  0  0  1   
   0  0  0  0  0  0  0  0  0  0   
@@ -547,7 +548,7 @@ foo =
   0  0  0  0  0  0  0  0  0  0   
   0  0  0  0  0  0  0  0  0  0   
   0  0  0  2  0  0  0  0  0  0
-\end{verbatim}
+\end{lstlisting}
 Vemos que el comportamiento es un poco extraño. Si nosotros utilizamos
 únicamente un índice obtenemos un vector fila, mientras que en una
 matriz la notación es la usual, el primer elemento es el número de
@@ -592,17 +593,17 @@ siguiente:
 Por ejemplo, si queremos escribir el vector fila $\vec{e}=(1\ 2\ 3)$
 lo haremos con:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> e=[1,2,3]
 e =
   1  2  3
 >> e=[1 2 3]
 e =
   1  2  3
-\end{verbatim}
+\end{lstlisting}
 En cambio, para escribir el mismo vector pero en forma de columna:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> f=[1;2;3]
 f =
   1
@@ -615,7 +616,7 @@ f =
   1
   2
   3
-\end{verbatim}
+\end{lstlisting}
 Esta es exactamente la misma notación que se sigue para introducir una
 matriz entera. Lo intentamos con:
 $$ \left(
@@ -625,17 +626,17 @@ $$ \left(
     7 & 8 & 9
   \end{array}\right)$$
 
-\begin{verbatim}
+\begin{lstlisting}
 >> m=[1,2,3;4,5,6;7,8,9]
 m =
   1  2  3
   4  5  6
   7  8  9
-\end{verbatim}
+\end{lstlisting}
 Aunque cualquier combinación de las anteriores sería perfectamente
 válida, por ejemplo:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> m=[1 2 3
 > 4 5 6
 > 7 8 9]
@@ -643,15 +644,15 @@ m =
   1  2  3
   4  5  6
   7  8  9
-\end{verbatim}
+\end{lstlisting}
 La llamada simple a un elemento cualquiera de una matriz se hace
 indicando su fila y su columna por ese orden. En el caso de la matriz
 \texttt{m}:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> m(2,1)
 ans = 4
-\end{verbatim}
+\end{lstlisting}
 Aprenderemos a crear matrices de más dimensiones en la sección
 \ref{sub:Creaci=F3n-directa-de}.
 
@@ -685,24 +686,24 @@ reserva (alocatea) memoria. Por ejemplo, si deseamos operar con
 matrices de números enteros de 8 bits utilizaremos la función
 \texttt{int8} del modo siguiente:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> x=int8([1,2;109237401823056187365,83.0938])
 x =
     1    2
   127   83
-\end{verbatim}
+\end{lstlisting}
 Llama la atención el hecho de que el número 109237401823056187365 se
 ha convertido en el 127. Esto es debido a que el mayor entero de 8
 bits que podemos almacenar es precisamente 127. Si necesitamos una
 aritmética de mayor precisión entera siempre podemos hacer lo
 siguiente:
 
-\begin{verbatim}
+\begin{lstlisting}
 x=int64([1,2;109237401823056187365,83.0938])
 x =
     1    2
   9223372036854775807   83
-\end{verbatim}
+\end{lstlisting}
 Ni siquiera el mayor entero disponible es capaz de almacenar el número
 anterior.
  
@@ -733,19 +734,19 @@ contar algo aparecerán las secuencias porque \textbf{es el método
   propio Matlab para contar}. Si queremos una lista de números que nos
 cuente del $1$ al $10$ hacerlo es tan fácil como:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> secuencia=1:10
 secuencia =
    1   2   3   4   5   6   7   8   9  10
-\end{verbatim}
+\end{lstlisting}
 Si queremos manipular el contador para que no sea de $1$ en $1$
 podemos introducir el salto entre dos números sucesivos:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> secuencia=1:2:10
 secuencia =
    1   3   5   7   9
-\end{verbatim}
+\end{lstlisting}
 
 
 \subsubsection{Contadores no enteros.}
@@ -753,23 +754,23 @@ secuencia =
 Las secuencias soportan intervalos distintos a los números enteros.
 Podemos introducir la secuencia:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> 0:0.5:4
 ans =
  Columns 1 through 8:
   0.00000  0.50000  1.00000  1.50000  2.00000  2.50000  3.00000  3.50000
  Column 9:
   4.00000
-\end{verbatim}
+\end{lstlisting}
 
 Si el intervalo que introducimos no ajusta exactamente al límite
 superior parará de contar \emph{sin pasarse}.
 
-\begin{verbatim}
+\begin{lstlisting}
 >> 0:0.52:4
 ans =
   0.00000  0.52000  1.04000  1.56000  2.08000  2.60000  3.12000  3.64000
-\end{verbatim}
+\end{lstlisting}
 Evidentemente este tipo particular de contadores no son adecuados para
 contar índices porque genera números no enteros. Su utilidad
 se encuentra en la discretización de intervalos necesaria, por ejemplo,
@@ -785,7 +786,7 @@ los índices de la primera Para entender mejor cómo funciona este tipo
 de asignaciones mejor hacerlo mediante ejemplos. Iniciaremos una
 sesión en Matlab creando una matriz de números aleatorios:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo=rand(5,5)
  foo =
   0.808048  0.804808  0.871166  0.606412  0.867716
@@ -793,18 +794,18 @@ sesión en Matlab creando una matriz de números aleatorios:
   0.476355  0.544236  0.254009  0.818164  0.091934
   0.736103  0.231876  0.115706  0.336303  0.478042
   0.807002  0.244172  0.507355  0.814160  0.792253
-\end{verbatim}
+\end{lstlisting}
 Ahora crearemos una submatriz llamada \texttt{bar} que contendrá las
 filas de la segunda a la quinta y columnas de la tercera a la quinta.
 
-\begin{verbatim}
+\begin{lstlisting}
 >> bar=foo(2:5,3:5)
  bar =
   0.210789  0.163542  0.639094
   0.254009  0.818164  0.091934
   0.115706  0.336303  0.478042
   0.507355  0.814160  0.792253
-\end{verbatim}
+\end{lstlisting}
 Pero las secuencias tienen la capacidad de contar de modos distintos,
 en el caso siguiente contaremos las filas de 2 en 2 como muestra el
 siguiente ejemplo. En él crearemos una submatriz \texttt{qwe} que
@@ -812,13 +813,13 @@ sean, de la matriz \texttt{foo} las filas de la primera a la quinta de
 2 en 2 (la primera, la tercera y la quinta) y las columnas de la
 primera a la tercera.
 
-\begin{verbatim}
+\begin{lstlisting}
 >> qwe=foo(1:2:5,1:3)
  qwe =
   0.80805  0.80481  0.87117
   0.47635  0.54424  0.25401
   0.80700  0.24417  0.50735
-\end{verbatim}
+\end{lstlisting}
 Si omitimos los elementos de la secuencia y dejamos sólo el símbolo
 \texttt{:}, el resultado será que tomaremos todos los elementos de la
 fila o de la columna.
@@ -826,9 +827,9 @@ fila o de la columna.
 Además de una secuencia los índices pueden introducirse mediante
 vectores:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> qwe=foo([1,2],[1,2])
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Números Complejos \index{Números Complejos}}
 
@@ -839,9 +840,9 @@ de cada elemento. La manera de introducir un número complejo como
 argumento en una variable es el uso del número \texttt{i} que
 multiplica a la parte imaginaria.
 
-\begin{verbatim}
+\begin{lstlisting}
 >> numcom=2+3i
-\end{verbatim}
+\end{lstlisting}
 
 También podemos usar otros signos para expresar \texttt{$i$} como
 \texttt{j}, \texttt{I} o \texttt{J}. Evidentemente también podemos
@@ -858,41 +859,41 @@ embebidos dentro de Matlab, como los números racionales $\pi$ como
 Podemos asignar a una variable una cadena de texto introduciéndola
 entre comillas simples o dobles:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> saludo='hola que tal';
-\end{verbatim}
+\end{lstlisting}
 y si pedimos qué hay en la variable:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> saludo
 saludo = hola que tal
-\end{verbatim}
+\end{lstlisting}
 En Octave también son válidas las comillas dobles:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> saludo=''hola que tal''
 saludo = hola que tal
-\end{verbatim}
+\end{lstlisting}
 Matlab almacena las cadenas de texto como un vector de caracteres.
 Esto significa que acepta todas las posibilidades de composición de
 vectores, la diferencia es que operaremos con caracteres ASCII en vez
 de con números reales. Para demostrarlo nada mejor que intentar
 encadenar palabras en fila
 
-\begin{verbatim}
+\begin{lstlisting}
 >> ['me','gusta','el','furbo']
 ans = megustaelfurbo
-\end{verbatim}
+\end{lstlisting}
 o en columna
 
-\begin{verbatim}
+\begin{lstlisting}
 >> ['me';'gusta';'el';'furbo']
 ans =
 me
 gusta
 el
 furbo
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Argumentos lógicos\index{variables lógicas}}
 
@@ -919,46 +920,46 @@ generan resultados completamente distintos.
 
 Por ejemplo, si tomamos dos matrices cualquiera:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A=[1 2 3;4 5 6;7 8 9];
 >> B=[9 8 7;6 5 4;3 2 1];
-\end{verbatim}
+\end{lstlisting}
 
 Su multiplicación directa va a dar como resultado precisamente la
 multiplicación matricial:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A*B
 ans =
    30   24   18
    84   69   54
   138  114   90
-\end{verbatim}
+\end{lstlisting}
 ¿Y si queremos una operación escalar? \textbf{Todos los operadores de
   Matlab pasan de matriciales a escalares añadiendo un punto justo
   antes del símbolo del operador}. En el caso de las matrices
 anteriores:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A.*B
 ans =
    9  16  21
   24  25  24
   21  16   9
-\end{verbatim}
+\end{lstlisting}
 \textbf{La potencia es la operación que más errores provoca cuando se
   es principiante con el Matlab}. Cuando uno piensa en la operación de
 la potencia nunca piensa en ella como una operación matricial; es muy
 poco intuitivo. No pensamos que la operación:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A^2
-\end{verbatim}
+\end{lstlisting}
 Sea equivalente a:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A*A;
-\end{verbatim}
+\end{lstlisting}
 
 Operación que es matricialmente del todo lógica. Este comportamiento
 provoca dos errores típicos.
@@ -972,25 +973,25 @@ provoca dos errores típicos.
 Un ejemplo claro es lo que nos encontramos cuando elevamos la anterior
 matriz a una burda aproximación del número $\pi$:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A^3.14
 ans =
    691.22 -    0.43i   850.20 -    0.12i  1009.17 +    0.20i
   1567.33 -    0.05i  1925.90 -    0.01i  2284.47 +    0.02i
   2443.44 +    0.34i  3001.60 +    0.09i  3559.76 -    0.15i
-\end{verbatim}
+\end{lstlisting}
 ¿Números complejos?
 
 El problema es que en Matlab cualquier argumento puede ser una matriz;
 olvidarnos el punto antes de utilizar la potencia...
 
-\begin{verbatim}
+\begin{lstlisting}
 >> A.^3.14
 ans =
     1.0000    8.8152   31.4891
    77.7085  156.5906  277.5843
   450.4098  685.0189  991.5657
-\end{verbatim}
+\end{lstlisting}
 es uno de los errores más comunes. Por suerte los errores suelen ser
 tan evidentes que la sangre raramente llega al río. El problema llega
 cuando elevamos al cuadrado matrices cuadradas. Los resultados
@@ -1128,7 +1129,7 @@ primer tipo son \texttt{\&} para {}``y\index{y}'', \texttt{|} para
 operan con matrices es porque aplicados a matrices de condiciones
 lógicas devuelven una matriz del mismo tamaño, por ejemplo:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> [1,2;0,1]&[0,1;0,1]
 ans =
   0  1
@@ -1137,7 +1138,7 @@ ans =
 ans =
   1  0
   0  1
-\end{verbatim}
+\end{lstlisting}
 La expresión entera para condiciones lógicas es \texttt{0} para
 {}``falso'' y distinto de \texttt{0} para {}``verdadero'', es decir,
 lógica binaria usual.
@@ -1158,7 +1159,7 @@ operadores.
 
 Matlab es también capaz de comparar y manipular los bits en enteros.
 Para eso dispone de las funciones siguientes:
-\begin{verbatim}
+\begin{lstlisting}
 >> bit<TAB>
 bitand    bitmax    bitset    bitxor
 bitcmp    bitget    bitor     bitshift
@@ -1187,7 +1188,7 @@ ans = 100101
 ans = 5
 >> dec2bin(bitxor(a,b)) % En bits...
 ans = 101
-\end{verbatim}
+\end{lstlisting}
 
 \section{Variables\index{Variables}}
 
@@ -1218,12 +1219,12 @@ limitación en su número, sólo que deben empezar con un carácter tipo
 letra o con \_ . Se distingue entre mayúsculas y minúsculas. Los
 nombres siguientes serían válidos:
 
-\begin{verbatim}
+\begin{lstlisting}
 x
 x15
 __hola_que_tal__
 fjalsbdgaoqiwbodj
-\end{verbatim}
+\end{lstlisting}
 El nombre de una variable es una función en sí misma, llamada sin
 argumentos sacará por pantalla el valor de la variable. Algunas
 variables tienen un valor por defecto como \texttt{pi} o \texttt{ans}.
@@ -1283,7 +1284,7 @@ Al estar definida como una variable global no sólo puede ser vista por
 la función; si además la función cambia su valor también cambiará en
 el programa principal. Un ejemplo de ello es el código siguiente:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> global x=2
 >> x
 x = 2
@@ -1293,7 +1294,7 @@ x=3
 end
 >> f()
 x = 3
-\end{verbatim}
+\end{lstlisting}
 Como se ve debemos tener cuidado con los nombres de las variables
 globales, no es difícil estropear el código llamando una variable
 global en una función sin querer%
@@ -1402,15 +1403,15 @@ Podemos entonces agrupar distintos tipos de argumentos dentro de una
 variable. Para probar esta posibilidad vamos a escribir un script de
 prueba que se va a llamar \texttt{estructura.m}.
 
-\begin{verbatim}
+\begin{lstlisting}
 % estructura.m
 
-% Éste es el script de prueba para las variables de tipo estructura
+% Este es el script de prueba para las variables de tipo estructura
 foo.num=1.234;   
 foo.string='hola mundo';   
 foo.options.option1=true;   
 foo.options.option2=false;
-\end{verbatim}
+\end{lstlisting}
 Lo guardamos en el directorio correspondiente y si nos vamos a la
 consola y tecleamos \texttt{estructura} qué obtenemos? Pues nada en
 absoluto porque le hemos pedido con los puntos y coma que no nos
@@ -1418,7 +1419,7 @@ sacara ninguna información por pantalla. Si queremos que nos diga qué
 hay dentro de la variable \texttt{foo} debemos teclear \texttt{foo} en
 la consola y nos aparecerá lo siguiente:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> estructura
 >> foo   
 foo =   
@@ -1431,7 +1432,7 @@ foo =
   }   
   string = hola mundo   
 }
-\end{verbatim}
+\end{lstlisting}
 que es exactamente la estructura de argumentos que hemos introducido
 %
 \footnote{Si queremos que Octave nos saque cualquier argumento por
@@ -1473,7 +1474,7 @@ variable como \texttt{cell} y darle una dimensiones. Por ejemplo
 construiremos una celda de 2 por 2 cuyos elementos parecidos a los
 contenidos en la estructura de datos \texttt{foo}:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo = cell(2,2)
 foo =
 {
@@ -1496,12 +1497,12 @@ foo =
     3  4
   [2,2] = 1
 }
-\end{verbatim}
+\end{lstlisting}
 Como en el caso de las matrices convencionales podremos ampliar las
 celdas con sólo llenar una que no tenga ningún argumento asignado; las
 celdas {}``sobrantes'' quedan vacías:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo{3,1}=false
 foo =
 {
@@ -1514,12 +1515,12 @@ foo =
   [2,2] = 1
   [3,2] = []
 }
-\end{verbatim}
+\end{lstlisting}
 El otro modo de iniciar una estructura de celdas es hacer lo mismo que
 con una matriz pero usando llaves en vez de corchetes. Para iniciar
 las celdas \texttt{foo} pero de modo abreviado:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo={1.2340,[1,2;3,4];'hola mundo',true}
 foo =
 {
@@ -1530,7 +1531,7 @@ foo =
     3  4
   [2,2] = 1
 }
-\end{verbatim}
+\end{lstlisting}
 \begin{description}
 \item [Importante:]Las celdas pueden almacenar cualquier tipo de
   argumento, incluso funciones. Es más fácil y rápido escribirlos
@@ -1596,7 +1597,7 @@ tipos básicos (números y cadenas de texto) como estructuras de datos
 o otras celdas.  De este modo podemos definir la estructura empleado
 del siguiente modo:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> Empleado1={'Paquito Palotes Parrondo';'Deaqui';
 ... {'DNI',646843216,12122000,12122000};
 ... 'C Buenaesperanza 12 1,2';
@@ -1621,15 +1622,15 @@ Empleado1 =
     666251487  555698541
 
 }
-\end{verbatim}
+\end{lstlisting}
 Lo novedoso es que mantenemos la escalabilidad de la estructura
 indefinidamente.  Podemos sin ninguna restricción encapsular todos
 los empleados en la variable Empresa como si fueran elementos de
 una fila en una celda:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> Empresa={Empleado1,Empleado2,Empleado3}
-\end{verbatim}
+\end{lstlisting}
 
 \section{Sentencias\index{Sentencias}}
 
@@ -1664,13 +1665,13 @@ el uso de \texttt{endfor}, \texttt{endif}...
 
 Tenemos tres formas de condicional. La más simple es:
 
-\begin{verbatim}
-if (condición)
+\begin{lstlisting}
+if (condicion)
   cuerpo
 endif
-\end{verbatim}
+\end{lstlisting}
 Por ejemplo:
-\begin{verbatim}
+\begin{lstlisting}
 >> esto=1;
 >> if esto
 ... disp('es esto');
@@ -1680,20 +1681,20 @@ es esto
 >> if esto
 ... disp('es esto');
 ... end
-\end{verbatim}
+\end{lstlisting}
 
 Si queremos que la sentencia no se ignore, y que si la condición no se
 cumple impongamos un cuerpo distinto podemos usar la estructura:
 
-\begin{verbatim}
-if (condición)   
+\begin{lstlisting}
+if (condicion)   
   cuerpo 1   
 else    
   cuerpo 2   
 endif
-\end{verbatim}
+\end{lstlisting}
 Ejemplo:
-\begin{verbatim}
+\begin{lstlisting}
 >> esto=1;
 >> if esto
 ...   disp('es esto');
@@ -1701,25 +1702,25 @@ Ejemplo:
 ...   disp('es lo otro');
 ... end
 es esto
-\end{verbatim}
+\end{lstlisting}
 
 En la que se ve perfectamente que si no se cumple la condición 1
 inmediatamente se ejecuta el cuerpo2. Si tenemos más de una condición
 lógica sobre una misma variable podemos usar una condicional múltiple
 de la siguiente forma:
 
-\begin{verbatim}
-if (condición 1)   
+\begin{lstlisting}
+if (condicion 1)   
   cuerpo 1   
-elseif (condición 2)   
+elseif (condicion 2)   
   cuerpo 2   
 ...   
-elseif (condición n)   
+elseif (condicion n)   
   cuerpo n   
 else   
   cuerpo N   
 endif
-\end{verbatim}
+\end{lstlisting}
 
 \footnote{Mucho cuidado los programadores acostumbrados a Fortran, sea
   cual sea la variante.  Si nosotros usamos \texttt{else if} en vez de
@@ -1734,9 +1735,9 @@ para cerrar la lógica del condicional. En el caso que tengamos
 condiciones lógicas sobre más de una variable podemos encapsular los
 if sin ningún problema:
 
-\begin{verbatim}
-if (condición a)   
-  if (condición b)   
+\begin{lstlisting}
+if (condicion a)   
+  if (condicion b)   
     cuerpo a+b   
   else   
     cuerpo a+bN   
@@ -1744,7 +1745,7 @@ if (condición a)
 else   
   cuerpo aN   
 endif
-\end{verbatim}
+\end{lstlisting}
 Es importante que evitemos estructuras lógicas muy complejas, porque
 son difíciles de entender y de depurar; aún cuando las ha escrito uno
 mismo. Se verán ejemplos de estas estructuras en la sección de
@@ -1754,7 +1755,7 @@ ejercicios.
 \subsection{La sentencia \texttt{switch}\index{switch}.}
 Lo forma general del comando es:
 
-\begin{verbatim}
+\begin{lstlisting}
 switch (variable_switch)
   case (posible_valor_variable_switch)
     comandos
@@ -1763,11 +1764,11 @@ switch (variable_switch)
   otherwise
     comandos adicionales
 endswitch
-\end{verbatim}
+\end{lstlisting}
 Esta sentencia es la misma que \texttt{case} en Fortran y
 \texttt{switch} en C. Un ejemplo de su uso sería:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> a = 'dos'
 >> switch (a)
 case ('uno')
@@ -1778,18 +1779,18 @@ otherwise
 disp('no se que numero has escogido')
 endswitch
 has escogido el numero 2
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Las sentencias \texttt{for\index{for}} y \texttt{while\index{while}}}
 
 Así es como se denomina el contador o sentencia \texttt{do} en Matlab.
 Su estructura es:
 
-\begin{verbatim}
+\begin{lstlisting}
 for [variable contador]=[secuencia del contador]
   cuerpo [dependiente o no de la variable contador]
 endfor 
-\end{verbatim}
+\end{lstlisting}
 Es decir, para una determinada variable, que avanza de 1 en 1 desde el
 límite inferior hasta el límite superior ejecutamos el cuerpo.  El
 cuerpo puede depender o no de la variable contador, ésta puede ser un
@@ -1803,19 +1804,19 @@ caso de las submatrices. Lo que hará el índice contador será tomar
 sucesivamente todos los valores que tengamos en la secuencia. Por
 ejemplo, si pedimos que una variable haga un bucle de ese tipo:
 
-\begin{verbatim}
+\begin{lstlisting}
 for i=1:2:10
-\end{verbatim}
+\end{lstlisting}
 dentro del bucle la variable \texttt{i} tomará los valores que salen
 por pantalla en el caso que llamemos la secuencia:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> 1:2:10
 ans = 1   3   5   7   9
-\end{verbatim}
+\end{lstlisting}
 
 Por ejemplo:
-\begin{verbatim}
+\begin{lstlisting}
 >> for i=5:5:25
 ... disp(i),disp('es multiple de 5')
 ... end
@@ -1829,7 +1830,7 @@ es multiple de 5
 es multiple de 5
 25
 es multiple de 5
-\end{verbatim}
+\end{lstlisting}
 
 
 Los bucles con contador también se pueden encapsular, y éste
@@ -1837,7 +1838,7 @@ encapsulado es esencial cuando trabajemos con matrices de dimensión
 mayor que 1. Por ejemplo, si queremos asignar una operación compleja a
 una matriz de dimensión  3 debemos encapsular 3 contadores:
 
-\begin{verbatim}
+\begin{lstlisting}
 for i=1:IMAX   
   for j=1:JMAX   
     for k=1:KMAX   
@@ -1845,7 +1846,7 @@ for i=1:IMAX
     endfor   
   endfor   
 endfor
-\end{verbatim}
+\end{lstlisting}
 
 
 
@@ -1853,14 +1854,14 @@ En vez de controlar el bucle mediante un contador es muy útil
 controlarlo mediante una condición lógica. Para eso podemos usar una
 estructura \texttt{while}.
 
-\begin{verbatim}
-while (condición)   
+\begin{lstlisting}
+while (condicion)   
   cuerpo   
 endwhile
-\end{verbatim}
+\end{lstlisting}
 
 Ejemplo:
-\begin{verbatim}
+\begin{lstlisting}
 >> a=0;
 >> while a<5
 ... disp(a)
@@ -1871,7 +1872,7 @@ Ejemplo:
 2
 3
 4
-\end{verbatim}
+\end{lstlisting}
 
 Sólo debemos tener en cuenta cuando programamos que el uso de un while
 es mucho más crítico que el uso de un for. Esto es porque la condición
@@ -1910,7 +1911,7 @@ de iterador sobre un vector nos sirve este simple ejemplo.
 Generaremos una serie de Fibonacci en un vector y luego iteraremos
 sobre el mismo.
 
-\begin{verbatim}
+\begin{lstlisting}
 >> fib=[1,1,2,3,5,8]
 fib =
 
@@ -1925,7 +1926,7 @@ fib =
  3
  5
  8
-\end{verbatim}
+\end{lstlisting}
 
 Son más seguros porque permiten iterar sobre una secuencia tan
 compleja como sea necesaria sin arriesgarse a definir una condición
@@ -1952,7 +1953,7 @@ sentencia \texttt{break} dentro de un bucle nos quita el hilo%
 } del bucle para seguir ejecutando el programa o un bucle externo.  Un
 ejemplo sería:
 
-\begin{verbatim}
+\begin{lstlisting}
 num=103;   
 div=2;   
 while (div*div <= num)   
@@ -1966,7 +1967,7 @@ if (rem (num, div) == 0)
 else   
   printf ('%d es primo \n', num);   
 endif
-\end{verbatim}
+\end{lstlisting}
 En cambio la sentencia \texttt{continue}, en vez de sacarnos del
 bucle, hace que saltemos uno de los pasos del mismo para ir al
 siguiente estado del contador.
@@ -1976,16 +1977,16 @@ siguiente estado del contador.
 
 Los bloques de estructura \texttt{try} son de la forma:
 
-\begin{verbatim}
+\begin{lstlisting}
 try
   cuerpo
 catch 
   alternativa
 end
-\end{verbatim}
+\end{lstlisting}
 
 Por ejemplo:
-\begin{verbatim}
+\begin{lstlisting}
 >> a=rand(5,5);b=rand(4,4);
 >> try
 ... a*b
@@ -1993,7 +1994,7 @@ Por ejemplo:
 ... disp('Dimensiones incompatibles')
 ... end
 Dimensiones incompatibles
-\end{verbatim}
+\end{lstlisting}
 
 Esta estructura es muy parecida a \texttt{if-else} pero con la
 particularidad que la condición lógica es si se produce o no un error.
@@ -2042,25 +2043,25 @@ ayuda parecida de una manera muy fácil. Todas las líneas
 sentencia ejecutable nos saldrán por pantalla si llamamos a la función
 mediante el comando \texttt{help}. Por ejemplo:
 
-\begin{verbatim}
+\begin{lstlisting}
 function out=derivada_numerica(in)   
 %   
-% función derivada_numerica Calcula las diferencias centradas de
+% funcion derivada_numerica Calcula las diferencias centradas de
 % primer orden de un vector entrada: in (vector) salida : out (vector)
 %
    
   ...   
 end 
-\end{verbatim}
+\end{lstlisting}
 Cuando hagamos \texttt{help derivada\_numerica} obtendremos por
 pantalla:
 
-\begin{verbatim}
-función derivada_numerica   
+\begin{lstlisting}
+funcion derivada_numerica   
  Calcula las diferencias centradas de primer orden de un vector   
    entrada: in  (vector)   
    salida : out (vector)
-\end{verbatim}
+\end{lstlisting}
 
 Disponemos también de dos funciones para manejar los errores de
 ejecución, \texttt{usage} y \texttt{error}. En la sección
@@ -2087,25 +2088,25 @@ En el apartado anterior dedicado a funciones (\ref{sub:Funciones(I)})
 hemos sido intencionadamente rigurosos con la sintaxis. Si una función
 retorna sólo una variable pueden omitirse los corchetes:
 
-\begin{verbatim}
+\begin{lstlisting}
 function salida = entrada (arg)
   salida = ...
 end
-\end{verbatim}
+\end{lstlisting}
 La función \texttt{nargin\index{nargin}} retorna el número de
 argumentos de entrada necesarios en una función, si lo aplicamos a la
 función \texttt{entrada} que acabamos de definir\footnote{En breve
   aprenderemos que la mejor manera de llamar este tipo de funciones es
   mediante un Function handle}:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> nargin('entrada')
 ans = 1
-\end{verbatim}
+\end{lstlisting}
 Mientras que dentro de la función es una constante cuyo valor es el
 número de argumentos de entrada:
 
-\begin{verbatim}
+\begin{lstlisting}
 function retval = avg (v)
 % retval = avg(v) v :: vector
 %
@@ -2120,7 +2121,7 @@ function retval = avg (v)
     error ('avg: expecting vector argument');
   endif
 end
-\end{verbatim}
+\end{lstlisting}
 Este ejemplo además nos sirve para ver el control de errores de una
 función. Las palabras clave \texttt{usage\index{usage}} y
 \texttt{error\index{error}} son los mensajes que saldrán por pantalla
@@ -2128,7 +2129,7 @@ si se comete un mal uso o existe un error de ejecución
 respectivamente. Para que entendamos más en profundidad se propone
 esta sesión de consola:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> help avg
 avg is the user-defined function from the file
 /home/guillem/CursoScripting/ejercicios/avg.m   
@@ -2149,19 +2150,19 @@ error: avg: expecting vector argument
 error: evaluating if command near line 11, column 3
 error: called from `avg' in file `/home/guillem/C...
 >>
-\end{verbatim}
+\end{lstlisting}
 Los corchetes son necesarios sólo cuando queramos retornar más de una
 variable:
-\begin{verbatim}
+\begin{lstlisting}
 function [salida1,salida2] = entrada (args)
   salida1 = ...
   salida2 = ...
 end
-\end{verbatim}
+\end{lstlisting}
 En el caso que dejemos una variable vacía no vamos a obtener un error
 sino un aviso:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> function [x,y,z] = f()
 x=1;
 y=2;
@@ -2173,7 +2174,7 @@ a = 1
 b = 2
 c = []
 >>                 
-\end{verbatim}
+\end{lstlisting}
 Si queremos saber cuantas variables de salida tiene una función
 debemos usar \texttt{nargout}\index{nargout}. Una variable de control
 muy interesante es la palabra clave \texttt{return}\index{return},
@@ -2181,7 +2182,7 @@ Cuando el hilo de ejecución de una función pasa por la palabra
 \texttt{return} inmediatamente retorna la ejecución a la consola o al
 programa principal:
 
-\begin{verbatim}
+\begin{lstlisting}
 function out = any_zero(v)
 % out = any_zero (v) v :: vector
 %
@@ -2201,7 +2202,7 @@ ans = 1
 >> any_zero(v)
 No se ha encontrado ningun cero
 ans = 0
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{\texttt{inline\index{inline}}}
 
@@ -2221,24 +2222,24 @@ requiere cierta práctica.
 
 Si queremos introducir una función escribiremos:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo=inline('sin(x)*cos(x)','x');
-\end{verbatim}
+\end{lstlisting}
 En la que obviamente introducimos los elementos como cadenas de texto.
 Para evaluar la función lo haremos del modo usual:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> c=foo(6)
-\end{verbatim}
+\end{lstlisting}
 que nos pondrá en la variable \texttt{c} el valor de la función en 6,
 -0.26829.
 
 En el caso que nuestra función tenga más de una variable de entrada
 podemos explicitarlas como:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo2=inline('sin(x)*cos(y)','x','y');
-\end{verbatim}
+\end{lstlisting}
 Entonces los parámetros de entrada para la evaluación van a ser dos y
 van a mantener el orden asignado en la sentencia \texttt{inline}.  De
 hecho, este intrinsic funciona perfectamente con sólo la función como
@@ -2249,10 +2250,10 @@ También podemos utilizar la sentencia \texttt{inline} cuando se nos
 pida evaluar una función. Vimos un ejemplo de ello en el primer
 capítulo cuando se introdujo el lenguaje:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> quad(inline('besselj(2.5,x)'),0,4.5)
 ans = 1.1178
-\end{verbatim}
+\end{lstlisting}
 
 Para integrar necesitamos una función de una sola variable de modo que
 hemos creado una nueva función con la sentencia \texttt{inline} para
@@ -2289,24 +2290,24 @@ Un Function handle se denota con la letra \texttt{@}. Por ejemplo, si
 queremos asignar a la variable \texttt{varsin} la función $\sin$ lo
 haremos del siguiente modo:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> varsin = @sin
-\end{verbatim}
+\end{lstlisting}
 A partir de ahora la variable sirve de interfaz a la función. Da igual
 que la función sea parte de la biblioteca estándar o que la acabemos
 de escribir nosotros mismos. Por si hay alguna duda de que
 \texttt{varsin} es ahora la función seno:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> varsin(pi/2)
 
 ans = 1
-\end{verbatim}
+\end{lstlisting}
 Un uso muy interesante de los Function handles es la creación de
 estructuras de datos con funciones. Como ejemplo crearemos unas celdas
 donde los elementos sean las funciones trigonométricas básicas:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> trifun={@sin,@cos,@tan}
 trifun =
 {
@@ -2319,7 +2320,7 @@ tan
 }
 >> trifun{3}(pi/4)
 ans = 1.0000
-\end{verbatim}
+\end{lstlisting}
 Esto hace que tengan un papel protagonista en las cabeceras de las
 funciones. Cuando una función necesita a otra como argumento podemos
 asignarla también por nombre o por una sentencia \texttt{inline} pero
@@ -2329,24 +2330,24 @@ hacer la siguiente integral mediante la función \texttt{quad}:
 $$I=\int_{0}^{\pi}\sin(x)\ dx$$
 
 
-\begin{verbatim}
+\begin{lstlisting}
 >> I=quad('sin',0,pi)
 I = 2
 >> I=quad(inline('sin(x)'),0,pi)
 I = 2
 >> I=quad(@sin,0,pi) # Forma recomendada
 I = 2
-\end{verbatim}
+\end{lstlisting}
 La tercera es equivalente a pasar antes el Function handle con la
 función seno a una variable:
 
-  \begin{verbatim}
+  \begin{lstlisting}
 >> fhandle=@sin
 fhandle =
 sin
 >> I=quad(fhandle,0,pi)
 I = 2
-\end{verbatim}
+\end{lstlisting}
 Y así con todas las rutinas que requieran una función como argumento.
 
 
@@ -2356,27 +2357,27 @@ La sentencia \texttt{inline} se considera obsoleta (aunque no
 oficialmente).  El recurso que la ha apartado es utilizar un Function
 handle para declarar una función con la siguiente sintaxis:
 
-\begin{verbatim}
+\begin{lstlisting}
 @(argumentos) sentencia_ejecutable
-\end{verbatim}
+\end{lstlisting}
 Por ejemplo, la función \texttt{foo2} que en la sección anterior se ha
 declarado mediante un \texttt{inline} se escribiría como sigue:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo2 = @(x,y) sin(x)*cos(y)
-\end{verbatim}
+\end{lstlisting}
 Con la llamada usual:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> foo2(6,2)
 ans = 0.11628
-\end{verbatim}
+\end{lstlisting}
 Obviamente también podemos utilizarlo en la cabecera de las funciones:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> quad(@(x) besselj(2.5,x),0,4.5)
 ans = 1.1178
-\end{verbatim}
+\end{lstlisting}
 Alguien puede pensar que el nombre de {}``función anónima'' está mal
 porque si la asignamos a una variable pasará a tener el nombre de la
 variable. Esta idea, aunque razonable, es completamente errónea.  Una
@@ -2390,11 +2391,11 @@ ejemplo anterior\footnote{Este código provoca un error de segmentación
 en Matlab 7.0.0.19901 (R14) y Octave en versiones inferiores a
 2.9.12}:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> intbessel=@(y) quad(@(x) besselj(2.5,x),0,y);
 >> intbessel(1.3)
 ans =  0.035244
-\end{verbatim}
+\end{lstlisting}
 
 
 \subsubsection{Funciones como argumentos de funciones.}
@@ -2422,7 +2423,7 @@ por eso se recomienda encarecidamente su uso. Supongamos que queremos
 una rutina que calcule el valor de cualquier función en el punto $x=1$
 siendo $x$ su único argumento:
 
-\begin{verbatim}
+\begin{lstlisting}
 function [out]=fhtest(arg)
 %
 % function OUT=fhtest(@arg)
@@ -2431,7 +2432,7 @@ function [out]=fhtest(arg)
 % Handle
 %
 out=arg(1);
-\end{verbatim}
+\end{lstlisting}
 \emph{Es muy importante crear una cabecera de ayuda cuando los
   argumentos de una función no son escalares comunes. Si no será
   imposible saber que el argumento de} \texttt{\emph{fhtest}} \emph{es
@@ -2440,30 +2441,30 @@ out=arg(1);
   una función no devuelve ningún resultado lo primero que haremos será
   utilizar la ayuda:}
 
-\begin{verbatim}
+\begin{lstlisting}
 >> help fhtest
 fhtest is the user-defined function from the file
 /home/guillem/sync/CursoScripting/ejercicios/fhtest.m
  function OUT=fhtest(@arg)
  Calcula el valor de la funcion _arg_ en 1
   _arg_ debe ser un Function Handle
-\end{verbatim}
+\end{lstlisting}
 será un alivio comprobar que existe.  Para utilizar la función podemos
 llamarla directamente con un Function handle:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> fhtest(@sin)
 ans = 0.84147
-\end{verbatim}
+\end{lstlisting}
 o como siempre mediante una variable que lo contenga:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> fhsin=@sin
 fhsin =
 sin
 >> fhtest(fhsin)
 ans = 0.84147
-\end{verbatim}
+\end{lstlisting}
 Esta estructura permite hacer
 
 
@@ -2484,33 +2485,33 @@ $$func=e^{-(x^{2}+y^{2})}$$
 
 a partir de una función anónima debemos hacerlo como
 
-\begin{verbatim}
+\begin{lstlisting}
 >> func=@(x,y) exp(-(x. ^2+y. ^2)) 
 func =
 @(x, y) exp (-(x.^ 2 + y.^ 2)) 
-\end{verbatim}
+\end{lstlisting}
 Y llamamos la nueva función del modo usual:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> func(sqrt(log(5)),sqrt(log(5)))
 ans = 0.040000 
-\end{verbatim}
+\end{lstlisting}
 Todas estas variables son locales para la función. Todas las variables
 de la función deben estar presentes en el interface. Se nos puede
 ocurrir reducir el número de variables de una función definiendo
 algunas de ellas externamente:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> a=2;
 >> func=@(x) exp(-(x.^2+a.^2)) 
 func =
 @(x) exp (-(x.^2 + a.^2))
-\end{verbatim}
+\end{lstlisting}
 De este modo estamos pidiendo que la función tome una variable que en
 realidad es externa como propia. En Octave esto da un error en el
 momento de la llamada:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> func(2)
 error: `a' undefined near line 9 column 22
 error: evaluating binary operator `. ^' near line 9, column 23
@@ -2518,11 +2519,11 @@ error: evaluating binary operator `+' near line 9, column 21
 error: evaluating prefix operator `-' near line 9, column 15
 error: evaluating argument list element number 1
 error: called from `?unknown?'
-\end{verbatim}
+\end{lstlisting}
 
 Pero si hacemos exactamente lo mismo en Matlab...
 
-\begin{verbatim}
+\begin{lstlisting}
 >> a=2;
 >> func=@(x) exp(-(x.^2+a.^2))
 func =
@@ -2531,7 +2532,7 @@ func =
 ans =
    3.3546e-04
 >>
-\end{verbatim}
+\end{lstlisting}
 El programa el intérprete no nos devuelve ningún error. Esto es debido
 a que mientras Octave prefiere la definición de variables globales
 
@@ -2556,14 +2557,14 @@ eficiente de calcular un factorial\index{factorial}%
   \texttt{gamma(n+1)}%
 }.
 
-\begin{verbatim}
+\begin{lstlisting}
 function out = fact ()
   if (n > 0)
     out = n* fact (n-1);
   else
     out = 1;
   endif
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{Encapsulado de funciones}
 
@@ -2651,7 +2652,7 @@ Por ejemplo, si utilizamos la función \texttt{dispatch} con la función
 exponencial vemos que en realidad es un método sobrecargado
 dependiente del tipo:
 
-\begin{verbatim}
+\begin{lstlisting}
 octave:1> dispatch('exp')
 Overloaded function exp
 exp(fixed complex,...)->fexp(fixed complex,...)
@@ -2659,7 +2660,7 @@ exp(fixed complex matrix,...)->fexp(fixed complex matrix,...)
 exp(fixed matrix,...)->fexp(fixed matrix,...)
 exp(fixed scalar,...)->fexp(fixed scalar,...)
 exp(galois,...)->gexp(galois,...)
-\end{verbatim}
+\end{lstlisting}
 \texttt{fexp} y \texttt{gexp} son funciones llamadas \emph{builtin
   functions} que son funciones de un nivel mucho más bajo que no
 serían útiles por sí solas.
@@ -2778,7 +2779,7 @@ Fortran.\end{minipage}%
   Cuando se está utilizando la interfaz gráfica de Matlab aparece una
   ventana y que muestra un botón por cada opción Por ejemplo:
 \end{description}
-  \begin{verbatim}
+  \begin{lstlisting}
 >> choice=menu('Esto es un menu','uno','dos','tres')
 Esto es un menu
   [ 1] uno
@@ -2786,7 +2787,7 @@ Esto es un menu
   [ 3] tres
 pick a number, any number: 3
 choice = 3
-\end{verbatim}
+\end{lstlisting}
 
 \subsection{E/S básica con archivos}
 
@@ -2841,19 +2842,19 @@ anterioridad.
 \end{description}
 Para hacerlo:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> diary('nombrearchivo')
 >> diary on
->> texto='graba todo lo que ponemos aquí';
+>> texto='graba todo lo que ponemos aqui';
 >> diary off
->> texto2='ya ha parado la grabación';
-\end{verbatim}
+>> texto2='ya ha parado la grabacion';
+\end{lstlisting}
 
 En el archivo de nombre \emph{nombrearchivo} encontraremos la línea:
 
-\begin{verbatim}
->> texto='graba todo lo que ponemos aquí';
-\end{verbatim}
+\begin{lstlisting}
+>> texto='graba todo lo que ponemos aqui';
+\end{lstlisting}
 
 
 \section{Análisis crítico del lenguaje Matlab}
@@ -2893,17 +2894,17 @@ los subíndices también se haga con corchetes.  Esto es discutible
 porque uno puede considerar que tras crear una matriz se obtiene una
 función y que los subíndices son los argumentos en la llamada:
 
-\begin{verbatim}
+\begin{lstlisting}
   m(2,3)
-\end{verbatim}
+\end{lstlisting}
 
 Pero los tuples tienen una función, la de agrupar variables.  Si nos
 fijamos en cómo es una llamada a una función entenderemos
 perfectamente la notación escogida en muchos lenguajes para un tuple:
 
-\begin{verbatim}
+\begin{lstlisting}
   f(a,b)
-\end{verbatim}
+\end{lstlisting}
 
 Podemos imaginar que lo que la función \texttt{f} tiene a la derecha
 es un tuple y cada argumento de la llamada es un elemento del mismo.
@@ -2911,9 +2912,9 @@ es un tuple y cada argumento de la llamada es un elemento del mismo.
 Todo este discurso sirve para entender que la definición de las
 funciones en Matlab es inconsistente:
 
-\begin{verbatim}
+\begin{lstlisting}
 function [x,y]=f(a,b)...
-\end{verbatim}
+\end{lstlisting}
 
 Si \texttt{(a,b)} es un doble... ¿Por qué si lo que retorna es
 exactamente lo mismo, un doble, debemos utilizar la misma notación que
@@ -2923,10 +2924,10 @@ verdaderamente tiene un tipo para estos casos: las celdas.
 Ahora podríamos pensar que por lo menos las celdas se comportarán como
 verdaderos tuples per no.  Si intentamos una doble asignación:
 
-\begin{verbatim}
+\begin{lstlisting}
 >> {a,b}={1,2}
 error: invalid lvalue function called in expression
-\end{verbatim}
+\end{lstlisting}
 
 ¿Qué es entonces una celda?  ¿Es una verdadera estructura de
 variables?  ¿Es la asignación del valor de retorno de una función un
@@ -2935,15 +2936,15 @@ un tipo derivado que hace lo que le da la gana.
 
 Mi sugerecia sería definir las funciones como sigue:
 
-\begin{verbatim}
+\begin{lstlisting}
 function {x,y}=f(a,b)
-\end{verbatim}
+\end{lstlisting}
 
 para que la asignación
 
-\begin{verbatim}
+\begin{lstlisting}
 {x,y}=f(2,3)
-\end{verbatim}
+\end{lstlisting}
 
 tenga sentido y convierta las celdas en auténticas
 tuplas. Desgraciadamente este cambio rompería todos los códigos
@@ -2976,17 +2977,17 @@ ejemplo de ello son los prefijos y sufijos.  Si disponemos de una
 función que retorna una matriz y sólo nos interesa la primera fila de
 la misma podríamos escribir el siguiente código
 
-\begin{verbatim}
+\begin{lstlisting}
   dummy=func(x)
   a=dummy(1,:)
-\end{verbatim}
+\end{lstlisting}
 
 Pero si estamos utilizando el intérprete Octave podremos utilizar la
 llamada de índices como sufíjo de la siguiente manera:
 
-\begin{verbatim}
+\begin{lstlisting}
   dummy=func(x)(1,:)
-\end{verbatim}
+\end{lstlisting}
 
 Código mucho más leíble para los ojos expertos.
 
@@ -2995,15 +2996,15 @@ Otro caso interesante es el de los operadores \texttt{==},
 C.  Matlab no los soporta, en cambio Octave sí. Sustituyen esas líneas tan
 feas del estilo de 
 
-\begin{verbatim}
+\begin{lstlisting}
 a=a+4
-\end{verbatim}
+\end{lstlisting}
 
 Por un más leíble
 
-\begin{verbatim}
+\begin{lstlisting}
 a+=4
-\end{verbatim}
+\end{lstlisting}
 
 
 \subsection{La orientación a objetos}
