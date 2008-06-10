@@ -18,4 +18,15 @@ del directorio files íntegro.
 
 El archivo logrono.rst son las transparencias de la charla que di en
 Logroño correspondiente al ciclo de conferencias Loading.  Tratan más
-el tema de la extensión del intérprete.
+el tema de la extensión del intérprete. octave.tex es el paper que
+acompaña a la presentación, lo escribí un mes y pico después a
+petición de Juanjo.
+
+jpl_paper es el paper de la presentación sobre lenguajes interpretados
+en las "Jornades de programari lliure" en la Universitat de Girona.
+
+cadiz.rst son las transparencias del curso para formación de
+profesorado que impartí en la UCA por petición de la Oficina de
+Software libre de la Universidad de Cádiz.  Es una colección de
+transparencias basadas en el curso de la ETSI Aeronáuticos pero con un
+temario bastante más extenso.

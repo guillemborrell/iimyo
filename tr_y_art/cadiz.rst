@@ -2,18 +2,45 @@
 
   <script src="files/ASCIIMathML.js"></script>
 
-=======================================
-Introducción informal a Matlab y Octave
-=======================================
+================================================
+Introducción a Octave para la Docencia en la UCA
+================================================
 
 Primera sesión
 ^^^^^^^^^^^^^^
 
 Guillem Borrell i Nogueras
 
-Curso 2006-2007
+10-13 de Junio de 2008
 
+Temario
+=======
 
+* Lenguaje Matlab.
+
+* Sistemas de ecuaciones lineales.
+
+* Polinomios, interpolación y regresión.
+
+* Representación gráfica.
+
+* EDOs.
+
+* Análisis de señales.
+
+* ¿Sugerencias?
+
+Objetivo
+========
+
+* Curso de formación de profesorado...
+
+* Tener las mismas sensaciones que el alumno que intenta resolver
+  ejercicios con Octave.
+
+* Enseñar a aprender Octave.s
+
+* Las herramientas universales *no existen*
 
 Ayuda.  Función help
 ====================
@@ -88,6 +115,7 @@ Tipos
 
 * ¿Os suena el *duck typing*?
 
+
 Tipos numéricos
 ===============
 
@@ -156,7 +184,7 @@ Los arrays indexables del modo usual
   ans = 1
 
   >> M(end,end) %truco del mandruco
-  ans =  9
+  ans = 9
 
 
 Matlab es bastante tonto 
@@ -193,6 +221,24 @@ Por lo menos hay BC
   error: invalid column index = 4
 
 
+¡Pero no para la asignación!
+============================
+
+::
+
+  octave:2> nuevo(4)=1
+  nuevo =
+  
+     0   0   0   1
+  
+  octave:3> nuevo(4,3)=2
+  nuevo =
+  
+     0   0   0   1
+     0   0   0   0
+     0   0   0   0
+     0   0   2   0
+  
 Submatrices
 ===========
 
@@ -283,7 +329,7 @@ Crear el siguiente vector mediante secuencias. *En Matlab no hay list
 comprehensions*.
 
 .. figure:: files/piramides.jpg
-
+  :width: 600px
 
 Ejercicio
 =========
@@ -405,8 +451,8 @@ O dar resultados extraños::
    2.4543 + 0.0003i   3.0149 + 0.0001i   3.5756 - 0.0002i
 
 
-Ejercicio 3
-===========
+Ejercicio de vectorización
+==========================
 
 con |A|, |b| y |c|
 
@@ -513,6 +559,55 @@ funciones sin necesidad de un archivo adicional. Por ejemplo::
   >> testfh(1,i)
   ans = 1
 
+Problemas
+=========
+
+* Inconsistencias en el BC
+
+* Inconsistencias en creación llamada, [],()
+
+* Orientación a objetos. *Python*.
+
+* Soporte para más tipos numéricos.
+
+* ¿Vector fila o columna?
+
+Problemas arreglados por Octave
+===============================
+
+Inlining
+
+::
+ 
+  octave:1> a=rand(3,3)(1,2)
+  a =  0.14272
+
+
+Permite expresiones mucho más compactas.
+
+Problemas arreglados por Octave
+===============================
+
+Declaración de funciones
+
+::
+
+  octave:2> function y=foo(x)
+  > y=3*x
+  > end
+  octave:3> foo(4)
+  y =  12
+  ans =  12
+
+  
+¿A qué espera Mathworks para arreglar esto?
+
+Problemas arreglados por Octave
+===============================
+
+El precio
+
+  
 Conclusiones
 ============
 

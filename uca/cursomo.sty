@@ -1,0 +1,98 @@
+%   Page formatting
+\usepackage{geometry}
+\geometry{
+  verbose,
+  a4paper,
+  tmargin=2.5cm,
+  bmargin=2.5cm,
+  lmargin=3cm,
+  rmargin=1.5cm,
+  headheight=0.5cm,
+  headsep=0.5cm,
+  footskip=1cm
+}
+%   I do not know what this is for
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%   Math packages
+\usepackage{array}
+\usepackage{float}
+%   Several font packages
+%   AMSmath and AMSsymbol packages may conflict with babel
+%     just console garbage, press <Enter> and go
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{marvosym}
+%   Graphics support
+\usepackage{graphicx}
+%   Fancyhdr and fncychap styles.  Requires external file
+%     fncyheader.sty
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[RE]{\slshape \rightmark}
+\fancyhead[LO]{\slshape \leftmark}
+\fancyhead[LE,RO]{\slshape \thepage}
+\fancyfoot[RO]{\slshape{Introducción informal a Matlab y Octave}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\usepackage[Conny]{fncychap}
+
+% Entornos para incluir directamente latex exportado por lyx
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\newcommand{\lyxline}[1][1pt]{%
+  \par\noindent%
+  \rule[.5ex]{\linewidth}{#1}\par}
+%% Bold symbol macro for standard LaTeX users
+\providecommand{\boldsymbol}[1]{\mbox{\boldmath $#1$}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newenvironment{lyxcode}
+{\begin{list}{}{
+\setlength{\rightmargin}{\leftmargin}
+\setlength{\listparindent}{0pt}% needed for AMS classes
+\raggedright
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\normalfont\ttfamily}%
+ \item[]}
+{\end{list}}
+
+
+%   Hyperref package to automatically generate hyperlinks
+\usepackage{hyperref}
+
+\usepackage{color}
+\definecolor{gray96}{gray}{.96}
+\definecolor{gray70}{gray}{.70}
+\definecolor{gray40}{gray}{.40}
+\definecolor{gray25}{gray}{.25}
+
+\usepackage{listings}
+\lstset{ frame=Ltb,
+     framerule=0pt,
+     aboveskip=0.5cm,
+     framextopmargin=3pt,
+     framexbottommargin=3pt,
+%     framexleftmargin=1cm,
+     framesep=0pt,
+     rulesep=.4pt,
+     backgroundcolor=\color{gray96},
+     rulesepcolor=\color{black},
+     %
+     stringstyle=\ttfamily,
+     showstringspaces = false,
+     basicstyle=\small\ttfamily,
+     commentstyle=\color{gray40},
+     keywordstyle=\bfseries,
+     identifierstyle=\itshape\bfseries\color{gray25},
+     numbers=left,
+     numbersep=15pt,
+     numberstyle=\tiny,
+     numberfirstline = false,
+     breaklines=true,
+   }
+
