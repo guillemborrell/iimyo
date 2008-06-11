@@ -376,7 +376,7 @@ Ejercicio
 
 .. raw:: html
 
-  `v_n = 1` y 
+  `v_n = 1`
 
 
 Ejercicio

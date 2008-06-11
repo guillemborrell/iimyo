@@ -1,0 +1,137 @@
+
+\section{Primeros pasos con la interfaz \qtoctave}
+\label{sec:qtoctave}
+
+A pesar de que la consola de Octave tiene características bastante
+avanzadas\footnote{Utiliza la biblioteca \emph{GNU readline}, ofrece
+  la posibilidad de acceder a las líneas de órdenes anteriores
+  mediante teclas \tecla{flecha arriba}/\tecla{flecha abajo},
+  completar los comandos con la tecla \tecla{tabulador}, etc} y
+permite acceder a toda la funcionalidad de este lenguaje, muchos
+usuarios preferirán emplear una interfaz gráfica que, por ejemplo
+facilite editar y almacenar en el disco series de órdenes o programas
+completos, o bien acceder a determinadas funcionalidades mediante
+menús o barras de herramientas.
+
+Para ello, en el mundo del software libre, existen distintas
+posibilidades. Por ejemplo, el potente editor \emacs dispone de un
+modo específico que puede significar una opción muy sugerente para
+interaccionar con GNU Octave. Ahora bien, en las siguientes secciones,
+nos centraremos en una de las interfaces gráficas de usuario que, en la
+actualidad, ofrece prestaciones más interesantes para un usuario medio:
+\qtoctave.
+
+Este programa recibe su nombre de las bibliotecas QT, desarrolladas
+con la finalidad de facilitar la creación de interfaces gráficas.
+ 
+\subsection*{Instalación}
+
+\qtoctave está disponible:
+\begin{itemize}
+\item A través de su página web, \url{http://qtoctave.wordpress.com/}.
+  Esta página es el centro de
+  comunicación con el autor y la comunidad de usuarios de \qtoctave.
+\item En la forja Forja de RedIris
+  (CICA). \url{https://forja.rediris.es/projects/csl-qtoctave/} Esta
+  forja es es el centro de desarrollo de
+  qtOctave. Para descargas, pulsar botón ``\textit{Ficheros}''
+\item En las páginas web de la universidad de Cádiz:
+  \begin{itemize}
+  \item \url{http://software.uca.es/}
+  \item \url{ftp://guadalinex.uca.es/Octave/}
+  \item \url{http://softwarelibre.uca.es/Octave/}
+  \end{itemize}
+\end{itemize}
+
+Por otro lado, \qtoctave cuenta con soporte técnico en nuestra
+universidad, a través de la OSLUCA. Existe un foro dedicado
+expresamente a ello: \url{http://osl.uca.es/forum}.
+
+La mayoría de los usuarios de Windows y GNU/Linux preferirán utilizar
+el programa ejecutable, ya compilado para su sistema, aunque los
+usuarios más avanzados cuentan con la posibilidad de descargar y
+compilar el código fuente.
+
+\subsubsection*{Instalación en sistemas Windows}
+En sistemas Windows, se recomienda utilizar el instalador disponible
+(actualmente, \texttt{QtOctave-0.7.2.exe}). Éste guiará al usuario a
+través de un sencillo proceso, al final del cual se instalarán tanto
+Octave como \qtoctave, además de todos los paquetes adicionales o
+\textit{toolkits} de octave-forge.
+
+El instalador colocará un acceso directo en el escritorio a la vez que
+una entrada de menú para \qtoctave. Utilizando cualquiera de ellos, se
+puede arrancar el programa.
+
+
+\subsubsection{Instalación en sistemas GNU/Linux}
+
+Para instalar \qtoctave se necesita que estén instalados:
+
+\begin{itemize}
+\item Octave
+\item Las bibliotecas de desarrollo de Qt(última versión). Generalmente llamadas libqt(version)-dev.
+\item El compilador de C++
+\end{itemize}
+
+ntes de linux, recomendamos utilizar {\bf
+  \qtoctave binario}. La instalación de \qtoctave binario se presenta
+mucho más fácil de instalar, ya que sólo tenemos que dar los
+siguientes pasos: 
+
+\begin{enumerate}
+\item Descargarnos la última versión de \qtoctave binario en la página (por ejemplo): https://forja.rediris.es/frs/download.php/745/qtoctave-0.7.4\_bin.tar.gz
+\item Una vez descargado, tendremos que descomprimirlo y se nos aparecerá una carpeta con el nombre ``qtoctave-version\_bin''.
+\item Dentro de esta carpeta, encontraremos otra carpeta y varios ficheros, entre ellos encontraremos un ejecutable llamado ``qtoctave.sh'', el cual tenemos dos formas de ejecutarlo:
+\begin{itemize}
+\item Dando doble click sobre el mismo
+\item Abriendo una consola de comandos y tras situarnos mediante la orden ``cd'' en la carpeta donde se ubica, escribir la orden ``./qtoctave.sh''.
+\end{itemize}
+\end{enumerate}
+
+\subsection*{El entorno \qtoctave}
+
+\begin{figure}
+\label{fig:qtoctave-secciones}
+  \centering
+  \pgfimage[width=0.8\linewidth]{figuras/qtoctave-secciones}
+  \caption{Secciones de \qtoctave}
+  
+\end{figure}
+La primera vez que iniciamos \qtoctave, tendremos un entorno
+confortable,
+(figura~\ref{fig:qtoctave-secciones} ),
+en el que podemos distinguir distintas secciones:
+\begin{enumerate}
+\item \emph{Barra de menú}: Nos permite utilizar a algunas funciones
+  de \octave mediante el ratón, utilizando ventanas de diálogo
+  específicas para la introducción de parámetros.
+\item \emph{Barra de iconos}: Facilita el acceso a algunas entradas
+  del menú y las distintas a ventanas. Podemos agruparlos en cuatro
+  bloques:
+  \begin{itemize}
+  \item Ejecución y control de procesos en la terminal.
+  \item Acceso a la tabla para la introducción de matrices.
+  \item Acceso a la ayuda
+  \item Control de ventanas embebidas (ventanas de utilidades
+    que están contenidas dentro de \qtoctave).
+  \end{itemize}
+\item \emph{Utilidades}: Ventanas de listado de variables, de lista de
+  comandos y navegador de archivos.
+  \begin{itemize}
+  \item Lista de variables activas
+  \item Lista de órdenes anteriores
+  \item Navegador de archivos
+  \end{itemize}
+\item \emph{Terminal Octave}, o \emph{Consola}. Ventana para teclear
+  comandos directamente en Octave.
+\item \emph{Editor}: Para escribir programas que serán ejecutados por Octave.
+\end{enumerate}
+
+Habitualmente utilizaremos el editor y la consola para comunicarnos
+con Octave, utilizando el lenguaje que se describe en las siguientes secciones.
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "smb"
+%%% End: 
