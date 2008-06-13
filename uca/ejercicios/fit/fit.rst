@@ -22,17 +22,20 @@ Pasos intermedios
 1. Cargar los datos mediante el comando *load*, *x.dat* en la variable
    *x*  e *y.dat* en la variable *y*
 
-2. Definir la función *leasqrfunc*::
+2. Definir la función *leasqrfunc*
 
-  function y = leasqrfunc(x,p)
-  
-    y=1/.(p(1)+p(2)*exp(-x));
+::
+
+  function y = leasqrfunc(x,p) 
+  y=1/.(p(1)+p(2)*exp(-x));
   
 
-3. Definir la función *leasqrdfdp*::
+3. Definir la función *leasqrdfdp*
+
+::
 
   function y = leasqrdfdp(x,f,p,dp,func)
-    y = [-1/.(p(2)*.exp(-x)+p(1)).^2, -exp(-x)/.(p(2)*.exp(-x)+p(1)).^2];
+  y = [-1/.(p(2)*.exp(-x)+p(1)).^2, -exp(-x)/.(p(2)*.exp(-x)+p(1)).^2];
   
 
 4. Resolver el problema de mínimos cuadrados mediante el algoritmo
@@ -43,19 +46,18 @@ Pasos intermedios
 Código
 ======
 
+::
+
   function fit
     % generate test data
-    t = linspace(-4,4,20)';
-    p = [1; 1];
-    data = leasqrfunc (t, p);
+    t = load('x.dat');
+    data = load('y.dat');
+    sorted = sortrows([t,data],1);
   
-    rnd = 0.1*rand(20,1);
+    t=sorted(:,1);
+    data=sorted(:,2);
   
-    % add noise
-    % wt1 = 1 /sqrt of variances of data
-    % 1 / wt1 = sqrt of var = standard deviation
     wt1 = (1 + 0 * t) ./ sqrt (data); 
-    data = data + 0.05 * rnd ./ wt1; 
   
     % Note by Thomas Walter <walter@pctc.chemie.uni-erlangen.de>:
     %
@@ -71,7 +73,7 @@ Código
     % dFdp = @dfdp;     % estimated derivative
     dp = [0.001; 0.001];
     pin = [0.5; 0.5]; 
-    stol=0.001; niter=50;
+    stol=0.001; niter=100;
     minstep = [0.01; 0.01];
     maxstep = [0.8; 0.8];
     options = [minstep, maxstep];
