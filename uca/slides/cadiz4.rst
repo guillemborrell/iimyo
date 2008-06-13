@@ -174,7 +174,7 @@ Resolver este sistema de ecuaciones con *fsolve*
 
 .. raw:: html
 
-  `((una),(dos),(tres))`
+  `((2x_1 - x_2 = e^{-x_1}),(-x_1 + 2x_2=e^{-x_2}))`
     
 Análisis de señales
 ===================

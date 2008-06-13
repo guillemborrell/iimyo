@@ -27,7 +27,7 @@ Pasos intermedios
 ::
 
   function y = leasqrfunc(x,p) 
-  y=1/.(p(1)+p(2)*exp(-x));
+  y=1./(p(1)+p(2).*exp(-x));
   
 
 3. Definir la función *leasqrdfdp*
@@ -35,7 +35,7 @@ Pasos intermedios
 ::
 
   function y = leasqrdfdp(x,f,p,dp,func)
-  y = [-1/.(p(2)*.exp(-x)+p(1)).^2, -exp(-x)/.(p(2)*.exp(-x)+p(1)).^2];
+  y = [-1./(p(2).*exp(-x)+p(1)).^2, -exp(-x)./(p(2).*exp(-x)+p(1)).^2];
   
 
 4. Resolver el problema de mínimos cuadrados mediante el algoritmo
