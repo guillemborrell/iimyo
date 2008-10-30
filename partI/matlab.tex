@@ -11,7 +11,7 @@ hay entre las sentencias de un lenguaje de programación y la
 biblioteca de funciones.
 
 Las sentencias son las palabras clave independientes. Esto significa
-que si las eliminaremos del lenguaje no podríamos sustituirlas con
+que si las eliminásemos del lenguaje no podríamos sustituirlas con
 ninguna combinación del resto de sentencias del lenguaje. Esta
 definición no es estricta; algunas palabras clave comunes se
 consideran sentencias cuando se hace un uso muy frecuente de ellas.
@@ -145,7 +145,7 @@ La consola es un entorno de trabajo más potente de lo que parece
 gracias a una serie de atajos de teclado de gran utilidad. Uno de los
 más potentes es la capacidad de auto-completar alguna palabra clave
 con la tecla de tabular, tab completion en inglés. Por ejemplo, si nos
-encontramos en el intérprete Octave y nos acordamos cómo se escribe
+encontramos en el intérprete Octave y no nos acordamos cómo se escribe
 exactamente la función para trasponer una matriz podemos hacer lo
 siguiente, escribimos sólo el inicio de la palabra y luego presionamos
 la tecla de tabular:
@@ -205,7 +205,7 @@ introducimos \texttt{help} sin ningún argumento nos aparecerá una
 ayuda general desde donde podremos encontrar cualquiera de las
 funciones disponibles.
 
-Uno comando bastante útil cuando trabajamos desde una consola o por
+Un comando bastante útil cuando trabajamos desde una consola o por
 red es \texttt{more}\index{more}. Si activamos el comando con
 \texttt{more on} activaremos el paginador de modo que cuando el texto
 que aparezca en pantalla se salga de la misma interrumpirá el texto
@@ -244,7 +244,7 @@ en estos directorios?  Ni mucho menos.  Matlab cuenta con un directorio
 especial en el que también busca funciones; es el llamado \emph{directorio
 de trabajo}.  Si estamos utilizando la interfaz gráfica de Matlab lo
 seleccionaremos en la barra de herramientas.  Si en cambio accedemos 
-a Matlab por consola o optamos por Octave el directorio de trabajo
+a Matlab por consola u optamos por Octave el directorio de trabajo
 será el directorio actual (en UNIX el contenido en la variable de
 sistema PWD).  Cada vez que se invoque una función en Matlab buscará
 en los directorios habituales y en el directorio de trabajo.
@@ -333,7 +333,7 @@ encontramos en cualquier código de simulación: contadores, funciones
 elementales, condicionales, casos... Empezaremos con el archivo
 \texttt{aprsin.m}, que es la aproximación de orden 3 del desarrollo de
 Taylor en 0 de la función seno. Para ello editamos el archivo nuevo de
-nombre \texttt{aprsin.m} en el directorio que nos diga Matlab o Octave
+nombre \texttt{aprsin.m} en el directorio que nos diga Matlab u Octave
 según el caso y pondremos en ella lo siguiente:
 
 \begin{lstlisting}
@@ -779,7 +779,7 @@ en los ejes de coordenadas.
 
 \subsection{Submatrices\index{Submatrices}}
 
-Para asignar partes de matrices a variables o operar dentro de una
+Para asignar partes de matrices a variables u operar dentro de una
 matriz con una parte de la misma es necesario asignarles una secuencia
 de índices. Se puede decir que la submatriz se genera \emph{contando}
 los índices de la primera Para entender mejor cómo funciona este tipo
@@ -1818,18 +1818,18 @@ ans = 1   3   5   7   9
 Por ejemplo:
 \begin{lstlisting}
 >> for i=5:5:25
-... disp(i),disp('es multiple de 5')
+... disp(i),disp('es multiplo de 5')
 ... end
 5
-es multiple de 5
+es multiplo de 5
 10
-es multiple de 5
+es multiplo de 5
 15
-es multiple de 5
+es multiplo de 5
 20
-es multiple de 5
+es multiplo de 5
 25
-es multiple de 5
+es multiplo de 5
 \end{lstlisting}
 
 
@@ -1879,7 +1879,7 @@ es mucho más crítico que el uso de un for. Esto es porque la condición
 lógica que controla el bucle debe aplicarse sobre una variable interna
 en el bucle. Entonces es probable que si programamos mal, la variable
 que usamos como control nunca llegue a cumplir la condición que nos
-para la ejecución. En Matlab o Octave no suele ser un gran problema,
+para la ejecución. En Matlab u Octave no suele ser un gran problema,
 puesto que el sistema puede reaccionar y cortar el proceso de otro
 modo, pero en otros lenguajes puede tener consecuencias bastante
 desagradables.  También debemos tener en cuenta que los bucles
@@ -1904,7 +1904,7 @@ El bucle \texttt{for} en Matlab no es un bucle en el sentido clásico
 sino que es un iterador\footnote{En informática se define iterador
   como un objeto que permite a un programa recorrer todos los
   elementos de un tipo iterable independientemente del tipo de los
-  elements.} sobre un vector. En la programación moderna los bucles
+  elementos.} sobre un vector. En la programación moderna los bucles
 han desaparecido en favor de los iteradores porque los segundos son
 mucho más polivalentes y seguros.  Para demostrar qué significa esto
 de iterador sobre un vector nos sirve este simple ejemplo.
@@ -2126,7 +2126,7 @@ Este ejemplo además nos sirve para ver el control de errores de una
 función. Las palabras clave \texttt{usage\index{usage}} y
 \texttt{error\index{error}} son los mensajes que saldrán por pantalla
 si se comete un mal uso o existe un error de ejecución
-respectivamente. Para que entendamos más en profundidad se propone
+respectivamente. Para que lo entendamos más en profundidad se propone
 esta sesión de consola:
 
 \begin{lstlisting}
@@ -2265,7 +2265,7 @@ ahorramos un archivo.
 
 \subsection{Function handles\index{function handles}}
 
-Hemos enfatizado en la necesidad de diferenciar los conceptos de
+Hemos enfatizado la necesidad de diferenciar los conceptos de
 variable y de argumento. Ahora introduciremos un concepto aún más
 complejo, el de la manipulación de funciones. En Matlab la función no
 es un elemento inerte como en Fortran, se parece bastante más a las
@@ -2386,8 +2386,8 @@ función, es algo completamente distinto. La función es anónima porque
 no tiene ningún nombre fijo, seguirá siendo la misma función
 independientemente del nombre de la variable.
 
-Las funcoines anónimas también pueden encapsularse como muestra el
-ejemplo anterior\footnote{Este código provoca un error de segmentación
+Las funciones anónimas también pueden encapsularse como muestra el
+ejemplo siguiente\footnote{Este código provoca un error de segmentación
 en Matlab 7.0.0.19901 (R14) y Octave en versiones inferiores a
 2.9.12}:
 
@@ -2465,7 +2465,6 @@ sin
 >> fhtest(fhsin)
 ans = 0.84147
 \end{lstlisting}
-Esta estructura permite hacer
 
 
 \subsubsection{Acceso a las variables desde las funciones anónimas.}
@@ -2476,7 +2475,7 @@ Esta estructura permite hacer
 
 Otra pequeña diferencia entre Matlab y Octave es cómo las funciones
 anónimas entienden las variables dadas en la cabecera. En Octave, una
-función anónima es estrictamente una función a parte. Las variables
+función anónima es estrictamente una función aparte. Las variables
 internas no tienen ninguna relación con las variables del resto del
 entorno de ejecución. Por ejemplo, si queremos definir la siguiente
 función de dos variables:
@@ -2558,7 +2557,7 @@ eficiente de calcular un factorial\index{factorial}%
 }.
 
 \begin{lstlisting}
-function out = fact ()
+function out = fact (n)
   if (n > 0)
     out = n* fact (n-1);
   else
@@ -2639,7 +2638,7 @@ Dentro de los métodos de introspección uno de los más utilizados es la
 sobrecarga de funciones. Es un tema bastante avanzado pero puede
 aportar grandes beneficios en códigos muy complejos. Sobrecargar una
 función es asignar más de un método a un nombre y aportarle un método
-adicional para que según el tipo de argumento se use un método o otro.
+adicional para que según el tipo de argumento se use un método u otro.
 
 \begin{description}
 \item [dispatch\index{dispatch}]Función que se encarga de gestionar la
@@ -2777,7 +2776,7 @@ Fortran.\end{minipage}%
   se presenta con un número y espera que se escoja uno de ellos por
   teclado.  El valor retornado es el número de la opción escogida.
   Cuando se está utilizando la interfaz gráfica de Matlab aparece una
-  ventana y que muestra un botón por cada opción Por ejemplo:
+  ventana que muestra un botón por cada opción Por ejemplo:
 \end{description}
   \begin{lstlisting}
 >> choice=menu('Esto es un menu','uno','dos','tres')
@@ -2816,7 +2815,7 @@ Matlab tiene tres formatos binarios a los que llama según la versión
 en la que se introdujeron, la versión 4, la 6 y la 7. No es necesario
 decir cuál es la más optimizada. La última versión de Octave es capaz
 de leer y escribir en los tres, tiene soporte para utilizar el formato
-binario abierto \emph{hdf5} además de su tener el suyo propio.
+binario abierto \emph{hdf5} además de tener el suyo propio.
 
 Tendremos siempre la posibilidad de guardar o cargar las variables que
 queramos, el almacenamiento es capaz de reconocer qué variables hemos
@@ -2863,12 +2862,12 @@ En el archivo de nombre \emph{nombrearchivo} encontraremos la línea:
   comparación con otros lenguajes de programación superiores.}
 
 Matlab no es un buen lenguaje de programación.  Que seamos capaces de
-entenderlo fácilmente a pesar de sus defectos no lo hace bueno porque
-sencillo no significa correcto ni directo significa consistente.
+entenderlo fácilmente a pesar de sus defectos no lo hace bueno, porque
+sencillo no significa correcto, ni directo significa consistente.
 Matlab tiene defectos y algunos de ellos muy graves.
 
 Esta sección proviene de una discusión con los miembros del
-departamento de Máticas de la Escuela Técnica Superior de Ingenieros
+departamento de Matemáticas de la Escuela Técnica Superior de Ingenieros
 Navales. En aquella escuela Matlab se utiliza para impartir cursos de
 programación.  Mi visión era que Matlab inyecta ciertos malos vicios
 que lo descartan como plataforma para la enseñanza de la
@@ -2939,13 +2938,10 @@ Mi sugerecia sería definir las funciones como sigue:
 \begin{lstlisting}
 function {x,y}=f(a,b)
 \end{lstlisting}
-
 para que la asignación
-
 \begin{lstlisting}
 {x,y}=f(2,3)
 \end{lstlisting}
-
 tenga sentido y convierta las celdas en auténticas
 tuplas. Desgraciadamente este cambio rompería todos los códigos
 existentes por lo que no es posible.
@@ -3030,7 +3026,7 @@ orientación a objetos de Matlab nunca llegue a utilizarse activamente.
 ¿Por qué una función en cada archivo? ¿Por qué para escribir códigos
 no triviales nos vemos obligados a movernos entre una docena de
 archivos que perfectamente podrían juntarse en un módulo?  Es la mayor
-y más grave estupidez de el intérprete Matlab que por lo menos ha sido
+y más grave estupidez del intérprete Matlab que por lo menos ha sido
 solucionado en Octave a costa de romper la compatibilidad.
 
 Ignoro por qué aún no se ha subsanado el error pero sin duda alguna es
@@ -3038,12 +3034,12 @@ el defecto más sangrante de todos.
 
 \subsection{Matlab 2 y otros lenguajes de programación}
 
-El \emph{Matlab Monkey} puede definirse como aquél programador tan
+El \emph{Matlab Monkey} puede definirse como aquel programador tan
 acostumbrado a Matlab que es ya incapaz de reconocer todo lo anterior
 como defectos.  El otro gran síntoma es el de utilizar Matlab
 absolutamente para todo.
 
-El languaje Matlab prácticamente no ha cambiado desde su creación, por
+El lenguaje Matlab prácticamente no ha cambiado desde su creación, por
 consguiente no ha resuelto sus defectos y ha añadido otros
 nuevos. Parece claro que el único aliciente de programar en Matlab es
 la biblioteca de funciones.  Hagámonos entonces la pregunta siguiente:
