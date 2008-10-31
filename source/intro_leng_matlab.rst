@@ -96,3 +96,13 @@ de primera especie:
 mismo modo que se compondrían funciones matemáticas.  Esta línea de
 código puede ser incomprensible pero al final la entenderemos con
 todos los detalles.
+
+El entorno de desarrollo Matlab
+-------------------------------
+
+Matlab como programa no se limita a un intérprete en una consola, es
+un entorno de desarrollo al completo. Al iniciar Matlab nos aparecerá
+la ventana principal con la consola, el navegador de variables y el
+historial de comandos. Evidentemente lo más importante es la consola;
+todo lo demás, aunque útil, es prescindible.
+
