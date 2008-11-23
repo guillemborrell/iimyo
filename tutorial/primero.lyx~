@@ -1,0 +1,329 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Tutorial de Matlab.
+ Matrices y vectores
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Framed
+status collapsed
+
+\begin_layout Standard
+NOTA: Todos estos ejercicios necesitan sólo la consola interactiva, no es
+ necesario escribir ningún archivo ni escribir ningún script
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El uso más básico de Matlab es el de calculadora.
+ Para calcular utiliza la notación usual para las operaciones.
+ Por ejemplo, para sumar dos números bastará con hacerlo en la pantalla
+ de la consola interactiva
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> 2+2
+\end_layout
+
+\begin_layout Standard
+
+ans = 4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Del mismo modo se puede calcular el resultado de las funciones elementales
+ como el seno, el logaritmo o la raíz cuadrada.
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> sqrt(4)
+\end_layout
+
+\begin_layout Standard
+
+ans = 2
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Como Matlab es un lenguaje de programación cualquier resultado puede almacenarse
+ en una variable, por ejemplo el logaritmo de 
+\begin_inset Formula $e$
+\end_inset
+
+ pasará a llamarse 
+\begin_inset Formula $uno$
+\end_inset
+
+:
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> uno = log(exp(1))
+\end_layout
+
+\begin_layout Standard
+
+uno = 1
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Teniendo en cuenta todo lo anterior calcular el número áureo de expresión
+ y asignarlo a una variable de nombre 
+\begin_inset Formula $phi$
+\end_inset
+
+:
+\begin_inset Formula \[
+\phi=\frac{1+\sqrt{5}}{2}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+El número áureo está relacionado íntimamente con la serie de Fibonacci:
+\begin_inset Formula \[
+F_{n}=0,1,1,2,3,5,8,13,21,34,55,...\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Sabiendo que en Matlab el operador potencia se expresa con el símbolo ^,
+ calcular el término centésimo de la serie conociendo que: 
+\begin_inset Formula \[
+F_{n}\simeq\frac{\phi^{n}-(1-\phi)^{n}}{\sqrt{5}}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+En Matlab es muy sencillo definir vectores, basta con introducir todos sus
+ elementos entre corchetes:
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> v=[1,2,3,4,5,6,7]
+\end_layout
+
+\begin_layout Standard
+
+v = 
+\end_layout
+
+\begin_layout Standard
+
+  1  2  3  4  5  6  7
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Framed
+status collapsed
+
+\begin_layout Standard
+NOTA: Para suprimir la salida del resultado podemos añadir al final un punto
+ y coma.
+ Esto nos ahorrará tener que ver una y otra vez números que ya conocemos
+ o resultados intermedios.
+\end_layout
+
+\end_inset
+
+Si el vector es muy sencillo podrá utilizarse una secuencia
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> v=1:7 
+\end_layout
+
+\begin_layout Standard
+
+v =
+\end_layout
+
+\begin_layout Standard
+
+  1  2  3  4  5  6  7
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Muchas funciones necesitan un vector porque operan, bien un vector desde
+ el punto de vista algebraico o una serie de números.
+ Es el caso de las funciones relacionadas con la estadística.
+ Sabiendo que la función que calcula la media se llama 
+\emph on
+mean
+\emph default
+ calcular la media de la siguiente serie de datos: 1,3,4,5,3,2,3,7,6,5,6,5.
+ Para ello crear la variable 
+\emph on
+dato
+\emph default
+ y aplicarle la función media.
+\end_layout
+
+\begin_layout Standard
+Obviamente Matlab es capaz de operar con más dimensiones que simples vectores.
+ La siguiente dimensión está ocupada por las matrices.
+ La manera más fácil de crear matrices es introduciendo fila por fila.
+ Por ejemplo, la siguiente matriz:
+\begin_inset Formula \[
+M=\left(\begin{array}{ccc}
+1 & 2 & 3\\
+4 & 5 & 6\\
+7 & 8 & 9\end{array}\right)\]
+
+\end_inset
+
+se introduce en la variable M como sigue.
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> M=[1,2,3;4,5,6;7,8,9]
+\end_layout
+
+\begin_layout Standard
+
+M =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   1   2   3
+\end_layout
+
+\begin_layout Standard
+
+   4   5   6
+\end_layout
+
+\begin_layout Standard
+
+   7   8   9
+\end_layout
+
+\end_inset
+
+El operador multiplicación sirve también como operador producto escalar.
+ Dada la matriz 
+\begin_inset Formula $M$
+\end_inset
+
+ anterior y con el vector 
+\begin_inset Formula $\vec{v}=(1,2,3)$
+\end_inset
+
+ realizar la siguiente operación:
+\begin_inset Formula \[
+M\cdot\vec{v}\]
+
+\end_inset
+
+Luego calcular la función seno del resultado.
+ ¿Cuánto vale el determinante de la matriz 
+\begin_inset Formula $M$
+\end_inset
+
+?
+\end_layout
+
+\end_body
+\end_document
