@@ -11,7 +11,7 @@ kv = k(Mv)
 P.plot(Mv,kv)
 P.xlabel('M')
 P.ylabel('k')
-
+P.savefig('Mk.pdf')
 
 c = S.polyfit(kv,Mv,2)
 
@@ -32,5 +32,5 @@ P.figure(3)
 P.plot(Mv,exact(rg)-appro(rg))
 P.xlabel('M')
 P.ylabel('Error')
-P.show()
+P.savefig('error.pdf')
 
