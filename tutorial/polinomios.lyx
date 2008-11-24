@@ -33,6 +33,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -398,6 +399,15 @@ Dar los coeficientes de un modelo cuadrático de la curva
 \end_inset
 
  entre 5 y 75 .
+\end_layout
+
+\begin_layout Section
+Ejercicio
+\end_layout
+
+\begin_layout Standard
+Puede que en algunos casos nos sea imposible invertir una función y necesitamos
+ 
 \end_layout
 
 \end_body
