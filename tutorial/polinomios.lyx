@@ -407,7 +407,196 @@ Ejercicio
 
 \begin_layout Standard
 Puede que en algunos casos nos sea imposible invertir una función y necesitamos
+ hallarla a toda costa.
+ Esto es debido a que la inversa de una función puede tener discontinuidades
+ o tener una forma demaisado compleja para incluso un programa de cálculo
+ simbólico.
+ Supongamos por ejemplo la función:
+\begin_inset Formula \[
+M\left(1+\frac{1}{\left(1+M^{2}\right)}\right)^{0.23}=k\]
+
+\end_inset
+
+¿Es posible encontrar una función 
+\begin_inset Formula $M$
+\end_inset
+
+ que dependa sólo de 
+\begin_inset Formula $k$
+\end_inset
+
+? La respuesta es sí y no.
+ Podemos encontrar fácilmente una aproximación a la función para un intervalo
+ pequeño de 
+\begin_inset Formula $M$
+\end_inset
+
+ o 
+\begin_inset Formula $k$
+\end_inset
+
+, en este caso 
+\begin_inset Formula $M\in[0,1]$
+\end_inset
+
+, gracias a los mínimos cuadrados.
+\end_layout
+
+\begin_layout Standard
+El primer paso es obtener una tabla de los valores de 
+\begin_inset Formula $k$
+\end_inset
+
+ en función de 
+\begin_inset Formula $M$
+\end_inset
+
+.
+ Con cien valores es más que suficiente.
+ Ahora dispondremos de dos vectores que habremos llamado 
+\begin_inset Formula $k$
+\end_inset
+
+ y 
+\begin_inset Formula $M$
+\end_inset
+
+ respectivamente.
+ Para comprobar que el resultado es correcto este es el aspecto de la curva.
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename Mk.pdf
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Curva de 
+\begin_inset Formula $k$
+\end_inset
+
+ en función de 
+\begin_inset Formula $M$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+La curva resultante es casi una recta y se puede aproximar con precisión
+ mediante una parábola.
+ Para ello ajustaremos la serie de datos obtenida anteriormente por mínimos
+ cuadrados y llegaremos a un polinomio 
+\begin_inset Formula $M=p(k)=C_{0}+C_{1}k+C_{2}k^{2}$
+\end_inset
+
+, concretamente al vector de coeficientes.
+ Acabamos de encontrar la aproximación a su inversa en 
+\begin_inset Formula $M\in[0,1]$
+\end_inset
+
+.
+ Para comprobar la validez de esta aproximación representaremos el error
+ de la misma
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename error.pdf
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Error de la aproximación cuadrática
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
  
+\end_layout
+
+\begin_layout Standard
+Como puede comprobarse el error es varios ordenes de magnitud menor al valor
+ de la función.
+ Este método puede utilizarse siempre, la limitación será debida al aumento
+ del error a medida que la función presente un carácter 
+\emph on
+extraño
+\emph default
+.
 \end_layout
 
 \end_body
