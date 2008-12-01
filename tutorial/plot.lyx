@@ -33,6 +33,7 @@
 \tracking_changes false
 \output_changes false
 \author "" 
+\author "" 
 \end_header
 
 \begin_body
@@ -40,6 +41,96 @@
 \begin_layout Title
 Tutorial de Matlab.
  Representación gráfica
+\end_layout
+
+\begin_layout Standard
+Representar gráficamente datos en Matlab es una de las operaciones más sencillas.
+ La mayoría de las operaciones pueden hacerse mediante el comando 
+\emph on
+plot
+\emph default
+.
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> x=linspace(0,2*pi,100);
+\end_layout
+
+\begin_layout Standard
+
+>> plot(x,sin(x))
+\end_layout
+
+\end_inset
+
+lo que genera la siguiente figura:
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename sin.pdf
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+La función seno
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+La función 
+\emph on
+plot
+\emph default
+ acepta tantos argumentos como sean necesarios, siempre en grupos de tres:
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status open
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \end_body
