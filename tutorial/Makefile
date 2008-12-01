@@ -1,8 +1,9 @@
 PY := $(wildcard *.py)
 LYX := $(wildcard *.lyx)
+TEX := $(wildcard *.tex)
 
-all: pdf
 
+all: pdf 
 
 pdf: fig
 	@echo *************************************
