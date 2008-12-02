@@ -39,7 +39,7 @@
 \begin_body
 
 \begin_layout Title
-Tutorial de Matlab.
+Tutorial de Matlab VII.
  FFT y análisis de señales.
 \end_layout
 
@@ -72,7 +72,8 @@ Después de sumar las dos señales rectificaremos el resultado, es decir,
 \end_layout
 
 \begin_layout Itemize
-Representar gráficamente el espectro en frecuencias.
+Representar gráficamente el espectro en frecuencias, su valor absoluto debido
+ a que el espectro será un vector de números complejos.
 \end_layout
 
 \begin_layout Itemize
@@ -92,6 +93,7 @@ Representar la señal resultante y comprobar que realmente es una señal modulad
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
@@ -142,6 +144,7 @@ Espectro antes del filtrado
 
 \begin_layout Standard
 \begin_inset Float figure
+placement H
 wide false
 sideways false
 status collapsed
