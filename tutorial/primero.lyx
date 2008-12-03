@@ -264,7 +264,7 @@ status collapsed
 
 \begin_layout Standard
 
->> v=(4)
+>> v(4)
 \end_layout
 
 \begin_layout Standard
@@ -286,11 +286,11 @@ y para obtener un intervalo se pueden utilizar las secuencias:
 \begin_inset listings
 lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
 inline false
-status collapsed
+status open
 
 \begin_layout Standard
 
->> v=(4:6)
+>> v(4:6)
 \end_layout
 
 \begin_layout Standard
@@ -321,7 +321,7 @@ status open
 
 \begin_layout Standard
 
->> v=(10)
+>> v(10)
 \end_layout
 
 \begin_layout Standard
@@ -356,7 +356,7 @@ se introduce en la variable M como sigue.
 \begin_inset listings
 lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
 inline false
-status collapsed
+status open
 
 \begin_layout Standard
 
