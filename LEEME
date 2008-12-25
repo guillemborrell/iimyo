@@ -54,28 +54,21 @@ Para poder compilar el documento es necesario contar con lo siguiente:
     características aún no disponibles en
     octave). http://matplotlib.sourceforge.net/
 
-  * scons. http://www.scons.org/
-
 * dia (para generar algunos diagramas)http://www.gnome.org/projects/dia/
 
-Generar las figuras
--------------------
+Generar el pdf en UNIX
+----------------------
 
-Las figuras se crean a partir de los scripts para que sirvan también
-de ejemplo.  El texto no compilará correctamente sin sus figuras. Para
-ello es necesario ir al directorio correspondiente a las figuras y teclear::
+Bastará con ir a la consola y teclear
 
-  $ python generatefigs.py
+  $ python build.py build
 
-Generar el documento
---------------------
+Generar el pdf en Windows
+-------------------------
 
-En el directorio raíz ejecutar::
-
-  $ scons
-
-Si se ha limpiado los archivos auxiliares será necesario ejecutarlo
-dos veces para que se creen los índices y los enlaces.
+Sólo hay que darle doble clic al archivo build.py para que aparezca un
+interfaz gráfico.  Bastará con tener todo instalado y darle al botón
+de build.
 
 PETICIÓN DEL AUTOR ORIGINAL
 ===========================
