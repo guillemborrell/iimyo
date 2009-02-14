@@ -23,12 +23,10 @@ sys.path.append(os.path.abspath('extensions'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.pngmath']#,'only_directives','plot_directive']
-
-#jsmath_path = 'jsMath/easy/load.js'
+extensions = ['sphinx.ext.pngmath','only_directives']
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['.templates']
+templates_path = ['_templates']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
@@ -55,7 +53,7 @@ language = 'es'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
-#today = ''
+today = ''
 # Else, today_fmt is used as the format for a strftime call.
 #today_fmt = '%B %d, %Y'
 
@@ -111,7 +109,7 @@ html_short_title = u'IIMYO2'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['.static']
+html_static_path = ['_static']
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -132,13 +130,13 @@ html_static_path = ['.static']
 html_use_modindex = False
 
 # If false, no index is generated.
-#html_use_index = True
+html_use_index = True
 
 # If true, the index is split into individual pages for each letter.
 #html_split_index = False
 
 # If true, the reST sources are included in the HTML build as _sources/<name>.
-#html_copy_source = True
+html_copy_source = True
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
@@ -164,7 +162,7 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
-  ('index', 'iimyo.tex', u'Matemáticas en Ingeniería con Matlab y Octave',
+  ('latexindex', 'iimyo2.tex', u'Matemáticas en Ingeniería con Matlab y Octave',
    u'Guillem Borrell i Nogueras et al.', 'manual'),
 ]
 
