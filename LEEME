@@ -1,0 +1,53 @@
+Sobre este documento
+====================
+
+Este es el árbol de la fuente del documento Matemáticas en Ingeniería
+con Matlab y Octave. El documento es traducido de restructuredtext a
+html y LaTeX por Sphinx.
+
+Organización de los archivos
+============================
+
+:build:
+
+  Directorio gestionado por sphinx donde se copian los documentos
+  generados.
+
+:1edicion:
+
+  Primera edición de este título llamado Introducción Informal a
+  Matlab y Octave.  Es un directorio autocontenido, todo lo necesario
+  para crear el pdf del libro está aquí sin ninguna dependencia
+  externa.
+
+:sandbox:
+
+  Cajón de sastre donde se guardan los ensayos para su posible
+  inclusión en el texto final
+
+:source:
+
+  Directorio donde se almacenan los archivos correspondientes a la
+  segunda edición del libro, ahora titulada Matemáticas en Ingeniería
+  con Matlab y Octave.
+
+:tr_y_art:
+
+  Colección de transparencias de cursos y artículos que tienen que ver
+  con el texto.
+
+:tutorial:
+
+  Documentos correspondientes a un tutorial diseñado para el Máster de
+  Ensayos en Vuelo de la ETSI Aeronáuticos de la UPM.  Son ejercicios
+  interesantes para el autoaprendizaje de Matlab.
+
+:uca:
+
+  Contiene todo el material presentado durante el curso de formación
+  de profesorado organizado por la Cátedra de Software Libre de la
+  Universidad de Cádiz.
+
+:web:
+
+  Página web del proyecto alojada en rediris.  Obsoleta.
