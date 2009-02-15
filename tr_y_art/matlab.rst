@@ -11,7 +11,7 @@ Primera sesión
 
 Guillem Borrell i Nogueras
 
-Curso 2006-2007
+Curso 2008-2009
 
 
 ¿Qué es Matlab?

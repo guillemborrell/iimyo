@@ -42,7 +42,7 @@ Copias impresas de la primera edición
 Los adictos a los documentos a base de árboles muertos pueden adquirir
 una copia impresa `aquí <http://www.lulu.com/content/2495137>`_ por
 unos 20€ gastos de envío incluidos. Su ISBN es el
-978-8-4691-3626-3. Lulu es un conocido servicio editorial online al
+``978-8-4691-3626-3``. Lulu es un conocido servicio editorial online al
 que no se le ha cedido ningún derecho, sólo se encarga de imprimir y
 mandar el libro.
 
@@ -76,7 +76,7 @@ Otros recursos sobre Octave
      todas las funciones disponibles tanto en Octave como en los
      toolkits de octave-forge.
 
-   * La `Documentación de la API <http://octave.sourceforge.net/doxygen/html/index.html>`_ de liboctave para ampliar el intérprete mediante C++.</li>
+   * La `Documentación de la API <http://octave.sourceforge.net/doxygen/html/index.html>`_ de liboctave para ampliar el intérprete mediante C++.
   
 Otras lecturas de interés
 -------------------------
@@ -156,4 +156,4 @@ Secciones Invariantes ni Textos de Cubierta Delantera ni Textos de
 Cubierta Trasera. Una copia de la licencia está incluida en el
 apéndice del libro titulado GNU Free Documentation License.
   
-ISBN: 978-8-4691-3626-3
+``ISBN: 978-8-4691-3626-3``
