@@ -62,13 +62,11 @@ razonablemente actualizado.
 Otros recursos sobre Octave
 ---------------------------
 
-* `Página web del proyecto Octave
-  <http://www.gnu.org/software/octave/>`_
+* `Página web del proyecto Octave <http://www.gnu.org/software/octave/>`_.
 
-* `Manual oficial
-  <http://www.gnu.org/software/octave/doc/interpreter/>`_
+* `Manual oficial <http://www.gnu.org/software/octave/doc/interpreter/>`_.
 
-* `Wiki del proyecto Octave <http://wiki.octave.org>`_
+* `Wiki del proyecto Octave <http://wiki.octave.org>`_.
 
 * `Página web de octave-forge <http://octave.sourceforge.net/>`_, una
   colección de toolkits para Octave. También en esta página podemos
@@ -137,7 +135,15 @@ teneis tres posibilidades: ignorarla, pensar que el libro es una
 mierda o intentar hacer algo.
 
 
-.. include:: latexindex.rst
+Matemáticas en Ingeniería con Matlab y Octave
+=============================================
+
+.. toctree::
+   :maxdepth: 3
+
+   latexindex
+
+* :ref:`search`
 
 Nota de Copyright. GNU FDL
 ==========================

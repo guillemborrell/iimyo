@@ -12,5 +12,5 @@ Matemáticas en Ingeniería con Matlab y Octave
 Índices y Tablas
 ================
 
-* :ref:`search`
+* :ref:`genindex`
 
