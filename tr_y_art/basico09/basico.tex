@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[12pt]{beamer}
 \usetheme{Pittsburgh}
 \usepackage[spanish]{babel}
 \usepackage{times}
@@ -8,8 +8,8 @@
 \usepackage{tikz}
 \usepackage{listings}
 
-% \usepackage{pgfpages}
-% \pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
 
 \renewcommand\shorthandsspanish{}
 \noextrasspanish
@@ -22,7 +22,7 @@
 \lstset{language=Matlab,
   backgroundcolor=\color{black!10},
   numbers=left,
-  basicstyle=\ttfamily,
+  basicstyle=\small\ttfamily,
   keywordstyle=\color{blue},
   extendedchars=true,
   inputencoding=utf8,
@@ -46,6 +46,8 @@
     \url{http://iimyo.forja.rediris.es/}
   \end{itemize}
 \end{frame}
+
+\begin{large}
 
 \begin{frame}
   \frametitle{¿Qué es Matlab?}
@@ -154,7 +156,88 @@ No os preocupéis si no entendéis nada.  Esto es Matlab avanzado.
 
 \begin{frame}
 \frametitle{El resultado}
-
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/primera.pdf}
+  \end{figure}
 \end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> 2+2
+ans =  4
+>> mean([1,2,3,4,5,6,7,8,9])
+ans =  5
+>> abs(3+4i)
+ans =  5
+\end{lstlisting}
+}
+
+\begin{frame}
+  \frametitle{¿Una calculadora programable?}
+  \testcode
+\end{frame}
+
+\begin{frame}
+  \frametitle{Todo esto es muy bonito pero...}
+  \begin{itemize}
+    \item ¿Es una herramienta realmente útil?
+    \item ¿Se usa masivamente en la industria?
+    \item ¿Por qué?
+    \item ¿Cuánto cuesta Matlab?
+    \item ¿Es la única solución?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Octave}
+  \begin{itemize}
+    \item Implementación libre y gratuita del lenguaje Matlab
+    \item \url{http://www.octave.org}
+    \item Programa muy utilizado en GNU/Linux
+    \item Versiones para Windows y Mac
+    \item QtOctave
+    \item \emph{Libre y gratuito}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{El lenguaje Matlab}
+  \begin{itemize}
+    \item Caracteres especiales
+    \item Funciones y scripts
+    \item Tipos
+    \item Variables
+    \item Operadores
+    \item Sentencias
+    \item \emph{Function handles}
+  \end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> \% Este comando será ignorado
+>> 'hola' \% 'Hola,Matlab!'
+ans = hola
+
+>> 'hola';
+>> 'hola', 'que tal'
+ans = hola
+ans = que tal
+
+>> 'hola', ...
+'que tal'
+ans = hola
+ans = que tal
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Caracteres especiales}
+\testcode
+\end{frame}
+
+\end{large}
 
 \end{document}

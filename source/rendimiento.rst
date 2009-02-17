@@ -27,8 +27,8 @@ de factores:
 * Muchas de las funciones disponibles en la biblioteca y los toolkits
   están escritas en C, esto significa que su velocidad de ejecución
   será mucho mayor que cualquier implementación que podamos hacer en
-  Matlab. Otra característica de la programación a la Matlab es el uso
-  masivo de funciones aunque realicen tareas triviales.
+  Matlab. Otra característica de la programación a la Matlab programar
+  poco y usar muchas funciones.
 
 Todas las estrategias de optimización tienen un precio, algunas en
 horas de trabajo, otras en precisión de cálculo. Si optimizar o no o

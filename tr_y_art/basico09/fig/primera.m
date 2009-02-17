@@ -3,5 +3,6 @@ intbessel=@(y) quad(@(x) besselj(2.5,x),0,y);
 for i=1:100
   z(i)=intbessel(x(i));
 end
-plot(x,z);
-print -dsvg 'primera.svg'
+p=plot(x,z);
+set(p,'linewidth',2);
+print -deps 'primera.eps'
