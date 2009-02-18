@@ -13,4 +13,5 @@ Matemáticas en Ingeniería con Matlab y Octave
 ================
 
 * :ref:`genindex`
+* :ref:`modindex`
 

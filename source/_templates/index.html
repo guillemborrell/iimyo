@@ -1,159 +1,188 @@
-Introducción Informal a Matlab y Octave
-=======================================
+{% extends "layout.html" %}
+{% set title = 'Resumen' %}
+{% block body %}
 
-Bienvenidos a la página web de *Introducción Informal a Matlab y
-Octave*. En estos momentos estamos escribiendo la segunda edición del
-libro titulada `Matemáticas en Ingeniería con Matlab y Octave`_ que
-pretende ser una versión ampliada y mejorada. La primera edición se
-mantendrá puesto que esta segunda versión no es un sustituto perfecto.
+<h1>Introducción Informal a Matlab y Octave</h1>
 
-* `Página en la forja <http://forja.rediris.es/projects/iimyo>`_ para
-  más información
+<p>Bienvenidos a la página web de <i>Introducción Informal a Matlab y
+    Octave</i>. En estos momentos estamos escribiendo la segunda edición
+  del libro titulada Matemáticas en Ingeniería con Matlab y Octave
+  que pretende ser una versión ampliada y mejorada. La primera edición
+  se mantendrá puesto que esta segunda versión no es un sustituto
+  perfecto.</p>
 
-* `Descargas de los libros y del material adicional
-  <http://forja.rediris.es/frs/?group_id=305>`_.
+<p> &rarr;<a href="https://forja.rediris.es/projects/iimyo/">Página
+    en la forja</a> para más información. Ahora este proyecto utiliza
+    <b>git</b> como SCM, esto ha obligado a abandonar el repositorio
+    Subversion de la forja.  A partir de ahora el código fuente debe
+    ser clonado
+    desde <a href="http://gitorious.org/projects/matem-ticas-en-ingenier-a-con-matlab-y-octave">Gitorious</a>.  </p>
+<p> &rarr;<a href="http://forja.rediris.es/frs/?group_id=305">Descargas
+    del libro y del material adicional</a></p>
 
-Sobre el libro
---------------
+<h2 id="sobre" class="title">Sobre el Libro</h2>
+<p>Los objetivos iniciales de este libro son los siguientes:</p>
+<ul class="simple">
+  <li>Describir el lenguaje de programación Matlab</li>
+  <li>Dar una descripción extensa del funcionamiento del intérprete libre
+    Octave y sus ventajas e inconvenientes respecto a la implementación
+    propietaria del lenguaje.</li>
+  <li>Presentar ejemplos inspirados en el Cálculo Numérico para dar una
+    introducción aplicada de la programación con Matlab y Octave.</li>
+  <li>Realizar las explicaciones de Cálculo Numérico pertinentes para que
+    el lector sea capaz de entender los ejemplos con el mínimo
+    conocimiento previo posible.</li>
+</ul>
+<p>
+  Este libro es un proyecto participativo y abierto, por este motivo
+  se ha optado por una licencia libre en su distribución.  Su espíritu
+  es el de compartir el conocimiento y aceptar cualquier ayuda por
+  pequeña que sea.</p>
 
-Los objetivos iniciales de este libro son los siguientes:
+<p>
+  Aunque de momento el libro no recibe actualizaciones de ningún
+  tipo existe un pequeño índice de algunos errores especialmente
+  flagrantes en
+  la <a href="http://torroja.dmt.upm.es/guillem/wiki/ActualizacionesIimyo/">
+    wiki del autor original</a>.
+</p>
 
-* Describir el lenguaje de programación Matlab
+<h2>Documentation</h2>
+  <table class="contentstable" align="center" style="margin-left: 30px"><tr>
+    <td width="50%">
+      <p class="biglink"><a class="biglink" href="{{
+      pathto("contenidos") }}">Contenidos</a><br/>
+         <span class="linkdescr">Para una visión completa del
+         título.</span></p>
+      <p class="biglink"><a class="biglink" href="{{ pathto("search")
+      }}">Buscar</a><br/>
+         <span class="linkdescr">Buscar en el libro</span></p>
+    </td><td width="50%">
+      <p class="biglink"><a class="biglink" href="{{
+      pathto("genindex") }}">Índice General</a><br/>
+         <span class="linkdescr">Todas las funciones, y términos</span></p>
+      <p class="biglink"><a class="biglink" href="{{
+      pathto("modindex") }}">Índice de Toolkits</a><br/>
+         <span class="linkdescr">Acceso rápido a todos los toolkits
+         documentados.</span></p>
+    </td></tr>
+  </table>
 
-* Dar una descripción extensa del funcionamiento del intérprete libre
-  Octave y sus ventajas e inconvenientes respecto a la implementación
-  propietaria del lenguaje.
 
-* Presentar ejemplos inspirados en el cálculo numérico para dar una
-  introducción aplicada de la programación con Matlab y Octave.
+<h3 id="copias">Copias impresas</h3>
+    <p>Los adictos a los documentos a base de árboles muertos pueden
+      adquirir una copia impresa
+      <a href="http://www.lulu.com/content/2495137">aquí</a> por unos
+      20€ gastos de envío incluidos. Su ISBN es el
+      978-8-4691-3626-3. Lulu es un conocido servicio editorial
+      online al que no se le ha cedido ningún derecho, sólo se
+      encarga de imprimir y mandar el libro.</p>
 
-* Realizar las explicaciones de cálculo numérico pertinentes para
-  que el lector sea capaz de entender los ejemplos con el mínimo
-  conocimiento previo posible.
+    <p>Este servicio es sin ningún ánimo de lucro. El precio
+      relativamente elevado se debe a la comisión que se lleva Lulu y
+      los gastos de envío (el precio de coste según ellos es de unos
+      8€). En la actualidad estoy buscando algún servicio de
+      publicaciones universitario que esté dispuesto a imprimirlo y
+      distribuirlo por un precio razonable. </p>
 
-Este libro es un proyecto participativo y abierto, por este motivo se
-ha optado por una licencia libre en su distribución.  Su espíritu es
-el de compartir el conocimiento y aceptar cualquier ayuda por pequeña
-que sea.
+    <p>Al ser un proyecto de documentación casi cualquier fuente impresa
+      quedará desactualizada en unos pocos meses.  El método recomendado
+      para obtener una copia impresa del libro es hacer un checkout del
+      repositorio, instalar las herramientas necesarias, generarse el pdf
+      e imprimirlo. Asimismo el pdf disponible en la sección de descargas
+      está razonablemente actualizado.</p>
 
-Copias impresas de la primera edición
--------------------------------------
-
-Los adictos a los documentos a base de árboles muertos pueden adquirir
-una copia impresa `aquí <http://www.lulu.com/content/2495137>`_ por
-unos 20€ gastos de envío incluidos. Su ISBN es el
-``978-8-4691-3626-3``. Lulu es un conocido servicio editorial online al
-que no se le ha cedido ningún derecho, sólo se encarga de imprimir y
-mandar el libro.
-
-Este servicio es sin ningún ánimo de lucro. El precio relativamente
-elevado se debe a la comisión que se lleva Lulu y los gastos de envío
-(el precio de coste según ellos es de unos 8€). En la actualidad estoy
-buscando algún servicio de publicaciones universitario que esté
-dispuesto a imprimirlo y distribuirlo por un precio razonable.
-
-Al ser un proyecto de documentación casi cualquier fuente impresa
-quedará desactualizada en unos pocos meses.  El método recomendado
-para obtener una copia impresa del libro es hacer un checkout del
-repositorio, instalar las herramientas necesarias, generarse el pdf e
-imprimirlo. Asimismo el pdf disponible en la sección de descargas está
-razonablemente actualizado.
-
-Otros recursos sobre Octave
----------------------------
-
-* `Página web del proyecto Octave <http://www.gnu.org/software/octave/>`_.
-
-* `Manual oficial <http://www.gnu.org/software/octave/doc/interpreter/>`_.
-
-* `Wiki del proyecto Octave <http://wiki.octave.org>`_.
-
-* `Página web de octave-forge <http://octave.sourceforge.net/>`_, una
-  colección de toolkits para Octave. También en esta página podemos
-  encontrar
-
-   * El `índice <http://octave.sourceforge.net/doc/index.html>`_ de
-     todas las funciones disponibles tanto en Octave como en los
-     toolkits de octave-forge.
-
-   * La `Documentación de la API <http://octave.sourceforge.net/doxygen/html/index.html>`_ de liboctave para ampliar el intérprete mediante C++.
+    <h2 id="recursos">Otros recursos sobre Octave</h2>
+  <ul>
+    <li><a href="http://www.gnu.org/software/octave/">Página web del
+	proyecto Octave</a></li>
+    <li><a href="http://wiki.octave.org">Wiki del proyecto Octave</a></li>
+    <li><a href="http://octave.sourceforge.net/">Página web de
+	octave-forge, una colección de toolkits para Octave.</a>También
+      en esta página podemos encontrar</li>
+    <ul>
+      <li>El <a href="http://www.gnu.org/software/octave/doc/interpreter/">Manual
+	  de Octave</a> actualizado a la última versión.</li>
+      <li>El <a href="http://octave.sourceforge.net/doc/index.html">índice</a>
+	de todas las funciones disponibles tanto en Octave como en los
+	toolkits de octave-forge.</li>
+      <li>La <a href="http://octave.sourceforge.net/doxygen/html/index.html">documentación
+	  de la API</a> de liboctave para ampliar el intérprete mediante
+	C++.</li>
+    </ul>
+  </ul>
   
-Otras lecturas de interés
--------------------------
-    
-* `El blog de Guillem <http://torroja.dmt.upm.es/>`_
-
-* `Página web del Curso de Matlab <http://servidor-da.aero.upm.es/zope/portalda/informacion-general/actividades/curso-de-matlab/>`_
-  del que surgió todo el material.  En ella encontrareis las últimas
-  transparencias del curso y la solución de los ejercicios propuestos
-  en las mismas.  Son útiles para introducirse rápidamente en el tema.
-
-* `QtOctave <http://qtoctave.wordpress.com/>`_, un front-end
-  multiplataforma para Octave.
-
-
-* `Cálculo Científico con Matlab y Octave <http://www.springer.com/east/home/generic/search/results?SGWID=5-40109-22-156994933-0>`_.
-  Poco después que yo publicara en la red el libro aparecía este de la
-  misma temática. Para más inri los autores fueron mis profesores de
-  "Modellistica Numerica per Problemi Differenziali" en el Politecnico
-  di Milano durante mi año de Erasmus.  Alfio Quarterioni es el autor
-  de uno de los libros de referencia sobre métodos espectrales y un
-  investigador de renombre internacional.  Fausto Salieri era una
-  persona encantadora, sospecho que la mayor parte del libro es
-  suya. Su fallecimiento fue un gran golpe moral para la mayoría de
-  mis compañeros de curso en Milán.  El título no es póstumo por sólo
-  un par de meses.  Aunque no he podido analizar el libro con mucho
-  detenimiento es sin duda el recurso comercial más recomendable y
-  cercano a IIMyO aunque mucho más dirigido al cálculo numérico.  El
-  original está en italiano y desconozco quién lo tradujo.
+  <h2 id="lecturas">Otras lecturas de interés</h2>
+  <ul>
+    <li><a href="./notaautor.html">Nota del autor inicial</a></li>
+    <li><a href="./FAQ.html">Preguntas más frecuentes</a></li>
+    <li><a href="./noticias.html">Noticias siempre desactualizadas.</a></li>
+    <li><a href="http://torroja.dmt.upm.es/">El blog de Guillem</a></li>
+    <li><a href="http://servidor-da.aero.upm.es/zope/portalda/informacion-general/actividades/curso-de-matlab/">Página
+	del Curso de Matlab </a>del que surgió todo el material.  En ella
+      encontrareis las últimas transparencias del curso y la solución de los
+      ejercicios propuestos en las mismas.  Son útiles para introducirse
+      rápidamente en el tema.</li>
+    <li><a href="http://qtoctave.wordpress.com/">QtOctave</a>, un
+      front-end multiplataforma para Octave.</li>
+    <li><a href="http://www.springer.com/east/home/generic/search/results?SGWID=5-40109-22-156994933-0">Cálculo
+	científico con Matlab y Octave</a>. Poco después que yo publicara en la red el libro aparecía este de la
+      misma temática. Para más inri los autores fueron mis profesores de
+      <i>Modellistica Numerica per Problemi Differenziali</i> en el
+      Politecnico di Milano durante mi año de Erasmus.  Alfio
+      Quarterioni es el autor de uno de los libros de referencia sobre
+      métodos espectrales y un investigador de renombre internacional.
+      Fausto Salieri era una persona encantadora, sospecho que la
+      mayor parte del libro es suya. Su fallecimiento fue un gran
+      golpe moral para la mayoría de mis compañeros de curso en Milán.
+      El título no es póstumo por sólo un par de meses.  Aunque no he
+      podido analizar el libro con mucho detenimiento es sin duda el
+      recurso comercial más recomendable y cercano a IIMyO aunque
+      mucho más dirigido al cálculo numérico.  El original está en
+      italiano y desconozco quién lo tradujo.
+    </li>
+  </ul>
   
-Agradecimientos
----------------
+  <h2 id="agradecimientos">Agradecimientos</h2>
   
-Me gustaría agradecer el apoyo tanto material como personal de los
-departamentos de Motopropulsión y Termofluidodinámica, Matemática
-Aplicada y Fundamentos Matemáticos de la ETSI Aeronáuticos de la UPM.
-
-A la Universidad de La Rioja y a Juan José Martín por la
-extraordinaria acogida que tuve en Logroño donde me dieron la
-oportunidad de entrar bastantes bares de la Calle del Laurel y a la
-Oficina de Software Libre de la Universidad de Cádiz por el interés
-que han mostrado en este texto.
+  <p>Me gustaría agradecer el apoyo tanto material
+    como personal de los departamentos de Motopropulsión y
+    Termofluidodinámica, Matemática Aplicada y Fundamentos Matemáticos
+    de la ETSI Aeronáuticos de la UPM.
+  </p>
+  
+  <p>A la Universidad de La Rioja y a Juan José Martín por la
+    extraordinaria acogida que tuve en Logroño donde me dieron la
+    oportunidad de entrar bastantes bares de la Calle del Laurel y a la
+    Oficina de Software Libre de la Universidad de Cádiz por el interés
+    que han mostrado en este texto.</p>
   
   
-Desagradecimientos
-------------------
+  <h2 id="desagradecimientos">Desagradecimientos</h2>
+  <p>Desearía quejarme públicamente de todos los emails de
+    desconocidos solicitándome ayudarles en sus investigaciones y
+    deberes de Cálculo Numérico con Matlab a los que respondo por
+    pura buena voluntad. Después de resolver sus dudas ninguno ha
+    mostrado el más mínimo interés por colaborar en el proyecto.</p>
 
-Desearía quejarme públicamente de todos los emails de desconocidos
-solicitándome ayudarles en sus investigaciones y deberes de Cálculo
-Numérico con Matlab a los que respondo por pura buena
-voluntad. Después de resolver sus dudas ninguno ha mostrado el más
-mínimo interés por colaborar en el proyecto.
+  <p>Hay una media de dos erratas por página (que lo se), si
+    encontrais una teneis tres posibilidades: ignorarla, pensar que el
+    libro es una mierda o intentar hacer algo...</p>
 
-Hay una media de dos erratas por página (que lo se), si encontrais una
-teneis tres posibilidades: ignorarla, pensar que el libro es una
-mierda o intentar hacer algo.
+  <h2 id="copyright">Nota de Copyright, GNU FDL</h2> 
 
-
-Matemáticas en Ingeniería con Matlab y Octave
-=============================================
-
-.. toctree::
-   :maxdepth: 3
-
-   latexindex
-
-* :ref:`search`
-
-Nota de Copyright. GNU FDL
-==========================
-
-Copyright; 2008 GUILLEM BORRELL NOGUERAS. Se otorga permiso para
-copiar, distribuir y/o modificar este documento bajo los términos de
-la Licencia de Documentación Libre de GNU, Versión 1.2 o cualquier
-otra versión posterior publicada por la Free Software Foundation; sin
-Secciones Invariantes ni Textos de Cubierta Delantera ni Textos de
-Cubierta Trasera. Una copia de la licencia está incluida en el
-apéndice del libro titulado GNU Free Documentation License.
+  <p>Copyright &copy; 2008 GUILLEM BORRELL NOGUERAS. Se otorga permiso
+    para copiar, distribuir y/o modificar este documento bajo los términos
+    de la Licencia de Documentación Libre de GNU, Versión 1.2 o cualquier
+    otra versión posterior publicada por la Free Software Foundation; sin
+    Secciones Invariantes ni Textos de Cubierta Delantera ni Textos de
+    Cubierta Trasera. Una copia de la licencia está incluida en el
+    apéndice del libro titulado GNU Free Documentation License.</p>
   
-``ISBN: 978-8-4691-3626-3``
+  <pre>ISBN: 978-8-4691-3626-3</pre>
+  
+  <div style="text-align:center;">
+    <img src="https://forja.rediris.es/themes/rediris/images/logo.png" />
+  </div>
+  
+{% endblock %}

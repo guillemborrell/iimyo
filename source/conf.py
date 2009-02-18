@@ -32,7 +32,7 @@ templates_path = ['_templates']
 source_suffix = '.rst'
 
 # The master toctree document.
-master_doc = 'index'
+master_doc = 'contenidos'
 
 # General information about the project.
 project = u'iimyo2'
@@ -89,7 +89,7 @@ pygments_style = 'sphinx'
 # must exist either in Sphinx' static/ path, or in one of the custom paths
 # given in html_static_path.
 html_style = 'default.css'
-
+html_index = 'index.html'
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
 html_title = u'Matemáticas en Ingeniería con Matlab y Octave'
@@ -120,11 +120,11 @@ html_static_path = ['_static']
 #html_use_smartypants = True
 
 # Custom sidebar templates, maps document names to template names.
-#html_sidebars = {}
+html_sidebars = {'index': 'indexsidebar.html'}
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
-#html_additional_pages = {}
+html_additional_pages = {'index':'index.html'}
 
 # If false, no module index is generated.
 html_use_modindex = False
