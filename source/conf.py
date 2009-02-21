@@ -162,7 +162,7 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
-  ('latexindex', 'iimyo2.tex', u'Matemáticas en Ingeniería con Matlab y Octave',
+  ('contenidos', 'iimyo2.tex', u'Matemáticas en Ingeniería con Matlab y Octave',
    u'Guillem Borrell i Nogueras et al.', 'manual'),
 ]
 
@@ -172,10 +172,10 @@ latex_documents = [
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
-latex_use_parts = False
+latex_use_parts = True
 
 # Additional stuff for the LaTeX preamble.
-latex_preamble = '\usepackage[spanish]{babel}'
+latex_preamble = ''
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []
