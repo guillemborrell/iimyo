@@ -2,7 +2,7 @@ Estudio del péndulo invertido
 =============================
 
 Un péndulo es uno de los juguetes más básicos para experimentar los
-conceptos de periodo y gravedad. ¿Qué sucede si la masa se une a ua
+conceptos de periodo y gravedad. ¿Qué sucede si la masa se une a una
 barra rígida y se pone al revés?  Entonces se obtiene un péndulo
 invertido, un sistema aparentemente inestable que es un ejemplo
 clásico para el control automático.
@@ -39,7 +39,7 @@ se muestra en la figura siguiente:
       :align: center
       :scale: 200
 
-      Esquema de un péndulo invertido con movimiento horizontal [#]_.
+      Esquema de un péndulo invertido con movimiento vertical.
 
 .. htmlonly::
 
@@ -47,7 +47,7 @@ se muestra en la figura siguiente:
       :align: center
       :scale: 70
 
-      Esquema de un péndulo invertido con movimiento horizontal.
+      Esquema de un péndulo invertido con movimiento vertical.
 
 En este caso, la masa tiene la siguiente posición:
 
