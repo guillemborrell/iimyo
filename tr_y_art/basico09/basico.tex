@@ -217,8 +217,8 @@ ans =  5
 
 \defverbatim[colored]\testcode{
 \begin{lstlisting}
->> \% Este comando será ignorado
->> 'hola' \% 'Hola,Matlab!'
+>> % Este comando sera ignorado
+>> 'hola' % 'Hola,Matlab!'
 ans = hola
 
 >> 'hola';
@@ -235,6 +235,105 @@ ans = que tal
 
 \begin{frame}
 \frametitle{Caracteres especiales}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El directorio de trabajo}
+\begin{itemize}
+\item Matlab puede ejecutar archivos con código
+\item Matlab puede cargar archivos de datos
+\item La biblioteca de funciones está formada por archivos con código.
+\item Matlab busca en sus directorios de sistema más el \emph{directorio de
+  trabajo}
+\item Variable \texttt{path}
+\end{itemize}
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+function [sal1,sal2,...] = nombre(ent1,ent2,...)
+  sentencias ejecutables
+  sal1 = ...
+  sal2 = ...
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Funciones. Sintaxis}
+\testcode
+
+Lo guardaremos todo en \emph{el directorio de trabajo} en un archivo
+llamado \emph{nombre.m}
+\end{frame}
+
+\begin{frame}
+\frametitle{Scripts}
+\begin{itemize}
+\item Un script es un programa
+\item Un programa es una secuencia de instrucciones ejecutables
+\item Un programa no depende de variables externas
+\item También se guarda en un archivo \emph{.m} en el \emph{directorio
+  de trabajo}
+\item Se ejecuta escribiendo el nombre del archivo en la consola o
+  pulsando \texttt{F5} en el editor.
+\end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+function y = aprsin(x)
+  y=x-(x.^3)/6
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{Nuestra primera función}
+Abrimos un archivo nuevo en el editor
+\testcode
+Y lo guardamos en el directorio de trabajo como \texttt{aprsin.m}.
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+x=linspace(-pi,pi,100);
+for i = 1:100
+  y(i)=aprsin(x(i));
+end
+plot(x,[y;sin(x)])
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Nuestro primer script}
+En un archivo nuevo del editor
+\testcode
+Lo guardamos con el nombre \texttt{comparar.m} \emph{en el directorio
+  de trabajo}. Luego pulsamos \texttt{F5}
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/comparar.pdf}
+  \end{figure}
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+help eig
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Ayuda. Función \texttt{help}}
+\begin{itemize}
+\item En Matlab todo es una función
+\item Cada función contiene una pequeña ayuda
+\item Para consultar la ayuda existe la función \texttt{help}
+\end{itemize}
 \testcode
 \end{frame}
 

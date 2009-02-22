@@ -7,6 +7,7 @@ Matemáticas en Ingeniería con Matlab y Octave
 
    Introducción <intro>
    El lenguaje Matlab <matlab>
+   El intérprete Octave <octave>
    Ejercicios <ejercicios>
 
 
