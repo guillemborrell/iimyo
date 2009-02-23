@@ -1,4 +1,0 @@
-Tipos derivados
-===============
-
-blah
