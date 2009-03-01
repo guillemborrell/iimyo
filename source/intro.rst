@@ -164,3 +164,19 @@ Lucas Rosado, es también un proyecto de software libre que va ganando
 madurez con el tiempo.
 
 
+Aviso al lector
+===============
+
+La referencia del lenguaje puede ser utilizada por cualquiera
+independientemente de su nivel, no es más que una introducción a un
+lenguaje de programación como cualquier otra.  Sí será ventajoso
+contar con cierto bagaje en informática.  Matlab carece del formalismo
+necesario para aprender a programar, podría decirse que es un lenguaje
+poco higiénico para quien da los primeros pasos en el campo de la
+programación.
+
+Sin embargo los ejemplos son soluciones numéricas a problemas que
+utilizan conceptos provenientes del cálculo numérico en ecuaciones
+diferenciales ordinarias y ecuaciones en derivadas parciales y del
+análisis matemático. Difícilmente se podrán seguir con aprovechamiento
+sin conocer las herramientas que sirven para llegar a la solución.
