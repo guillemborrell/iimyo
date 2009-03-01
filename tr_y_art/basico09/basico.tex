@@ -855,5 +855,77 @@ universal
 \testcode
 \end{frame}
 
+\begin{frame}
+\frametitle{Cálculo Simbólico}
+\begin{itemize}
+\item Podéis hacer operaciones simbólicas con Matlab
+\pause
+\item Que pueda hacerse no significa que tenga que hacerse
+\pause
+\item También podéis depilaros las cejas con una sierra mecánica
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Integración numérica}
+\begin{description}
+\item[quad] Integración numérica. 3 argumentos de entrada
+\item[quadl] Algoritmo de integración mejorado
+\item[dblquad] Integración bidimensional de funciones de dos variables
+\item[trapz] Regla del trapecio
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ejercicio 7}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> p = [1 1 0];
+>> polyval(p,1)
+ans =  2
+>> roots(p)
+ans =
+  -1
+   0
+\end{lstlisting}
+}
+\begin{frame}
+\frametitle{Desarrollos en serie de funciones}
+\begin{itemize}
+\item Los coeficientes de un desarrollo en serie son un vector
+\end{itemize}
+$x^2 + x$ es $1x^2+1x+0$, es decir [1 1 0]
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{Polinomios}
+\begin{description}
+\item[polyval] Obtiene el valor en un punto
+\item[roots] Obtiene las raíces del polinomio
+\item[polyder] Deriva un polinomio
+\item[polyinteg] Integra un polinomio
+\item[conv] Multiplica dos polinomios
+\item[residue] Desarrollo en fracciones parciales.
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Funciones que devuelven polinomios}
+\begin{description}
+\item[poly] Obtiene el polinomio característico de una matriz.
+\item[polyfit] Modelo polinómico de una serie de datos.
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Representación gráfica}
+\begin{itemize}
+\item aquí lo dejé
+\end{itemize}
+\end{frame}
+
 \end{large}
 \end{document}
