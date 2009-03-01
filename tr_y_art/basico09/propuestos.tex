@@ -1,0 +1,95 @@
+\documentclass[a4]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{geometry}
+
+\renewcommand\shorthandsspanish{}
+\noextrasspanish
+
+\title{Curso de Matlab.  Nivel Básico. Problemas propuestos}
+\author{Guillem Borrell i Nogueras}
+
+\begin{document}
+
+\lstset{language=Matlab,
+  backgroundcolor=\color{black!10},
+  numbers=left,
+  basicstyle=\small\ttfamily,
+  keywordstyle=\color{blue},
+  extendedchars=true,
+  inputencoding=utf8,
+  showspaces=false}
+
+\maketitle
+
+\section*{Ejercicio 3}
+Dadas las siguientes variables:
+
+\[
+A = \left( \begin{array}{ccc}
+1&2&3\\
+4&5&6\\
+7&8&9
+\end{array} \right) \quad
+b = \left( \begin{array}{c}
+1\\2\\3
+\end{array} \right) \quad
+c = \left( \begin{array}{ccc}
+1&2&3
+\end{array} \right) 
+\]
+
+realizar las siguientes operaciones
+
+\begin{enumerate}
+\item $A\cdot b$
+\item $\sum_i A_{ij}c_i$
+\item $e_{ij}=b_ic_j$
+\end{enumerate}
+
+Aplicar en cada resultado la función $x^2 \sin x$
+
+\section*{Ejercicio 4}
+
+La serie de Fibonacci se define mediante la siguiente regla de recurrencia\[
+F_{n}=\left\{ \begin{array}{cc}
+1 & n=1\\
+1 & n=2\\
+F_{n-1}+F_{n-2} & n>2\end{array}\right.\]
+
+Escribir dos funciones que devuelvan, respectivamente, en función de $n$
+
+\begin{enumerate}
+\item El término $n$ de la sucesión de Fibonacci
+\item Un vector con los primeros $n$ términos de la sucesión de
+  Fibonacci.
+\end{enumerate}
+
+\section*{Ejercicio 5}
+
+Construir una estructura de datos que contenga las funciones
+trigonométricas $\sin$, $\cos$, y $\tan$ y llamarlas en el punto
+$\pi/2$ a partir de la misma estructura
+
+\section*{Ejercicio 6}
+
+Generar la siguiente matriz
+
+\[
+L = \left( \begin{array}{ccccccc}
+1&0&0&0&0&0&0\\
+1&-2&1&0&0&0&0\\
+0&1&-2&1&0&0&0\\
+0&0&1&-2&1&0&0\\
+0&0&0&1&-2&1&0\\
+0&0&0&0&1&-2&1\\
+0&0&0&0&0&0&1
+\end{array} \right)
+\]
+
+usando también la función \texttt{diag}
+\end{document}
