@@ -141,7 +141,9 @@ estabilidad viene determinada por la constante *k*.  Es evidente que
 el comportamiento del péndulo es algo complejo porque el carácter de
 la solución cambia en cada instante. Puede ayudarnos a comprender un
 poco más el problema la representación gráfica de :math:`\Delta` y de
-los autovalores::
+los autovalores
+
+.. code-block:: matlab
 
   %% Programa para obtener el lugar de las raices del pendulo invertido
   g = 10;                                                              
@@ -194,6 +196,7 @@ los autovalores::
   end
   print -dpng 'autovalores.png'
   print -deps 'autovalores.eps'
+
 
 .. latexonly::
 
