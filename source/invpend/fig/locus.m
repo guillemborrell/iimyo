@@ -19,11 +19,11 @@ xl = xlabel('t');
 yl = ylabel('\Delta');
 set(xl,'fontsize',14);
 set(yl,'fontsize',14);
-legend('k=0.1','k=1','k=5','k=10');
+legend('k=0.1','k=1','k=5','k=10','Estabilidad');
 hold off
 
-print -dpng 'discriminante.png'
 print -deps 'discriminante.eps'
+print -dpng 'discriminante.png'
 
 figure(2)
 clf;
@@ -41,15 +41,14 @@ for iter = 1:4
   plot(real(sqrt(g*(1-k*sin(w*t))/l)),
        imag(sqrt(g*(1-k*sin(w*t))/l)),
        marker);
-  keyboard;
-  t = title(titlestring);
+  tl = title(titlestring);
   xl = xlabel('Re');
   yl = ylabel('Im');
-  set(t,'fontsize',14);
+  set(tl,'fontsize',14);
   set(xl,'fontsize',14);
   set(yl,'fontsize',14);
 end
 
-print -dpng 'autovalores.png'
 print -deps 'autovalores.eps'
+print -dpng 'autovalores.png'
 
