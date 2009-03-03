@@ -75,7 +75,7 @@ Y la ecuación del movimiento:
    l \ddot \theta - \ddot y \sin \theta = g \sin \theta
 
 El paso siguiente es suponer que el ángulo :math:`\theta` se mantiene
-pequeño en cualquier instante
+pequeño en cualquier instante.
 
 Supuesto un movimiento armónico de la base del péndulo
 :math:`y = a \sin \omega t`, obtener el valor del parámetro 
@@ -105,30 +105,31 @@ depende de la posición y velocidad de la base del péndulo.
 
    l \ddot \theta + \theta (\omega^2 a \sin \omega t-g)=0
 
-Es muy sencillo determinar la estabilidad del sistema obteniendo sus
-autovalores a partir de la ecuación característica.  Si sus
-autovalores tienen parte real negativa el sistema será asintóticamente
-estable:
+El paso siguiente es adimensionalizar la ecuación con el tiempo
+característico :math:`\omega^{-1}` y la longitud característica *a*.
+La ecuación final adimensionalizada, definiendo 
+:math:`\tau = t \omega^{-1}` como tiempo adimensional.
 
 .. math::
 
-   \frac{l}{g} \lambda^2 + (\frac{\omega^2 a}{g} \sin \omega t-1) =0
+   \frac{l}{a \omega^2}\ddot \theta + \theta \left(\sin \tau -
+   \frac{g}{a \omega^2}  \right)
 
 Y finalmente, utilizando el parámetro propuesto *k*
 
 .. math::
 
-   \frac{l}{g} \lambda^2 + \lambda (k \sin \omega t-1) =0
+   \frac{l}{g}\ddot \theta + \theta (k \sin \tau-1) =0
 
 De esta ecuación se obtienen dos raíces complejas conjugadas cuyo
 carácter depende del parámetro *k*
 
 .. math::
    
-   \lambda = \sqrt{ \frac{g}{l} \left( 1-k \sin \omega t \right)}
+   \lambda = \sqrt{ \frac{g}{l} \left( 1-k \sin \tau \right)}
 
 Para simplificar aún más la expresión definiremos el parámetro
-:math:`\Delta = 1-k\sin \omega t` que servirá para analizar el
+:math:`\Delta = 1-k\sin \tau` que servirá para analizar el
 carácter de la ecuación:
 
 .. math::
