@@ -891,6 +891,7 @@ ans =
    0
 \end{lstlisting}
 }
+
 \begin{frame}
 \frametitle{Desarrollos en serie de funciones}
 \begin{itemize}
@@ -923,9 +924,80 @@ $x^2 + x$ es $1x^2+1x+0$, es decir [1 1 0]
 \begin{frame}
 \frametitle{Representación gráfica}
 \begin{itemize}
-\item aquí lo dejé
+\item Representar datos es sencillo e intuitivo
+\item No hay que emocionarse con la representación gráfica
+\item Sólo veremos curvas en el plano
+\item ¿Necesitamos más?
 \end{itemize}
 \end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=linspace(0,500,100000);
+>> plot(x,exp(-x/100).*sin(x))
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Plot}
+Representa curvas en el plano. $e^{-x/100}\sin x$ para $x\in[0,500]$
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/abanico.pdf}
+  \end{figure}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> title('Una funcion cualquiera')
+>> xlabel('Tiempo')
+>> ylabel('Amplitud')
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Etiquetas}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/abanico2.pdf}
+  \end{figure}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=linspace(-pi,pi,100);
+>> plot(x,sin(x),'m:',...
+x,cos(x),'k^',x,tan(x),'bx')
+>> axis([-pi,pi,-2,2])
+>> grid on
+>> legend('linea de puntos magenta',...
+          'triangulos negros',...
+          'cruces azules') 
+\end{lstlisting}
+}
+\begin{frame}
+\frametitle{Estilos}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/trigplot.pdf}
+  \end{figure}
+\end{frame}
+
 
 \end{large}
 \end{document}
