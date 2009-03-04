@@ -6,7 +6,7 @@ motor cohete es la tercera ley de Newton
 
 .. math::
 
-   E - D - mg = d_t(m \dot h)
+   E - D - mg = \frac{d}{dt}(m \dot h)
 
 Esto es, el empuje menos la fuerza de rozamiento y la gravedad es
 igual a la variación de la cantidad de movimiento.  Reescribiendo
@@ -66,19 +66,22 @@ fórmula
    \dot r = kp_c^{0.7}
 
 Sabiendo además que la velocidad de recesión a una presión de 50
-atmósferas es de 1 centímetro por segundo.
+atmósferas es de 1 centímetro por segundo. Suponiendo además que el
+combustible se quema frontalmente y que la superficie quemada es
+aproximadamente la superficie frontal del cohete se llega a la
+siguiente expresión para el gasto másico:
 
-Se realizarán las siguientes hipótesis:
+.. math::
 
-* El combustible se quema frontalmente, esto es, el gasto de
-  combustible quemado es la velocidad de recesión por la superfície
-  quemada, igual que la superficie frontal del cohete. 
+   \dot m = \rho_c S_f k p_c^{0.7}
+
+Se realizarán las siguientes hipótesis adicionales:
 
 * El cohete asciende de modo completamente vertical por una atmósfera
   estándar.
 
 * La presión en la cámara de combustión se mantiene constante e igual
-  a 50 MPa.
+  a 5 MPa.
 
 * El área de la garganta será de 0.01 :math:`m^2` y el área de salida
   será igual al área frontal del cohete.
@@ -89,6 +92,8 @@ Se realizarán las siguientes hipótesis:
 
 * La masa inicial del cohete es de 55 kg de los cuales 50 corresponden
   al combustible.
+
+* La densidad del combustible sólido es de 1800 :math:`kg/m^3`.
 
 Representar en función del tiempo la altura, la velocidad y la
 aceleración del cohete en su ascensión hasta que se termina el
