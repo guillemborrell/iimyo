@@ -998,6 +998,38 @@ x,cos(x),'k^',x,tan(x),'bx')
   \end{figure}
 \end{frame}
 
+\begin{frame}
+\frametitle{hold}
+\begin{itemize}
+\item La ventana gráfica se borra automáticamente cada vez que
+  dibujamos algo
+\item Para cambiar el comportamiento anterior se usa la función
+  \emph{hold}
+  \begin{itemize}
+    \item \texttt{hold on} mantiene todo lo dibujado en la pantalla
+    \item \texttt{hold off} vuelve al comportamiento inicial
+  \end{itemize}
+  \item Para borrar la ventana gráfica usamos \texttt{clf}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{figure}}
+\begin{itemize}
+\item Las ventanas gráficas se manipulan con la función
+  \texttt{figure}
+\item Cada ventana gráfica tiene asociada un número entero
+  \begin{itemize}
+    \item \texttt{figure} se llama con un número que corresponde al de
+      la ventana
+    \item Si utilizamosun número que no corresponde a ninguna ventana
+      existente crearemos una nueva con este número asociado
+    \item Si utilizamos un número existente activaremos la ventana
+      correspondiente
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
 
 \end{large}
 \end{document}
