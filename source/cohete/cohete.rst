@@ -139,3 +139,121 @@ alrededor de toberas bloqueadas en régimen isentrópico es
    \frac{2}{\gamma+1}\right)^\frac{\gamma+1}{2(\gamma-1)}
 
 con :math:`\gamma` siempre igual a 1.4
+
+
+Solución
+--------
+
+En esta solución aprenderemos el que es quizás el método sistemático
+para modelar aplicaciones en Matlab.  Se basa en dos normas esenciales
+
+* En las funciones todo son argumentos.
+
+* Los parámetros definien un interfaz.
+
+Cuando una variable se pone en la cabecera de la definición de una
+función pasa a ser un argumento de entrada.  En principio la función
+dependerá sólo de estos argumentos pero esta imposición puede plantear
+serias dificultades.  Supongamos que tenemos que integrar una ecuación
+diferencial que depende del tiempo, de una variable espacial y de un
+parámetro.  La rutina que integra la ecuación diferencial impone que
+los únicos argumentos que puede tener la función a integrar son
+precisamente el tiempo y la variable espacial.  Esto obliga a definir
+de algún modo alternativo el parámetro dentro de la función.
+
+Para evaluar este parámetro dentro de la función existen dos
+posibilidades:
+
+#. Evaluar una variable del espacio base con la función ``evalin``.
+
+#. Definir los parámetros como variables globales.
+
+Ambos planteamientos tienen muchos inconvenientes y prácticamente
+ninguna ventaja.  Si se utiliza la función ``evalin`` la función
+depende de cómo se escriba el programa principal y ya no puede ser
+reutilizada de ninguna manera.  Definir variables globales dentro del
+código es un riesgo innecesario puesto que además del inconveniente
+anterior puede generar serios conflictos de nombres.
+
+Parece que no hay ninguna manera de conseguir que una función dependa
+de un parámetro sin tener que adaptar cada una de ellas al problema en
+particular.  Para encontrar la solución hay que utilizar un poco el
+pensamiento lateral: para cada función se define un interfaz.  De este
+modo, una función que sólo espera argumentos puede adaptarse para que
+distinga entre argumentos y parámetros.
+
+Este método utiliza una característica muy interesante de los
+*function handle*, si en ellos se define una variable que no se
+encuentra en la cabecera automáticamente la busca en el espacio de
+variables de la base.  Sólo lanza un error si no la encuentra.  Por
+ejemplo
+
+.. code-block:: matlab
+
+  >> f = @(x) a*x;
+  >> f(3)
+  error: `a' undefined near line 1 column 10
+  error: called from:
+  error:    at line -1, column -1
+  >> a = 3;
+  >> f = @(x) a*x;
+  >> f(3)
+  ans =  9
+
+Como se puede comprobar, si la variable ``a`` no existe aparece un
+error pero en el momento que se define ``a`` la función es capaz de
+encontrar la variable y la utiliza como parámetro. Este planteamiento
+es útil cuando, para resolver un problema dado, hay que utilizar una
+rutina que requiere una función con una forma determinada; por ejemplo
+la integración de una ecuación diferencial.
+
+La ecuación de Van der Pol
+
+.. math::
+
+   x'' +x + \mu(x'^2-1)x = 0
+
+depende del parámetro :math:`\mu`.  Como es una ecuación de uso común
+para experimentar esquemas de integración temporal Matlab incluye las
+funciones ``vdp1`` y ``vdp1000`` donde :math:`\mu` es 1 y 1000
+respectivamente.
+
+Definir dos funciones cuando sólo las diferencia un parámetro es poco
+estético.  Este problema se puede solucionar fácilmente si se define
+una única función y se cambia el parámetro en el espacio base.
+
+.. code-block:: matlab
+
+  mu = 1;
+  vdp = @(x) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
+  x = linspace(0,20,1000);
+  y = lsode(vdp,[0 2],x);
+  p = plot(x,y(:,1));
+  
+  mu = 1000;
+  x = linspace(0,3000,100000);
+  vdp = @(x) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
+  y = lsode(vdp,[0 2],x);
+  p = plot(x,y(:,1));
+
+.. warning::
+
+   Cuando se define un interfaz con un *function handle* los
+   parámetros se evalúan en el momento en el que se define el
+   interfaz, no cuando se ejecuta.  Esto significa que si durante la
+   ejecución se cambia el valor de un parámetro habrá que definir otra
+   vez el interfaz repitiendo la asignación del *function handle* como
+   se ve en el ejemplo.
+  
+Este método puede utilizarse como punto de apoyo para articular
+cualquier programa en Matlab por grande que sea.  Cada bloque de
+código, cada función, se define con todos los argumentos posibles y es
+en el programa principal donde se crean los interfaces que las adaptan
+al caso particular; se diferencia entre argumentos y parámetros.  De
+este modo se recuperan las dos leyes.
+
+Vamos a aplicar estos conceptos al problema del motor cohete.
+
+.. literalinclude:: scripts/main.m
+   :language: matlab
+   :linenos:
