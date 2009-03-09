@@ -1,11 +1,11 @@
-\documentclass[a4]{article}
+\documentclass{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{graphicx}
 \usepackage{tikz}
 \usepackage{listings}
-\usepackage{geometry}
+\usepackage[a4paper]{geometry}
 
 \renewcommand\shorthandsspanish{}
 \noextrasspanish
@@ -103,4 +103,33 @@ que tiene como solución una burda aproximación a $\pi$.  Hay que
 utilizar una función anónima y hallar el resultado en sólo una línea
 de código.
 
+\section*{Ejercicio 8}
+
+Representar en una misma ventana y dos frames (uno superior y otro
+inferior) la función
+
+\[ \sqrt{x} \sin(1/x)\ \ x\in[0.001,1] \]
+
+en escala normal y en escala semilogarítmica en el eje x.  La segunda
+gráfica, la logarítmica, tiene un problema de resolución cerca de
+$x=0$.  ¿Cómo puede arreglarse sin añadir más puntos?
+
+\section*{Ejercicio 9}
+
+Resolver el siguiente problema no stiff
+
+\[ \dot {\vec x} = \left(
+  \begin{array}{c}
+a(y-x)\\
+x(b-z)-y\\
+xy-cz  
+  \end{array}
+\right)   \]
+
+con $a=10$, $b=28$ y $c=8/3$, $t \in [0,50]$ y
+$(x_0,y_0,z_0)=(1,1,1)$ y representar la solución en tres dimensiones
+con una curva paramétrica mediante la función \texttt{plot3}
+
 \end{document}
+
+

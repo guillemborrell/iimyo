@@ -8,8 +8,8 @@
 \usepackage{tikz}
 \usepackage{listings}
 
-%% \usepackage{pgfpages}
-%% \pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+\usepackage{pgfpages}
+\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
 
 \renewcommand\shorthandsspanish{}
 \noextrasspanish
@@ -1022,7 +1022,7 @@ x,cos(x),'k^',x,tan(x),'bx')
   \begin{itemize}
     \item \texttt{figure} se llama con un número que corresponde al de
       la ventana
-    \item Si utilizamosun número que no corresponde a ninguna ventana
+    \item Si utilizamos un número que no corresponde a ninguna ventana
       existente crearemos una nueva con este número asociado
     \item Si utilizamos un número existente activaremos la ventana
       correspondiente
@@ -1030,6 +1030,231 @@ x,cos(x),'k^',x,tan(x),'bx')
 \end{itemize}
 \end{frame}
 
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x= linspace(-pi,pi,100);
+>> subplot(2,2,1)
+>> plot(x,sin(x))
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{subplot}
+  Es el comando que permite poner varios ejes en una misma figura
+\testcode
+Primero de los cuatro sectores.
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/subplot1.pdf}
+  \end{figure}
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> subplot(2,2,2)
+>> plot(x,cos(x))
+>> subplot(2,2,3)
+>> plot(x,sinh(x))
+>> subplot(2,2,4)
+>> plot(x,cosh(x))
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{subplot}
+Ahora completamos los cuatro cuadrantes.
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/subplot2.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Otros comandos}
+\begin{description}
+\item[semilogx] Dibuja una curva con el eje x en escala logarítmica
+\item[semilogy] Dibuja una curva con el eje y en escala logarítmica
+\item[loglog] Dibuja una curva en escala logarítmica
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ejercicio 8}
+
+Representar en una misma ventana y dos frames (uno superior y otro
+inferior) la función
+
+\[ \sqrt{x} \sin(1/x)\ \ x \in[0.001,1]  \]
+
+en escala normal y en escala semilogarítmica en el eje x.
+\end{frame}
+
+\begin{frame}
+\frametitle{Comandos interesantes}
+\begin{description}
+\item[\texttt{get}, \texttt{set}] Cambia los atributos de un plot
+  handle
+\item[\texttt{text}] Pone texto en la figura
+\item[\texttt{contour}] Isolíneas de una matriz de datos en 3D
+\item[\texttt{griddata}] Interpola para el contour
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Desarrollos de datos}
+\begin{description}
+\item[\texttt{interp1}] Interpolación de una serie de puntos
+\item[\texttt{interp2}] Interpolación de una nube de puntos
+\item[\texttt{polyfit}] Coeficientes del polinomio de grado \emph{n}
+  con mínimo error cuadrático
+\item[\texttt{fft}] Realiza la transformada de Fourier
+\end{description}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=[1 2 3 4 5 6 7 8];
+>> y=[1 4 2 5 7 4 2 7];
+>> interp1(x,y,7.234,'spline')
+ans = 2.3437
+>> test=@(x,y,z) interp1(x,y,z,'spline');
+>> test(x,y,7.234)
+ans = 2.3437
+\end{lstlisting}
+}
+
+
+\begin{frame}
+\frametitle{\texttt{interp1}}
+\testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=[1 2 3 4 5 6 7 8];
+>> y=[2 4 3 5 6 5 7 9];
+>> coeff=polyfit(x,y,3);
+>> plot(x,y,'k+',1:0.1:8,...
+polyval(coeff,1:0.1:8),'b-')
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{\texttt{polyfit}}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/polyfit.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Estadística descriptiva}
+\begin{description}
+\item[\texttt{mean}] Media
+\item[\texttt{std}] Desviación típica
+\item[\texttt{median}] Mediana
+\item[\texttt{sort}] Orena los elementos de menor a mayor
+\item[\texttt{center}] Elimina la media de una muestra
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{EDO}
+\begin{itemize}
+\item Es una de las aplicaciones más importantes del Cálculo Numérico
+\item Los problemas más comunes son los problemas de Cauchy no lineales
+\item En ese caso la solución numérica es esencial
+\item Lo más importante es saber si nuestro problema es stiff
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stiff}
+\begin{itemize}
+\item Un problema es \emph{stiff} cuando el paso temporal viene
+  determinado por la estabilidad del esquema.
+\item Suelen relacionarse con problemas no lineales o condiciones de
+  contorno muy exigentes
+\item Requieren esquemas de integración temporal implícitos
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Funciones}
+  \begin{description}
+  \item[\texttt{ode45}] Runge-Kutta de paso variable orden 4-5
+  \item[\texttt{ode113}] Adams multipaso
+  \item[\texttt{ode23s}] Esquema implícito Rosenbrock
+  \item[\texttt{lsode}] Octave
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Van der Pol}
+Un caso típico es la ecuación de Van der Pol
+
+\[ x'' + x +\mu(x'^2-1)x = 0 \]
+
+Dependiendo del valor de $\mu$ el problema va a ser \emph{stiff} o no.
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> [tout,xout]=ode45(@vdp1,[0 20],[2 0])
+>> plot(tout,xout(:,1))
+\end{lstlisting}
+}
+
+\begin{frame}\frametitle{Solución}
+\testcode
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Solución}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/vdp1.pdf}
+  \end{figure}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> [tout,xout]=ode23s(@vdp1000,[0 20],[2 0])
+>> plot(tout,xout(:,1))
+\end{lstlisting}
+}
+
+\begin{frame}\frametitle{Solución}
+\testcode
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Solución}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/vdp1000.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ejercicio 9}
+\end{frame}
 
 \end{large}
 \end{document}
