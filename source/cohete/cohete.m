@@ -1,3 +1,7 @@
+%%% Programa de simulacion vehiculo con motor cohete a p_c constante
+%%% Version para Octave
+
+clf;
 clear;
 
 %% ISA
@@ -15,11 +19,8 @@ rho = @(h) rho0 .* ( T(h)./T0 ) .^ (g/Ra/lambda - 1); % densidad(h)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-
 %% Especificaciones Cohete 
-p_c = 50e6;                % presion camara combustible    [Pa]
+p_c = 20e6;                % presion camara combustible    [Pa]
 Sf = 0.4;                  % area frontal                  [m^2]
 Ag = 0.01;                 % area garganta                 [m^2]
 As = Sf;                   % area salida                   [m^2]
@@ -29,25 +30,23 @@ m0    = mcohe + mcomb;     % masa inicial total            [kg]
 rho_c = 1800;              % densidad combustible solido   [kg/m^3]
 
 %%% Hallo el consumo
-k  = 1e-2 / (50*101325) ^ (0.7) ;  % constante para hallar consumo
-mp = rho_c * Sf * k * p_c^(0.7) ;  % consumo   [kg/s]
+k  = 0.2e-2/(50*101325)^0.7 ;  % constante para hallar consumo
+mp = rho_c * Sf * k * p_c^0.7 ;  % consumo   [kg/s]
 
 %%% Hallo la presion de salida
-Gam = sqrt(gair) * (2 / (gair+1)) ^...
-      ((gair+1) / 2 / (gair-1));   % constante necesaria Gamma(gamma)
+Gam = sqrt(gair) * (2 / (gair+1))^((gair+1) / 2 / (gair-1));
+				% constante Gamma(gamma)
 
 ecuacion = @(p_s) As/Ag - Gam *...
-		          sqrt( 2*gair * ...
-		                (1 - (p_s/p_c) ^ ((gair-1)/gair) ) /...
-		                (gair-1)...
-		              ) /...
-		          (p_s/p_c) ^ (1/gair);   % ecuacion que relaciona areas
+    sqrt( 2*gair * ...
+	 (1 - (p_s/p_c) ^ ((gair-1)/gair) ) /...
+	 (gair-1)...
+	 ) /...
+    (p_s/p_c) ^ (1/gair);   % ecuacion que relaciona areas
 
-p_s = fsolve(ecuacion, 40e6);      % presion de salida
+p_s = fsolve(ecuacion, 5e5);      % presion de salida
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 
 %% Resistencia aerodinamica: D(v,h)
@@ -59,24 +58,22 @@ D = @(v,h) rho(h) .* v.^2 .* Sf .* Cd(v,h) ./ 2;      % resistencia aero.
 
 %% Empuje Motor: E(h)
 E = @(h) p_c .* Ag .* Gam .*...
-		 sqrt( 2*gair * ...
-		       (1 - (p_s/p_c) ^ ((gair-1)/gair) ) /...
-		       (gair-1)...
-		     ) + ...
-         As .* ( p_s./p_c - p(h)./p_c ) ./ Ag;
+    sqrt( 2*gair * ...
+	 (1 - (p_s/p_c) ^ ((gair-1)/gair) ) /...
+	 (gair-1)...
+	 ) + ...
+    As .* ( p_s./p_c - p(h)./p_c ) ./ Ag;
      
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 
 %% Datos de entrada a ode45
 
 %%% Sistema de ecuaciones
 acel  = @(v,h,t) (E(h) - D(v,h) - mp.*v) ./...
-                 (m0 - mp.*t) - g;           % con combustible
+    (m0 - mp.*t) - g;                      % con combustible
       
-acel2 = @(v,h,t) -D(v,h) ./ mcohe - g;       % sin combustible
+acel2 = @(v,h,t) -D(v,h)./mcohe - g;       % sin combustible
 
 %%% NOTA: h = x(1), v = x(2);
 %%% Sistema: 1. dh/dt = v
@@ -95,7 +92,7 @@ x0(2,1) = 0;     % En reposo       [m/s]
 x = lsode(F,x0,tcomb);             % con combustible
 
 x0_2 = [x(length(x),1); x(length(x),2)];     % entrada a 2º sistema
-tfin = linspace(tcomb(end),2,1000);               % tiempo fin integracion [s]
+tfin = linspace(tcomb(end),20,1000);         % tiempo fin integracion [s]
 x2 = lsode(F2,x0_2,tfin);                    % sin combustible
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,28 +101,31 @@ x2 = lsode(F2,x0_2,tfin);                    % sin combustible
 %% Graficos
 
 % h(m)   frente a t(s)
-subplot(2,1,1);
+figure(1);
+hold on
 plot(tcomb,  x(:,1), '-b',...
      tfin, x2(:,1),'-r', 'LineWidth',1)
+plot(tcomb(end),x(end,1),'k*','MarkerSize',10)
+hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('h [m]', 'FontSize',11);
 
-legend('con combustible', 'sin combustible',...
-       'Location','southeast')
 
-   
 % v(km/s) frente a t(s)
-subplot(2,2,3);
+figure(2);
+hold on
 plot(tcomb, x(:,2) .*1e-3, '-b',...
      tfin,x2(:,2).*1e-3,'-r', 'LineWidth',1)
+plot(tcomb(end),x(end,2)*1e-3,'k*','MarkerSize',10)
+hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('v [ km / s ]', 'FontSize',11);
 
 
 % a(km/s^2) frente a t(s)
-# subplot(2,2,4);
-# plot(tcomb, acel(x(:,2),x(:,1),tcomb).*1e-3, '-b',...
-#      tfin,acel2(x2(:,2),x2(:,1).*1e-3,tfin),'-r', 'LineWidth',1)
-# xlabel('t [s]', 'FontSize',11);
-# ylabel('a [ km / s^2 ]', 'FontSize',11);
+% figure(3);
+% plot(tcomb, acel(x(:,2),x(:,1),tcomb').*1e-3, '-b',...
+%      tfin,acel2(x2(:,2),x2(:,1).*1e-3,tfin'),'-r', 'LineWidth',1)
+% xlabel('t [s]', 'FontSize',11);
+% ylabel('a [ km / s^2 ]', 'FontSize',11);
 
