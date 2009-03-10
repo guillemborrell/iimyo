@@ -91,7 +91,7 @@ x0(2,1) = 0;     % En reposo       [m/s]
 %% Integrando...
 x = lsode(F,x0,tcomb);             % con combustible
 
-x0_2 = [x(length(x),1); x(length(x),2)];     % entrada a 2บ sistema
+x0_2 = [x(length(x),1); x(length(x),2)];     % entrada a 2ยบ sistema
 tfin = linspace(tcomb(end),20,1000);         % tiempo fin integracion [s]
 x2 = lsode(F2,x0_2,tfin);                    % sin combustible
 

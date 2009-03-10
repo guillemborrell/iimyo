@@ -211,7 +211,7 @@ La ecuación de Van der Pol
 
 .. math::
 
-   x'' +x + \mu(x'^2-1)x = 0
+   x'' +x + \mu(x^2-1)x' = 0
 
 depende del parámetro :math:`\mu`.  Como es una ecuación de uso común
 para experimentar esquemas de integración temporal Matlab incluye las
@@ -224,9 +224,13 @@ una única función y se cambia el parámetro en el espacio base.
 
 .. code-block:: matlab
 
+  % Octave
+  clear all
+  clc
+
   mu = 1;
   vdp = @(x) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
-  x = linspace(0,20,1000);
+  x  = linspace(0,20,1000);
   y = lsode(vdp,[0 2],x);
   p = plot(x,y(:,1));
   
@@ -234,7 +238,26 @@ una única función y se cambia el parámetro en el espacio base.
   x = linspace(0,3000,100000);
   vdp = @(x) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
   y = lsode(vdp,[0 2],x);
+  figure(2)
   p = plot(x,y(:,1));
+
+.. code-block:: matlab
+
+   %Matlab
+   clear all
+   clc
+   
+   mu=1;
+   vdp=@(t,x) [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
+   [t,y]=ode45(vdp,[0 20],[0 2]);
+   p=plot(t,y(:,1));
+   
+   mu=1000;
+   vdp=@(t,x) [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
+   [t,y]=ode23s(vdp,[0 3000],[0 2]);
+   figure(2)
+   p=plot(t,y(:,1));
+   
 
 .. warning::
 
@@ -254,6 +277,6 @@ este modo se recuperan las dos leyes.
 
 Vamos a aplicar estos conceptos al problema del motor cohete.
 
-.. literalinclude:: scripts/main.m
+.. literalinclude:: cohete.m
    :language: matlab
-   :linenos:
+   :encoding: utf-8
