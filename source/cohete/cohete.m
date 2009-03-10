@@ -17,10 +17,10 @@ T =   @(h) T0 + lambda .* h;                          % Temperatura(h)
 p =   @(h) p0   .* ( T(h)./T0 ) .^ (g/Ra/lambda);     % presion(h)
 rho = @(h) rho0 .* ( T(h)./T0 ) .^ (g/Ra/lambda - 1); % densidad(h)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Especificaciones Cohete 
-p_c = 20e6;                % presion camara combustible    [Pa]
+p_c = 20e6;                % presion camara de combustion  [Pa]
 Sf = 0.4;                  % area frontal                  [m^2]
 Ag = 0.01;                 % area garganta                 [m^2]
 As = Sf;                   % area salida                   [m^2]
@@ -46,7 +46,7 @@ ecuacion = @(p_s) As/Ag - Gam *...
 
 p_s = fsolve(ecuacion, 5e5);      % presion de salida
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %% Resistencia aerodinamica: D(v,h)
@@ -64,10 +64,10 @@ E = @(h) p_c .* Ag .* Gam .*...
 	 ) + ...
     As .* ( p_s./p_c - p(h)./p_c ) ./ Ag;
      
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%% Datos de entrada a ode45
+%% Datos de entrada a lsode
 
 %%% Sistema de ecuaciones
 acel  = @(v,h,t) (E(h) - D(v,h) - mp.*v) ./...
@@ -95,7 +95,7 @@ x0_2 = [x(length(x),1); x(length(x),2)];     % entrada a 2º sistema
 tfin = linspace(tcomb(end),20,1000);         % tiempo fin integracion [s]
 x2 = lsode(F2,x0_2,tfin);                    % sin combustible
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %% Graficos
@@ -103,29 +103,48 @@ x2 = lsode(F2,x0_2,tfin);                    % sin combustible
 % h(m)   frente a t(s)
 figure(1);
 hold on
-plot(tcomb,  x(:,1), '-b',...
-     tfin, x2(:,1),'-r', 'LineWidth',1)
+plot(tcomb,x(:,1), '-b','LineWidth',2,...
+     tfin, x2(:,1),'-r','LineWidth',2)
 plot(tcomb(end),x(end,1),'k*','MarkerSize',10)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('h [m]', 'FontSize',11);
+print -deps 'h.eps'
+print -dpng 'h.png'
 
 
 % v(km/s) frente a t(s)
 figure(2);
 hold on
-plot(tcomb, x(:,2) .*1e-3, '-b',...
-     tfin,x2(:,2).*1e-3,'-r', 'LineWidth',1)
+plot(tcomb,x(:,2)*1e-3,'-b','LineWidth',2,...
+     tfin,x2(:,2)*1e-3,'-r','LineWidth',2)
 plot(tcomb(end),x(end,2)*1e-3,'k*','MarkerSize',10)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('v [ km / s ]', 'FontSize',11);
+print -deps 'v.eps'
+print -dpng 'v.png'
+
+
+% Mach frente a t(s)
+figure(3);
+hold on
+plot(tcomb,Mach(x(:,2),x(:,1)), '-b','LineWidth',2,...
+     tfin,Mach(x2(:,2),x2(:,1)),'-r','LineWidth',2)
+hold off
+xlabel('t [s]', 'FontSize',11);
+ylabel('M', 'FontSize',11);
+print -deps 'M.eps'
+print -dpng 'M.png'
+
 
 
 % a(km/s^2) frente a t(s)
-% figure(3);
-% plot(tcomb, acel(x(:,2),x(:,1),tcomb').*1e-3, '-b',...
-%      tfin,acel2(x2(:,2),x2(:,1).*1e-3,tfin'),'-r', 'LineWidth',1)
-% xlabel('t [s]', 'FontSize',11);
-% ylabel('a [ km / s^2 ]', 'FontSize',11);
-
+figure(4);
+plot(tcomb, acel(x(:,2),x(:,1),tcomb').*1e-3,'-b','LineWidth',2,...
+     tfin,acel2(x2(:,2),x2(:,1).*1e-3,tfin'),'-r','LineWidth',2)
+xlabel('t [s]', 'FontSize',11);
+ylabel('a [ km / s^2 ]', 'FontSize',11);
+axis([0,tfin(end),-2*g,2*g]);
+print -deps 'a.eps'
+print -dpng 'a.png'

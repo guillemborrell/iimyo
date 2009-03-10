@@ -1,6 +1,9 @@
 Mandar un cohete al espacio
 ===========================
 
+.. sectionauthor:: David Marchante López
+
+
 La ecuación fundamental del movimiento vertical de un vehículo con
 motor cohete es la tercera ley de Newton
 
@@ -66,7 +69,7 @@ fórmula
    \dot r = kp_c^{0.7}
 
 Sabiendo además que la velocidad de recesión a una presión de 50
-atmósferas es de 1 centímetro por segundo. Suponiendo además que el
+atmósferas es de 0.2 centímetros por segundo. Suponiendo además que el
 combustible se quema frontalmente y que la superficie quemada es
 aproximadamente la superficie frontal del cohete se llega a la
 siguiente expresión para el gasto másico:
@@ -81,7 +84,7 @@ Se realizarán las siguientes hipótesis adicionales:
   estándar.
 
 * La presión en la cámara de combustión se mantiene constante e igual
-  a 5 MPa.
+  a 20 MPa.
 
 * El área de la garganta será de 0.01 :math:`m^2` y el área de salida
   será igual al área frontal del cohete.
@@ -99,8 +102,8 @@ Representar en función del tiempo la altura, la velocidad y la
 aceleración del cohete en su ascensión hasta que se termina el
 combustible para áreas frontales de 0.4, 0.6 y 0.8 :math:`m^2`
 
-Fórmulas adiacionales
----------------------
+Fórmulas adicionales
+--------------------
 
 Se define la atmósfera ISA con las siguientes fórmulas
 
@@ -259,6 +262,16 @@ una única función y se cambia el parámetro en el espacio base.
    p=plot(t,y(:,1));
    
 
+.. note::
+
+   Octave organiza de manera ligeramente distinta las funciones para
+   integrar ecuaciones diferenciales.  Esto es debido a que
+   históricamente se ha utilizado la función ``lsode`` que es un
+   driver común para las rutinas de ODEPACK.  Sin embargo se pueden
+   encontrar funciones compatibles con las de Matlab en el paquete
+   Odepkg disponible en octave-forge aunque en implementaciones
+   significativamente más lentas.
+
 .. warning::
 
    Cuando se define un interfaz con un *function handle* los
@@ -279,4 +292,94 @@ Vamos a aplicar estos conceptos al problema del motor cohete.
 
 .. literalinclude:: cohete.m
    :language: matlab
-   :encoding: utf-8
+
+A continuación la versión que ejecutaría sin ningún problema en
+Matlab.  Como se puede apreciar, sólo cambia la parte correspondiente
+a las ecuaciones diferenciales debido a que la llamada a ``ode45`` es
+completamente distinta a la de ``lsode``.  También cambia la
+representación gráfica de la aceleración
+
+.. literalinclude:: cohetem.m
+   :language: matlab
+
+En este ejercicio se aplica directamente la filosofía de definir
+interfaces mediante los parámetros.  Todas las funciones, en este caso
+function handles, están definidas según su expresión teórica sin
+evaluar ninguna de sus variables.  Fijémonos por ejemplo en las
+funciones que implementan la atmósfera estándar para la estratosfera.
+Su expresión es una copia directa de la teórica, se define *h* como
+argumento y el resto de valores son simplemente parámetros.  Si los
+encuentra en el programa principal los evaluará y si no lanzará un
+error de variable no encontrada.
+
+Esta aproximación a la resolución de problemas es más clara y más
+potente, de hecho se ha conseguido resolver el problema entero sin
+definir ninguna función.  Si fuera necesario cambiar algún parámetro,
+como por ejemplo la sección frontal del cohete, bastaría con cambiar
+su definición y volver a correr el script.
+
+Estos son los resultados:
+
+.. latexonly::
+
+   .. figure:: h.pdf
+      :align: center
+      :scale: 100
+
+      Altura en función del tiempo
+
+.. htmlonly::
+
+   .. figure:: h.png
+      :align: center
+      :scale: 100
+
+      Altura en función del tiempo
+
+.. latexonly::
+
+   .. figure:: v.pdf
+      :align: center
+      :scale: 100
+
+      Velocidad en función del tiempo
+
+.. htmlonly::
+
+   .. figure:: v.png
+      :align: center
+      :scale: 100
+
+      Velocidad en función del tiempo
+
+.. latexonly::
+
+   .. figure:: M.pdf
+      :align: center
+      :scale: 100
+
+      Número de Mach en función del tiempo
+
+.. htmlonly::
+
+   .. figure:: M.png
+      :align: center
+      :scale: 100
+
+      Número de Mach en función del tiempo
+
+.. latexonly::
+
+   .. figure:: a.pdf
+      :align: center
+      :scale: 100
+
+      Aceleración en función del tiempo
+
+.. htmlonly::
+
+   .. figure:: a.png
+      :align: center
+      :scale: 100
+
+      Aceleración en función del tiempo
