@@ -83,137 +83,82 @@ Supuesto un movimiento armónico de la base del péndulo
 estable.
 
 Representar gráficamente el movimiento de la partícula respecto al
-tiempo con *k* = 0.1 y *k* = 100. En todos los casos la longitud del
-péndulo será de 0.1 metro, la gravedad de 10 metros por segundo y la
-frecuencia de la base de 200 rpm.
+tiempo adimensional :math:`\tau \in [0,20]` con *k* = 0.1 y *k*
+= 10. En todos los casos la longitud del péndulo será de 0.1 metro y
+la gravedad de 9.8 metros por segundo.
 
 Solución
 --------
 
-Hay una manera rápida y otra lenta de hacer el problema.  Curiosamente
-no por ello significa que la rápida sea fácil y la lenta difícil o
-viceversa, simplemente hay que tener algo de conocimientos sobre
-estabilidad de sistemas físicos.
+El concepto subyacente en este ejercicio es la importancia de
+adimensionalizar las ecuaciones.  No es momento de nombrar las
+ventajas de utilizar el teorema :math:`\pi` pero sí podemos demostrar
+que tras un poco de manipulación es sencillo llegar a conclusiones
+simplemente echándole un vistazo a la expresión resultante.
 
-La manera fácil es observar que la ecuación diferencial es lineal,
-esto significa que su estabilidad estará determinada por sus
-autovalores. Manipulando un poco la expresión final linealizada
-llegamos a esta ecuación diferencial lineal de segundo orden que
-depende de la posición y velocidad de la base del péndulo.
+Estamos delante de una ecuación diferencial no lineal así que la
+discusión sobre su estabilidad no puede hacerse simplemente calculando
+un par de autovalores. Gracias al cálculo numérico podemos buscar la
+solución al problema mediante la fuerza bruta.  El punto de transición
+puede considerarse como un cero de una función.  Si el cero es el
+punto en el que el valor de la función pasa de positivo a negativo un
+punto de transición significa el cambio de estable a inestable.
+Entonces cualquier método numérico para hallar un cero servirá para
+hallar el punto de transición.
 
-.. math::
-
-   l \ddot \theta + \theta (\omega^2 a \sin \omega t-g)=0
-
-El paso siguiente es adimensionalizar la ecuación con el tiempo
-característico :math:`\omega^{-1}` y la longitud característica *a*.
-La ecuación final adimensionalizada, definiendo 
-:math:`\tau = t \omega^{-1}` como tiempo adimensional.
-
-.. math::
-
-   \frac{l}{a \omega^2}\ddot \theta + \theta \left(\sin \tau -
-   \frac{g}{a \omega^2}  \right)
-
-Y finalmente, utilizando el parámetro propuesto *k*
+Pero antes hay que adimensionaliar, para ello escogemos una longitud
+característica :math:`a`, la amplitud del forzado y un tiempo
+característico :math:`\omega^-1`.  La aceleración característica será
+entonces :math:`a\omega^2`
 
 .. math::
 
-   \frac{l}{g}\ddot \theta + \theta (k \sin \tau-1) =0
+   \frac{l}{a \omega^2}  \ddot \theta - \frac{1}{a \omega^2}\ddot y
+   \sin \theta = \frac{g}{a \omega^2} \sin \theta
 
-De esta ecuación se obtienen dos raíces complejas conjugadas cuyo
-carácter depende del parámetro *k*
-
-.. math::
-   
-   \lambda = \sqrt{ \frac{g}{l} \left( 1-k \sin \tau \right)}
-
-Para simplificar aún más la expresión definiremos el parámetro
-:math:`\Delta = 1-k\sin \tau` que servirá para analizar el
-carácter de la ecuación:
+Linealizando la ecuación para ángulos pequeños
 
 .. math::
 
-   \lambda = \sqrt{\frac{g}{l}\Delta}
+   \frac{l}{a \omega^2}  \ddot \theta - \frac{1}{a \omega^2}\ddot y
+   \theta = \frac{g}{a \omega^2} \theta
 
-Pero estas raíces son en realidad un lugar geométrico puesto que
-dependen de :math:`\omega t` y por lo que se deduce de la ecuación, su
-estabilidad viene determinada por la constante *k*.  Es evidente que
-el comportamiento del péndulo es algo complejo porque el carácter de
-la solución cambia en cada instante. Puede ayudarnos a comprender un
-poco más el problema la representación gráfica de :math:`\Delta` y de
-los autovalores
+Y aplicando la definición del forzado :math:`y`
 
-.. code-block:: matlab
+.. math::
 
-  %% Programa para obtener el lugar de las raices del pendulo invertido
-  g = 10;                                                              
-  w = 200*2*pi/360;                                                    
-  l = 1;                                                               
-  t = linspace(0,2*pi/w,100);                                          
-  
-  figure(1)
-  clf;     
-  k = {0.1,'b*';
-       1,'r*';  
-       5,'k*';  
-       10,'g*'};
-  hold on       
-  for iter = 1:4
-    plot(t,1-k{iter,1}*sin(w*t),k{iter,2})
-  end                                     
-  plot([0,2*pi/w],[0,0])                  
-  xl = xlabel('t');                       
-  yl = ylabel('\Delta');                  
-  set(xl,'fontsize',14);                  
-  set(yl,'fontsize',14);                  
-  legend('k=0.1','k=1','k=5','k=10');     
-  hold off
-  
-  print -dpng 'discriminante.png'
-  print -deps 'discriminante.eps'
-  
-  figure(2)
-  clf;
-  info={0.1,'b*','k = 0.1';
-        1,'r*','k = 1';
-        5,'k*','k = 5';
-        10,'g*','k = 10'};
-  
-  for iter = 1:4
-    k = info{iter,1};
-    marker = info{iter,2};
-    titlestring = info{iter,3};
-    subplot(2,2,iter);
-    plot(real(sqrt(g*(1-k*sin(w*t))/l)),
-         imag(sqrt(g*(1-k*sin(w*t))/l)),
-         marker);
-    t = title(titlestring);
-    xl = xlabel('Re');
-    yl = ylabel('Im');
-    set(t,'fontsize',14);
-    set(xl,'fontsize',14);
-    set(yl,'fontsize',14);
-  end
-  print -dpng 'autovalores.png'
-  print -deps 'autovalores.eps'
+   \frac{l}{a \omega^2} \ddot \theta + \theta \sin \tau = \frac{g}{a
+   \omega^2} \theta
 
+Multiplicando ambos lados por :math:`a\omega^2` y dividiendo por
+:math:`g` se llega a la siguiente expresión
 
-.. latexonly::
+.. math::
 
-   .. figure:: fig/discriminante.pdf
-      :align: center
-      :scale: 100
+   \frac{l}{g} \ddot \theta + \theta \left(k \sin \tau  \right-1) = 0
 
-      Valor del discriminante
+En la que finalmente aparece el parámetro propuesto
+:math:`k=\frac{\omega^2 a}{g}` que tiene un significado físico
+bastante claro, es el parámetro que relaciona las fuerzas debidas a la
+inercia de la masa con las debidas a la acción de la gravedad.  Es
+obvio que la fuerza de la gravedad es la que provoca que el péndulo
+caiga y por lo tanto es la causa de la inestabilidad.  Si las
+aceleraciones debidas a la inercia son mucho mayores que la gravedad
+esta puede despreciarse con lo que el sistema podría ser estable.
+Esto significa que si el sistema es estable en alguna condición lo
+será para :math:`k>>1`.  Esto permite estimar que un buen lugar para
+buscar el punto de transición es entre *k* = 10 y *k* = 100.
 
-.. htmlonly::
+Para plantear la ecuación se hace el cambio de variable 
+:math:`\dot \theta = u_2` y :math:`\theta = u_1` para poder expresar
+la ecuación de segundo orden en forma de sistema de ecuaciones
 
-   .. figure:: fig/discriminante.png
-      :align: center
-      :scale: 70
+.. math::
 
-      Valor del discriminante
+   \begin{array}{rcl}
+   \dot u_1 = u_2\\
+   \dot u_2 = \frac{g}{l} u_1 (k \sin \tau -1)
+   \end{array}
 
 
 
