@@ -156,8 +156,8 @@ la ecuación de segundo orden en forma de sistema de ecuaciones
 .. math::
 
    \begin{array}{rcl}
-   \dot u_1& =& u_2\\
-   \dot u_2& =& \frac{g}{l} u_1 (k \sin \tau -1)
+   \dot u_1 = u_2\\
+   \dot u_2 = \frac{g}{l} u_1 (k \sin \tau -1)
    \end{array}
 
 

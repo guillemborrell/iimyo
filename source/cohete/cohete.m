@@ -1,7 +1,6 @@
 %%% Programa de simulacion vehiculo con motor cohete a p_c constante
 %%% Version para Octave
 
-clf;
 clear;
 
 %% ISA
@@ -14,8 +13,8 @@ p0 = 101325;               % presion  "   "     [Pa]
 rho0 = 1.225;              % densidad "   "     [kg/m^3]
 
 T =   @(h) T0 + lambda .* h;                          % Temperatura(h)
-p =   @(h) p0   .* ( T(h)./T0 ) .^ (g/Ra/lambda);     % presion(h)
-rho = @(h) rho0 .* ( T(h)./T0 ) .^ (g/Ra/lambda - 1); % densidad(h)
+p =   @(h) p0   .* ( T(h)./T0 ) .^ (-g/Ra/lambda);     % presion(h)
+rho = @(h) rho0 .* ( T(h)./T0 ) .^ (-g/Ra/lambda - 1); % densidad(h)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -24,8 +23,8 @@ p_c = 20e6;                % presion camara de combustion  [Pa]
 Sf = 0.4;                  % area frontal                  [m^2]
 Ag = 0.01;                 % area garganta                 [m^2]
 As = Sf;                   % area salida                   [m^2]
-mcohe = 5;                 % masa cohete                   [kg]
-mcomb = 50;                % masa inicial combustible      [kg]
+mcohe = 25;                % masa cohete                   [kg]
+mcomb = 30;                % masa inicial combustible      [kg]
 m0    = mcohe + mcomb;     % masa inicial total            [kg]
 rho_c = 1800;              % densidad combustible solido   [kg/m^3]
 
@@ -52,7 +51,7 @@ p_s = fsolve(ecuacion, 5e5);      % presion de salida
 %% Resistencia aerodinamica: D(v,h)
 Mach = @(v,h) v ./ sqrt( gair .* Ra .* T(h) );        % Mach
 Cd =   @(v,h) 2.6 .* Mach(v,h) .^(1.1) .* exp(-Mach(v,h))...
-              + 0.3 .* sqrt(Mach(v,h));               % coef. resist.
+              + 0.6 .* sqrt(Mach(v,h));               % coef. resist.
 
 D = @(v,h) rho(h) .* v.^2 .* Sf .* Cd(v,h) ./ 2;      % resistencia aero.
 
@@ -102,6 +101,7 @@ x2 = lsode(F2,x0_2,tfin);                    % sin combustible
 
 % h(m)   frente a t(s)
 figure(1);
+clf;
 hold on
 plot(tcomb,x(:,1), '-b','LineWidth',2,...
      tfin, x2(:,1),'-r','LineWidth',2)
@@ -115,6 +115,7 @@ print -dpng 'h.png'
 
 % v(km/s) frente a t(s)
 figure(2);
+clf;
 hold on
 plot(tcomb,x(:,2)*1e-3,'-b','LineWidth',2,...
      tfin,x2(:,2)*1e-3,'-r','LineWidth',2)
@@ -128,6 +129,7 @@ print -dpng 'v.png'
 
 % Mach frente a t(s)
 figure(3);
+clf;
 hold on
 plot(tcomb,Mach(x(:,2),x(:,1)), '-b','LineWidth',2,...
      tfin,Mach(x2(:,2),x2(:,1)),'-r','LineWidth',2)
@@ -141,6 +143,7 @@ print -dpng 'M.png'
 
 % a(km/s^2) frente a t(s)
 figure(4);
+clf;
 plot(tcomb, acel(x(:,2),x(:,1),tcomb').*1e-3,'-b','LineWidth',2,...
      tfin,acel2(x2(:,2),x2(:,1).*1e-3,tfin'),'-r','LineWidth',2)
 xlabel('t [s]', 'FontSize',11);
