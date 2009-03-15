@@ -79,13 +79,13 @@ pequeño en cualquier instante.
 
 Supuesto un movimiento armónico de la base del péndulo
 :math:`y = a \sin \omega t`, obtener el valor del parámetro 
-:math:`k = \frac{\omega^2 a}{g}` para el que el péndulo deja de ser
+:math:`k = \frac{g}{\omega^2 a}` para el que el péndulo deja de ser
 estable.
 
 Representar gráficamente el movimiento de la partícula respecto al
-tiempo adimensional :math:`\tau \in [0,20]` con *k* = 0.1 y *k*
-= 10. En todos los casos la longitud del péndulo será de 0.1 metro y
-la gravedad de 9.8 metros por segundo.
+tiempo adimensional :math:`\omega t = \tau \in [0,4\pi]` con *k* = 0.1
+y *k* = 10. En todos los casos la longitud del péndulo será de 0.1
+metro y la gravedad de 9.8 metros por segundo.
 
 Solución
 --------
@@ -96,25 +96,20 @@ ventajas de utilizar el teorema :math:`\pi` pero sí podemos demostrar
 que tras un poco de manipulación es sencillo llegar a conclusiones
 simplemente echándole un vistazo a la expresión resultante.
 
-Estamos delante de una ecuación diferencial no lineal así que la
-discusión sobre su estabilidad no puede hacerse simplemente calculando
-un par de autovalores. Gracias al cálculo numérico podemos buscar la
-solución al problema mediante la fuerza bruta.  El punto de transición
-puede considerarse como un cero de una función.  Si el cero es el
-punto en el que el valor de la función pasa de positivo a negativo un
-punto de transición significa el cambio de estable a inestable.
-Entonces cualquier método numérico para hallar un cero servirá para
-hallar el punto de transición.
-
 Pero antes hay que adimensionaliar, para ello escogemos una longitud
 característica :math:`a`, la amplitud del forzado y un tiempo
 característico :math:`\omega^{-1}`.  La aceleración característica será
 entonces :math:`a\omega^2`
 
+Con todo lo anterior se define un tiempo adimensional :math:`\tau` y
+una longitud adimensional :math:`\lambda`.  Adimensionalizando la
+ecuación anterior e introduciendo la expresión del forzado se
+obtienene la siguiente expresión
+
 .. math::
 
-   \frac{l}{a \omega^2} \theta'' - \frac{1}{a \omega^2}\ddot y
-   \sin \theta = \frac{g}{a \omega^2} \sin \theta
+   \lambda a \omega^2 \theta'' + a \omega^2 \sin \tau \sin \theta = g
+   \sin \theta
 
 Donde el operador :math:`'` significa la derivada respecto al tiempo
 adimensional :math:`\tau`. Linealizando la ecuación para ángulos
@@ -122,26 +117,44 @@ pequeños
 
 .. math::
 
-   \frac{l}{a \omega^2} \theta'' - \frac{1}{a \omega^2}\ddot y
-   \theta = \frac{g}{a \omega^2} \theta
+   \lambda a \omega^2 \theta'' + (a \omega^2 \sin \tau) \theta = g
+   \theta
 
-Y aplicando la definición del forzado :math:`y`
-
-.. math::
-
-   \frac{l}{a \omega^2} \theta'' + \theta \sin \tau = \frac{g}{a
-   \omega^2} \theta
-
-Multiplicando ambos lados por :math:`a\omega^2` y dividiendo por
-:math:`g` se llega a la siguiente expresión
+Dividiendo ambos lados por :math:`a\omega^2`...
 
 .. math::
 
-   \frac{l}{g} \theta'' + \theta \left(k \sin \tau -1 \right) = 0
+   \lambda \theta'' + \left(\sin \tau -k \right) \theta = 0
 
 En la que finalmente aparece el parámetro propuesto
-:math:`k=\frac{\omega^2 a}{g}` que es el parámetro que relaciona la
+:math:`k=\frac{g}{\omega^2 a}` que es el parámetro que relaciona la
 aceleración debida a la gravedad con las aceleraciones debidas al forzado.
+
+Con el simple hecho de adimensionalizar podemos comparar la
+importancia del término derivada segunda respecto al término con
+:math:`\theta` mediante el siguiente número adimensional
+:math:`\Delta(\tau) = \frac{\sin \tau -k}{\lambda}`
+
+.. math::
+
+   \theta'' + \Delta(\tau) \theta = 0
+
+Con este primer número adimensional podemos comprobar que la ecuación
+diferencial se comportará de un modo u otro según su valor.  Si
+:math:`\Delta(\tau)` es muy pequeño la ecuación resultante será
+
+.. math::
+
+   \theta'' = 0
+
+Que tiene como solución :math:`\theta(\tau) = A\tau +B`, un
+crecimiento lineal con el tiempo adimensional. Esto sucederá
+justamente cuando el numerador de :math:`\Delta(\tau)` se haga cero,
+esto es: :math:`\sin \tau -k = 0`. En cualquier otro instante la
+solución será puramente armónica. Entonces parece razonable pensar que
+si el numerador nunca se anula entonces el sistema será estable. Para
+ello bastará que *k* sea mayor que 1 aunque como se verá a
+continuación no es un límite estricto.
 
 Para plantear la ecuación se hace el cambio de variable 
 :math:`\dot \theta = u_2` y :math:`\theta = u_1` para poder expresar
@@ -151,8 +164,13 @@ la ecuación de segundo orden en forma de sistema de ecuaciones
 
    \begin{array}{rl}
    \dot u_1 = & u_2\\
-   \dot u_2 = & \frac{g}{l} u_1 (k \sin \tau -1)
+   \dot u_2 = & \frac{\sin \tau - k}{\lambda} u_1 
    \end{array}
+
+Una solución al estudio del problema se presenta a continuación.
+
+.. literalinclude:: fig/invpend.m
+   :language: matlab
 
 
 

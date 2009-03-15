@@ -144,10 +144,10 @@ print -dpng 'M.png'
 % a(km/s^2) frente a t(s)
 figure(4);
 clf;
-plot(tcomb, acel(x(:,2),x(:,1),tcomb').*1e-3,'-b','LineWidth',2,...
-     tfin,acel2(x2(:,2),x2(:,1).*1e-3,tfin'),'-r','LineWidth',2)
+plot(tcomb, acel(x(:,2),x(:,1),tcomb')/g,'-b','LineWidth',2,...
+     tfin,acel2(x2(:,2),x2(:,1)/g,tfin'),'-r','LineWidth',2)
 xlabel('t [s]', 'FontSize',11);
-ylabel('a [ km / s^2 ]', 'FontSize',11);
-axis([0,tfin(end),-2*g,2*g]);
+ylabel('a/g', 'FontSize',11);
+axis([0,tfin(end),-20,100]);
 print -deps 'a.eps'
 print -dpng 'a.png'
