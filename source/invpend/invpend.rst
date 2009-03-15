@@ -108,26 +108,28 @@ hallar el punto de transición.
 
 Pero antes hay que adimensionaliar, para ello escogemos una longitud
 característica :math:`a`, la amplitud del forzado y un tiempo
-característico :math:`\omega^-1`.  La aceleración característica será
+característico :math:`\omega^{-1}`.  La aceleración característica será
 entonces :math:`a\omega^2`
 
 .. math::
 
-   \frac{l}{a \omega^2}  \ddot \theta - \frac{1}{a \omega^2}\ddot y
+   \frac{l}{a \omega^2} \theta'' - \frac{1}{a \omega^2}\ddot y
    \sin \theta = \frac{g}{a \omega^2} \sin \theta
 
-Linealizando la ecuación para ángulos pequeños
+Donde el operador :math:`'` significa la derivada respecto al tiempo
+adimensional :math:`\tau`. Linealizando la ecuación para ángulos
+pequeños
 
 .. math::
 
-   \frac{l}{a \omega^2}  \ddot \theta - \frac{1}{a \omega^2}\ddot y
+   \frac{l}{a \omega^2} \theta'' - \frac{1}{a \omega^2}\ddot y
    \theta = \frac{g}{a \omega^2} \theta
 
 Y aplicando la definición del forzado :math:`y`
 
 .. math::
 
-   \frac{l}{a \omega^2} \ddot \theta + \theta \sin \tau = \frac{g}{a
+   \frac{l}{a \omega^2} \theta'' + \theta \sin \tau = \frac{g}{a
    \omega^2} \theta
 
 Multiplicando ambos lados por :math:`a\omega^2` y dividiendo por
@@ -135,19 +137,11 @@ Multiplicando ambos lados por :math:`a\omega^2` y dividiendo por
 
 .. math::
 
-   \frac{l}{g} \ddot \theta + \theta \left(k \sin \tau  \right-1) = 0
+   \frac{l}{g} \theta'' + \theta \left(k \sin \tau -1 \right) = 0
 
 En la que finalmente aparece el parámetro propuesto
-:math:`k=\frac{\omega^2 a}{g}` que tiene un significado físico
-bastante claro, es el parámetro que relaciona las fuerzas debidas a la
-inercia de la masa con las debidas a la acción de la gravedad.  Es
-obvio que la fuerza de la gravedad es la que provoca que el péndulo
-caiga y por lo tanto es la causa de la inestabilidad.  Si las
-aceleraciones debidas a la inercia son mucho mayores que la gravedad
-esta puede despreciarse con lo que el sistema podría ser estable.
-Esto significa que si el sistema es estable en alguna condición lo
-será para :math:`k>>1`.  Esto permite estimar que un buen lugar para
-buscar el punto de transición es entre *k* = 10 y *k* = 100.
+:math:`k=\frac{\omega^2 a}{g}` que es el parámetro que relaciona la
+aceleración debida a la gravedad con las aceleraciones debidas al forzado.
 
 Para plantear la ecuación se hace el cambio de variable 
 :math:`\dot \theta = u_2` y :math:`\theta = u_1` para poder expresar
@@ -155,9 +149,9 @@ la ecuación de segundo orden en forma de sistema de ecuaciones
 
 .. math::
 
-   \begin{array}{rcl}
-   \dot u_1 = u_2\\
-   \dot u_2 = \frac{g}{l} u_1 (k \sin \tau -1)
+   \begin{array}{rl}
+   \dot u_1 = & u_2\\
+   \dot u_2 = & \frac{g}{l} u_1 (k \sin \tau -1)
    \end{array}
 
 
