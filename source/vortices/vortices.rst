@@ -49,7 +49,10 @@ Dada una vorticidad :math:`\gamma=2\pi` idéntica para cada vórtice:
   Representar el resultado gráficamente para un intervalo de tiempo
   entre :math:`t \in [0,100]`
 
-Bibliografía
-------------
+.. note::
 
-.. [#]  Turbulence and Vortex Dynamics.  J. Jiménez Sendín. http://torroja.dmt.upm.es/~jimenez/
+   Puede encontrarse una descripción mucho más detallada del problema
+   en [JIM]_
+
+
+.. [JIM]  Turbulence and Vortex Dynamics.  J. Jiménez Sendín. http://torroja.dmt.upm.es/~jimenez/

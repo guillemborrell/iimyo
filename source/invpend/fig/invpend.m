@@ -27,6 +27,9 @@ plot(tau,sin(tau))
 xlabel('\tau')
 ylabel('y/a')
 
+print -dpng 'k10.png'
+print -deps 'k10.eps'
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% k para que la solucion sea inestable
@@ -52,6 +55,9 @@ subplot(2,1,2);
 plot(tau,sin(tau))
 xlabel('\tau')
 ylabel('y/a')
+
+print -dpng 'k01.png'
+print -deps 'k01.eps'
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -99,3 +105,6 @@ plot(tau,theta(:,1))
 xlabel('\tau')
 ylabel('\theta')
 title('k=1.2')
+
+print -dpng 'convergencia.png'
+print -deps 'convergencia.eps'

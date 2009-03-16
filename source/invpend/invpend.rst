@@ -13,7 +13,7 @@ clásico para el control automático.
       :align: center
       :scale: 200
 
-      Esquema de un péndulo invertido con movimiento horizontal.
+      Esquema de un péndulo invertido con movimiento horizontal. [INV]_
 
 .. htmlonly::
 
@@ -21,7 +21,7 @@ clásico para el control automático.
       :align: center
       :scale: 70
 
-      Esquema de un péndulo invertido con movimiento horizontal.
+      Esquema de un péndulo invertido con movimiento horizontal. [INV]_
   
 Una de las claves del péndulo invertido es intentar controlar el
 movimiento de la masa moviendo el otro extremo de la barra.  En el
@@ -160,6 +160,22 @@ Para plantear la ecuación se hace el cambio de variable
 :math:`\dot \theta = u_2` y :math:`\theta = u_1` para poder expresar
 la ecuación de segundo orden en forma de sistema de ecuaciones
 
+.. note::
+
+   Las condiciones iniciales del problema son importantes.  Este
+   sistema se encuentra en una posición de equilibrio inestable en
+   :math:`\theta=0`, esto significa que si el sistema no se perturba
+   en absoluto seguirá indefinidamente en dicha posición.  En este
+   caso cualquier perturbación, tanto en velocidad como en
+   desplazamiento, será suficiente para sacar el sistema de su
+   equilibrio pero podría suceder que fuera tan pequeña que no lo
+   notara.
+
+   El sistema puede atenuar, mantener o amplificar la perturbación
+   dependiendo de su propia naturaleza pero debemos tener muy en
+   cuenta que la solución final dependerá de las condiciones iniciales
+   y de la perturbación elegida.
+
 .. math::
 
    \begin{array}{rl}
@@ -172,9 +188,70 @@ Una solución al estudio del problema se presenta a continuación.
 .. literalinclude:: fig/invpend.m
    :language: matlab
 
+Este script genera las tres figuras siguientes:
 
 
-Bibliografía
-------------
+.. latexonly::
 
-.. [#] Inverted Pendulum. Wikipedia. http://en.wikipedia.org/wiki/Inverted_pendulum .
+   .. figure:: fig/k10.pdf
+      :align: center
+      :scale: 100
+
+      Ejemplo de solución en la que la perturbación no es amplificada
+      por el forzado.  La oscilación se mantiene prácticamente
+      invariable en el tiempo.
+
+.. htmlonly::
+
+   .. figure:: fig/k10.png
+      :align: center
+      :scale: 100
+
+      Ejemplo de solución en la que la perturbación no es amplificada
+      por el forzado.  La oscilación se mantiene prácticamente
+      invariable en el tiempo.
+
+.. latexonly::
+
+   .. figure:: fig/k01.pdf
+      :align: center
+      :scale: 100
+
+      Solución con un valor de *k* que amplifica la perturbación
+      inicial.  La amplificación en el último periodo del forzado es
+      tan grande que las primeras oscilaciones quedan fuera de escala.
+
+.. htmlonly::
+
+   .. figure:: fig/k01.png
+      :align: center
+      :scale: 100
+
+      Solución con un valor de *k* que amplifica la perturbación
+      inicial.  La amplificación en el último periodo del forzado es
+      tan grande que las primeras oscilaciones quedan fuera de escala.
+
+.. latexonly::
+
+   .. figure:: fig/convergencia.pdf
+      :align: center
+      :scale: 100
+
+      Solución de varios problemas con *k* distintas.  Como se puede
+      apreciar, con una *k* de 1.1 la perturbación crece haciendo que
+      el sistema sea inestable.  Esto significa que el límite estimado
+      de :math:`k=1` no es estricto.
+
+.. htmlonly::
+
+   .. figure:: fig/convergencia.png
+      :align: center
+      :scale: 100
+
+      Solución de varios problemas con *k* distintas.  Como se puede
+      apreciar, con una *k* de 1.1 la perturbación crece haciendo que
+      el sistema sea inestable.  Esto significa que el límite estimado
+      de :math:`k=1` no es estricto.
+
+
+.. [INV] Inverted Pendulum. Wikipedia. http://en.wikipedia.org/wiki/Inverted_pendulum .
