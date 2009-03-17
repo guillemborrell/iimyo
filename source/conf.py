@@ -175,7 +175,9 @@ latex_documents = [
 latex_use_parts = True
 
 # Additional stuff for the LaTeX preamble.
-latex_preamble = ''
+latex_preamble = """
+\\newcommand{\\bigO}{\\mathcal{O}}
+"""
 
 # Documents to append as an appendix to all manuals.
 #latex_appendices = []
