@@ -111,17 +111,17 @@ propuesta
 .. math::
 
    (\partial_{xx} u)_{ij} = \frac{1}{\Delta
-   x^2}(u_{i+1j}-2u_{ij}+u_{i-1j}) + \bigO \Delta x^2
+   x^2}(u_{i+1j}-2u_{ij}+u_{i-1j}) + \mathcal{O} \Delta x^2
 
 .. math::
 
    (\partial_{yy} u)_{ij} = \frac{1}{\Delta
-   x^2}(u_{ij+1}-2u_{ij}+u_{ij-1}) + \bigO \Delta y^2
+   x^2}(u_{ij+1}-2u_{ij}+u_{ij-1}) + \mathcal{O} \Delta y^2
 
 .. math::
 
    (\partial_{xy} u)_{ij} = \frac{1}{4 \Delta x \Delta y} (
-   u_{i+1j+1}+u_{i-1j-1}+u_{i+1j-1}+u_{i-1j+1}) + \bigO (\Delta
+   u_{i+1j+1}+u_{i-1j-1}+u_{i+1j-1}+u_{i-1j+1}) + \mathcal{O} (\Delta
    x^2+\Delta y^2)
    
 La ecuación en diferencias final será
