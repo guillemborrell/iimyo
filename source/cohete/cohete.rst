@@ -152,7 +152,7 @@ para modelar aplicaciones en Matlab.  Se basa en dos normas esenciales
 
 * En las funciones todo son argumentos.
 
-* Los parámetros definien un interfaz.
+* Los parámetros definien un módulo.
 
 Cuando una variable se pone en la cabecera de la definición de una
 función pasa a ser un argumento de entrada.  En principio la función
@@ -232,14 +232,14 @@ una única función y se cambia el parámetro en el espacio base.
   clc
 
   mu = 1;
-  vdp = @(x) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
+  vdp = @(x,t) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
   x  = linspace(0,20,1000);
   y = lsode(vdp,[0 2],x);
   p = plot(x,y(:,1));
   
   mu = 1000;
   x = linspace(0,3000,100000);
-  vdp = @(x) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
+  vdp = @(x,t) [x(2),mu*(1-x(1).^2)*x(2)-x(1)];
   y = lsode(vdp,[0 2],x);
   figure(2)
   p = plot(x,y(:,1));
@@ -261,56 +261,100 @@ una única función y se cambia el parámetro en el espacio base.
    figure(2)
    p=plot(t,y(:,1));
    
+El planteamiento utilizado con los ejemplos anteriores tiene un punto
+débil.  Los interfaces se evalúan en el momento de su definición, no
+en el momento de su ejecución.  Si tras asignar ``mu`` como  1000 no
+se hubiera redefinido el interfaz este no hubiera cambiado de valor.
+Por ejemplo
 
-.. note::
+.. code-block:: matlab
 
-   Octave organiza de manera ligeramente distinta las funciones para
-   integrar ecuaciones diferenciales.  Esto es debido a que
-   históricamente se ha utilizado la función ``lsode`` que es un
-   driver común para las rutinas de ODEPACK.  Sin embargo se pueden
-   encontrar funciones compatibles con las de Matlab en el paquete
-   Odepkg disponible en octave-forge aunque en implementaciones
-   significativamente más lentas.
+  >> a = 1;
+  >> y = @(x) a*x;
+  >> y(2)
+  ans =  2
+  >> a = 2;
+  >> y(2)
+  ans =  2
 
-.. warning::
+Esto obliga a redefinir cada interfaz después de cambiar cada
+parámetro, una estrategia que no parece demasiado adecuada porque
+fuerza a seguir una disciplina.  En la programación si el programador
+está obligado a seguir una disciplina es porque está haciendo el
+trabajo del ordenador. El paso siguiente es eliminar esa necesidad y
+utilizar un concepto bastante conocido: los módulos.
 
-   Cuando se define un interfaz con un *function handle* los
-   parámetros se evalúan en el momento en el que se define el
-   interfaz, no cuando se ejecuta.  Esto significa que si durante la
-   ejecución se cambia el valor de un parámetro habrá que definir otra
-   vez el interfaz repitiendo la asignación del *function handle* como
-   se ve en el ejemplo.
+Aquí llega la segunda norma de la programación en Matlab, los
+parámetros definien el módulo.  Si se toma un módulo como un generador
+de funciones, los argumentos de entrada de un módulo serán los
+parámetros y los de salida las funciones.  De este modo hemos unido la
+definición de los parámetros con la creación de los interfaces. Por
+ejemplo, este sería un módulo destinado a crear la función de Van der
+Pol
+
+.. literalinclude:: modvdp.m
+   :language: matlab
+
+El parámetro :math:`mu` es el argumento de entrada del módulo y la
+función, que en este caso es la misma que el interfaz, es el argumento
+de salida.  Si un módulo devuelve sólo una función este puede
+degenerar en una función anónima que devuelve otra función anónima
+
+.. code-block:: matlab
+
+  >> modvdp = @(mu) @(t,x) [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
+
+Otro ejemplo.  La atmósfera ISA o atmósfera estándar se basa en
+suponer que el gradiente de temperaturas hasta los 11000 metros es
+lineal.
+
+.. math::
+
+  T(h) = T_0 + \lambda h
+
+.. math::
+
+   p(h) = p_0\left( \frac{T_0+\lambda h}{T_0}
+   \right)^\frac{g}{R\lambda}
+
+.. math::
+
+   \rho(h) = \rho_0 \left( \frac{T_0+\lambda h}{T_0}
+   \right)^{\frac{g}{R\lambda}-1}
+
+Los parámetros asociados a la atmósfera son el gradiente de
+temperatura, la gravedad, la constante de gas perfecto del aire y la
+temperatura, la presión y la densidad a nivel del mar.  Este caso es
+especialmente sencillo porque todas las funciones dependen del mismo
+argumento: la altitud. Una posible manera de implementar este módulo
+sería
+
+.. literalinclude:: ISA.m
+   :language: matlab
+
+En el script se han considerado que la gravedad, el gradiente térmico
+y la constante de gas perfecto del aire no son parámetros sino
+constantes así que no es necesario ni siquiera ponerlos en la cabecera
+del módulo.  Sin embargo las condiciones meteorológicas a altitud cero
+son variables.
   
 Este método puede utilizarse como punto de apoyo para articular
-cualquier programa en Matlab por grande que sea.  Cada bloque de
-código, cada función, se define con todos los argumentos posibles y es
-en el programa principal donde se crean los interfaces que las adaptan
-al caso particular; se diferencia entre argumentos y parámetros.  De
-este modo se recuperan las dos leyes.
+cualquier programa en Matlab por grande que sea. Los parámetros podrán
+agruparse según el significado físico que tengan. En el caso del motor
+cohete, algunos parámetros se referirán a la geometría de la tobera,
+otros a las condiciones ambientales, otros a las características del
+combustible... Cada familia de parámetros creará un módulo con las
+funciones o los interfaces necesarios para resolver el problema.
 
 Vamos a aplicar estos conceptos al problema del motor cohete.
 
-.. literalinclude:: cohete.m
-   :language: matlab
-
-A continuación la versión que ejecutaría sin ningún problema en
-Matlab.  Como se puede apreciar, sólo cambia la parte correspondiente
-a las ecuaciones diferenciales debido a que la llamada a ``ode45`` es
-completamente distinta a la de ``lsode``.  También cambia la
-representación gráfica de la aceleración
-
 .. literalinclude:: cohetem.m
-   :language: matlab
+  :language: matlab
 
-En este ejercicio se aplica directamente la filosofía de definir
-interfaces mediante los parámetros.  Todas las funciones, en este caso
-function handles, están definidas según su expresión teórica sin
-evaluar ninguna de sus variables.  Fijémonos por ejemplo en las
-funciones que implementan la atmósfera estándar para la estratosfera.
-Su expresión es una copia directa de la teórica, se define *h* como
-argumento y el resto de valores son simplemente parámetros.  Si los
-encuentra en el programa principal los evaluará y si no lanzará un
-error de variable no encontrada.
+En este ejercicio se aplica directamente la filosofía de las dos
+normas.  Todas las funciones, en este caso function handles, están
+definidas según su expresión teórica sin evaluar ninguna de sus
+variables.
 
 Esta aproximación a la resolución de problemas es más clara y más
 potente, de hecho se ha conseguido resolver el problema entero sin

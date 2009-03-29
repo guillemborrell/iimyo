@@ -7,14 +7,8 @@ clear;
 g = 9.81;                  % gravedad terrestre [m/s^2]
 gair = 1.4;                % gamma aire
 Ra = 287;                  % constante MGP aire [J/kg/K]
-lambda = -6.5e-3;          % gradiente termico  [K/m]
-T0 = 288;                  % temp. nivel mar    [K]
-p0 = 101325;               % presion  "   "     [Pa]
-rho0 = 1.225;              % densidad "   "     [kg/m^3]
 
-T =   @(h) T0 + lambda .* h;                          % Temperatura(h)
-p =   @(h) p0   .* ( T(h)./T0 ) .^ (-g/Ra/lambda);     % presion(h)
-rho = @(h) rho0 .* ( T(h)./T0 ) .^ (-g/Ra/lambda - 1); % densidad(h)
+[T,p,rho] = ISA(288,101325);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
