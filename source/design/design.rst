@@ -26,5 +26,143 @@ así que nada la mantiene a salvo de posibles detractores.  Puede ser
 mejor o peor que otros métodos pero nunca hay que olvidar que un mal
 método siempre es mejor que ninguno.
 
+Los dos axiomas
+---------------
+
+Los paradigmas de programación son una manera sistemática de reducir
+la implementación de cualquier algoritmo a un número limitado de
+estructuras. Existe la programación procedimental, la modular, la
+orientación a objetos... Dentro de los paradigmas pueden existir
+acercamientos, metodologías para reducir las estructuras que uno
+encuentra en la realidad a las que soporta el paradigma.  Hay muchas
+maneras posibles de construir clases o módulos, quizás tantas como
+programadores.  Este capítulo no trata sobre paradigmas, hemos
+escogido de antemano un acercamiento modular, sino de una manera
+sencilla y sistemática de reducir la mayoría de problemas en módulos.
+
+La programación es un ejercicio de diseño y como tal está sujeto a sus
+leyes.  El diseño es un ejercicio creativo porque es suele ser un
+problema NP.  Es muy difícil crear un buen diseño pero es
+relativamente fácil descubrir si una solución es buena o mala.  Existe
+una teoría del diseño basada en hipótesis que propone qué
+características son deseables para el producto, sea cual sea su
+naturaleza. Estos axiomas son aplicables tanto a un dispositivo
+electrónico como a un fórmula uno y pueden reducirse a dos.  Un buen
+diseño tendrá
+
+* Máxima independencia.
+
+* Mínima información.
+
+Máxima independencia significa que cada una de sus piezas estará mejor
+diseñada en la medida que su funcionamiento sea independiente de las
+demás.  Pensemos en dos mecanismos que transmiten exactamente el mismo
+movimiento, uno tiene más piezas pero cada uno de los engranajes está
+en contacto con otros dos, el otro tiene menos piezas pero uno de los
+engranajes está en contacto con otros tres.  Si preguntamos aun
+ingeniero industrial descartará inmediatamente el segundo porque sabe
+a ciencia cierta que el mínimo error en la posición de ese triple
+contacto acabará con el mecanismo. Introducir dependencias entre
+elementos, aunque pueda reducir su número, suele producir sistemas
+menos robustos.
+
+La información de un sistema es la cantidad de datos necesarios para
+construirlo y asegurar su funcionamiento. En un mecanismo la cantidad
+de información se correspondría a todos los datos mostrados en el
+plano: medidas, tolerancias, relaciones... La información es lo que
+valora la simplicidad del producto.
+
+La complejidad del proceso de diseño radica en que diseñar para la
+máxima independencia es incompatible con diseñar con mínima
+información y viceversa. Como cabía esperar, todo se basa en buscar la
+justa medida de cada cosa.
+
+El siguiente paso es conseguir relacionar los dos axiomas con la
+implementación de algoritmos pero este paso choca frontalmente con la
+complejidad del problema.  Como ya hemos dicho, es imposible encontrar
+el mejor diseño pero gracias a los dos axiomas es más sencillo
+comparar las propuestas y escoger el mejor.  El ejercicio habitual es
+tomar dos lenguajes de programación y valorar cuál es mejor ante los
+dos axiomas para una determinada tarea.  Esta comparación dependerá
+fuertemente de la misma. Por ejemplo, Python será mejor que Fortran
+para construir una interfaz gráfica pero estas diferencias se diluirán
+si se trata de una aplicación de cálculo numérico.
+
+Este capítulo propone una metodología para el diseño de aplicaciones
+con Matlab utilizando la programación modular.  Para intentar cumplir
+los dos axiomas buscará:
+
+* Máxima independencia entre módulos
+
+* Sistematizar el desarrollo con el menor número de leyes posibles.
+
 Las dos leyes
 -------------
+
+La propuesta para cumplir los dos axiomas puede reducirse a dos leyes:
+
+* Para las funciones todo son argumentos
+
+* Los parámetros definen un módulo.
+
+Las variables en un programa se pueden clasificar en tres grupos
+
+#. Constantes
+
+#. Parámetros
+
+#. Incógnitas
+
+Para entender las diferencias entre los tres grupos supongamos que
+deseamos simular la trayectoria de la pelota de un saque de Rafa
+Nadal.  Las constantes del problema son las cantidades físicas que no
+cambiarán bajo ninguna circunstancia, por ejemplo y en este caso
+concreto la aceleración de la gravedad o el diámetro de la pelota. Los
+parámetros son los valores que intervienen en el problema cuyo valor
+no cambia durante el cálculo pero sí son suceptibles de cambio como
+por ejemplo la densidad del aire o la velocidad de salida.  Finalmente
+las incógnitas son los valores que deben calcularse necesariamente
+para llegar al resultado como el número de Reynolds o la misma
+trayectoria. Siempre existe una diferenciación clara entre estos tres
+grupos y puede ser de gran ayuda para modelar cualquier sistema
+físico.
+
+Mientras las constantes y las incógnitas nunca presentan el menor
+problema los parámetros son el mayor dolor de cabeza cuando se diseña
+una simulación.  Las constantes pueden ser sustituidas en cualquier
+momento por un valor y las incógnitas serán siempre argumentos de
+funciones.  En cambio los parámetros se definirán en una cabecera o en
+un módulo y todas las funciones deberán utilizar dicha definición.
+Esta problemática puede comprenderse fácilmente con este ejemplo.
+Supongamos que nos piden evaluar la influencia del parámetro
+:math:`mu` en la solución de esta ecuación
+
+.. math::
+
+   x'' +x + \mu(x^2-1)x' = 0
+
+
+Para ello nos sugieren representar gráficamente la solución para un
+conjunto de diez valores de :math:`mu`. Se nos pide resolver el
+problema de la integración de una EDO diez veces con un parámetro,
+algo que para un principiante puede representar un serio problema.
+
+Tanto en Matlab como en Octave la rutina para integrar ecuaciones
+diferenciales sólo tiene dos argumentos: el tiempo y la variable que
+se integrará independientemente de si es un escalar o un vector. No
+hay manera de definir parámetros adicionales que tenga que evaluar
+antes de cada integración, sólo quiere las incógnitas.
+
+Existen varias posibilidades para considerar los parámetros en un
+problema.  Vamos a contemplar tres de ellas: la función ``evalin``,
+las variables globales y las funciones anónimas.
+
+Para entender la función ``evalin`` y las variables globales hay que
+recordar que cuando el hilo de ejecución entra en una función el
+espacio de variables cambia completamente.  Se entra en otro entorno
+en el que sólo están definidos los argumentos y las variables
+globales.  Estas últimas son entonces una posibilidad para que una
+función pueda recibir un parámetro, basta con declararla como variable
+global y todas las funciones podrán obtener su valor.
+
+La función ``evalin``
