@@ -364,7 +364,7 @@ su definición y volver a correr el script.
 
 Estos son los resultados:
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: h.pdf
       :align: center
@@ -372,7 +372,7 @@ Estos son los resultados:
 
       Altura en función del tiempo
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: h.png
       :align: center
@@ -380,7 +380,7 @@ Estos son los resultados:
 
       Altura en función del tiempo
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: v.pdf
       :align: center
@@ -388,7 +388,7 @@ Estos son los resultados:
 
       Velocidad en función del tiempo
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: v.png
       :align: center
@@ -396,7 +396,7 @@ Estos son los resultados:
 
       Velocidad en función del tiempo
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: M.pdf
       :align: center
@@ -404,7 +404,7 @@ Estos son los resultados:
 
       Número de Mach en función del tiempo
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: M.png
       :align: center
@@ -412,7 +412,7 @@ Estos son los resultados:
 
       Número de Mach en función del tiempo
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: a.pdf
       :align: center
@@ -420,7 +420,7 @@ Estos son los resultados:
 
       Aceleración en función del tiempo
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: a.png
       :align: center

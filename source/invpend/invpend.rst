@@ -7,7 +7,7 @@ barra rígida y se pone al revés?  Entonces se obtiene un péndulo
 invertido, un sistema aparentemente inestable que es un ejemplo
 clásico para el control automático.
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: fig/Cart-pendulum.png
       :align: center
@@ -15,7 +15,7 @@ clásico para el control automático.
 
       Esquema de un péndulo invertido con movimiento horizontal. [INV]_
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: fig/Cart-pendulum.png
       :align: center
@@ -33,7 +33,7 @@ Existe otra posibilidad, la de mantener la barra en posición vertical
 moviendo la base del péndulo también con una trayectoria vertical como
 se muestra en la figura siguiente:
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: fig/Pendulum-osc.png
       :align: center
@@ -41,7 +41,7 @@ se muestra en la figura siguiente:
 
       Esquema de un péndulo invertido con movimiento vertical.
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: fig/Pendulum-osc.png
       :align: center
@@ -191,7 +191,7 @@ Una solución al estudio del problema se presenta a continuación.
 Este script genera las tres figuras siguientes:
 
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: fig/k10.pdf
       :align: center
@@ -201,7 +201,7 @@ Este script genera las tres figuras siguientes:
       por el forzado.  La oscilación se mantiene prácticamente
       invariable en el tiempo.
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: fig/k10.png
       :align: center
@@ -211,7 +211,7 @@ Este script genera las tres figuras siguientes:
       por el forzado.  La oscilación se mantiene prácticamente
       invariable en el tiempo.
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: fig/k01.pdf
       :align: center
@@ -221,7 +221,7 @@ Este script genera las tres figuras siguientes:
       inicial.  La amplificación en el último periodo del forzado es
       tan grande que las primeras oscilaciones quedan fuera de escala.
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: fig/k01.png
       :align: center
@@ -231,7 +231,7 @@ Este script genera las tres figuras siguientes:
       inicial.  La amplificación en el último periodo del forzado es
       tan grande que las primeras oscilaciones quedan fuera de escala.
 
-.. latexonly::
+.. only:: latex
 
    .. figure:: fig/convergencia.pdf
       :align: center
@@ -242,7 +242,7 @@ Este script genera las tres figuras siguientes:
       el sistema sea inestable.  Esto significa que el límite estimado
       de :math:`k=1` no es estricto.
 
-.. htmlonly::
+.. only:: html
 
    .. figure:: fig/convergencia.png
       :align: center
