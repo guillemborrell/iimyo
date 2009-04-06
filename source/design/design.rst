@@ -251,40 +251,7 @@ independencia queda asegurada gracias a los parámetros que definen los
 módulos.  En prácticamente todas las simulaciones los parámetros
 podrán separarse por su significado físico o matemático.  La ecuación
 de Van der Pol es un mal ejemplo porque sólo tiene uno pero podemos
-fijarnos en el movimiento de un oscilador con amortiguamiento forzado
-como el de la figura.
-
-.. note::
-
-   figura
-
-Los parámetros pueden ordenarse de la siguiente manera:
-
-* Parámetros característicos del sistema dinámico
-
-  * Masa
-
-  * Rigidez del muelle
-
-  * Amortiguamiento
-
-* Parámetros característicos del forzado
-
-  * Amplitud del forzado
-
-  * Frecuencia del forzado
-
-* Parámetros característicos del movimiento
-
-  * Posición inicial
-
-  * Velocidad inicial
-
-  * Tiempo final de integración
-
-Para modelar este sistema creamos tres módulos, el primero define el
-sistema, el segundo el forzado y el tercero proporciona las
-condiciones para simular el movimiento.
+fijarnos en casos un poco más complejos.
 
 Ejemplo. La atmósfera estándar (ISA)
 ------------------------------------
