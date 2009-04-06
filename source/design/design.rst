@@ -114,8 +114,8 @@ Las variables en un programa se pueden clasificar en tres grupos
 #. Incógnitas
 
 Para entender las diferencias entre los tres grupos supongamos que
-deseamos simular la trayectoria de la pelota de un saque de Rafa
-Nadal.  Las constantes del problema son las cantidades físicas que no
+deseamos simular la trayectoria de la pelota de tenis tras un saque.
+Las constantes del problema son las cantidades físicas que no
 cambiarán bajo ninguna circunstancia, por ejemplo y en este caso
 concreto la aceleración de la gravedad o el diámetro de la pelota. Los
 parámetros son los valores que intervienen en el problema cuyo valor
@@ -135,7 +135,7 @@ funciones.  En cambio los parámetros se definirán en una cabecera o en
 un módulo y todas las funciones deberán utilizar dicha definición.
 Esta problemática puede comprenderse fácilmente con este ejemplo.
 Supongamos que nos piden evaluar la influencia del parámetro
-:math:`mu` en la solución de esta ecuación
+:math:`\mu` en la solución de esta ecuación
 
 .. math::
 
@@ -143,7 +143,7 @@ Supongamos que nos piden evaluar la influencia del parámetro
 
 
 Para ello nos sugieren representar gráficamente la solución para un
-conjunto de diez valores de :math:`mu`. Se nos pide resolver el
+conjunto de diez valores de :math:`\mu`. Se nos pide resolver el
 problema de la integración de una EDO diez veces con un parámetro,
 algo que para un principiante puede representar un serio problema.
 
@@ -161,8 +161,149 @@ Para entender la función ``evalin`` y las variables globales hay que
 recordar que cuando el hilo de ejecución entra en una función el
 espacio de variables cambia completamente.  Se entra en otro entorno
 en el que sólo están definidos los argumentos y las variables
-globales.  Estas últimas son entonces una posibilidad para que una
-función pueda recibir un parámetro, basta con declararla como variable
-global y todas las funciones podrán obtener su valor.
+globales.
 
-La función ``evalin``
+La función ``evalin`` es capaz de evaluar una variable fuera del
+contexto de la función.  Matlab llama al contexto del programa
+principal *base* y al contexto de la función *caller*.
+
+.. function:: evalin(context, try, catch)
+
+   Evalúa una sentencia en el contexto *context* que puede ser bien
+   *base* o *caller* 
+
+Un ejemplo de uso de la función ``evalin`` sería evaluar una variable
+del espacio base de la siguiente manera
+
+.. code-block:: matlab
+
+   function y = vdpmu(t,x)
+     mu = evalin('base','mu','error()')
+     y = [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
+
+Obviamente llegaremos a un error en el caso que no hayamos definido
+previamente la variable `mu` en el programa principal.  Podemos hacer
+algo parecido definiendo `mu` como una variable global
+
+.. code-block:: matlab
+
+   function y = vdpmu(t,x)
+     if isglobal('mu')
+       global mu;
+       y = [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
+     else
+       error();
+     end
+
+Ambas maneras de pasar los parámetros a la definición de la función
+aumentan la dependencia entre la definición de la función y el
+programa principal rompiendo con el primer axioma.  Debe haber una
+manera más apropiada de conseguir que las funciones sean capaces de
+evaluar parámetros.  Toda esta problemática queda completamente
+subsanada en el momento en el que somos capaces de devolver una
+función como argumento.  Analicemos la función de la ecuación de Van
+der Pol con más detenimiento.  Tiene dos incógnitas, :math:`t` y
+:math:`x`, y un parámetro, :math:`\mu`. Es en este punto donde de
+forma completamente natural llega la necesidad de crear un módulo.  En
+este caso el módulo dependería únicamente del parámetro :math:`\mu` y
+proporcionará la función ``vdpmu``.
+
+Para entender el funcionamiento interno de un módulo hay que tener en
+cuenta que si una función anónima depende de una variable que no está
+en su cabecera la busca automáticamente en el espacio de variables
+local.  Por ejemplo
+
+.. code-block:: matlab
+
+  >> f = @(x) a*x;
+  >> f(3)
+  error: `a' undefined near line 1 column 10
+  error: called from:
+  error:    at line -1, column -1
+  >> a = 3;
+  >> f = @(x) a*x;
+  >> f(3)
+  ans =  9
+
+Esta será la propiedad que utilizaremos para generar las funciones que
+serán argumentos de salida del módulo.  En el caso de la ecuación de
+Van der Pol el módulo tendría este aspecto
+
+.. literalinclude:: modvdp.m
+   :language: matlab
+
+.. tip::
+
+   Cuando un módulo sólo proporciona una función puede reducirse a una
+   única función anónima.  Por ejemplo en el caso del módulo anterior
+
+   .. code-block:: matlab
+
+      >> modvdp = @(mu) @(t,x) [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
+
+Vemos ahora el sentido de la aplicación de las dos leyes.  La función
+se ha escrito con todas sus variables independientemente de si eran
+incógnitas o parámetros.  No se ha realizado ninguna sustitución.
+Dejar la función tal y como se ha formulado mantiene mínima la
+información puesto que no se ha particularizado, contiene la misma que
+el planteamiento del problema que conocemos de antemano. La
+independencia queda asegurada gracias a los parámetros que definen los
+módulos.  En prácticamente todas las simulaciones los parámetros
+podrán separarse por su significado físico o matemático.  La ecuación
+de Van der Pol es un mal ejemplo porque sólo tiene uno pero podemos
+fijarnos en el movimiento de un oscilador con amortiguamiento forzado
+como el de la figura.
+
+.. note::
+
+   figura
+
+Los parámetros pueden ordenarse de la siguiente manera:
+
+* Parámetros característicos del sistema dinámico
+
+  * Masa
+
+  * Rigidez del muelle
+
+  * Amortiguamiento
+
+* Parámetros característicos del forzado
+
+  * Amplitud del forzado
+
+  * Frecuencia del forzado
+
+* Parámetros característicos del movimiento
+
+  * Posición inicial
+
+  * Velocidad inicial
+
+  * Tiempo final de integración
+
+Para modelar este sistema creamos tres módulos, el primero define el
+sistema, el segundo el forzado y el tercero proporciona las
+condiciones para simular el movimiento.
+
+Ejemplo. La atmósfera estándar (ISA)
+------------------------------------
+
+
+Ejemplo. El saque de Andy Roddick
+---------------------------------
+
+Supongamos que el equipo español de copa Davis quiere saber la
+diferencia del tiempo de vuelo entre servicio y resto en función de la
+altura a la que se juegue el partido. Para ello nos pide un estudio
+pormenorizado en el que se tendrán en cuenta factores como:
+
+* Las características de la atmósfera.
+
+* El desprendimiento de la capa límite alrededor de la bola.
+
+* La velocidad y dirección inicial de la bola sin efectos.
+
+Finalmente nos definen el tiempo de vuelo como el tiempo que
+transcurre desde el impacto con la raqueta hasta que cruza la vertical
+del final de la pista en el lado del resto.
