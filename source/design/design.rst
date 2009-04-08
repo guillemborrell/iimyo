@@ -38,15 +38,16 @@ encuentra en la realidad a las que soporta el paradigma.  Hay muchas
 maneras posibles de construir clases o módulos, quizás tantas como
 programadores.  Este capítulo no trata sobre paradigmas, hemos
 escogido de antemano un acercamiento modular, sino de una manera
-sencilla y sistemática de reducir la mayoría de problemas en módulos.
+sencilla y sistemática de reducir la mayoría de problemas a un
+conjunto conectado de bloques.
 
-La programación es un ejercicio de diseño y como tal está sujeto a sus
-leyes.  El diseño es un ejercicio creativo porque es suele ser un
-problema NP.  Es muy difícil crear un buen diseño pero es
-relativamente fácil descubrir si una solución es buena o mala.  Existe
-una teoría del diseño basada en hipótesis que propone qué
-características son deseables para el producto, sea cual sea su
-naturaleza. Estos axiomas son aplicables tanto a un dispositivo
+La programación es un ejercicio de diseño y como son de aplicación las
+teorías del diseño axiomático.  La programación es un ejercicio
+creativo porque es un problema NP.  Es muy difícil crear un buen
+diseño pero es relativamente fácil descubrir si una solución es buena
+o mala.  La teoría del diseño axiomático se basa dos hipótesis sobre
+qué qué características son deseables para el producto, sea cual sea
+su naturaleza. Estos axiomas son aplicables tanto a un dispositivo
 electrónico como a un fórmula uno y pueden reducirse a dos.  Un buen
 diseño tendrá
 
@@ -59,7 +60,7 @@ diseñada en la medida que su funcionamiento sea independiente de las
 demás.  Pensemos en dos mecanismos que transmiten exactamente el mismo
 movimiento, uno tiene más piezas pero cada uno de los engranajes está
 en contacto con otros dos, el otro tiene menos piezas pero uno de los
-engranajes está en contacto con otros tres.  Si preguntamos aun
+engranajes está en contacto a otros tres.  Si preguntamos a un
 ingeniero industrial descartará inmediatamente el segundo porque sabe
 a ciencia cierta que el mínimo error en la posición de ese triple
 contacto acabará con el mecanismo. Introducir dependencias entre
@@ -83,7 +84,8 @@ complejidad del problema.  Como ya hemos dicho, es imposible encontrar
 el mejor diseño pero gracias a los dos axiomas es más sencillo
 comparar las propuestas y escoger el mejor.  El ejercicio habitual es
 tomar dos lenguajes de programación y valorar cuál es mejor ante los
-dos axiomas para una determinada tarea.  Esta comparación dependerá
+dos axiomas para una determinada tarea.  El hecho de proponer una
+tarea en concreto es importante porque esta comparación dependerá
 fuertemente de la misma. Por ejemplo, Python será mejor que Fortran
 para construir una interfaz gráfica pero estas diferencias se diluirán
 si se trata de una aplicación de cálculo numérico.
@@ -92,7 +94,7 @@ Este capítulo propone una metodología para el diseño de aplicaciones
 con Matlab utilizando la programación modular.  Para intentar cumplir
 los dos axiomas buscará:
 
-* Máxima independencia entre módulos
+* Máxima independencia entre bloques
 
 * Sistematizar el desarrollo con el menor número de leyes posibles.
 
@@ -126,9 +128,10 @@ parámetros son los valores que intervienen en el problema cuyo valor
 no cambia durante el cálculo pero sí son suceptibles de cambio como
 por ejemplo la densidad del aire o la velocidad de salida.  Finalmente
 las incógnitas son los valores que deben calcularse necesariamente
-para llegar al resultado como la trayectoria de la pelota. Siempre
-existe una diferenciación clara entre estos tres grupos y puede ser de
-gran ayuda para modelar cualquier sistema físico.
+para llegar al resultado como la trayectoria y la velocidad de la
+pelota. Siempre existe una diferenciación clara entre estos tres
+grupos y puede ser de gran ayuda para modelar cualquier sistema
+físico.
 
 Mientras las constantes y las incógnitas nunca presentan el menor
 problema los parámetros son el mayor dolor de cabeza cuando se diseña
@@ -179,7 +182,7 @@ del espacio base de la siguiente manera
 
 .. code-block:: matlab
 
-   function y = vdpmu(t,x)
+   function y = vdp(t,x)
      mu = evalin('base','mu','error()')
      y = [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
 
@@ -189,7 +192,7 @@ algo parecido definiendo `mu` como una variable global
 
 .. code-block:: matlab
 
-   function y = vdpmu(t,x)
+   function y = vdp(t,x)
      if isglobal('mu')
        global mu;
        y = [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
@@ -206,9 +209,11 @@ subsanada en el momento en el que somos capaces de devolver una
 función como argumento.  Analicemos la función de la ecuación de Van
 der Pol con más detenimiento.  Tiene dos incógnitas, :math:`t` y
 :math:`x`, y un parámetro, :math:`\mu`. Es en este punto donde de
-forma completamente natural llega la necesidad de crear un módulo.  En
-este caso el módulo dependería únicamente del parámetro :math:`\mu` y
-proporcionará la función ``vdpmu``.
+forma completamente natural llega la necesidad de crear un bloque.
+Definimos entonces un bloque como una estructura que depende de una
+colección de parámetros y devuelve una o varias funciones que dependen
+de las incógnitas. En este caso el bloque dependerá únicamente del
+parámetro :math:`\mu` y proporcionará la función ``vdp``.
 
 Para entender el funcionamiento interno de un bloque hay que tener en
 cuenta que si una función anónima depende de una variable que no está
@@ -251,8 +256,8 @@ ningún valor. Cumple estrictamente las dos leyes pero es un ejemplo
 demasiado sencillo como para captar la importancia de su aplicación.
 
 A continuación veremos varios ejemplos donde el uso de las dos leyes
-producen implementaciones simples de sistemas simples no
-necesariamente sencillos.
+producen implementaciones simples de sistemas no necesariamente
+sencillos.
 
 Ejemplo. La atmósfera estándar (ISA)
 ------------------------------------
@@ -273,7 +278,7 @@ las siguientes condiciones:
   * Gravedad a nivel del mar :math:`g=9.81`
 
   * La constante de los gases perfectos para el aire es 
-  :math:`R=287 \frac{J}{kg K}`
+    :math:`R=287 \frac{J}{kg K}`
 
 * Parámetros
 
@@ -294,6 +299,8 @@ las siguientes condiciones:
 
    \rho(h) = \rho_0 \left( \frac{T_0+\lambda h}{T_0}
    \right)^{\frac{g}{R\lambda}-1}
+
+A estas ecuaciones hay que sumarle el modelo de gas perfecto.
 
 La incógnita del problema es la altitud :math:`h`.  Siguiendo las dos
 leyes, la atmósfera estándar podrá convertirse en un bloque
@@ -327,6 +334,17 @@ usa como se muestra a continuación
 Ejemplo. El saque de Andy Roddick
 ---------------------------------
 
+La final de la Copa Davis de 2004 se jugó en Sevilla y enfrentó los
+equipos de España y Estados Unidos.  La elección no estuvo exenta de
+controversia puesto que la candidatura de Sevilla adujo contra la de
+Madrid que al estar prácticamente a nivel del mar los jugadores
+tendrían menos dificultades para restar el saque de Andy Roddick.
+Hacer una simulación realmente precisa del problema para llegar a una
+conclusión no es necesario puesto que con un poco de análisis
+dimensional se llega a que el tiempo de vuelo de la pelota es
+proporcional a la densidad pero para demostrar toda la teoría de
+diseño de aplicaciones resolveremos el problema completo.
+
 Supongamos que el equipo español de copa Davis quiere saber la
 diferencia del tiempo de vuelo entre servicio y resto en función de la
 altura a la que se juegue el partido. Para ello nos pide un estudio
@@ -340,4 +358,117 @@ pormenorizado en el que se tendrán en cuenta factores como:
 
 Finalmente nos definen el tiempo de vuelo como el tiempo que
 transcurre desde el impacto con la raqueta hasta que cruza la vertical
-del final de la pista en el lado del resto.
+del final de la pista en el lado del resto después de un bote
+completamente elástico en el cuadro de saque. Estiman también que un
+saque de Andy puede llegar a los 215 kilómetros por hora.
+
+Este problema nos servirá no sólo para ejemplificar el significado de
+las dos leyes, también será un ejemplo sobre cómo debe afrontarse el
+problema de simular un sistema físico.  Esta recomendación es válida
+en prácticamente cualquier ocasión y puede tomarse como una tercera
+ley: *siempre hay que adimensinalizar todas las ecuaciones*.
+
+Empezamos planteando la tercera ley de Newton:
+
+.. math::
+
+   \sum \vec F = m \ddot \vec x
+
+que para cada una de sus componentes será
+
+.. math::
+
+   \begin{array}{rl}
+   m \ddot x = &  -D \cos \theta\\
+   m \ddot y = &  -mg -D \sin \theta
+   \end{array}
+
+La descomposición anterior es evidente visto el diagrama de la figura.
+
+.. only:: latex
+
+   .. figure:: esquemabola.pdf
+      :align: center
+      :scale: 100
+
+      Diagrama del movimiento de la pelota
+
+.. only:: html
+
+   .. figure:: esquemabola.png
+      :align: center
+      :scale: 100
+
+      Diagrama del movimiento de la pelota
+
+El paso siguiente es utilizar el teorema :math:`\pi`, para el que hay
+que escoger magnitudes características para la masa, la longitud y el
+tiempo.
+
+.. math::
+
+   [M] \propto m, [L] \propto l, [T] \propto \frac{L}{U_0}
+
+Llamaremos :math:`l` a la longitud de la pista de tenis y :math:`U_0`
+a la velocidad inicial del saque. Estas magnitudes sirven para
+adimensionalizar las incógnitas y legar a las ecuaciones
+adimensinalizadas
+
+.. math::
+
+   \begin{array}{rl}
+   \ddot \xi = &  -\frac{Dl}{mU_0^2} \cos \theta\\
+   \ddot \eta = &  -\frac{gl}{U_0^2} - \frac{Dl}{mU_0^2} \sin \theta
+   \end{array}
+
+que pueden reescribirse como
+
+.. math::
+
+   \begin{array}{rl}
+   \ddot \xi = &  -\delta \cos \theta\\
+   \ddot \eta = &  -\gamma - \delta \sin \theta
+   \end{array}
+
+teniendo en cuenta además que
+
+.. math::
+
+   \cos \theta = \frac{\dot \xi}{\sqrt{\dot \xi ^2 + \dot
+   \eta^2}},\quad \sin \theta = \frac{\dot \eta}{\sqrt{\dot \xi ^2 +
+   \dot \eta ^2}}
+
+De este modo toda la física del problema queda reducida a una
+ecuación, una incógnita :math:`(\xi,\eta,\dot \xi,\dot \eta)` y los
+parámetros :math:`\delta` y :math:`\gamma`.  Resolver el problema será
+expesar estos parámetros en función de las incógnitas y las constantes
+del problema tratando también el resto de parámetros que no han
+aparecido aún.
+
+El primero que abordaremos será :math:`\delta=\frac{Dl}{mU_0^2}`. Es
+el parámetro dependiente de la resistencia aerodinámica de la pelota.
+Esta resistencia puede descomponerse en el producto de una fuerza
+característica con un coeficiente llamado *coeficiente de resistencia
+parásita* o :math:`c_d`.  La expresión general es
+
+.. math::
+
+   D = q_\infty c_d = \frac{1}{2} \rho U_\infty^2 S c_d(Re)
+
+donde :math:`S` es la superficie frontal de la pelota,
+:math:`U_\infty` es la velocidad de la pelota y :math:`Re` es el
+número de Reynolds del movimiento.  El parámetro :math:`\delta` será
+entonces 
+
+.. math::
+
+   \delta = \frac{1}{8} \frac{\pi d^2}{m} 
+   \frac{U^2}{U_0^2}\rho(h) c_d(Re)
+
+De este parámetro surgen dos funciones, la primera es la densidad que
+dependerá de la altitud y el segundo es el coeficiente de resistencia
+parásita, dependiente del número de Reynolds que a su vez depende de
+la densidad.  Por suerte este coeficiente ya ha sido calculado y
+tabulado con anterioridad.  Debemos tener en cuenta que la superficie
+de la pelota de tenis es muy rugosa y el flujo a su alrededor será
+turbulento.
