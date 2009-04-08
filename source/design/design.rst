@@ -103,7 +103,11 @@ La propuesta para cumplir los dos axiomas puede reducirse a dos leyes:
 
 * Para las funciones todo son argumentos
 
-* Los parámetros definen un módulo.
+* Los parámetros relacionan los bloques
+
+Estas dos leyes sirven para reducir cualquier sistema físico a bloques
+cuyos argumentos de salida son funciones. Estos conceptos se aclararán
+a medida que avancemos por este capítulo.
 
 Las variables en un programa se pueden clasificar en tres grupos
 
@@ -122,25 +126,23 @@ parámetros son los valores que intervienen en el problema cuyo valor
 no cambia durante el cálculo pero sí son suceptibles de cambio como
 por ejemplo la densidad del aire o la velocidad de salida.  Finalmente
 las incógnitas son los valores que deben calcularse necesariamente
-para llegar al resultado como el número de Reynolds o la misma
-trayectoria. Siempre existe una diferenciación clara entre estos tres
-grupos y puede ser de gran ayuda para modelar cualquier sistema
-físico.
+para llegar al resultado como la trayectoria de la pelota. Siempre
+existe una diferenciación clara entre estos tres grupos y puede ser de
+gran ayuda para modelar cualquier sistema físico.
 
 Mientras las constantes y las incógnitas nunca presentan el menor
 problema los parámetros son el mayor dolor de cabeza cuando se diseña
 una simulación.  Las constantes pueden ser sustituidas en cualquier
-momento por un valor y las incógnitas serán siempre argumentos de
-funciones.  En cambio los parámetros se definirán en una cabecera o en
-un módulo y todas las funciones deberán utilizar dicha definición.
-Esta problemática puede comprenderse fácilmente con este ejemplo.
-Supongamos que nos piden evaluar la influencia del parámetro
-:math:`\mu` en la solución de esta ecuación
+momento por un valor y las incógnitas serán argumentos de todas las
+funciones porque son parte del resultado.  En cambio los parámetros se
+definirán en una cabecera o en un módulo y todas las funciones deberán
+utilizar dicha definición.  Esta problemática puede comprenderse
+fácilmente con este ejemplo.  Supongamos que nos piden evaluar la
+influencia del parámetro :math:`\mu` en la solución de esta ecuación
 
 .. math::
 
    x'' +x + \mu(x^2-1)x' = 0
-
 
 Para ello nos sugieren representar gráficamente la solución para un
 conjunto de diez valores de :math:`\mu`. Se nos pide resolver el
@@ -208,7 +210,7 @@ forma completamente natural llega la necesidad de crear un módulo.  En
 este caso el módulo dependería únicamente del parámetro :math:`\mu` y
 proporcionará la función ``vdpmu``.
 
-Para entender el funcionamiento interno de un módulo hay que tener en
+Para entender el funcionamiento interno de un bloque hay que tener en
 cuenta que si una función anónima depende de una variable que no está
 en su cabecera la busca automáticamente en el espacio de variables
 local.  Por ejemplo
@@ -241,21 +243,86 @@ Van der Pol el módulo tendría este aspecto
 
       >> modvdp = @(mu) @(t,x) [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
 
-Vemos ahora el sentido de la aplicación de las dos leyes.  La función
-se ha escrito con todas sus variables independientemente de si eran
-incógnitas o parámetros.  No se ha realizado ninguna sustitución.
-Dejar la función tal y como se ha formulado mantiene mínima la
-información puesto que no se ha particularizado, contiene la misma que
-el planteamiento del problema que conocemos de antemano. La
-independencia queda asegurada gracias a los parámetros que definen los
-módulos.  En prácticamente todas las simulaciones los parámetros
-podrán separarse por su significado físico o matemático.  La ecuación
-de Van der Pol es un mal ejemplo porque sólo tiene uno pero podemos
-fijarnos en casos un poco más complejos.
+Esta operación ha convertido una función, una entidad con significado
+físico, en un bloque de código.  Este bloque recibe parámetros y
+devuelve una función que únicamente depende de las incógnitas.  A su
+vez está escrita según su formulación, no se ha particularizado para
+ningún valor. Cumple estrictamente las dos leyes pero es un ejemplo
+demasiado sencillo como para captar la importancia de su aplicación.
+
+A continuación veremos varios ejemplos donde el uso de las dos leyes
+producen implementaciones simples de sistemas simples no
+necesariamente sencillos.
 
 Ejemplo. La atmósfera estándar (ISA)
 ------------------------------------
 
+Una de las simplificaciones más sencillas para tratar teóricamente las
+capas más bajas de la atmósfera es suponer que es un gas perfecto en
+reposo.  Esta simplificación, que no es demasiado adecuada en la zona
+más cercana al suelo, sí es acertada en alturas de entre doscientos y
+diez mil metros si se le añade la condición que existe una variación
+exponencial de la temperatura con la altura.  Este modelo estático se
+conoce como atmósfera estándar o atmósfera ISA.  Está gobernada por
+las siguientes condiciones:
+
+* Constantes
+
+  * Gradiente térmico :math:`\lambda = -6.5\cdot 10^{-3} \frac{K}{m}`
+
+  * Gravedad a nivel del mar :math:`g=9.81`
+
+  * La constante de los gases perfectos para el aire es 
+  :math:`R=287 \frac{J}{kg K}`
+
+* Parámetros
+
+  * Temperatura a nivel del mar :math:`T_0`
+
+  * Presión a nivel del mar :math:`p_0`
+
+.. math::
+
+   T(h) = T_0 + \lambda h
+
+.. math::
+
+   p(h) = p_0\left( \frac{T_0+\lambda h}{T_0}
+   \right)^\frac{g}{R\lambda}
+
+.. math::
+
+   \rho(h) = \rho_0 \left( \frac{T_0+\lambda h}{T_0}
+   \right)^{\frac{g}{R\lambda}-1}
+
+La incógnita del problema es la altitud :math:`h`.  Siguiendo las dos
+leyes, la atmósfera estándar podrá convertirse en un bloque
+sustituyendo las constantes por su valor, recibiendo los parámetros y
+tomando como argumentos de salida las funciones que tienen como
+argumento la incógnita.  Una posible implementación sería la
+siguiente:
+
+.. literalinclude:: ISA.m
+   :language: matlab
+
+El bloque ``ISA`` crea las funciones correspondientes a la
+temperatura, la presión y la densidad en función de la altitud.  Se
+usa como se muestra a continuación
+
+.. code-block:: matlab
+
+  >> [T,p,rho]=ISA(298,101325);
+  >> T(1500)
+
+  ans =
+
+    288.2500
+
+  >> rho(1500)
+
+  ans =
+
+    1.0282
 
 Ejemplo. El saque de Andy Roddick
 ---------------------------------
