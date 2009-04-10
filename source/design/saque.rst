@@ -188,6 +188,37 @@ problema, en este caso integrar una ecuacion diferencial ordinaria no
 lineal. Ya conocemos uno de ellos, el bloque *ISA*, definido en el
 ejemplo anterior.
 
+Ha llegado el momento de empezar a fijar las constantes del problema:
+
+* La pelota de tenis tiene las siguientes características:
+
+  * Debe pesar entre 56 y 59.4 gramos.  Tomaremos 57.5
+
+  * Su diámetro debe ser de 65.41 a 68.58 mm. Tomaremos 67
+
+* La aceleración de la gravedad será de 9.81 :math:`\frac{m}{s^2}`
+
+* El coeficiente de resistencia parásita será de 0.65
+
+* Las características de la pista pueden leerse de la figura siguiente
+
+.. only:: latex
+
+   .. figure:: pistatenis.png
+      :align: center
+      :scale: 60
+
+      Esquema de las medidas de una pista de tenis
+
+.. only:: html
+
+   .. figure:: pistatenis.png
+      :align: center
+      :scale: 100
+
+      Esquema de las medidas de una pista de tenis
+
+
 
 .. [MEH] Mehta RD. Aerodynamics of sports balls. Annual Review of
    Fluid Mechanics 1985; 17: 151–189.
