@@ -19,7 +19,7 @@ function tfondo = servicefunc(m,d,cd0,l,lss,h,U0,y0)
 
 %% Constantes
 
-theta0 = -0.2;
+theta0 = -0.2; % Aproximacion inicial para fsolve
 g = 9.81; % Aceleracion de la gravedad [m s^-2]
   
 %% Adimensionalizacion
@@ -57,7 +57,6 @@ errbotef = @(theta) errbote(f,xih,theta,eta0,xiss);
 thetaideal = fsolve(errbotef,theta0);
 
 %% Integro hasta el bote
-persistent vopt;
 vopt = odeset('RelTol',1e-6,'AbsTol',1e-6);
 xi0 = xih(thetaideal,eta0);
 [t1,x1] = ode45(f,[0,1],xi0,vopt);

@@ -218,6 +218,97 @@ Ha llegado el momento de empezar a fijar las constantes del problema:
 
       Esquema de las medidas de una pista de tenis
 
+Pero todo lo contado con anterioridad no es más que la formulación
+para el movimiento de la pelota.  El problema planteado no es saber
+cómo se mueve sino el tiempo de vuelo de un saque perfecto de Andy
+Roddick en función de la altitud.  Conocer la formulación del
+movimiento es sólo el cálculo básico, tendremos también que descubrir
+las condiciones iniciales para el saque perfecto y luego volver a
+resolver el problema con ellas para una cantidad suficiente de
+altitudes.
+
+Entonces nuestro problema no es un problema de Cauchy sino un problema
+de contorno.  No nos basta con integrar el problema dadas unas
+condiciones iniciales sino que nuestras condiciones de contorno
+también fijan la posición de la bola en un instante determinado, en
+este caso sabemos que debe botar al final del cuadro de saque.  Para
+resolver este problema utilizaremos la técnica del *shooting*.
+Tenemos que saber para qué ángulo de saque :math:`\theta_0` se
+consigue el saque perfecto teniendo en cuenta que se trata de una
+condición inicial del problema de Cauchy.  Hay que conseguir una
+ecuación de la forma
+
+.. math::
+
+   R = F(\theta)
+
+donde :math:`R` es un resíduo que debe ser cero cuando la bola bote
+exactamente donde debe.
+
+.. warning::
+
+   Resolver una ecuación no lineal es una labor de artesanía.  Muchas
+   cosas pueden ir mal en el primer intento.  Esto es debido a que la
+   función que resuelve el sistema puede probar valores de nuestra
+   variable que no esperábamos.  Puede suceder que tome valores de
+   :math:`\theta_0` para los que la bola no llegue a botar y la
+   iteración no llegue a ningún resultado o lo que es peor, que la
+   función a evaluar devuelva un NA (Not a number).  El hecho de haber
+   adimensionalizado el problema es de gran ayuda por dos razones:
+   sabemos que la bola tiene que botar en tiempos adimensionales
+   :math:`\tau` del orden de la unidad siempre que se saque más o
+   menos plano, entonces nos aseguraremos que la bola bote con
+   seguiridad integrando hasta :math:`\tau = 10`.
+
+Entonces nos topamos con otra dificultad: el resultado de una ecuación
+diferencial son una serie de puntos en el tiempo y en el espacio, no
+funciones de las que se pueda buscar una raíz.  Será necesario
+interpolar la solución para encontrar el preciso instante del bote,
+don de :math:`\eta=0` 
+
+Una vez hallado el tiempo para el bote perfecto todo deberá
+convertirse en una función que dependa de todos los parámetros del
+problema, crearemos el interfaz y problema solucionado.
+
+.. literalinclude:: main.m
+   :language: matlab
+
+.. literalinclude:: servicefunc.m
+   :language: matlab
+
+.. literalinclude:: errbote.m
+   :language: matlab
+
+.. warning::
+
+   Misteriosamente los resultados para Matlab y Octave del tiempo de
+   vuelo no son exactamente iguales.  Sigo buscando el motivo pero
+   bien puede deberse a la configuración de los errores o a algún bug
+   en la rutina que integra la ecuación diferencial.
+
+A continuación se muestra una gráfica del tiempo de vuelo para el
+saque perfecto a varias alturas.
+
+.. only:: latex
+
+   .. figure:: saque.pdf
+      :align: center
+      :scale: 100
+
+      Resultado del script
+
+.. only:: html
+
+   .. figure:: saque.png
+      :align: center
+      :scale: 100
+
+      Resultado del script
+
+Gracias al resultado se puede comprobar que la diferencia entre sacar
+al nivel del mar y a 700 metros de altura es de una milésima de
+segundo, un tiempo menor al de la latencia del sistema nervioso
+central.  Jugar en Sevilla o en Madrid por la altitud es indiferente.
 
 
 .. [MEH] Mehta RD. Aerodynamics of sports balls. Annual Review of

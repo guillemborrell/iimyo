@@ -25,5 +25,7 @@ for i = 1:10
 end
 
 plot(h,fond);
-xlabel('Altitud');
-ylabel('Tiempo de vuelo');
+xlabel('Altitud [m]');
+ylabel('Tiempo de vuelo [s]');
+print -deps 'saque.eps'
+print -dpng 'saque.png'

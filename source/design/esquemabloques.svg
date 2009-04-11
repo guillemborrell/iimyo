@@ -48,13 +48,13 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2.1787557"
      inkscape:cx="52.231654"
-     inkscape:cy="167.59276"
+     inkscape:cy="115.90541"
      inkscape:document-units="cm"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="cm"
      inkscape:window-width="1280"
-     inkscape:window-height="963"
+     inkscape:window-height="743"
      inkscape:window-x="-5"
      inkscape:window-y="-3" />
   <metadata
@@ -261,11 +261,11 @@
     <text
        id="text5587"
        y="215.26048"
-       x="255.19153"
+       x="249.68379"
        style="font-size:8px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
        xml:space="preserve"><tspan
          y="215.26048"
-         x="255.19153"
+         x="249.68379"
          id="tspan5589"
          sodipodi:role="line">d</tspan></text>
     <text
@@ -384,7 +384,7 @@
          sodipodi:role="line"
          id="tspan8203"
          x="14.687282"
-         y="334.74158">[d]</tspan></text>
+         y="334.74158">(d)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -394,7 +394,7 @@
          sodipodi:role="line"
          id="tspan8207"
          x="67.291946"
-         y="334.74158">[m]</tspan></text>
+         y="334.74158">(m)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
@@ -460,7 +460,7 @@
          sodipodi:role="line"
          id="tspan11347"
          x="44.153675"
-         y="334.74158">[l]</tspan></text>
+         y="334.74158">(l)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
