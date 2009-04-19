@@ -1,12 +1,17 @@
-A partir de la revisión 75 se incluye directamente en el árbol la
-versión del libro en formato sphinx, el mismo sistema que utiliza la
-documentación del proyecto python.
+A partir de la revisión 94 el árbol de directorios se ha adaptado a la
+escritura de la segunda edición del libro de modo que todo lo que no
+sea necesario para sphinx se ha movido a otros directorios.
 
 Este cambio es debido a que si esto tiene que ser un proyecto libre no
 tiene mucho sentido sacrificar el formato web para premiar el formato
 en papel.  Sphinx ofrece un mejor compromiso entre el documento
 digital y el impreso.
 
-Se utiliza la extensión jsmath disponible a partir de sphinx 0.5.
-jsmath y las fuentes necesarias no se incluyen en el árbol svn así que
-hay que instalarlo en el directorio source/.static
+Para producir el documento se necesita como mínimo las siguientes
+herramientas:
+
+* Python
+
+* Sphinx
+
+* Make

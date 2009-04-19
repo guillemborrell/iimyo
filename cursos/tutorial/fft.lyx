@@ -1,0 +1,197 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Tutorial de Matlab VII.
+ FFT y análisis de señales.
+\end_layout
+
+\begin_layout Standard
+Una de las utilidades de Matlab sin equivalente posible en Excel es el análisis
+ de señales.
+ La definición de señal es muy amplia y podría nombrarse como tal casi cualquier
+ dato en función del tiempo o el espacio.
+ En este pequeño ejercicio nos limitaremos a analizar y manipular señales
+ periódicas.
+\end_layout
+
+\begin_layout Standard
+Supongamos que disponemos de dos señales, una a baja frecuencia y otra a
+ alta frecuencia y que deseamos utilizar la segunda como portadora de la
+ primera que la modula en amplitud.
+ Empezaremos entonces definiendo dos señales en forma de seno una a 10kHz
+ y de amplitud 1 (baja frecuencia) y otra a 1MHz y de amplitud 5 (alta frecuenci
+a) que representaremos en tiempo de 0 a 
+\begin_inset Formula $\nicefrac{1}{500}$
+\end_inset
+
+ segundos con 1000 puntos.
+\end_layout
+
+\begin_layout Standard
+Después de sumar las dos señales rectificaremos el resultado, es decir,
+ cualquier valor negativo se convertirá en cero.
+ Una vez obtenida la señal rectificada resolver las siguientes cuestiones.
+\end_layout
+
+\begin_layout Itemize
+Representar gráficamente el espectro en frecuencias, su valor absoluto debido
+ a que el espectro será un vector de números complejos.
+\end_layout
+
+\begin_layout Itemize
+Determinar la frecuencia de corte inferior para que desaparezca el nivel
+ de continua.
+\end_layout
+
+\begin_layout Itemize
+Determinar la frecuencia de corte superior para eliminar los armónicos superiore
+s debidos a la rectificación.
+\end_layout
+
+\begin_layout Itemize
+Representar la señal resultante y comprobar que realmente es una señal modulada
+ en amplitud.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename espectro.pdf
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Espectro antes del filtrado
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status collapsed
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Standard
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename am.pdf
+	width 12cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Caption
+
+\begin_layout Standard
+Señal modulada AM
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

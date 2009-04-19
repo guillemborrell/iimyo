@@ -1,0 +1,362 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Tutorial de Matlab VI.
+ Álgebra Lineal.
+ Creación de Matrices.
+\end_layout
+
+\begin_layout Standard
+Matlab dispone de una colección de funciones suficiente como para generar
+ casi cualquier tipo de matriz sin tener que introducirla directamente.
+ Si bien las matrices de 
+\begin_inset Formula $3\times3$
+\end_inset
+
+ pueden introducirse directamente sin ningún problema...
+ ¿Sería razonable hacerlo con una de 
+\begin_inset Formula $2000\times2000$
+\end_inset
+
+?
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+linspace Crea un vector fila de elementos con la misma separación con el
+ número de elementos dado
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+logspace Crea un vector fila de elementos con la misma separación tomando
+ la exponencial del valor.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> linspace(0,2,10)
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ Columns 1 through 8:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   0.00000   0.22222   0.44444   0.66667   0.88889   1.11111   1.33333   1.55556
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ Columns 9 and 10:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   1.77778   2.00000
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+>> logspace(0,2,10)
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ Columns 1 through 7:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+     1.0000     1.6681     2.7826     4.6416     7.7426    12.9155    21.5443
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+ Columns 8 through 10:
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+    35.9381    59.9484   100.0000
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+ones Crea una matriz de unos con la dimensión dada
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+zeros Crea una matriz de ceros con la dimensión dada
+\end_layout
+
+\begin_layout List
+\labelwidthstring 00.00.0000
+rand Crea una matriz de números aleatorios con la dimensión dada
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> 4*ones(3,4)
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   4   4   4   4
+\end_layout
+
+\begin_layout Standard
+
+   4   4   4   4
+\end_layout
+
+\begin_layout Standard
+
+   4   4   4   4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Un truco útil es el de concatenar varias matrices uniéndolas como si fueran
+ elementos de un vector.
+ Esta operación será posible siempre que el tamaño de los elementos sea
+ compatible.
+ Por ejemplo:
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> [3*ones(3,4),zeros(3,1)]
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   3   3   3   3   0
+\end_layout
+
+\begin_layout Standard
+
+   3   3   3   3   0
+\end_layout
+
+\begin_layout Standard
+
+   3   3   3   3   0
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Una función muy interesante es 
+\emph on
+diag
+\emph default
+, sirve para crear matrices cuya diagonal, sea principal o no, viene dada
+ por un vector.
+ Por ejemplo:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> diag(0:3,0)
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   0   0   0   0
+\end_layout
+
+\begin_layout Standard
+
+   0   1   0   0
+\end_layout
+
+\begin_layout Standard
+
+   0   0   2   0
+\end_layout
+
+\begin_layout Standard
+
+   0   0   0   3
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Ejercicio
+\end_layout
+
+\begin_layout Standard
+Generar la matriz siguiente, de tamaño 
+\begin_inset Formula $10\times10$
+\end_inset
+
+:
+\begin_inset Formula \[
+\left(\begin{array}{ccccccc}
+1 & 0 & 0 & \cdots\\
+1 & -2 & 1\\
+0 & 1 & -2 & 1\\
+\vdots &  &  & \ddots\\
+ &  &  & 1 & -2 & 1 & 0\\
+ &  &  &  & 1 & -2 & 1\\
+ &  &  &  & 0 & 0 & 1\end{array}\right)\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

@@ -1,0 +1,334 @@
+#LyX 1.5.6 created this file. For more info see http://www.lyx.org/
+\lyxformat 276
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\paperfontsize default
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Tutorial de Matlab V.
+ Álgebra Lineal
+\end_layout
+
+\begin_layout Standard
+Sólo hay que saber un par de cosas para dominar el 90% del álgebra lineal
+ en Matlab.
+ No intentaremos tratar los casos extremos como los sistemas mal condicionados
+ o las matrices sparse.
+ Estos temas quedan reservados para cursos avanzados de Cálculo Numérico
+ y el hecho que su uso en Matlab sea simple no justifica que se traten aquí.
+\end_layout
+
+\begin_layout Standard
+Matlab tiene la particularidad de diferenciar entre vectores fila y vectores
+ columna.
+ Este hecho, unido a que el operador de multiplicación se convierte en el
+ producto escalar, en inglés 
+\emph on
+dot product
+\emph default
+, hace que muchas veces y sin querer se intenten realizar operaciones imposibles.
+\end_layout
+
+\begin_layout Standard
+Es mucho más fácil escribir un vector fila que un verdadero vector, un vector
+ columna.
+ Para cambiar de un tipo al otro bastará con utilizar el operador traspuesta.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> v = [1,2,3,4]
+\end_layout
+
+\begin_layout Standard
+
+v =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   1   2   3   4
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+>> v'
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   1
+\end_layout
+
+\begin_layout Standard
+
+   2
+\end_layout
+
+\begin_layout Standard
+
+   3
+\end_layout
+
+\begin_layout Standard
+
+   4
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Para resolver un sistema de ecuaciones lineales basta con escribirlo como
+ sistema de ecuaciones.
+ Por ejemplo, el sistema
+\begin_inset Formula \begin{eqnarray*}
+2x+3y+4z & = & 1\\
+y+z & = & 5\\
+8x-z & = & 0\end{eqnarray*}
+
+\end_inset
+
+sería
+\begin_inset Formula \[
+\left(\begin{array}{ccc}
+2 & 3 & 4\\
+0 & 1 & 1\\
+8 & 0 & -1\end{array}\right)\left(\begin{array}{c}
+x\\
+y\\
+z\end{array}\right)=\left(\begin{array}{c}
+1\\
+5\\
+0\end{array}\right)\]
+
+\end_inset
+
+
+\begin_inset Formula \[
+Mx=b\]
+
+\end_inset
+
+La solución será
+\begin_inset Formula \[
+x=M^{-1}b\]
+
+\end_inset
+
+Aunque exista la función inversa como 
+\emph on
+inv
+\emph default
+, no es ni mucho menos la mejor manera de resolver este sistema de ecuaciones.
+ Matlab cuenta con el operador 
+\backslash
+ que resuelve de la manera más acertada posible el sistema de ecuaciones.
+ Se encarga de seleccionar el algoritmo más adecuado para resolver el sistema
+ sin la necesidad de interactuar:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "basicstyle={\ttfamily},language=Matlab,numbers=left,numberstyle={\footnotesize},showstringspaces=false"
+inline false
+status collapsed
+
+\begin_layout Standard
+
+>> M=[2,3,4;0,1,1;8,0,-1]
+\end_layout
+
+\begin_layout Standard
+
+M =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   2   3   4
+\end_layout
+
+\begin_layout Standard
+
+   0   1   1
+\end_layout
+
+\begin_layout Standard
+
+   8   0  -1
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+>> b=[1,5,0]'
+\end_layout
+
+\begin_layout Standard
+
+b =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   1
+\end_layout
+
+\begin_layout Standard
+
+   5
+\end_layout
+
+\begin_layout Standard
+
+   0
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+>> M
+\backslash
+b
+\end_layout
+
+\begin_layout Standard
+
+ans =
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Standard
+
+   -1.4000
+\end_layout
+
+\begin_layout Standard
+
+   16.2000
+\end_layout
+
+\begin_layout Standard
+
+  -11.2000
+\end_layout
+
+\end_inset
+
+La regla mnemotécnica para memorizar este operador se basa en compararlo
+ con la división.
+ Mientras 
+\emph on
+a/b
+\emph default
+ es 
+\begin_inset Formula $ab^{-1}$
+\end_inset
+
+, 
+\emph on
+a
+\backslash
+b
+\emph default
+ es 
+\begin_inset Formula $a^{-1}b$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Section
+Ejercicio
+\end_layout
+
+\begin_layout Standard
+Resolver el sistema de ecuaciones definido por la matriz creada en el tutorial
+ 
+\emph on
+Álgebra lineal.
+ Creación de matrices
+\emph default
+ y el vector compatible formado por un uno en el primer elemento y un cero
+ en el resto.
+\end_layout
+
+\end_body
+\end_document

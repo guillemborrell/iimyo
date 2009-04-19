@@ -1,98 +1,37 @@
-============
-Introducción
-============
+Sobre este documento
+====================
 
-Los objetivos iniciales de este libro son los siguientes:
+Este es el árbol de la fuente del documento Matemáticas en Ingeniería
+con Matlab y Octave. El documento es traducido de restructuredtext a
+html y LaTeX por Sphinx.
 
-* Describir el lenguaje de programación Matlab
+Organización de los archivos
+============================
 
-* Dar una descripción extensa del funcionamiento del intérprete libre
-  Octave y sus ventajas e inconvenientes respecto a la implementación
-  propietaria del lenguaje.
+:build:
 
-* Presentar ejemplos inspirados en el cálculo numérico para dar una
-  introducción aplicada de la programación con matlab y octave.
+  Directorio gestionado por sphinx donde se copian los documentos
+  generados.
 
-* Realizar las explicaciones de cálculo numérico pertinentes para que
-  el lector sea capaz de entender los ejemplos con el mínimo
-  conocimiento previo posible.
+:1edicion:
 
-Estos objetivos no son inmutables, pueden cambiarse y añadirse otros
-según los escritores del texto.
+  Primera edición de este título llamado Introducción Informal a
+  Matlab y Octave.  Es un directorio autocontenido, todo lo necesario
+  para crear el pdf del libro está aquí sin ninguna dependencia
+  externa.
 
-La filosofía del libro es la siguiente:
+:sandbox:
 
-  Este libro es un proyecto participativo y abierto, por este motivo
-  se ha optado por una licencia libre en su distribución.  Su espíritu
-  es el de compartir el conocimiento y aceptar cualquier ayuda por
-  pequeña que sea.
+  Cajón de sastre donde se guardan los ensayos para su posible
+  inclusión en el texto final
 
+:source:
 
-Cómo generar el pdf a partir de la fuente del documento
-=======================================================
+  Directorio donde se almacenan los archivos correspondientes a la
+  segunda edición del libro, ahora titulada Matemáticas en Ingeniería
+  con Matlab y Octave.
 
-Requisitos
-----------
+:cursos:
 
-La construcción del texto es automatizada, esto hace que los
-requisitos de software sean un poco más exigentes de lo normal.
+  Parte del material de varios cursos de Matlab.
 
-Para poder compilar el documento es necesario contar con lo siguiente:
-
-* Sistema operativo GNU/Linux o *BSD
-
-* Octave, preferiblemente la última versión disponible.  Se sabe que
-  funciona la versión 2.9.15
-
-* gnuplot.
-
-* Python.
-
-  * numpy.
-
-  * matplotlib (utilizado para generar algunas figuras con
-    características aún no disponibles en
-    octave). http://matplotlib.sourceforge.net/
-
-  * scons. http://www.scons.org/
-
-* dia (para generar algunos diagramas)http://www.gnome.org/projects/dia/
-
-Generar las figuras
--------------------
-
-Las figuras se crean a partir de los scripts para que sirvan también
-de ejemplo.  El texto no compilará correctamente sin sus figuras. Para
-ello es necesario ir al directorio correspondiente a las figuras y teclear::
-
-  $ python generatefigs.py
-
-Generar el documento
---------------------
-
-En el directorio raíz ejecutar::
-
-  $ scons
-
-Si se ha limpiado los archivos auxiliares será necesario ejecutarlo
-dos veces para que se creen los índices y los enlaces.
-
-PETICIÓN DEL AUTOR ORIGINAL
-===========================
-
-Fuera de los derechos de redistribución de la GNU FDL el autor inicial
-**agradecería que se mantuvieran los prólogos que escribió en su día
-intactos**. Esto no significa que no puedan añadirse más prólogos,
-introducciones... Todas las modificaciones están amparadas por la
-licencia.
-
-NOTAS
-=====
-
-Los archivos están codificados en utf-8.  NUNCA jamés utilizar
-codificación latin-1 en el editor.
-
-Contribuciones
-==============
-
-* Jorge Molano Rembiasz

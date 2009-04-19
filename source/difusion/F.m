@@ -1,0 +1,13 @@
+function y = F(u,t,dx,dy,Kxx,Kyy,Kxy,Kyx,M,N)
+  u = reshape(u,M,N);
+  y = zeros(size(u));
+  y(2:end-1,2:end-1) = -2*(Kxx/dx^2+Kyy/dy^2)*u(2:end-1,2:end-1)+...
+  Kxx/dx^2*(u(1:end-2,2:end-1)+u(3:end,2:end-1))+...
+  Kyy/dy^2*(u(2:end-1,1:end-2)+u(2:end-1,3:end))+...
+  (Kxy+Kyx)/(4*dx*dy)*(u(3:end,3:end)+u(1:end-2,1:end-2)-...
+		       u(1:end-2,3:end)-u(3:end,1:end-2));
+  y(2:end-1,1) = u(2:end-1,end-1);
+  y(2:end-1,end) = u(2:end-1,2);
+  y(1,2:end-1) = u(end-1,2:end-1);
+  y(end,2:end-1) = u(2,2:end-1);
+  y = reshape(y,M*N,1);

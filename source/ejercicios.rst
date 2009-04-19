@@ -1,0 +1,10 @@
+Ejercicios resueltos
+^^^^^^^^^^^^^^^^^^^^
+
+.. toctree::
+  :maxdepth: 2
+
+  invpend/invpend
+  vortices/vortices
+  cohete/cohete
+  difusion/difusion

@@ -1,0 +1,91 @@
+============
+Introducción
+============
+
+Los objetivos iniciales de este libro son los siguientes:
+
+* Describir el lenguaje de programación Matlab
+
+* Dar una descripción extensa del funcionamiento del intérprete libre
+  Octave y sus ventajas e inconvenientes respecto a la implementación
+  propietaria del lenguaje.
+
+* Presentar ejemplos inspirados en el cálculo numérico para dar una
+  introducción aplicada de la programación con matlab y octave.
+
+* Realizar las explicaciones de cálculo numérico pertinentes para que
+  el lector sea capaz de entender los ejemplos con el mínimo
+  conocimiento previo posible.
+
+Estos objetivos no son inmutables, pueden cambiarse y añadirse otros
+según los escritores del texto.
+
+La filosofía del libro es la siguiente:
+
+  Este libro es un proyecto participativo y abierto, por este motivo
+  se ha optado por una licencia libre en su distribución.  Su espíritu
+  es el de compartir el conocimiento y aceptar cualquier ayuda por
+  pequeña que sea.
+
+
+Cómo generar el pdf a partir de la fuente del documento
+=======================================================
+
+Requisitos
+----------
+
+La construcción del texto es automatizada, esto hace que los
+requisitos de software sean un poco más exigentes de lo normal.
+
+Para poder compilar el documento es necesario contar con lo siguiente:
+
+* Sistema operativo GNU/Linux o *BSD
+
+* Octave, preferiblemente la última versión disponible.  Se sabe que
+  funciona la versión 2.9.15
+
+* gnuplot.
+
+* Python.
+
+  * numpy.
+
+  * matplotlib (utilizado para generar algunas figuras con
+    características aún no disponibles en
+    octave). http://matplotlib.sourceforge.net/
+
+* dia (para generar algunos diagramas)http://www.gnome.org/projects/dia/
+
+Generar el pdf en UNIX
+----------------------
+
+Bastará con ir a la consola y teclear
+
+  $ python build.py build
+
+Generar el pdf en Windows
+-------------------------
+
+Sólo hay que darle doble clic al archivo build.py para que aparezca un
+interfaz gráfico.  Bastará con tener todo instalado y darle al botón
+de build.
+
+PETICIÓN DEL AUTOR ORIGINAL
+===========================
+
+Fuera de los derechos de redistribución de la GNU FDL el autor inicial
+**agradecería que se mantuvieran los prólogos que escribió en su día
+intactos**. Esto no significa que no puedan añadirse más prólogos,
+introducciones... Todas las modificaciones están amparadas por la
+licencia.
+
+NOTAS
+=====
+
+Los archivos están codificados en utf-8.  NUNCA jamés utilizar
+codificación latin-1 en el editor.
+
+Contribuciones
+==============
+
+* Jorge Molano Rembiasz
