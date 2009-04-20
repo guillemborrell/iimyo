@@ -38,15 +38,16 @@ encuentra en la realidad a las que soporta el paradigma.  Hay muchas
 maneras posibles de construir clases o módulos, quizás tantas como
 programadores.  Este capítulo no trata sobre paradigmas, hemos
 escogido de antemano un acercamiento modular, sino de una manera
-sencilla y sistemática de reducir la mayoría de problemas en módulos.
+sencilla y sistemática de reducir la mayoría de problemas a un
+conjunto conectado de bloques.
 
-La programación es un ejercicio de diseño y como tal está sujeto a sus
-leyes.  El diseño es un ejercicio creativo porque es suele ser un
-problema NP.  Es muy difícil crear un buen diseño pero es
-relativamente fácil descubrir si una solución es buena o mala.  Existe
-una teoría del diseño basada en hipótesis que propone qué
-características son deseables para el producto, sea cual sea su
-naturaleza. Estos axiomas son aplicables tanto a un dispositivo
+La programación es un ejercicio de diseño y como son de aplicación las
+teorías del diseño axiomático.  La programación es un ejercicio
+creativo porque es un problema NP.  Es muy difícil crear un buen
+diseño pero es relativamente fácil descubrir si una solución es buena
+o mala.  La teoría del diseño axiomático se basa dos hipótesis sobre
+qué qué características son deseables para el producto, sea cual sea
+su naturaleza. Estos axiomas son aplicables tanto a un dispositivo
 electrónico como a un fórmula uno y pueden reducirse a dos.  Un buen
 diseño tendrá
 
@@ -59,7 +60,7 @@ diseñada en la medida que su funcionamiento sea independiente de las
 demás.  Pensemos en dos mecanismos que transmiten exactamente el mismo
 movimiento, uno tiene más piezas pero cada uno de los engranajes está
 en contacto con otros dos, el otro tiene menos piezas pero uno de los
-engranajes está en contacto con otros tres.  Si preguntamos aun
+engranajes está en contacto a otros tres.  Si preguntamos a un
 ingeniero industrial descartará inmediatamente el segundo porque sabe
 a ciencia cierta que el mínimo error en la posición de ese triple
 contacto acabará con el mecanismo. Introducir dependencias entre
@@ -83,7 +84,8 @@ complejidad del problema.  Como ya hemos dicho, es imposible encontrar
 el mejor diseño pero gracias a los dos axiomas es más sencillo
 comparar las propuestas y escoger el mejor.  El ejercicio habitual es
 tomar dos lenguajes de programación y valorar cuál es mejor ante los
-dos axiomas para una determinada tarea.  Esta comparación dependerá
+dos axiomas para una determinada tarea.  El hecho de proponer una
+tarea en concreto es importante porque esta comparación dependerá
 fuertemente de la misma. Por ejemplo, Python será mejor que Fortran
 para construir una interfaz gráfica pero estas diferencias se diluirán
 si se trata de una aplicación de cálculo numérico.
@@ -92,7 +94,7 @@ Este capítulo propone una metodología para el diseño de aplicaciones
 con Matlab utilizando la programación modular.  Para intentar cumplir
 los dos axiomas buscará:
 
-* Máxima independencia entre módulos
+* Máxima independencia entre bloques
 
 * Sistematizar el desarrollo con el menor número de leyes posibles.
 
@@ -103,7 +105,11 @@ La propuesta para cumplir los dos axiomas puede reducirse a dos leyes:
 
 * Para las funciones todo son argumentos
 
-* Los parámetros definen un módulo.
+* Los parámetros relacionan los bloques
+
+Estas dos leyes sirven para reducir cualquier sistema físico a bloques
+cuyos argumentos de salida son funciones. Estos conceptos se aclararán
+a medida que avancemos por este capítulo.
 
 Las variables en un programa se pueden clasificar en tres grupos
 
@@ -122,25 +128,24 @@ parámetros son los valores que intervienen en el problema cuyo valor
 no cambia durante el cálculo pero sí son suceptibles de cambio como
 por ejemplo la densidad del aire o la velocidad de salida.  Finalmente
 las incógnitas son los valores que deben calcularse necesariamente
-para llegar al resultado como el número de Reynolds o la misma
-trayectoria. Siempre existe una diferenciación clara entre estos tres
+para llegar al resultado como la trayectoria y la velocidad de la
+pelota. Siempre existe una diferenciación clara entre estos tres
 grupos y puede ser de gran ayuda para modelar cualquier sistema
 físico.
 
 Mientras las constantes y las incógnitas nunca presentan el menor
 problema los parámetros son el mayor dolor de cabeza cuando se diseña
 una simulación.  Las constantes pueden ser sustituidas en cualquier
-momento por un valor y las incógnitas serán siempre argumentos de
-funciones.  En cambio los parámetros se definirán en una cabecera o en
-un módulo y todas las funciones deberán utilizar dicha definición.
-Esta problemática puede comprenderse fácilmente con este ejemplo.
-Supongamos que nos piden evaluar la influencia del parámetro
-:math:`\mu` en la solución de esta ecuación
+momento por un valor y las incógnitas serán argumentos de todas las
+funciones porque son parte del resultado.  En cambio los parámetros se
+definirán en una cabecera o en un módulo y todas las funciones deberán
+utilizar dicha definición.  Esta problemática puede comprenderse
+fácilmente con este ejemplo.  Supongamos que nos piden evaluar la
+influencia del parámetro :math:`\mu` en la solución de esta ecuación
 
 .. math::
 
    x'' +x + \mu(x^2-1)x' = 0
-
 
 Para ello nos sugieren representar gráficamente la solución para un
 conjunto de diez valores de :math:`\mu`. Se nos pide resolver el
@@ -177,7 +182,7 @@ del espacio base de la siguiente manera
 
 .. code-block:: matlab
 
-   function y = vdpmu(t,x)
+   function y = vdp(t,x)
      mu = evalin('base','mu','error()')
      y = [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
 
@@ -187,7 +192,7 @@ algo parecido definiendo `mu` como una variable global
 
 .. code-block:: matlab
 
-   function y = vdpmu(t,x)
+   function y = vdp(t,x)
      if isglobal('mu')
        global mu;
        y = [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
@@ -204,11 +209,13 @@ subsanada en el momento en el que somos capaces de devolver una
 función como argumento.  Analicemos la función de la ecuación de Van
 der Pol con más detenimiento.  Tiene dos incógnitas, :math:`t` y
 :math:`x`, y un parámetro, :math:`\mu`. Es en este punto donde de
-forma completamente natural llega la necesidad de crear un módulo.  En
-este caso el módulo dependería únicamente del parámetro :math:`\mu` y
-proporcionará la función ``vdpmu``.
+forma completamente natural llega la necesidad de crear un bloque.
+Definimos entonces un bloque como una estructura que depende de una
+colección de parámetros y devuelve una o varias funciones que dependen
+de las incógnitas. En este caso el bloque dependerá únicamente del
+parámetro :math:`\mu` y proporcionará la función ``vdp``.
 
-Para entender el funcionamiento interno de un módulo hay que tener en
+Para entender el funcionamiento interno de un bloque hay que tener en
 cuenta que si una función anónima depende de una variable que no está
 en su cabecera la busca automáticamente en el espacio de variables
 local.  Por ejemplo
@@ -241,36 +248,22 @@ Van der Pol el módulo tendría este aspecto
 
       >> modvdp = @(mu) @(t,x) [x(2); mu*(1-x(1).^2)*x(2)-x(1)];
 
-Vemos ahora el sentido de la aplicación de las dos leyes.  La función
-se ha escrito con todas sus variables independientemente de si eran
-incógnitas o parámetros.  No se ha realizado ninguna sustitución.
-Dejar la función tal y como se ha formulado mantiene mínima la
-información puesto que no se ha particularizado, contiene la misma que
-el planteamiento del problema que conocemos de antemano. La
-independencia queda asegurada gracias a los parámetros que definen los
-módulos.  En prácticamente todas las simulaciones los parámetros
-podrán separarse por su significado físico o matemático.  La ecuación
-de Van der Pol es un mal ejemplo porque sólo tiene uno pero podemos
-fijarnos en casos un poco más complejos.
+Esta operación ha convertido una función, una entidad con significado
+físico, en un bloque de código.  Este bloque recibe parámetros y
+devuelve una función que únicamente depende de las incógnitas.  A su
+vez está escrita según su formulación, no se ha particularizado para
+ningún valor. Cumple estrictamente las dos leyes pero es un ejemplo
+demasiado sencillo como para captar la importancia de su aplicación.
 
-Ejemplo. La atmósfera estándar (ISA)
-------------------------------------
+A continuación veremos varios ejemplos donde el uso de las dos leyes
+producen implementaciones simples de sistemas no necesariamente
+sencillos.
 
 
-Ejemplo. El saque de Andy Roddick
----------------------------------
+.. toctree::
+   :maxdepth: 1
 
-Supongamos que el equipo español de copa Davis quiere saber la
-diferencia del tiempo de vuelo entre servicio y resto en función de la
-altura a la que se juegue el partido. Para ello nos pide un estudio
-pormenorizado en el que se tendrán en cuenta factores como:
+   isa.rst
+   saque.rst
 
-* Las características de la atmósfera.
 
-* El desprendimiento de la capa límite alrededor de la bola.
-
-* La velocidad y dirección inicial de la bola sin efectos.
-
-Finalmente nos definen el tiempo de vuelo como el tiempo que
-transcurre desde el impacto con la raqueta hasta que cruza la vertical
-del final de la pista en el lado del resto.

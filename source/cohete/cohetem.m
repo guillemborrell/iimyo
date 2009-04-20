@@ -1,7 +1,6 @@
 %%% Programa de simulacion vehiculo con motor cohete a p_c constante
 %%% Version para Matlab
 
-clf;
 clear;
 
 %% ISA
@@ -18,8 +17,8 @@ p_c = 20e6;                % presion camara de combustion  [Pa]
 Sf = 0.4;                  % area frontal                  [m^2]
 Ag = 0.01;                 % area garganta                 [m^2]
 As = Sf;                   % area salida                   [m^2]
-mcohe = 5;                 % masa cohete                   [kg]
-mcomb = 50;                % masa inicial combustible      [kg]
+mcohe = 25;                % masa cohete                   [kg]
+mcomb = 30;                % masa inicial combustible      [kg]
 m0    = mcohe + mcomb;     % masa inicial total            [kg]
 rho_c = 1800;              % densidad combustible solido   [kg/m^3]
 
@@ -46,7 +45,7 @@ p_s = fsolve(ecuacion, 5e5);      % presion de salida
 %% Resistencia aerodinamica: D(v,h)
 Mach = @(v,h) v ./ sqrt( gair .* Ra .* T(h) );        % Mach
 Cd =   @(v,h) 2.6 .* Mach(v,h) .^(1.1) .* exp(-Mach(v,h))...
-              + 0.3 .* sqrt(Mach(v,h));               % coef. resist.
+              + 0.6 .* sqrt(Mach(v,h));               % coef. resist.
 
 D = @(v,h) rho(h) .* v.^2 .* Sf .* Cd(v,h) ./ 2;      % resistencia aero.
 
@@ -61,7 +60,7 @@ E = @(h) p_c .* Ag .* Gam .*...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%% Datos de entrada a lsode
+%% Datos de entrada a ode45
 
 %%% Sistema de ecuaciones
 acel  = @(v,h,t) (E(h) - D(v,h) - mp.*v) ./...
@@ -72,24 +71,23 @@ acel2 = @(v,h,t) -D(v,h)./mcohe - g;       % sin combustible
 %%% NOTA: h = x(1), v = x(2);
 %%% Sistema: 1. dh/dt = v
 %%%          2. dv/dt = f(h,hp)
-F  = @(t,x) [ x(2,1); acel(x(2,1),x(1,1),t)];
-F2 = @(t,x) [ x(2,1);acel2(x(2,1),x(1,1),t)];
+F  = @(t,x) [ x(2,1); acel(x(2,1) ,x(1,1),t)];
+F2 = @(t,x) [ x(2,1); acel2(x(2,1),x(1,1),t)];
 
 %%% tiempo en el que se termina el combustible
-tcomb = mcomb/mp; %[s]
+tfin1 = mcomb/mp; %[s]
 
 %%% condiciones iniciales
 x0(1,1) = 0;     % A nivel del mar [m]
 x0(2,1) = 0;     % En reposo       [m/s]
 
 %% Integrando...
-[tcomb,x] = ode45(F,[0 tcomb],x0);         % con combustible,
-				% sobreescribo tcomb
+[tcomb,x] = ode45(F,[0 tfin1],x0);         % con combustible,
 
 x0_2 = [x(length(x),1); x(length(x),2)];   % entrada a 2º sistema
-tfin = 20;                                 % tiempo fin integracion [s]
-[tfin,x2] = ode45(F2,[tcomb(end) tfin],x0_2);% sin combustible,
-				% sobreescribo tfin
+tfin2 = 20;                                % tiempo fin integracion [s]
+[tfin,x2] = ode45(F2,[tfin1 tfin2],x0_2);  % sin combustible,
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
