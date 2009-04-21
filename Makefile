@@ -22,6 +22,18 @@ help:
 	@echo "  latex     to make LaTeX files, you can set PAPER=a4 or PAPER=letter"
 	@echo "  changes   to make an overview over all changed/added/deprecated items"
 	@echo "  linkcheck to check all external links for integrity"
+	@echo " "
+	@echo " ================================================================="
+	@echo " Modificaciones para Matemáticas en Ingeniería con Matlab y Octave"
+	@echo " ================================================================="
+	@echo "  png       para convertir las figuras svg a png con inkscape"
+	@echo "  pdf       para convertir las figuras svg a pdf con inkscape"
+
+pngfig:
+	python makefigures.py png
+
+pdffig:
+	python makefigures.py pdf
 
 clean:
 	-rm -rf build/*
