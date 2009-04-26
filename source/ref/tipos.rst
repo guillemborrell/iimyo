@@ -51,9 +51,17 @@ asignación ya sea a través de un literal o de otras expresiones.
 
 .. function:: typeinfo(expr)
 
-   Imprime en la pantalla el tipo del resultado de la expresión
-   *expr*.  Si no se da ningún argumento lista todos los tipos
-   disponibles
+   (Octave) Imprime en la pantalla el tipo del resultado de la
+   expresión *expr*.  Si no se da ningún argumento lista todos los
+   tipos disponibles
+
+.. function:: whos('str')
+   
+   Cuando *str* es el nombre de una variable como cadena de caracteres
+   devuelve la información correspondiente a la misma que incluye sus
+   dimensiones, el tamaño en memoria, el tipo y los atributos.  Si se
+   utiliza como sentencia devuelve la información de todas las
+   funciones presentes en el espacio de variables,
 
 .. note::
 
@@ -112,13 +120,6 @@ de la longitud de Planck.
 Para definir escalares enteros disponemos de una colección de
 funciones 
 
-.. warning::
-
-   Si bien en Octave existe la función ``single`` el resultado es un
-   escalar de doble precisión porque no dispone aún de soporte para
-   reales de simple precisión.  La función existe sólo para evitar los
-   posibles errores de ejecución.
-
 
 Matrices
 ........
@@ -127,4 +128,3 @@ Contenedores
 ------------
 
 
-.. [IEEE] Definición de esto

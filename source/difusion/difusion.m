@@ -18,8 +18,8 @@ dy = Ly/(N-1);
 
 %%% Condicion inicial
 Yc0 = @(A,mu,nu) @(x,y) A*exp(-mu*x.^2-nu*y.^2);
-Yc0case = Yc0(A,mu,nu);
-Yc0num = Yc0case(XX,YY);
+Yc0case = Yc0(A,mu,nu); # Condicion inicial analitica
+Yc0num = Yc0case(XX,YY); # Condicion inicial numerica
 
 %%% RHS
 Fi = @(u,t) F(u,t,dx,dy,Kxx,Kyy,Kxy,Kyx,M,N);
