@@ -176,7 +176,8 @@ latex_use_parts = True
 
 # Additional stuff for the LaTeX preamble.
 latex_preamble = """
-\\newcommand{\\bigO}{\\mathcal{O}}
+\usepackage{amsmath}
+\usepackage{amssymb}
 """
 
 # Documents to append as an appendix to all manuals.

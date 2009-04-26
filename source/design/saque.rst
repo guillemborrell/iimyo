@@ -253,12 +253,12 @@ exactamente donde debe.
    variable que no esperábamos.  Puede suceder que tome valores de
    :math:`\theta_0` para los que la bola no llegue a botar y la
    iteración no llegue a ningún resultado o lo que es peor, que la
-   función a evaluar devuelva un NA (Not a number).  El hecho de haber
-   adimensionalizado el problema es de gran ayuda por dos razones:
-   sabemos que la bola tiene que botar en tiempos adimensionales
-   :math:`\tau` del orden de la unidad siempre que se saque más o
-   menos plano, entonces nos aseguraremos que la bola bote con
-   seguiridad integrando hasta :math:`\tau = 10`.
+   función a evaluar nos diga que el valor está fuera de su dominio de
+   interpolación.  El hecho de haber adimensionalizado el problema es
+   de gran ayuda por dos razones: sabemos que la bola tiene que botar
+   en tiempos adimensionales :math:`\tau` del orden de la unidad
+   siempre que se saque más o menos plano, entonces nos aseguraremos
+   que la bola bote con seguiridad integrando hasta :math:`\tau = 10`.
 
 Entonces nos topamos con otra dificultad: el resultado de una ecuación
 diferencial son una serie de puntos en el tiempo y en el espacio, no

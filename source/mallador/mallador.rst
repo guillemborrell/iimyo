@@ -217,5 +217,6 @@ función de las constantes :math:`k_i` malla un dominio unidimensional.
    :eq:`estatica`
 
 Supongamos que queremos mallar un dominio unidimensional :math:`x \in
-[-1,1] \subset \mathbb{R}` agrupando los puntos en los extremos y en
-el centro
+[-1,1] \subset \mathbb{R}` para cualquier distribución dada de
+constantes elásticas :math:`k(x_i)`.  El script para resolver este
+problema es tan sencillo como el siguiente.
