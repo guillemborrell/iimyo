@@ -220,3 +220,151 @@ Supongamos que queremos mallar un dominio unidimensional :math:`x \in
 [-1,1] \subset \mathbb{R}` para cualquier distribución dada de
 constantes elásticas :math:`k(x_i)`.  El script para resolver este
 problema es tan sencillo como el siguiente.
+
+.. literalinclude:: mesh1d.m
+   :language: matlab
+
+Para usarlo basta con darle un vector de constantes para los muelles y
+un intervalo.
+
+.. code-block:: matlab
+
+   >> k = polyval(polyfit([0,0.5,1],[10,1,10],2),0:0.1:1);
+   >> % Creo el vector de constantes de rigidez, 10 elementos
+   >> plot(0:0.1:1,k); %Pinto las constantes de rigidez
+   >> hold on; % Fijo la figura
+   >> p = mesh1d(k,[0,1]); % Creo la malla en el mismo intervalo
+   >> plot(p,zeros(1,11),'k*'); % Pongo los nodos
+
+El resultado es el siguiente
+
+.. only:: latex
+
+   .. figure:: nodos.pdf
+      :align: center
+      :scale: 100
+
+      Constante de rigidez y posición de los nodos en el intervalo
+
+.. only:: html
+
+   .. figure:: nodos.png
+      :align: center
+      :scale: 100
+
+      Constante de rigidez y posición de los nodos en el intervalo
+
+Propongo el siguiente ejericio. ¿Cómo debería ser la curva de
+constantes de rigidez para obtener los nodos de Chebyshev?
+
+Planteamiento bidimensional
+---------------------------
+
+Alguien especialmente atento habrá advertido que el planteamiento del
+problema depende únicamente de la posición de los puntos y de sus
+relaciones, o en otras palabras, qué puntos están conectados con
+muelles.  Este planteamiento no depende en ningún caso del número de
+dimensiones del espacio.  Hemos empezado con una dimensión porque el
+problema es mucho más sencillo por dos motivos:
+
+* Establecer las relaciones entre puntos es trivial, cada nodo está
+  relacionado con sus dos vecinos.
+
+* Para cerrar el problema sólo se necesita la posición de dos puntos.
+
+Mallar un dominio en el plano es mucho más difícil porque estas dos
+condiciones cambian
+
+* Cada punto está conectado a una cantidad a priori indeterminada de
+  vecinos
+
+* Para cerrar el problema se necesita un conjunto de puntos ordenados
+  en un conjunto de dimensión menor.  En el caso del plano, una recta.
+
+Ambos problemas tienen solución, pero tener en cuenta estas
+consideraciones complicará bastante nuestro algoritmo.
+
+Definición del contorno
+.......................
+
+La ecuación del problema n-dimensional sigue siendo
+:eq:`unidimensional` en la que las variables :math:`\xi_i` han pasado
+de ser escalares a vectoriales. La ecuación se puede formular entonces
+para cada uno de sus componentes y para cada una de las relaciones
+entre nodos
+
+.. math::
+   :label: ndimensional
+
+   \vec \xi_i\sum_j k_j^\prime - \sum_j \vec \xi_j k_j^\prime = 0
+
+.. math::
+   :label: coeficiente
+
+   k_j^\prime = \frac{k_i k_j}{k_i + k_j}
+
+donde el índice :math:`j` cuenta todos los nodos conectados con el
+nodo :math:`i`.
+
+Como hemos dicho anteriormente, para resolver el problema es necesario
+definir un contorno y establecer las conexiones entre nodos del
+mallado.  Vamos a afrontar primero el problema del contorno.
+
+Hemos visto que el problema se reduce a la resolución de un sistema de
+ecuaciones lineales que depende de las coordenadas de los nodos.  El
+contorno es imprescindible porque de otro modo la matriz sería
+singular.  Desde un punto de vista puramente algebraico el sistema
+tendría solución fijando únicamente dos puntos en el espacio, entonces
+la solución nos situaría todos los nodos en la recta que une los dos
+nodos fijos.
+
+.. note::
+
+   Otra vez, la intuición puede ayudarnos a deducir la forma de la
+   solución.  El equilibro estático debe ser la solución con la mínima
+   energía potencial.  Es trival demostrar que si sólo un nodo no se
+   encuentra en la recta que une los dos puntos la energía del sistema
+   es mayor.
+
+Pero nos interesa mallar un dominio bidimensional y este dominio
+estará como mínimo definido por un contorno y según se defina
+llegaremos a dos problemas con dificultades muy distintas
+
+* Conocemos exactamente la posición de todos los nodos que queremos
+  situar en el contorno.
+
+* No conocemos la posición de todos los nodos que queremos situar en
+  el contorno.  Como mínimo uno puede deslizar como si fuera
+  un abalorio.
+
+Intuitivamente llegamos a la conclusión correcta que el primer caso es
+el fácil y el segundo es el difícil. El motivo es que mientras en el
+primer caso la ligadura es trivial de implementar, en el segundo
+significará una ecuación adicional para nuestro sistema.
+
+Definición de las conexiones
+............................
+
+El problema es cómo podemos conocer las conexiones definitivas entre
+nodos si ni siquiera sabemos dónde van a estar.  Los nodos no existen,
+sólo tenemos la ecuación para colocarlos y la frontera. Estamos ante
+un problema de geometría computacional y tiene que ver con la
+triangulación óptima de un conjunto convexo.
+
+De un modo práctico no necesitamos la triangulación óptima sino una
+triangulación que se acerque a la óptima de la solución.  De hecho
+para arrancar el algoritmo nos vale con cualquier triangulación,
+incluso una de puntos colocados aleatoriamente, eso sí, dentro del
+contorno. Esto nos servirá para arrancar un proceso iterativo para
+llegar al mallado óptimo del dominio encerrado por el contorno.
+
+.. warning::
+
+   Soy perfectamente consciente que considerar el resultado del
+   proceso iterativo propuesto como óptimo no es ni mucho menos
+   correcto, simplemente se refiere a que es el resultado de una
+   iteración que busca un mínimo de un funcional.
+
+Pero no vale cualquier distribución de puntos aleatoria, los puntos
+deben estar dentro del dominio y ahí entra en juego la geometría
+computacional.

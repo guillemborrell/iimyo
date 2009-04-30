@@ -2,6 +2,18 @@ function y = mesh1d(k,interval)
 
 % Dado un vector de constantes de rigidez, devuelve las posiciones de
 % los nodos en un dominio unidimensional.
+% 
+% Argumentos de entrada:
+%
+%  k: Constante de rigidez en cada nodo.  A mayor valor mayor
+%     acercamiento con los puntos cercanos
+%
+%  interval: Intervalo que se quiere mallar
+%
+% Argumentos de salida:
+%
+%  y: Nodos dentro del intervalo
+
 
 % Calcula el coeficiente k+
 kp = k(2:end-1).*k(3:end)./(k(2:end-1)+k(3:end));
