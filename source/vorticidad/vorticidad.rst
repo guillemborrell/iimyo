@@ -15,11 +15,11 @@ intelectual.
 
 He tenido la gran suerte de coincidir con Javier Jiménez Sendín. Un
 absoluto genio gracias al que he aprendido lo poco que se sobre
-turbulencia. Publicó los apuntes de su curso en la École Polytechnique
+Turbulencia. Publicó los apuntes de su curso en la École Polytechnique
 en la página web del departamento [JIM]_ y espero que algún día se
-conviertan en *el libro* de turbulencia en pared. Muchas de las ideas
-que se plantean en esta introducción no son más que una introducción
-de lo que se cuenta en estos apuntes.
+conviertan en *el libro* de Turbulencia en pared. Muchas de las ideas
+que se plantean en esta introducción no son más que una traducción de
+lo que se cuenta en estos apuntes.
 
 La turbulencia es un fenómeno que se presenta en los flujos a altos
 números de Reynolds, esto es, cuando o bien la velocidad o las escalas
@@ -44,7 +44,7 @@ para un volumen dado y por unidad de masa:
 .. math::
 
    \epsilon = \frac {\partial}{\partial t}\int_\Omega K dV =
-   \frac{-\Delta p}{\rho} \int_{\partial \Omega} u dS = \nu
+   \frac{-\Delta p}{\rho} \int_{\partial \Omega} u\ dS = \nu
    \int_\Omega \nabla^2 K dV
 
 El único modo en el que un término como
@@ -53,8 +53,8 @@ El único modo en el que un término como
 
    \epsilon = \nu \int_\Omega \nabla^2 K dV
 
-sea independiente de la viscosidad es que su valor no se anule cuando
-la viscosidad :math:`\nu` tienda a cero.  La única opción es que para
+es independiente de la viscosidad es que su valor no se anule cuando
+la viscosidad :math:`\nu` tiende a cero.  La única opción es que para
 un fluido turbulento
 
 .. math::
@@ -64,7 +64,7 @@ un fluido turbulento
 O lo que es lo mismo, que existan variaciones infinitas en la
 distribución espacial de energía cinética.  Que dos puntos
 infinitamente cercanos tengan velocidades distintas implica que el
-campo de velocidades no es derivable y por lo tanto es un fractal.
+campo de velocidades no es derivable y por lo tanto es fractal.
 
 La turbulencia es un ejemplo de caos.  El parámetro que distingue si
 un fluido se comporta de modo caótico o ordenado es precisamente el
@@ -75,7 +75,7 @@ esperar.
 Entender la Mecánica de Fluidos implica entender la Turbulencia y no
 es precisamente algo simple.  En muchos casos, aunque la turbulencia
 existe, no influye decisivamente en el resultado.  Los cálculos en
-aerodinámica ignoran su existencia y se consigue predecir la
+Aerodinámica ignoran su existencia y se consigue predecir la
 sustentación de un avión con una precisión razonable.  Pero a medida
 que se busca una precisión mayor en los cálculos incluir la influencia
 de las zonas en las que existe turbulencia se hace imprescindible.
@@ -85,7 +85,7 @@ turbulencia? La respuesta implica conocer cuáles son las escalas más
 pequeñas que son relevantes, el salto temporal de cada resultado y el
 tiempo físico que se debe simular.  El orden de magnitud del número de
 operaciones necesarias es de :math:`O(Re^3)` y el número de variables
-a almacenar es de :math:`O(Re^{9/4}`, incluso para números de
+a almacenar es de :math:`O(Re^{9/4})`, incluso para números de
 Reynolds moderados esto significa un gasto enorme.  Pongamos como
 ejemplo el flujo en una tubería de diámetro 0.1 metros, en la que
 circula aire a una velocidad de 1 metro por segundo.  El número de
@@ -96,23 +96,69 @@ Reynolds de este movimiento es de
    Re = \frac{UD}{\nu} \sim \frac{0.1 \times 1}{10^{-5}} = 10^4
 
 Esto significa que el número de operaciones será del orden de
-:math:`10^12` (tera) y el número de variables de :math:`10^9`
+:math:`10^{12}` (tera) y el número de variables de :math:`10^9`
 (giga). Este problema está dentro de las posibilidades de los
 ordenadores modernos pero tiene poca utilidad industrial.  Fijémonos
-ahora en el fluido alrededor de un coche de fórmula uno que mide
+ahora en el aire alrededor de un coche de fórmula uno que mide
 aproximadamente dos metros y va a 300 kilómetros por hora.  El número
 de Reynolds del movimiento será de :math:`\sim 10^7`, el número de
-variables de :math:`10^15` (peta) y el número de operaciones de
-:math:`10^21` (?).  Intentar resolver un problema como este por fuerza
+variables de :math:`10^{15}` (peta) y el número de operaciones de
+:math:`10^{21}` (?).  Intentar resolver un problema como este por fuerza
 bruta no parece una buena idea.
 
 Los esfuerzos actuales van dirigidos a comprender la turbulencia para
 buscar un modelo capaz de reducir significativamente el coste
 computacional del problema. Estos modelos se aplican ya a problemas
 industriales pero no son infalibles.  Para hacerlos mejores se
-necesita tener mejores simulaciones para realizar mejores hipótesis y,
-como ha hemos demostrado, la Mecánica de Fluidos Computacional puede
-implicar un esfuerzo enorme.
+necesita tener mejores simulaciones para realizar así mejores
+hipótesis. Como ha hemos demostrado, la investigación en Turbulencia y
+en Mecánica de Fluidos Computacional puede implicar un esfuerzo
+enorme.
+
+Planteamiento de las ecuaciones
+-------------------------------
+
+Las ecuaciones de Navier Stokes para un fluido incompresible y con
+viscosidad constante son
+
+.. math::
+   :label: continuidad
+
+   \nabla \cdot \vec u = 0
+
+.. math::
+
+   :label: cmov
+
+   \partial_t \vec u \vec u \cdot \nabla \vec u = - \rho^{-1} \nabla
+   p + \nu \nabla^2 \vec u
+
+El problema de intentar resolver estas ecuaciones es que implica
+calcular tres incógnitas, :math:`u`, :math:`v` y :math:`p`.  La
+solución es cambiar las incógnitas a dos que ya asuman que el fluido
+es incompresible, la función de corriente :math:`\psi` y la vorticidad
+:math:`\omega` definidas como sigue
+
+.. math::
+
+   \vec u = (\partial \psi / \partial y,- \partial \psi / \partial x )
+
+.. math::
+
+   \omega = \partial_x v - \partial_y u
+
+Entonces el problema se reduce a dos ecuaciones escalares sin la presión.
+
+.. math::
+   :label: vorticidad
+
+   \partial_t \omega + u \cdot \nabla \omega = \nu \nabla^2 \omega
+
+.. math::
+   :label: poisson
+   
+   \nabla^2 \psi = - \omega
+
 
 
 
