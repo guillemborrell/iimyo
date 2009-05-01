@@ -127,10 +127,9 @@ viscosidad constante son
    \nabla \cdot \vec u = 0
 
 .. math::
-
    :label: cmov
 
-   \partial_t \vec u \vec u \cdot \nabla \vec u = - \rho^{-1} \nabla
+   \partial_t \vec u + \vec u \cdot \nabla \vec u = - \rho^{-1} \nabla
    p + \nu \nabla^2 \vec u
 
 El problema de intentar resolver estas ecuaciones es que implica
