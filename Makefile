@@ -26,8 +26,8 @@ help:
 	@echo " ================================================================="
 	@echo " Modificaciones para Matemáticas en Ingeniería con Matlab y Octave"
 	@echo " ================================================================="
-	@echo "  png       para convertir las figuras svg a png con inkscape"
-	@echo "  pdf       para convertir las figuras svg a pdf con inkscape"
+	@echo "  pngfig    para convertir las figuras svg a png con inkscape"
+	@echo "  pdffig    para convertir las figuras svg a pdf con inkscape"
 
 pngfig:
 	python makefigures.py png

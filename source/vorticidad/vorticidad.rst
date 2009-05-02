@@ -77,8 +77,8 @@ es precisamente algo simple.  En muchos casos, aunque la turbulencia
 existe, no influye decisivamente en el resultado.  Los cálculos en
 Aerodinámica ignoran su existencia y se consigue predecir la
 sustentación de un avión con una precisión razonable.  Pero a medida
-que se busca una precisión mayor en los cálculos incluir la influencia
-de las zonas en las que existe turbulencia se hace imprescindible.
+que se busca una precisión mayor incluir la influencia de las zonas en
+las que existe turbulencia se hace imprescindible.
 
 Aquí llega otro inconveniente más. ¿Cuál es el coste de simular la
 turbulencia? La respuesta implica conocer cuáles son las escalas más
@@ -114,6 +114,36 @@ necesita tener mejores simulaciones para realizar así mejores
 hipótesis. Como ha hemos demostrado, la investigación en Turbulencia y
 en Mecánica de Fluidos Computacional puede implicar un esfuerzo
 enorme.
+
+La turbulencia bidimensional no es exactamente turbulencia.  Si se
+elimina la tercera dimensión desaparece el mecanismo por el que la
+vorticidad se hace singular y el fluido se convierte en fractal.  En
+dos dimensiones la vorticidad no tiene otro destino que disiparse y
+morir. Sin embargo sí es útil para comprender los efectos de la
+viscosidad en un fluido.
+
+El objetivo de este ejercicio es simular un dominio infinito en el que
+una distribución dada de velocidad en dos dimensiones evoluciona hasta
+disiparse.  En este caso un dominio infinito será un cuadrado con
+condiciones de contorno periodicas.  Estas condiciones de contorno
+permiten utilizar un método pseudoespectral mucho menos exigente desde
+un punto de vista computacional.
+
+Cuando el dominio de cálculo es periódico se puede suponer que la
+solución tiene la forma de su desarrollo en serie de Fourier y que su
+tamaño, independientemente de sus dimensiones, será de 0 a :math:`2
+\pi`
+
+.. math::
+
+   u = \sum_{k=0}^{N-1} \hat u_k \exp(ikx)
+
+Si además el dominio se discretiza, con lo que :math:`x_j = 2\pi j/N`
+
+.. math::
+
+   u_j = \sum_{k=0}^{N-1} \hat u_k \exp \left(ik\frac{2 \pi j}{N}
+   \right)
 
 Planteamiento de las ecuaciones
 -------------------------------
@@ -158,8 +188,41 @@ Entonces el problema se reduce a dos ecuaciones escalares sin la presión.
    
    \nabla^2 \psi = - \omega
 
+Podemos reescribir la ecuación :eq:`vorticidad`, una vez
+adimensionalizada, de la siguiente manera
 
+.. math::
+   :label: convecciondifusion
 
+   \partial_t \omega + \partial_y \psi \partial_x \omega - \partial_x
+   \psi \partial_y \omega = Re^{-1} \nabla^2 \omega
+
+Puede esquematizarse como
+
+.. math::
+   :label: esquema
+
+   \partial_t \omega + D(\omega) - L(\omega) = 0
+
+Un pequeño ensayo.  La ecuación de Burguers.
+--------------------------------------------
+
+Fijémonos ahora en la forma de la ecuación :eq:`esquema`.  Tiene un
+término no lineal y un término lineal.  El segundo no presenta ninguna
+dificultad puesto que la derivada es una operación lineal en el
+espacio de Fourier pero el término :math:`D(\omega)` contiene el
+producto de dos funciones que no es lineal en el espacio de Fourier.
+Provocará la aparición de un fenómeno llamado *aliasing* y hará que
+nuestro algoritmo tenga ciertas rarezas.
+
+Entrar a trapo con la vorticidad bidimensional puede ser algo excesivo
+así que ensayaremos antes los conceptos previos como los métodos de
+Fourier-Galerkin y el dealiasing con la ecuación de Burguers
+
+.. math::
+   :label: burguers
+
+   \partial_t u + u \cdot \nabla u = \nabla^2 u
 
 .. [JIM] Turbulence and Vortex Dynamics.  J. Jiménez
   Sendín. http://torroja.dmt.upm.es/~jimenez/
