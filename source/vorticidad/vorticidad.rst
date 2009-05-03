@@ -202,10 +202,10 @@ Puede esquematizarse como
 .. math::
    :label: esquema
 
-   \partial_t \omega + D(\omega) - L(\omega) = 0
+   \partial_t \omega = - D(\omega) + L(\omega)
 
-Un pequeño ensayo.  La ecuación de Burguers.
---------------------------------------------
+La ecuación de Burgers.
+-----------------------
 
 Fijémonos ahora en la forma de la ecuación :eq:`esquema`.  Tiene un
 término no lineal y un término lineal.  El segundo no presenta ninguna
@@ -217,12 +217,44 @@ nuestro algoritmo tenga ciertas rarezas.
 
 Entrar a trapo con la vorticidad bidimensional puede ser algo excesivo
 así que ensayaremos antes los conceptos previos como los métodos de
-Fourier-Galerkin y el dealiasing con la ecuación de Burguers
+Fourier-Galerkin y el dealiasing con la ecuación de Burgers
 
 .. math::
-   :label: burguers
+   :label: burgers
 
-   \partial_t u + u \cdot \nabla u = \nabla^2 u
+   \partial_t u + u \cdot \nabla u = \nu \nabla^2 u
+
+En una dimensión
+
+.. math::
+   :label: burgers1d
+
+   \partial_t u + u \partial_x u = \nu \partial_{xx} u
+
+La ecuación se esquematiza de la siguiente manera
+
+.. math::
+   :label: esquemaburgers
+
+   \partial_t u = L(u) - D(u)
+
+El método para resolver esta
+ecuación para un dominio periódico es un poco exótica.  En vez de
+plantear la ecuación para la velocidad lo haremos para el espectro de
+la velocidad utilizando un planteamiento pseudoespectral.
+
+.. math::
+   :label: burgerse
+
+   \partial_t \hat u = L(\hat u) - D(\hat u)
+
+En este caso, la forma del operador lineal es
+
+.. math::
+   :label: L
+
+   L(\hat u) = -k^2 \hat u
+
 
 .. [JIM] Turbulence and Vortex Dynamics.  J. Jiménez
   Sendín. http://torroja.dmt.upm.es/~jimenez/

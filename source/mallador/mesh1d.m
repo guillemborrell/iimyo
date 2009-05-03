@@ -24,8 +24,5 @@ km = k(1:end-2).*k(2:end-1)./(k(1:end-2)+k(2:end-1));
 A = - diag([0,kp],1) - diag([km,0],-1) + ...
     diag([1,+kp+km,1]);
 
-b = zeros(size(k));
-b(1) = interval(1);
-b(end) = interval(2);
-
+b = [interval(1),zeros(size(k)),interval(2)];
 y = (A\b')';
