@@ -1,3 +1,7 @@
+========================================================
+LEEME para Matemáticas en Ingeniería con Matlab y Octave
+========================================================
+
 A partir de la revisión 94 el árbol de directorios se ha adaptado a la
 escritura de la segunda edición del libro de modo que todo lo que no
 sea necesario para sphinx se ha movido a otros directorios.
@@ -15,3 +19,23 @@ herramientas:
 * Sphinx
 
 * Make
+
+* Inkscape
+
+Generar el documento HTML
+=========================
+
+Teclear en la consola::
+
+  $> make pngfig
+  $> make html
+
+
+Generar el documento LaTeX
+==========================
+
+Teclear en la consola::
+
+  $> make pdffig
+  $> make latex
+
