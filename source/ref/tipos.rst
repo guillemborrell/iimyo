@@ -1,9 +1,7 @@
 Tipos, operadores y expresiones
 ===============================
 
-Matlab es un lenguaje dinámico con lo que no es necesario declarar el
-tipo de una variable.  Será más sencillo entender las implicaciones
-de lo anterior empezando con lo más simple
+Antes de empezar, un poco de formalismo.  Tomemos la siguiente expresión
 
 .. code-block:: matlab
 
@@ -15,8 +13,164 @@ La línea de código anterior tiene tres símbolos:
 
 * ``=`` es el operador asignación.  
 
-* ``1`` es el dato introducido de forma explícita.  Esta manera de
-  introducir los datos se llama *literal*
+* ``1`` es el literal que da el valor a la asignación.
+
+Una variable puede tener cualquier nombre, independientemente de la
+longitud, siempre que no empiece por un número ni contenga ninguno de
+los símbolos reservados para el propio lenguaje como ``+``, ``-``,
+``:``... Se recomienda encarecidamente, y en esto Matlab no se
+distingue de ningún lenguaje de programación, utilizar nombres de
+variables descriptivos y tener mucho cuidado con la brevedad.
+
+.. important::
+
+   Matlab distingue entre minúsculas y mayusculas, esto es, los
+   nombres ``v`` y ``V`` designan variables distintas.
+
+El operador asignación simlemente carga el valor de lo que se
+encuentre a la derecha en la variable de la izquierda.  Cualquier
+cálculo aritmético que no contenga una asignación mostrará en pantalla
+el resultado y lo asignará a una variable reservada llamada ``ans``
+
+.. code-block:: matlab
+
+   >> 2 + 2
+
+   ans = 4
+
+   >> ans + 2
+
+   ans = 6
+
+Caracteres especiales
+---------------------
+
+Antes de entrar en el tema de los literales analizaremos una pieza que
+bien ha podido pasar inadvertida, el punto y coma final.  Matlab
+dispone de convenciones para modificar ligeramente el comportamiento
+del intérprete.
+
+El más básico es el punto y coma.  Introducido al final de la línea
+inhibe al intérprete de mostrar el resultado por pantalla.  Esto no
+significa que el resultado práctico no sea el mismo.  La línea se
+ejecuta sin ninguna diferencia y si no existe asignación el resultado
+se carga en la variable ``ans``.
+
+Los comentarios se introducen mediante el símbolo de porcentaje
+``%``. No hay ninguna manera de especificar bloques comentados como en
+C.
+
+.. warning::
+
+   Octave conserva, de cuando no intentaba ser plenamente compatible
+   con Matlab, el antiguo símbolo de comentario ``#``. Debemos ser
+   conscientes que al utilizarlo estamos destruyendo la portabilidad
+   entre ambos intérpretes
+
+.. note::
+
+   Hay un par de trucos con los comentarios en Matlab que ayudan a
+   organizar los scripts.  Si se escribe una línea con una generosa
+   cantidad de comentarios dividirá el archivo en bloques, Matlab
+   llama a eso *Cell mode*.  Si antes del texto se escriben dos
+   símbolos de comentario la línea aparaecerá en negrita.
+
+.. note::
+
+   Hay multitud de editores capaces de colorear el código Matlab e
+   incluso capaces de echarnos una mano al ejecutar scripts y
+   comunicarnos con el intérprete.  Los usuarios de Emacs cuentan
+   tanto con un modo Octave como con un modo Matlab.  Desgraciadamente
+   los archivos *.m* inician el modo para programar en objective C.
+
+Las continuaciones de línea se expresan con la sucesión de tres puntos
+``...``.  Este ejemplo sería sintácticamente correcto
+
+.. code-block:: matlab
+
+   >> a = ...
+   2 ...
+   + 2
+
+   a = 4
+
+.. important::
+
+   Una ley no escrita de la programación que parece olvidarse
+   progresivamente es la sana práctica de no excederse de 80 columnas
+   en el código.  La mayoría de los editores nos avisan de algún modo
+   de esta convención pero no nos impiden escribir líneas más largas.
+   El editor de Matlab nos marca el límite con una sutil línea
+   vertical.  Hace ya unos cuantos años los compiladores se negaban a
+   entender más allá del caracter 80 porque era el ancho del terminal
+   UNIX.
+
+.. warning::
+
+   Octave también conserva su anterior símbolo de continuación de
+   línea por compatibilidad hacia atrás, la contrabarra ``\``.  Se
+   trata de un error sintáctico porque existe un operador que utiliza
+   el mismo símbolo.
+
+Literales
+---------
+
+En programación todo tiene un tipo porque el ordenador no entiende
+mucho de ambigüedades. Un entero no es lo mismo que un escalar en coma
+flotante o una cadena de caracteres porque no los almacena físicamente
+en su memoria de la misma manera. Este funcionamiento interno se
+esconde en la práctica pero deja su huella en el lenguaje. No se
+diferencia entre enteros y escalares en coma flotante como formalismo
+matemático sino para que el lenguaje exprese las diferencias
+esenciales entre ambos.
+
+Estas distinciones provocan un problema secundario, un programa es un
+conjunto de caracteres ASCII (Matlab incluso soporta en parte
+Unicode).  ¿Cómo puedo distinguir entre un escalar entero y en coma
+flotante? ¿Y una cadena de caracteres?
+
+Matlab tiene un conjunto de literales muy limitado, sólo podemos
+introducir escalares en coma flotante de doble precisión y cadenas de
+caracteres. Cualquier otro tipo tendrá que generarse a través de las
+funciones de conversión correspondientes.
+
+.. function:: class(argin)
+
+   Devuelve como cadena de caracteres el tipo de *argin*
+
+Para los habituales de otros lenguaje4s de programación esta línea de
+código les parecerá sorprendente.
+
+.. code-block:: matlab
+
+   >> class(1)
+
+  ans = double
+
+Las cadenas de caracteres se introducen entre comillas simples
+
+.. code-block:: matlab
+
+   >> say = 'hello'
+
+   say = hello
+
+.. warning::
+
+   Octave, también por motivos de compatibilidad, soprta utilizar la
+   comilla doble como delimitador de cadenas de caracteres.
+
+Octave cuenta adicionalmente con las cifras hexadecimales como
+literal.  Es útil cuando, al escribir extensiones en C o C++ se tenga
+que hacer aritmética de punteros.
+
+.. code-block:: matlab
+
+   octave>> 0x5662a4
+   ans =  5661348
+
+Matlab como lenguaje interpretado
+---------------------------------
 
 Una manera intuitiva de entender mejor los lenguajes dinámicos es
 imaginar que el operador asignación hace más de lo que parece.  Si la
@@ -74,19 +228,14 @@ Tipos numéricos
 Escalares
 .........
 
-Matlab trata de un modo bastante particular los tipos numéricos.
-Cualquier escalar definido por un literal genera un real de doble
-precisón
+Matlab soporta los tipos escalares enteros y reales presentes en la
+mayoría de arqutecturas: enteros de 8, 16,32 y 64 bits y reales de
+simple y doble precisión.
 
-.. code-block:: matlab
+.. warning::
 
-  >> a = 1;
-  >> typeinfo(a)
-  ans = scalar
-  
-Esto significa que cualquier escalar es en memoria por defecto un real
-de doble precisión.  Si se necesita definir un escalar de cualquier
-otro tipo deberá utilizarse la función correspondiente.
+   Nunca hay que olvidar que cualqier literal numérico será
+   considerado un real de doble precisión.
 
 Los reales de doble precisión definidos por IEEE_ son los números
 entre el 2.2251e-308 al 1.7977e+308 con una precisión de
@@ -121,10 +270,21 @@ Para definir escalares enteros disponemos de una colección de
 funciones 
 
 
+.. function:: cast(argin)
+   
+   A comentar
+
 Matrices
 ........
 
 Contenedores
 ------------
 
+Estructuras
+...........
 
+Celdas
+......
+
+Function handles
+................

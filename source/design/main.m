@@ -27,5 +27,4 @@ end
 plot(h,fond);
 xlabel('Altitud [m]');
 ylabel('Tiempo de vuelo [s]');
-print -deps 'saque.eps'
-print -dpng 'saque.png'
+
