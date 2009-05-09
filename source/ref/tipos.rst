@@ -138,7 +138,7 @@ funciones de conversión correspondientes.
 
    Devuelve como cadena de caracteres el tipo de *argin*
 
-Para los habituales de otros lenguaje4s de programación esta línea de
+Para los habituales de otros lenguajes de programación esta línea de
 código les parecerá sorprendente.
 
 .. code-block:: matlab
@@ -237,12 +237,12 @@ simple y doble precisión.
    Nunca hay que olvidar que cualqier literal numérico será
    considerado un real de doble precisión.
 
-Los reales de doble precisión definidos por IEEE_ son los números
+Los reales de doble precisión definidos por IEEE son los números
 entre el 2.2251e-308 al 1.7977e+308 con una precisión de
 aproximadamente 2.2204e-16, esto es, dieciseis cifras
 significativas. Este número depende de la arquitectura del ordenador y
 de si éste soporta o no la aritmética en coma flotante de 64 bits de
-IEEE_.  Esta colección de números debería ser suficiente para expresar
+IEEE.  Esta colección de números debería ser suficiente para expresar
 cualquier cantidad con sentido físico puesto que los límites son
 superiores al número de átmos del universo y la precisión está cerca
 de la longitud de Planck.
