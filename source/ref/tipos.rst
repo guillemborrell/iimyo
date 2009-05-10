@@ -138,6 +138,10 @@ funciones de conversión correspondientes.
 
    Devuelve como cadena de caracteres el tipo de *argin*
 
+   :arg argin: variable
+   :rtype: el tipo de *argin* como cadena de caracteres
+   
+
 Para los habituales de otros lenguajes de programación esta línea de
 código les parecerá sorprendente.
 
@@ -203,19 +207,23 @@ Podemos imaginar las variables en los lenguajes dinámicos como un
 simple nombre para manipular lo que se ha creado mediante el operador
 asignación ya sea a través de un literal o de otras expresiones.
 
-.. function:: typeinfo(expr)
+.. function:: typeinfo(argin)
 
    (Octave) Imprime en la pantalla el tipo del resultado de la
-   expresión *expr*.  Si no se da ningún argumento lista todos los
+   expresión *argin*.  Si no se da ningún argumento lista todos los
    tipos disponibles
 
-.. function:: whos('str')
+   :arg argin: variable o nada.
+   :rtype: el tipo de *argin* como cadena de caracteres,
+
+
+.. function:: whos(argin)
    
-   Cuando *str* es el nombre de una variable como cadena de caracteres
+   Cuando *argin* es el nombre de una variable como cadena de caracteres
    devuelve la información correspondiente a la misma que incluye sus
    dimensiones, el tamaño en memoria, el tipo y los atributos.  Si se
    utiliza como sentencia devuelve la información de todas las
-   funciones presentes en el espacio de variables,
+   funciones presentes en el espacio de variables.
 
 .. note::
 
@@ -261,8 +269,8 @@ de la longitud de Planck.
 
 .. function:: eps(argin)
 
-   Llamada sin argumentos, la función **eps** devuelve un escalar con
-   la precisión numérica de la representación en coma flotante del
+   Llamada sin argumentos, la función *eps* devuelve un escalar con la
+   precisión numérica de la representación en coma flotante del
    sistema.  Con argumentos devuelve una matriz del tamaño solicitado
    cuyos elementos son dicha precisión.
 

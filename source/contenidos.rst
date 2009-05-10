@@ -10,6 +10,12 @@ Matemáticas en Ingeniería con Matlab y Octave
    El intérprete Octave <octave>
    Ejercicios <ejercicios>
 
+:Versión: |release|
+:Fecha: |today|
+
+.. centered:: Prólogo
+
+Algo que decir aquí
 
 Índices y Tablas
 ^^^^^^^^^^^^^^^^
