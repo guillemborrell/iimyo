@@ -172,10 +172,17 @@ La función ``evalin`` es capaz de evaluar una variable fuera del
 contexto de la función.  Matlab llama al contexto del programa
 principal *base* y al contexto de la función *caller*.
 
-.. function:: evalin(context, try, catch)
+.. function:: evalin(context, try[, catch])
 
    Evalúa una sentencia en el contexto *context* que puede ser bien
    *base* o *caller* 
+
+   :arg context: Nombre del contexto donde ejecutar
+   :type context: 'base' o 'caller'
+   :arg try: Comando a ejecutar
+   :type try: char
+   :arg catch: Comando a ejecutar cuando *try* falle
+   :type catch: sólo Octave, char
 
 Un ejemplo de uso de la función ``evalin`` sería evaluar una variable
 del espacio base de la siguiente manera

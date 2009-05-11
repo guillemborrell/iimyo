@@ -46,58 +46,95 @@ posición de memoria.  Este código de bajo nivel, llamado comúnmente
 ensamblador, es traducido a lenguaje máquina que ya un ordenador es
 capaz de entender.  Aunque hoy este método de programación pueda
 parecer inverosímil es la mejor manera de mover máquinas lentas y con
-poca memoria como las de entonces.  El paso siguiente fue la aparición
-del compilador.  A medida que los ordenadores se hacían más potentes
-escribir los programas en ensamblador empezó a hacerse una tarea muy
-laboriosa.  El siguiente paso fue utilizar el mismo ordenador para
-traducir desde un lenguaje más natural, de alto nivel, a ensamblador;
-esto es, utilizar el ensamblador como lenguaje intermedio.  El
-programa que convierte este código más "humano" se llama compilador.
-Este planteamiento tiene un pequeño problema: el código ensamblador no
-es el mismo para todas las arquitecturas.  Un programa compilado para
-x86 no puede ejecutarse en SPARC o POWER. El paso siguiente es poder
-utilizar un ensamblador independiente de cada arquitectura, un
-traductor de código propio a código máquina.  Esta aplicación se llama
-*máquina virtual*.  Con una máquina virtual el compilador traduce del
-lenguaje de alto nivel a ese código propio.  Una máquina virtual es
-tan lista como se desee (mucho más lista que un procesador) y
-realizará tareas como la declaración de variables, la liberación de
+poca memoria como las de entonces.
+
+El paso siguiente llegó con la aparición de los compiladores.  A
+medida que los ordenadores se hacían más potentes escribir los
+programas en ensamblador empezó a hacerse una tarea muy laboriosa. El
+número de direcciones de memoria crecía exponencialmente y las
+arquitecturas, aunque seguían el modelo de Von Neumann, se hacían más
+complejas.  El siguiente paso fue utilizar el mismo ordenador para
+traducir desde un lenguaje más humano, de alto nivel, a ensamblador.
+El ensamblador pasó de ser un lenguaje de uso a un léxico intermedio.
+El programa que convierte este código de alto nivel se llama
+compilador.
+
+Este planteamiento tiene una ventaja adicional. El código ensamblador
+no es el mismo para todas las arquitecturas.  Un programa compilado
+para x86 no puede ejecutarse en SPARC o POWER pero el código es el
+mismo. El programa de Kernighan y Ritchie [KnR]_
+
+.. code-block:: c
+
+   #include "stdio.h"
+   
+   int main()
+   {
+     printf("Hello, world!\n");
+   }
+
+Produce exactamente el mismo resultado en cualquier ordenador siempre
+que disponga de un compilador de lenguaje C. Esto asegura la
+portabilidad a nivel de código, no a nivel de ejecutable.   
+
+El paso siguiente es poder utilizar un ensamblador independiente de
+cada arquitectura mediante un traductor de código propio a código
+máquina.  Esta aplicación se llama *máquina virtual*. Una máquina
+virtual es tan lista como se desee (mucho más lista que un procesador)
+y realizará tareas como la declaración de variables, la liberación de
 memoria o la gestión del flujo de ejecución. El conjunto compilador y
 máquina virtual se denomina intérprete y los lenguajes que soportan
 este funcionamiento se llaman *lenguajes interpretados*.  Que el
 código sea ejecutado por un programa y no por el propio ordenador es
 mucho más lento, por este motivo las máquinas virtuales no se
-popularizaron hasta finales de los noventa.  El paso siguiente es
-hacer desaparecer incluso este ensamblador intermedio y con él el
-compilador.  Ya no existe un compilador y una máquina virtual sino que
-sólo un programa, el intérprete, realiza todo el trabajo.  Este último
-planteamiento no es necesariamente superior en eficacia o rendimiento
-a una máquina virtual, simplemente es más fácil de diseñar e
-implementar.  Matlab pertenece a este último grupo.
+popularizaron hasta finales de los noventa.
+
+El paso siguiente es hacer desaparecer incluso este ensamblador
+intermedio y con él el compilador.  Ya no existe un compilador y una
+máquina virtual sino que sólo un programa, el intérprete, realiza todo
+el trabajo.  Este último planteamiento no es necesariamente superior
+en eficacia o rendimiento a una máquina virtual, simplemente es más
+fácil de diseñar e implementar.  Matlab pertenece a este último grupo.
 
 Lenguajes estáticos y dinámicos
 ...............................
 
-Un requisito imprescindible cuando no se utiliza un intérprete es que
-cada una de las variables del programa debe tener un tipo asignado, su
-expresión en la memoria del ordenador.  Si la variable *i* debe
-contener un número entero el compilador debe saberlo antes de traducir
-el código.  Es por este motivo que en lenguajes como Fortran o C es
-necesario *declarar* las variables antes de utilizarlas por primera
-vez.
+En muchos lenguajes de programación como C o Fortran es imprescindible
+declarar cada variable.  La definición estricta de declaración es la
+de identificar un determinado espacio en la memoria del ordenador con
+un nombre.  Volviendo otra vez a un C que cualquiera pueda entender la
+declaración
 
-Como hemos mencionado en el apartado anterior, un intérprete es mucho
-más listo.  Esto puede aprovecharse para que no sea imprescindible
-utilizar la declaración y que el intérprete vaya siguiendo el tipo de
-cada variable desde la asignación inicial durante toda la ejecución
-del programa. Esa variable *i* que en un principio es un entero puede
-convertirse en cualquier momento en un número en coma flotante,
-en este caso el intérprete se encargará que la variable *i* cambie de
-tipo adecuadamente en tiempo de ejecución.
+.. code-block:: c
 
-Los lenguajes para los que la declaración es imprescindible se
-denominan *estáticos* y los que no la necesitan se llaman *dinámicos*.
-La mayoría de lenguajes interpretados son dinámicos.  
+   int a;
+
+significa que un espacio en la memoria física lo suficientemente
+grande como para almacenar un entero va a recibir el nombre de
+``a``. Estos lenguajes, los que asocian variables a memoria, se llaman
+*estáticos*
+
+La llegada de los lenguajes interpretados permitió manejar la memoria
+de una manera mucho más versátil. Java, que aunque es interpretado es
+también estático, incluye un recolector de basura que descarga al
+programador de la tarea de limpiar la memoria. Pero la mayoría de los
+lenguajes interpretados modernos como Python o Ruby son además
+*dinámicos*.  En un lenguaje dinámico no existen declaraciones porque
+el concepto de variable es distinto, *ya no es el nombre que se asocia
+a un espacio en la memoria, es el nombre de un valor*. De esta manera
+la variable tiene un sentido mucho más natural, más matemático. Matlab
+es un lenguaje dinámico aunque no puede considerarse moderno.
+
+Desde el punto de vista del intérprete cualquier variable o
+estructuras de variables son mutables en tiempo de ejecución
+complicando significativamente el manejo de memoria.
+
+Programar con un lenguaje dinámico es completamente distinto hacerlo
+con uno estático.  La mayor versatilidad suele venir acompañada de
+mayor coste computacional o de nuevos errores de programación. No
+debemos perder nuca de vista que la programación es la manipulación de
+datos almacenados en la memoria de un ordenador y con un lenguaje
+dinámico estamos más lejos de los mismos.
 
 Otros intérpretes de lenguaje Matlab
 ....................................
@@ -155,28 +192,5 @@ utilizar ninguna aplicación externa.  El producto Matlab es, si se
 busca una definición estricta, un IDE para la programación en lenguaje
 Matlab.
 
-Qtoctave
-........
 
-Qtoctave es un IDE para el uso del intérprete Octave.  Su nombre viene
-dado por la librería gráfica que usa, Qt, de Nokia.  Desarrollado Luis
-Lucas Rosado, es también un proyecto de software libre que va ganando
-madurez con el tiempo.
-
-
-Aviso al lector
-===============
-
-La referencia del lenguaje puede ser utilizada por cualquiera
-independientemente de su nivel, no es más que una introducción a un
-lenguaje de programación como cualquier otra.  Sí será ventajoso
-contar con cierto bagaje en informática.  Matlab carece del formalismo
-necesario para aprender a programar, podría decirse que es un lenguaje
-poco higiénico para quien da los primeros pasos en el campo de la
-programación.
-
-Sin embargo los ejemplos son soluciones numéricas a problemas que
-utilizan conceptos provenientes del cálculo numérico en ecuaciones
-diferenciales ordinarias y ecuaciones en derivadas parciales y del
-análisis matemático. Difícilmente se podrán seguir con aprovechamiento
-sin conocer las herramientas que sirven para llegar a la solución.
+.. [KnR] El Lenguaje de Programación C. Brian W. Kernighan, Dennis M. Ritchie. Pearson Educación (2ª Ed. 1991)

@@ -13,7 +13,7 @@ clásico para el control automático.
       :align: center
       :scale: 200
 
-      Esquema de un péndulo invertido con movimiento horizontal. [INV]_
+      Esquema de un péndulo invertido con movimiento horizontal. 
 
 .. only:: html
 
@@ -21,13 +21,13 @@ clásico para el control automático.
       :align: center
       :scale: 70
 
-      Esquema de un péndulo invertido con movimiento horizontal. [INV]_
+      Esquema de un péndulo invertido con movimiento horizontal. 
   
 Una de las claves del péndulo invertido es intentar controlar el
 movimiento de la masa moviendo el otro extremo de la barra.  En el
 ejemplo del carrito se demuestra que la barra se puede mantener en
 posición vertical para una perturbación dada lo suficientemente
-pequeña.
+pequeña [INV]_.
 
 Existe otra posibilidad, la de mantener la barra en posición vertical
 moviendo la base del péndulo también con una trayectoria vertical como
