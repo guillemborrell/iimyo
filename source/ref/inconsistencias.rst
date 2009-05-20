@@ -88,10 +88,39 @@ La innecesaria distinción entre filas y columnas
 El punto y coma absurdo
 -----------------------
 
-Funciones y sentencias o, cómo ahorrarse paréntesis
----------------------------------------------------
+Funciones y sentencias o cómo ahorrarse paréntesis
+--------------------------------------------------
 
+Hay una distinción fundamental entre funciones y sentencias. Una
+sentencia, como lo es ``for`` o ``if`` son partes del lenguaje y se
+encargan del control de flujo de ejecución. Una función encapsula una
+tarea, no es más que un bloque de ejecución.
 
+En algunos casos, cuando una función es muy habitual y penalizando la
+consistencia, se convierte en una sentencia pero sigue siendo una
+función porque se llama con argumentos.
+
+En Matlab existen dos casos paradigmáticos que rompen totalmente con
+la sintaxis con la única finalidad de ahorrarse un par de paréntesis y
+un par de comillas como ``hold`` y ``print``.
+
+Fijémonos en el uso de la sentencia ``hold``.  Si quiere activarse el
+redibujo se escribe
+
+.. code-block:: matlab
+
+   hold on
+
+Para alguien que no hubiera visto nunca Matlab esto es una sentencia
+que recibe una variable como argumento.  Ni *hold* es una sentencia ni
+*on* es una variable.
+
+``print`` es de patología más severa.  Aunque puede llamarse como una
+función está diseñado para ser llamado como un comando de consola al
+estilo UNIX.  Las opciones se pasan con el prefijo ``-``, algo que
+parecerá habitual a los usuarios de los sistemas operativos serios. Lo
+más grave es que, cuando *print* se llama como función los argumentos
+también deben utilizar el mismo prefijo.
 
 .. important::
 
@@ -107,3 +136,10 @@ Funciones y sentencias o, cómo ahorrarse paréntesis
   Aunque sean menos evidentes los otros cambios causaron peores
   dolores de cabeza.
 
+El motivo de la conversión de funciones en sentencias es únicamente
+por la brevedad al escribir una frase muy habitual.  Una llamada
+consistente sería
+
+.. code-block:: matlab
+
+   hold(true)
