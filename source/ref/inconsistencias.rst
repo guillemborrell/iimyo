@@ -68,12 +68,21 @@ es un grave error.  Mucho más cuando la popularidad de Matab hace que
 vea usos totalmente inadecuados como la enseñanza de los fundamentos
 de la programación.
 
-Abreviaturas e indexación múltiple
-----------------------------------
+La verdad sobre la indexación múltiple
+--------------------------------------
 
-Este es un pequeño cajón de sastre que pongo en primer lugar porque
-trata temas que aparecen en los siguientes apartados.  En este caso la
-posición no implica relevancia.
+Matlab heredó parte de su sintaxis de Fortran, el que fue, es y será
+el lenguaje del cálculo científico de altas prestaciones por
+excelencia. Una de las particularidades de Fortran respecto al resto
+de lenguajes de programación es el tratamiento estricto de las
+dimensiones de una matriz.  Este tratamiento se ha reforzado en las
+últimas revisiones del lenguaje haciéndolo aún más estricto. Pero hubo
+una cosa que los creadores de Matlab no entendieron del todo bien: el
+hecho que en Fortran no existan la indexación múltiple no significa
+que haya matrices en vez de arrays.
+
+El concepto de matriz es matemático
+
 
 La innecesaria distinción entre filas y columnas
 ................................................
@@ -181,6 +190,12 @@ significado verdadero.
 Funciones y archivos
 --------------------
 
+¿Cuál es el paradigma de Matlab?
+................................
+
+La orientación a objetos
+........................
+
 El punto de la muerte
 ---------------------
 
@@ -242,3 +257,5 @@ sería
 .. code-block:: matlab
 
    hold(true)
+
+.. [KNU] Donald E. Knuth. The Art Of Computer Programming. http://www-cs-faculty.stanford.edu/~knuth/taocp.html
