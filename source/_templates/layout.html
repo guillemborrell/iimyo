@@ -1,4 +1,4 @@
-{ extends ’!layout.html’ }
+{% extends "!layout.html" %}
 
 {%- block footer %}
     <div class="footer">
@@ -6,7 +6,7 @@
       {% trans path=pathto('copyright'), copyright=copyright|e
       %}&copy; <a href="{{ path }}">Copyright</a> <a href="http://guillemborrell.es">{{ copyright }}</a>.{% endtrans %}
     {%- else %}
-      {% trans copyright=copyright|e %}&copy; Copyright {{ copyright }}.{% endtrans %}
+      {% trans copyright=copyright|e %}&copy;(<a href="http://guillemborrell.es/">http://guillemborrell.es</a>) Copyright {{ copyright }}.{% endtrans %}
     {%- endif %}
     {%- if last_updated %}
       {% trans last_updated=last_updated|e %}Last updated on {{ last_updated }}.{% endtrans %}

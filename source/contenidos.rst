@@ -2,6 +2,11 @@
 Matemáticas en Ingeniería con Matlab y Octave
 =============================================
 
+.. centered:: Prólogo
+
+Algo que decir aquí
+
+
 .. toctree::
    :maxdepth: 3
 
@@ -13,9 +18,6 @@ Matemáticas en Ingeniería con Matlab y Octave
 :Versión: |release|
 :Fecha: |today|
 
-.. centered:: Prólogo
-
-Algo que decir aquí
 
 Índices y Tablas
 ^^^^^^^^^^^^^^^^

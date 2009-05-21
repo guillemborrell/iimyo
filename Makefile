@@ -35,6 +35,10 @@ pngfig:
 pdffig:
 	python makefigures.py pdf
 
+upload:
+
+	scp -r build/html/* iimyo@forja.rediris.es:/htdocs/
+
 clean:
 	-rm -rf build/*
 
