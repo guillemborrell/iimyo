@@ -68,22 +68,121 @@ es un grave error.  Mucho más cuando la popularidad de Matab hace que
 vea usos totalmente inadecuados como la enseñanza de los fundamentos
 de la programación.
 
+Abreviaturas e indexación múltiple
+----------------------------------
+
+Este es un pequeño cajón de sastre que pongo en primer lugar porque
+trata temas que aparecen en los siguientes apartados.  En este caso la
+posición no implica relevancia.
+
+La innecesaria distinción entre filas y columnas
+................................................
+
+
 ¿Qué es una celda?
 ------------------
 
 Fijémonos en la cabecera de la definición de una función
+
+.. code-block:: matlab
+
+   function [x,y,z] = foo(p,q,r)
+
+Si analizamos sintácticamente la frase tenemos una sentencia como
+``function`` que anuncia la declaración de una función, posteriormente
+viene una matriz que contiene tres variables, el operador asignación y
+finalmente el enunciado de cabecera de función.
+
+Fijémonos ahora en el elemento ``[x,y,z]``, rigurosamente hablando es
+una matriz que contiene tres variables pero en realidad es una
+asignación triple.  Esto suele llamarse un triple o un tuple de tres
+elementos y es un tipo presente en muchos lenguajes de programación
+dinámicos. ¿Entonces en caso de la asignación múltiple los corchetes
+designan matrices o tuples?  Vamos a comprobarlo
+
+.. code-block:: matlab
+
+  >> [x,y,z] = [1,2,3]
+  ??? Too many output arguments.
+
+Pues ahora parece que lo de la izquierda es un tuple y lo de la
+derecha es una matriz. Parece que llegamos a una conclusión, cuando
+algo delimitado por corchetes está al lado izquierdo de una asignación
+es un tuple y si está en el lado derecho es una matriz.  Hasta que
+definimos la función ``foo``
+
+.. code-block:: matlab
+   
+   function [x,y,z] = foo(p,q,r)
+     x = p;
+     y = q;
+     z = r;
+
+Y probamos lo siguiente
+
+.. code-block:: matlab
+
+   >> x = foo(1,2,3)
+   x =
+        1
+
+¿Entonce qué retorna una función? La cabecera establece claramente una
+asignación triple pero al encontrar sólo un argumento de salida lo
+convierte en una asignación simple e ignora los otros argumentos.
+Entonces la cabecera no sirve para nada y establece una jerarquía de
+argumentos. 
+
+El defecto subyacente es que Matlab no tiene un operador asignación
+completamente consistente que establece la excepción de las llamadas a
+funciones. Este defecto podría solucionarse si los *cell arrays*
+se comportaran como tuples y soportaran la asignación
+múltiple. Uniendo lo anterior a que las funciones tuvieran a celdas
+como argumentos de salida podríamos arreglar ese defecto en el
+operador asignación. Este sería un ejemplo del declaración.
+
+.. code-block:: matlab
+
+   function {x,y,z} = foo(p,q,r}
+     x = p;
+     y = q;
+     z = r;
+
+Y este su funcionamiento
+
+.. code-block:: matlab
+
+   >> foo(1,2,3)
+   ans =    
+       [1]    [2]    [3]
+
+   >> {x,y,z} = foo(1,2,3)
+   x = 
+        1
+
+   y =
+        2
+   
+   z =
+        3
+
+   >> x = foo(1,2,3)
+   ??? Not enough output arguments.
+
+   >> x = foo(1,2,3)(1)
+   x = 
+        1
+
+¿Qué son entonces los cell arrays?  Paraecen una manera un poco más
+sofisticada de ordenar valores pero es difícil encontrar el por qué de
+su existencia.  Permitiendo la asignación múltiple con cell arrays y
+la indexación múltiple se podría dotar al operador asignación de un
+significado verdadero.
 
 Funciones y archivos
 --------------------
 
 El punto de la muerte
 ---------------------
-
-Abreviaturas
-------------
-
-La innecesaria distinción entre filas y columnas
-------------------------------------------------
 
 El punto y coma absurdo
 -----------------------
@@ -136,9 +235,9 @@ también deben utilizar el mismo prefijo.
   Aunque sean menos evidentes los otros cambios causaron peores
   dolores de cabeza.
 
-El motivo de la conversión de funciones en sentencias es únicamente
-por la brevedad al escribir una frase muy habitual.  Una llamada
-consistente sería
+El motivo de la conversión de funciones en sentencias es obtener mayor
+brevedad al escribir una frase muy habitual.  Una llamada consistente
+sería
 
 .. code-block:: matlab
 
