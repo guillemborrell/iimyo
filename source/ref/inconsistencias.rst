@@ -2,111 +2,211 @@ Algunas inconsistencias
 =======================
 
 Una vez nombrados todos los elementos propios del lenguaje Matlab, a
-falta de tratar la pr谩ctica de la programaci贸n, es el momento de
-aplicar el sentido cr铆tico al lenguaje y sacarle los defectos.
+falta de tratar la pr佱ctica de la programaci侒n, es el momento de
+aplicar el sentido cr來tico al lenguaje y sacarle los defectos.
 
 Desde un punto de vista puramente formal Matlab es un lenguaje que
-arrastra ciertos malos vicios debido a la compatibilidad hacia atr谩s.
-Es curioso comprobar c贸mo, aunque Mathworks ha mostrado todo el
-inter茅s posible por a帽adir al lenguaje las caracter铆sticas necesarias
-para hacerlo m谩s comercial, se han esmerado poco en corregir los
+arrastra ciertos malos vicios debido a la compatibilidad hacia atr佱s.
+Es curioso comprobar c侒mo, aunque Mathworks ha mostrado todo el
+inter侀s posible por a侎adir al lenguaje las caracter來sticas necesarias
+para hacerlo m佱s comercial, se han esmerado poco en corregir los
 errores del pasado.
 
-Matlab en la ense帽anza
+Matlab en la ense侎anza
 ----------------------
 
 Soy un firme detractor del uso de Matlab como lenguaje de uso en
-cursos de programaci贸n. Esta es una opini贸n puramente personal pero
-est谩 s贸lidamente fundamentada. 
+cursos de programaci侒n. Esta es una opini侒n puramente personal pero
+est佱 s侒lidamente fundamentada. 
 
-El objetivo primordial de un curso de programaci贸n no es ser
-productivo ni aprender c谩lculo num茅rico.  Desgraciadamente existe el
-empe帽o generalizado de intentar ense帽ar las tres cosas a la
+El objetivo primordial de un curso de programaci侒n no es ser
+productivo ni aprender c佱lculo num侀rico.  Desgraciadamente existe el
+empe侎o generalizado de intentar ense侎ar las tres cosas a la
 vez. Cuando se cae en ese error se empieza a ver Matlab como una
-elecci贸n adecuada.
+elecci侒n adecuada.
 
-El arte o la pr谩ctica de programar es el de manipular datos con
-operaciones aritm茅ticas para completar una tarea con un
-ordenador. Debemos fijarnos que en esta definici贸n no aparecen
-lenguajes, c谩lculo num茅rico, matem谩ticas... Es algo que uno de los
+El arte o la pr佱ctica de programar es el de manipular datos con
+operaciones aritm侀ticas para completar una tarea con un
+ordenador. Debemos fijarnos que en esta definici侒n no aparecen
+lenguajes, c佱lculo num侀rico, matem佱ticas... Es algo que uno de los
 mayores expertos en el tema, Donald Knuth, sabe perfectamente.  En su
-obra enciclop茅dica *The Art of Computer Programming* utiliza un
-lenguaje inventado de sem谩ntica com煤n a la mayor铆a de lenguajes para
-programaci贸n estructurada.
+obra enciclop侀dica *The Art of Computer Programming* utiliza un
+lenguaje inventado de sem佱ntica com侜n a la mayor來a de lenguajes para
+programaci侒n estructurada.
 
-Pero ense帽ar a programar sin un lenguaje de programaci贸n es
-terriblemente lento porque obliga a aprender dos veces lo mismo: c贸mo
-programar y c贸mo utilizar un lenguaje de programaci贸n as铆 que por
-brevedad la mayor铆a de cursos de programaci贸n se basan en aprender a
-programar con un lenguaje pero... 驴Qu茅 lenguaje? Si tuvi茅ramos que
-escoger uno tomar铆amos el que tuviera una sem谩ntica lo m谩s consistente
+Pero ense侎ar a programar sin un lenguaje de programaci侒n es
+terriblemente lento porque obliga a aprender dos veces lo mismo: c侒mo
+programar y c侒mo utilizar un lenguaje de programaci侒n as來 que por
+brevedad la mayor來a de cursos de programaci侒n se basan en aprender a
+programar con un lenguaje pero... 伩Qu侀 lenguaje? Si tuvi侀ramos que
+escoger uno tomar來amos el que tuviera una sem佱ntica lo m佱s consistente
 posible, sin excepciones ni sutilezas.  Esta no es, de lejos, la mayor
 virtud de Matlab.  De hecho es su mayor defecto.
 
-Las lenguas m谩s dif铆ciles de aprender son las que, con peque帽os
+Las lenguas m佱s dif來ciles de aprender son las que, con peque侎os
 cambios en las palabras o la sintaxis, generan significados
 completamente distintos.  En el chino, por ejemplo, la palabra que
 para un occidental suena como *ma* puede tener hasta cuatro
-significados distintos dependiendo de la pronunciaci贸n de la vocal. No
+significados distintos dependiendo de la pronunciaci侒n de la vocal. No
 es muy distinto del hecho de cambiar el comportamiento de un operador
-como la multiplicaci贸n (``*``) con otro (``.*``).
+como la multiplicaci侒n (``*``) con otro (``.*``).
 
-A continuaci贸n se listan algunas de las caracter铆sticas del lenguaje
-que deber铆an ser eliminadas o modificadas para conseguir una mayor
-consistencia. 驴Es eso posible? Es muy dif铆cil que un lenguaje de
-programaci贸n salga bien a la primera.  Fortran ha visto nueve
-revisiones desde su aparici贸n en los cincuenta. Los desarrolladores de
-Python se atrevieron a introducir cambios que romp铆an todo el c贸digo
-existente justo durante la revoluci贸n de las aplicaciones web con el
-煤nico objetivo de llevar su filosof铆a hasta su 煤ltima
+A continuaci侒n se listan algunas de las caracter來sticas del lenguaje
+que deber來an ser eliminadas o modificadas para conseguir una mayor
+consistencia. 伩Es eso posible? Es muy dif來cil que un lenguaje de
+programaci侒n salga bien a la primera.  Fortran ha visto nueve
+revisiones desde su aparici侒n en los cincuenta. Los desarrolladores de
+Python se atrevieron a introducir cambios que romp來an todo el c侒digo
+existente justo durante la revoluci侒n de las aplicaciones web con el
+侜nico objetivo de llevar su filosof來a hasta su 侜ltima
 consecuencia. Cambiar los lenguajes es posible y en muchos casos es
 beneficioso.
 
-Este cap铆tulo no pretende influir en Mathworks sino en el
+Este cap來tulo no pretende influir en Mathworks sino en el
 lector. Mitificar cualquier herramienta por fabulosa que pueda parecer
-es un grave error.  Mucho m谩s cuando la popularidad de Matab hace que
-vea usos totalmente inadecuados como la ense帽anza de los fundamentos
-de la programaci贸n.
+es un grave error.  Mucho m佱s cuando la popularidad de Matab hace que
+vea usos totalmente inadecuados como la ense侎anza de los fundamentos
+de la programaci侒n.
 
-La verdad sobre la indexaci贸n m煤ltiple
---------------------------------------
+La verdad sobre la indexaci侒n recursiva
+---------------------------------------
 
-Matlab hered贸 parte de su sintaxis de Fortran, el que fue, es y ser谩
-el lenguaje del c谩lculo cient铆fico de altas prestaciones por
+Matlab hered侒 parte de su sintaxis de Fortran, el que fue, es y ser佱
+el lenguaje del c佱lculo cient來fico de altas prestaciones por
 excelencia. Una de las particularidades de Fortran respecto al resto
-de lenguajes de programaci贸n es el tratamiento estricto de las
+de lenguajes de programaci侒n es el tratamiento estricto de las
 dimensiones de una matriz.  Este tratamiento se ha reforzado en las
-煤ltimas revisiones del lenguaje haci茅ndolo a煤n m谩s estricto. Pero hubo
+侜ltimas revisiones del lenguaje haci侀ndolo a侜n m佱s estricto. Pero hubo
 una cosa que los creadores de Matlab no entendieron del todo bien: el
-hecho que en Fortran no existan la indexaci贸n m煤ltiple no significa
+hecho que en Fortran no existan la indexaci侒n m侜ltiple no significa
 que haya matrices en vez de arrays.
 
-El concepto de matriz es matem谩tico
+El concepto de matriz es una abstracci侒n matem佱tica mientras que el de
+array es un concepto computacional. El segundo parte de la base que en
+realidad la memoria es plana, esto es, no tiene filas y columnas. De
+hecho, cuando se habla de las diferencias entre C y Fortran siempre se
+nombra la manera de ordenar las matrices, algo que profundiza en la
+confusi侒n.
 
+.. important::
 
-La innecesaria distinci贸n entre filas y columnas
+   Como la memoria es plana un array no es m佱s que un vector de
+   vectores de la misma longitud. Un array de *rango* tres es un
+   vector de vectores de vectores.  A la vez un vector es un array de
+   escalares.
+
+Si Matlab, como el resto de lenguajes de programaci侒n, basara sus
+c佱lculos en arrays en vez de en matrices el indexado podr來a hacer uso
+de la recursividad.
+
+En C las matrices se declaran precisamente haciendo uso de ese concepto
+
+.. code-block:: C
+
+   double array[3][4]
+
+Esta declaraci侒n es totalmente equivalente a 
+
+.. code-block:: C
+
+   double array[12]
+
+Python dispone de un m侒dulo extra llamado *numpy* y de manera an佱loga
+a las listas tambi侀n utiliza la recursi侒n para indexar sus elementos
+
+.. code-block:: python
+
+   In [1]: from numpy import array
+
+   In [2]: a = array([[1,2,3],[4,5,6],[7,8,9]])
+   
+   In [3]: a[0]
+   Out[3]: array([1, 2, 3])
+   
+   In [4]: a[0][0]
+   Out[4]: 1
+   
+   In [5]: a[0,0]
+   Out[5]: 1
+   
+A riesgo de parecer reiterativo, definiendo un array como una
+recursi侒n de vectores se consigue tanto un sistema para definir arrays
+independientemente de las dimensiones como dos maneras alternativas
+para indexarlos.
+
+Aqu來 llega una diferencia idiom佱tica entre Matlab y Octave,
+precisamente una de la que Mathworks deber來a tomar nota. Octave tiene
+soporte *limitado* para el indexado recursivo.  Supongamos que tenemos
+una funci侒n que devuelve una matriz
+
+.. code-block:: matlab
+
+   function y = foo(x)
+     
+     y = [x,2*x,3*x];
+
+Sabiendo lo anterior podemos indexar el resultado junto con la llamada
+
+.. code-block:: matlab
+
+   octave>> z = foo(2)(2)
+   z =  4
+
+Esto sucede con cualquier llamada que devuelva una matriz como resultado
+
+.. code-block:: matlab
+
+   octave>> y = {[1,2,3],[4,5,6]};
+   octave>> y{1}(2)
+   ans =  2
+
+Desgraciadamente no se lleva este concepto hasta la 侜ltima
+consecuencia para no romper de manera exagerada con la compatibilidad.
+
+.. code-block:: matlab
+
+   octave>> a = [1,2,3;4,5,6;7,8,9];
+   octave>> a(1)
+   ans =  1
+   octave>> a(3)
+   ans =  7
+   
+
+La innecesaria distinci侒n entre filas y columnas
 ................................................
 
+A diferencia de los arrays, las matrices tienen filas y columnas,
+distinci侒n importante para las operaciones matriciales.  Por ejemplo,
+un producto escalar ser佱 la multiplicaci侒n matricial entre un vector
+fila y otro columna.  Con arrays simplemente es el la suma del
+producto de cada elemento.  No es necesario hacer ninguna distinci侒n.
 
-驴Qu茅 es una celda?
+Siendo estrictos no es necesario distinguir filas de columnas desde un
+punto de vista algebraico, s侒lo hay que fijarse si la operaci侒n
+aumenta, mantiene constante o disminuye el rango.  Podemos definir un
+producto escalar o un producto tensorial sin el concepto de matriz, lo
+necesitamos si queremos unir ambos en una multiplicaci侒n matricial.
+
+
+伩Qu侀 es una celda?
 ------------------
 
-Fij茅monos en la cabecera de la definici贸n de una funci贸n
+Fij侀monos en la cabecera de la definici侒n de una funci侒n
 
 .. code-block:: matlab
 
    function [x,y,z] = foo(p,q,r)
 
-Si analizamos sint谩cticamente la frase tenemos una sentencia como
-``function`` que anuncia la declaraci贸n de una funci贸n, posteriormente
-viene una matriz que contiene tres variables, el operador asignaci贸n y
-finalmente el enunciado de cabecera de funci贸n.
+Si analizamos sint佱cticamente la frase tenemos una sentencia como
+``function`` que anuncia la declaraci侒n de una funci侒n, posteriormente
+viene una matriz que contiene tres variables, el operador asignaci侒n y
+finalmente el enunciado de cabecera de funci侒n.
 
-Fij茅monos ahora en el elemento ``[x,y,z]``, rigurosamente hablando es
+Fij侀monos ahora en el elemento ``[x,y,z]``, rigurosamente hablando es
 una matriz que contiene tres variables pero en realidad es una
-asignaci贸n triple.  Esto suele llamarse un triple o un tuple de tres
-elementos y es un tipo presente en muchos lenguajes de programaci贸n
-din谩micos. 驴Entonces en caso de la asignaci贸n m煤ltiple los corchetes
+asignaci侒n triple.  Esto suele llamarse un triple o un tuple de tres
+elementos y es un tipo presente en muchos lenguajes de programaci侒n
+din佱micos. 伩Entonces en caso de la asignaci侒n m侜ltiple los corchetes
 designan matrices o tuples?  Vamos a comprobarlo
 
 .. code-block:: matlab
@@ -115,10 +215,10 @@ designan matrices o tuples?  Vamos a comprobarlo
   ??? Too many output arguments.
 
 Pues ahora parece que lo de la izquierda es un tuple y lo de la
-derecha es una matriz. Parece que llegamos a una conclusi贸n, cuando
-algo delimitado por corchetes est谩 al lado izquierdo de una asignaci贸n
-es un tuple y si est谩 en el lado derecho es una matriz.  Hasta que
-definimos la funci贸n ``foo``
+derecha es una matriz. Parece que llegamos a una conclusi侒n, cuando
+algo delimitado por corchetes est佱 al lado izquierdo de una asignaci侒n
+es un tuple y si est佱 en el lado derecho es una matriz.  Hasta que
+definimos la funci侒n ``foo``
 
 .. code-block:: matlab
    
@@ -135,19 +235,19 @@ Y probamos lo siguiente
    x =
         1
 
-驴Entonce qu茅 retorna una funci贸n? La cabecera establece claramente una
-asignaci贸n triple pero al encontrar s贸lo un argumento de salida lo
-convierte en una asignaci贸n simple e ignora los otros argumentos.
-Entonces la cabecera no sirve para nada y establece una jerarqu铆a de
+伩Entonce qu侀 retorna una funci侒n? La cabecera establece claramente una
+asignaci侒n triple pero al encontrar s侒lo un argumento de salida lo
+convierte en una asignaci侒n simple e ignora los otros argumentos.
+Entonces la cabecera no sirve para nada y establece una jerarqu來a de
 argumentos. 
 
-El defecto subyacente es que Matlab no tiene un operador asignaci贸n
-completamente consistente que establece la excepci贸n de las llamadas a
-funciones. Este defecto podr铆a solucionarse si los *cell arrays*
-se comportaran como tuples y soportaran la asignaci贸n
-m煤ltiple. Uniendo lo anterior a que las funciones tuvieran a celdas
-como argumentos de salida podr铆amos arreglar ese defecto en el
-operador asignaci贸n. Este ser铆a un ejemplo del declaraci贸n.
+El defecto subyacente es que Matlab no tiene un operador asignaci侒n
+completamente consistente que establece la excepci侒n de las llamadas a
+funciones. Este defecto podr來a solucionarse si los *cell arrays*
+se comportaran como tuples y soportaran la asignaci侒n
+m侜ltiple. Uniendo lo anterior a que las funciones tuvieran a celdas
+como argumentos de salida podr來amos arreglar ese defecto en el
+operador asignaci侒n. Este ser來a un ejemplo del declaraci侒n.
 
 .. code-block:: matlab
 
@@ -181,19 +281,19 @@ Y este su funcionamiento
    x = 
         1
 
-驴Qu茅 son entonces los cell arrays?  Paraecen una manera un poco m谩s
-sofisticada de ordenar valores pero es dif铆cil encontrar el por qu茅 de
-su existencia.  Permitiendo la asignaci贸n m煤ltiple con cell arrays y
-la indexaci贸n m煤ltiple se podr铆a dotar al operador asignaci贸n de un
+伩Qu侀 son entonces los cell arrays?  Paraecen una manera un poco m佱s
+sofisticada de ordenar valores pero es dif來cil encontrar el por qu侀 de
+su existencia.  Permitiendo la asignaci侒n m侜ltiple con cell arrays y
+la indexaci侒n m侜ltiple se podr來a dotar al operador asignaci侒n de un
 significado verdadero.
 
 Funciones y archivos
 --------------------
 
-驴Cu谩l es el paradigma de Matlab?
+伩Cu佱l es el paradigma de Matlab?
 ................................
 
-La orientaci贸n a objetos
+La orientaci侒n a objetos
 ........................
 
 El punto de la muerte
@@ -202,23 +302,23 @@ El punto de la muerte
 El punto y coma absurdo
 -----------------------
 
-Funciones y sentencias o c贸mo ahorrarse par茅ntesis
+Funciones y sentencias o c侒mo ahorrarse par侀ntesis
 --------------------------------------------------
 
-Hay una distinci贸n fundamental entre funciones y sentencias. Una
+Hay una distinci侒n fundamental entre funciones y sentencias. Una
 sentencia, como lo es ``for`` o ``if`` son partes del lenguaje y se
-encargan del control de flujo de ejecuci贸n. Una funci贸n encapsula una
-tarea, no es m谩s que un bloque de ejecuci贸n.
+encargan del control de flujo de ejecuci侒n. Una funci侒n encapsula una
+tarea, no es m佱s que un bloque de ejecuci侒n.
 
-En algunos casos, cuando una funci贸n es muy habitual y penalizando la
+En algunos casos, cuando una funci侒n es muy habitual y penalizando la
 consistencia, se convierte en una sentencia pero sigue siendo una
-funci贸n porque se llama con argumentos.
+funci侒n porque se llama con argumentos.
 
-En Matlab existen dos casos paradigm谩ticos que rompen totalmente con
-la sintaxis con la 煤nica finalidad de ahorrarse un par de par茅ntesis y
+En Matlab existen dos casos paradigm佱ticos que rompen totalmente con
+la sintaxis con la 侜nica finalidad de ahorrarse un par de par侀ntesis y
 un par de comillas como ``hold`` y ``print``.
 
-Fij茅monos en el uso de la sentencia ``hold``.  Si quiere activarse el
+Fij侀monos en el uso de la sentencia ``hold``.  Si quiere activarse el
 redibujo se escribe
 
 .. code-block:: matlab
@@ -229,33 +329,35 @@ Para alguien que no hubiera visto nunca Matlab esto es una sentencia
 que recibe una variable como argumento.  Ni *hold* es una sentencia ni
 *on* es una variable.
 
-``print`` es de patolog铆a m谩s severa.  Aunque puede llamarse como una
-funci贸n est谩 dise帽ado para ser llamado como un comando de consola al
+``print`` es de patolog來a m佱s severa.  Aunque puede llamarse como una
+funci侒n est佱 dise侎ado para ser llamado como un comando de consola al
 estilo UNIX.  Las opciones se pasan con el prefijo ``-``, algo que
-parecer谩 habitual a los usuarios de los sistemas operativos serios. Lo
-m谩s grave es que, cuando *print* se llama como funci贸n los argumentos
-tambi茅n deben utilizar el mismo prefijo.
+parecer佱 habitual a los usuarios de los sistemas operativos serios. Lo
+m佱s grave es que, cuando *print* se llama como funci侒n los argumentos
+tambi侀n deben utilizar el mismo prefijo.
 
 .. important::
 
-  Uno de los muchos motivos de la transici贸n entre Python 2 y Python 3
+  Uno de los muchos motivos de la transici侒n entre Python 2 y Python 3
   fue precisamente la sentencia ``print``. Imprimir en la consola es
-  una funci贸n tan utilizada que en algunos lenguajes tiene el estatus
-  especial de sentencia, *pero es una excepci贸n*. Si uno de tus
-  objetivos es buscar la m谩xima consistencia debes cumplirlo
+  una funci侒n tan utilizada que en algunos lenguajes tiene el estatus
+  especial de sentencia, *pero es una excepci侒n*. Si uno de tus
+  objetivos es buscar la m佱xima consistencia debes cumplirlo
   eliminando las excepciones de tu lenguaje.  En Python 3 ``print`` es
-  una funci贸n y debe llamarse con argumentos.  Este cambio
-  aparentemente nimio significa romper pr谩cticamente todo el c贸digo
-  escrito hasta la 茅poca, aunque en este caso portarlo sea trivial.
+  una funci侒n y debe llamarse con argumentos.  Este cambio
+  aparentemente nimio significa romper pr佱cticamente todo el c侒digo
+  escrito hasta la 侀poca, aunque en este caso portarlo sea trivial.
   Aunque sean menos evidentes los otros cambios causaron peores
   dolores de cabeza.
 
-El motivo de la conversi贸n de funciones en sentencias es obtener mayor
+El motivo de la conversi侒n de funciones en sentencias es obtener mayor
 brevedad al escribir una frase muy habitual.  Una llamada consistente
-ser铆a
+ser來a
 
 .. code-block:: matlab
 
    hold(true)
 
 .. [KNU] Donald E. Knuth. The Art Of Computer Programming. http://www-cs-faculty.stanford.edu/~knuth/taocp.html
+
+.. [OLI] Travis Oliphant.  Guide to Numpy.  http://scipy.org
