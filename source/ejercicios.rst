@@ -8,4 +8,5 @@ Ejercicios resueltos
   cohete/cohete
   difusion/difusion
   mallador/mallador
+  fem/fem
   vorticidad/vorticidad
