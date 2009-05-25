@@ -15,7 +15,7 @@ Matemáticas en Ingeniería con Matlab y Octave
 Este texto no es un libro, es un conglomerado de material relativo a
 la programación en Matlab que difícilmente encontraría su sitio. Parte
 de la idea que *Introducción Informal a Matlab y Octave* es un muy mal
-libro con material que puede resultar útil. Cuando tomé consciencia de
+libro con material que puede resultar útil. Cuando tomé conciencia de
 ello decidí cambiar completamente el planteamiento del texto; algo que
 obligaba a empezar desde cero.
 

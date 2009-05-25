@@ -103,8 +103,8 @@ ahora en el aire alrededor de un coche de fórmula uno que mide
 aproximadamente dos metros y va a 300 kilómetros por hora.  El número
 de Reynolds del movimiento será de :math:`\sim 10^7`, el número de
 variables de :math:`10^{15}` (peta) y el número de operaciones de
-:math:`10^{21}` (?).  Intentar resolver un problema como este por fuerza
-bruta no parece una buena idea.
+:math:`10^{21}` (zetta).  Intentar resolver un problema como este por
+fuerza bruta no parece una buena idea.
 
 Los esfuerzos actuales van dirigidos a comprender la turbulencia para
 buscar un modelo capaz de reducir significativamente el coste
