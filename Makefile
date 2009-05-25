@@ -36,7 +36,7 @@ pdffig:
 	python makefigures.py pdf
 
 upload:
-
+	cp build/latex/iimyo2.pdf build/html/
 	scp -r build/html/* iimyo@forja.rediris.es:/htdocs/
 
 clean:

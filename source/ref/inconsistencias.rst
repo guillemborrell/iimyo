@@ -21,7 +21,7 @@ está sólidamente fundamentada.
 
 El objetivo primordial de un curso de programación no es ser
 productivo ni aprender cálculo numérico.  Desgraciadamente existe el
-empeño generalizado de intentar enseñar las tres cosas a la
+empeño generalizado de intentar completar los tres objetivos a la
 vez. Cuando se cae en ese error se empieza a ver Matlab como una
 elección adecuada.
 
@@ -31,25 +31,31 @@ ordenador. Debemos fijarnos que en esta definición no aparecen
 lenguajes, cálculo numérico, matemáticas... Es algo que uno de los
 mayores expertos en el tema, Donald Knuth, sabe perfectamente.  En su
 obra enciclopédica *The Art of Computer Programming* utiliza un
-lenguaje inventado de semántica común a la mayoría de lenguajes para
-programación estructurada.
+lenguaje inventado de semántica adecuada para la descripción de
+algoritmos. Si un lengaje no se le parece es porque el lenguaje está
+mal.
 
 Pero enseñar a programar sin un lenguaje de programación es
 terriblemente lento porque obliga a aprender dos veces lo mismo: cómo
-programar y cómo utilizar un lenguaje de programación así que por
-brevedad la mayoría de cursos de programación se basan en aprender a
-programar con un lenguaje pero... ¿Qué lenguaje? Si tuviéramos que
-escoger uno tomaríamos el que tuviera una semántica lo más consistente
-posible, sin excepciones ni sutilezas.  Esta no es, de lejos, la mayor
-virtud de Matlab.  De hecho es su mayor defecto.
+programar y cómo utilizar un lenguaje de programación.  Por brevedad
+la mayoría de cursos de programación se basan en aprender a programar
+con un lenguaje pero... ¿Qué lenguaje? Si tuviéramos que escoger uno
+tomaríamos el que tuviera una semántica lo más consistente posible,
+sin excepciones, para acercarnos a un lenguaje algorítmico.  Esta no
+es, de lejos, la mayor virtud de Matlab.  De hecho es su mayor
+defecto.
+
+.. note::
+
+   Nota de estilo, no digas tantas veces lenguaje!
 
 Las lenguas más difíciles de aprender son las que, con pequeños
-cambios en las palabras o la sintaxis, generan significados
+cambios en las palabras o la sintaxis, generan resultados
 completamente distintos.  En el chino, por ejemplo, la palabra que
 para un occidental suena como *ma* puede tener hasta cuatro
-significados distintos dependiendo de la pronunciación de la vocal. No
-es muy distinto del hecho de cambiar el comportamiento de un operador
-como la multiplicación (``*``) con otro (``.*``).
+significados dependiendo de la pronunciación de la vocal. No es muy
+distinto del hecho de cambiar el comportamiento de un operador como la
+multiplicación (``*``) con otro (``.*``).
 
 A continuación se listan algunas de las características del lenguaje
 que deberían ser eliminadas o modificadas para conseguir una mayor
@@ -79,14 +85,14 @@ dimensiones de una matriz.  Este tratamiento se ha reforzado en las
 últimas revisiones del lenguaje haciéndolo aún más estricto. Pero hubo
 una cosa que los creadores de Matlab no entendieron del todo bien: el
 hecho que en Fortran no existan la indexación múltiple no significa
-que haya matrices en vez de arrays.
+que defina matrices en vez de arrays.
 
 El concepto de matriz es una abstracción matemática mientras que el de
-array es un concepto computacional. El segundo parte de la base que en
-realidad la memoria es plana, esto es, no tiene filas y columnas. De
-hecho, cuando se habla de las diferencias entre C y Fortran siempre se
-nombra la manera de ordenar las matrices, algo que profundiza en la
-confusión.
+array es un concepto computacional. El segundo parte de la base de que
+en realidad la memoria es plana, esto es, no tiene filas y
+columnas. De hecho, cuando se habla de las diferencias entre C y
+Fortran siempre se nombra la manera de ordenar las *matrices*, algo
+que profundiza en la confusión.
 
 .. important::
 
@@ -116,18 +122,14 @@ a las listas también utiliza la recursión para indexar sus elementos
 
 .. code-block:: python
 
-   In [1]: from numpy import array
-
-   In [2]: a = array([[1,2,3],[4,5,6],[7,8,9]])
-   
-   In [3]: a[0]
-   Out[3]: array([1, 2, 3])
-   
-   In [4]: a[0][0]
-   Out[4]: 1
-   
-   In [5]: a[0,0]
-   Out[5]: 1
+   >>> from numpy import array
+   >>> a = array([[1,2,3],[4,5,6],[7,8,9]])
+   >>> a[0]
+   array([1, 2, 3])
+   >>> a[0][0]
+   1   
+   >>> a[0,0]
+   1
    
 A riesgo de parecer reiterativo, definiendo un array como una
 recursión de vectores se consigue tanto un sistema para definir arrays
@@ -171,6 +173,57 @@ consecuencia para no romper de manera exagerada con la compatibilidad.
    octave>> a(3)
    ans =  7
    
+Operación que, por cierto, no tiene ninguna lógica y es otra de las
+raras excepciones del lenguaje.
+
+¿Qué es una matriz?
+...................
+
+Acabamos de ver que la indexación en Matlab es algo confusa y poco
+versátil.  El problema de las inconsistencias es que afloran por
+doquier en los sitios más insospechados. El último ejemplo del
+resultado anterior es muy significativo.  Como la indexación múltiple
+no existe en Matlab al indexar una matriz con menos subíndices de lo
+previsto provoca un resultado imprevisto: no ha aparecido ningún error.
+
+Siguendo con el último ejemplo, ``a`` es un array de *rango* dos, al
+darle sólo un subíndice obtengo un resultado de *rango* cero.  Ahora
+forcemos más la sintaxis
+
+.. code-block:: matlab
+
+   octave>> a(1)
+   ans =  1
+   octave>> a(1,1)
+   ans =  1
+   octave>> a(1,1,1)
+   ans =  1
+
+¡No existe ninguna relación entre el número de subíndices y el *rango*
+del resultado! ¡He intentado indexar incorrectamente una matriz y no
+ha dado ningún error! Si ahora sumamos a que, como lenguaje dinámico,
+Matlab no comprueba los tipos en cada asiganción el peligro de cometer
+un error se multiplica.
+
+Otra vez somos víctimas del concepto difuso y poco estricto de matriz
+en Matlab.
+
+Ahora veamos como un lenguaje dinámico y consistente lidia con el
+problema del rango y el indexado.
+
+.. code-block:: python
+
+   >>> from numpy import array
+   >>> a = array([[1,2,3],[4,5,6],[7,8,9]])
+   >>> a[0]
+   array([1, 2, 3])
+   >>> a[0,0]
+   1
+   >>> a[0,0,0]
+   Traceback (most recent call last):
+     File "<stdin>", line 1, in <module>
+   IndexError: invalid index
+   
 
 La innecesaria distinción entre filas y columnas
 ................................................
@@ -184,9 +237,60 @@ producto de cada elemento.  No es necesario hacer ninguna distinción.
 Siendo estrictos no es necesario distinguir filas de columnas desde un
 punto de vista algebraico, sólo hay que fijarse si la operación
 aumenta, mantiene constante o disminuye el rango.  Podemos definir un
-producto escalar o un producto tensorial sin el concepto de matriz, lo
+producto escalar o un producto externo sin el concepto de matriz, lo
 necesitamos si queremos unir ambos en una multiplicación matricial.
 
+Entonces el problema de los vectores fila y columna viene de la propia
+naturaleza de la multiplicación matricial.  El empeño de reducir una
+colección bastante extensa de operaciones con matrices y vectores a la
+multiplicación para reducir la cantidad de operadores o funciones
+termina siendo una complicación añadida e inútil.  No es lo mismo una
+multiplicación matricial que un producto escalar, la multiplicación
+conserva el rango y el producto escalar lo reduce.  El hecho que el
+algoritmo de la multiplicación sea hacer productos escalares no
+justifica que ambas operaciones tengan el mismo operador.  También la
+multiplicación es una sucesión de sumas y a nadie se le ocurriría
+denotarlas con el mismo símbolo.
+
+Como la multiplicación, el producto externo y el producto escalar
+tienen el mismo operador es necesario distinguir entre filas y
+columnas obligando a distinguir también entre dos tipos de vectores;
+algo que va en contra de cualquier sentido estético y genera multitud
+de errores.  En mis clases de Matlab digo a mis alumnos que ignoren
+los vectores, que no existen, que en realidad sólo hay matrices que
+tienen una columna o una fila.  Entonces las secuencias, que en
+realidad son vectores fila, rompen toda la dialéctica.
+
+La multiplicación en Matlab es un caso claro de decisión poco meditada
+en el diseño de un lenguaje de programación.  Un intento de reducir la
+información al unir tres operaciones provoca un aumento de la
+complejidad al tener que aprender multitud de casos particulares.
+
+.. note::
+
+   Matlab dispone de las funciones necesarias para no caer en la
+   confusión anterior, ``dot`` es el producto escalar y ``kron`` sirve
+   para calcular el producto exterior.  Aunque estas funciones pueden
+   ahorrarnos multitud de errores su uso es completamente marginal
+   puesto que en todas las guías de programación en Matlab se hace
+   incidencia sobre la "fabulosa" brevedad del operador ``*``.
+
+.. function:: dot(a,b)
+
+   Calcula el producto escalar de los dos vectores *a* y *b*
+
+   :arg a: Vector fila o columna
+   :arg b: Vector fila o columna
+   :rtype: Escalar
+
+.. function:: kron(a,b)
+
+   Producto tensorial de Kronecker de dos tensores.  Cuando *a* y *b*
+   son vectores esta operación se llama producto exterior.
+
+   :arg a: Escalar, vector o matriz de cualquier dimensión
+   :arg b: Escalar, vector o matriz de cualquier dimensión
+   :rtype: La dimensión del resultado siempre será la suma de las dimensiones de los argumentos
 
 ¿Qué es una celda?
 ------------------
@@ -214,10 +318,10 @@ designan matrices o tuples?  Vamos a comprobarlo
   >> [x,y,z] = [1,2,3]
   ??? Too many output arguments.
 
-Pues ahora parece que lo de la izquierda es un tuple y lo de la
-derecha es una matriz. Parece que llegamos a una conclusión, cuando
-algo delimitado por corchetes está al lado izquierdo de una asignación
-es un tuple y si está en el lado derecho es una matriz.  Hasta que
+Pues ahora que lo de la izquierda es un tuple y lo de la derecha es
+una matriz. Parece que llegamos a una conclusión, cuando algo
+delimitado por corchetes está al lado izquierdo de una asignación es
+un tuple y si está en el lado derecho es una matriz.  Hasta que
 definimos la función ``foo``
 
 .. code-block:: matlab
@@ -235,11 +339,12 @@ Y probamos lo siguiente
    x =
         1
 
-¿Entonce qué retorna una función? La cabecera establece claramente una
-asignación triple pero al encontrar sólo un argumento de salida lo
+¿Entonces qué retorna una función? La cabecera establece claramente
+una asignación triple pero al encontrar sólo un argumento de salida lo
 convierte en una asignación simple e ignora los otros argumentos.
 Entonces la cabecera no sirve para nada y establece una jerarquía de
-argumentos. 
+argumentos según su orden sin ningún control estricto sobre la
+cantidad.
 
 El defecto subyacente es que Matlab no tiene un operador asignación
 completamente consistente que establece la excepción de las llamadas a
@@ -290,17 +395,125 @@ significado verdadero.
 Funciones y archivos
 --------------------
 
+Las limitaciones de una única función por archivo y de no poder
+definir funciones dentro de la sesión del intérprete es sumamente
+ridícula. No consigo entender cómo ha llegado Matlab a esas cotas de
+popularidad con semejante inconveniente. Sin su posición dominante en
+el mercado sería imposible que se introdujera en él puesto que la
+calidad del intérprete y de el ecosistema de cálculo es infinitamente
+inferior al de la competencia.
+
+Es, además, una limitación tecnológicamente inaceptable puesto que
+incluso el Octave lo soporta como extensión al lenguaje. En muchos
+casos hay que hacer encaje de bolillos para no terminar con el
+programa partido en decenas de archivos.
+
 ¿Cuál es el paradigma de Matlab?
 ................................
+
+Los lenguajes de programación soportan uno o varios paradigmas.  Lisp
+sigue la programación funcional, C es un lenguaje procedimental y
+modular, Java es un lenguaje estático orientado a objetos, Python
+soporta mejor o peor todos los paradigmas conocidos.  El paradigma de
+Matlab es Matlab.
+
+Es difícil hacer programación procedimental en Matlab porque cada
+función debe estar en un archivo, esto impide juntar todo lo que es
+esencial en el script principal si una función tiene que estar en él.
+
+Hacer programación modular en Matlab tiene más que ver con el talento
+en el uso del lenguaje que con las facilidades de las que disponemos.
+Uno puede, gracias a una función y unos function handles, acercarse al
+paradigma modular, pero no será más que un sucedáneo.  Los módulos,
+por definición, son estructuras de funciones y parámetros de las que
+uno puede tomar lo que le apetezca mediante un mecanismo de *import*.
+C dispone de las cabeceras que no son más que archivos donde se lista
+el contenido de una librería; es mas fácil llegar al paradigma modular
+mediante este planteamiento que con Matlab.
+
+Matlab fuerza a programar de una determinada manera, con un estilo muy
+concreto, a base del uso indiscriminado de los function handle que es
+lo único que lo convierte en un lenguaje verdaderamente dinámico.  Sin
+esta estructura Matlab puede compilarse simplemente anotando las
+cabeceras de las funciones.  Si bien esta característica habla bien
+del compilador de Matlab (bastante caro, por cierto) habla
+terriblemente mal de sus bondades como lenguaje de programación.
+
+.. note::
+
+   Existe toda una rama de desarrollo en los lenguajes de programación
+   dinámicos y su compilación a estructuras estáticas para aumentar su
+   rendimiento. Una de ellas es la identificación de estructuras para
+   anotarlas, asignar tipos a todas las variables y pasarlas a
+   ensamblador.  Este es el esquema de funcionamiento de un compilador
+   JIT (Just In Time).  Otro aspecto es el de descubrir en tiempo de
+   compilación los tipos de cada variable en vez de dejar que el
+   intérprete lo descubra en tiempo de ejecución.  A este proceso se
+   le llama dynamic typing y es terriblemente complejo en algunos
+   lenguajes de programación porque es imposible generar estructuras
+   estáticas a partir de cualquier estructura dinámica.
+
 
 La orientación a objetos
 ........................
 
+La orientación a objetos en Matlab es una de estas estrategias de
+marketing sin demasiado sentido.  Con la popularidad de Java y de C++
+llegó un momento en el que tu lenguaje era orientado a objetos o los
+programadores lo despreciaban sin complejos. Como Matlab es un
+producto comercial y su objetivo es vender terminaron añadiendo OO al
+lenguaje. Pero fue un absoluto desastre.  Tanto que terminaron
+cambiándola completamente porque su primer intento era simplemente
+imposible de utilizar.  De este modo Mathworks introdujo el primer
+gran cambio que rompía la compatibildad con versiones anteriores.
+
+Pero este no es el único problema.  ¿Tiene sentido un lenguaje
+orientado a objetos con una biblioteca en la que no hay ni una sola
+clase? Ahí no terminan los inconvenientes.  Siempre se criticó a PHP
+salvajemente por no soportar namespaces, Matlab no tiene y parece que
+a nadie le molesta.
+
+En los lenguajes modernos *todo* es un objeto.  Cualquier tipo tiene
+métodos asociados y puede derivarse para generar descendencia.  No se
+termina la historia permitiendo definir clases, con la herencia y el
+polimorfismo. Esto significa que Matlab tampoco es una buena opción
+para introducir a nadie en la OO.
+
+Por lo menos alguien entró en razón y se esforzaron en una
+implementación del paradigma razonable, infinitamente mejor que la
+primera iteración.
+
 El punto de la muerte
 ---------------------
 
+Ya hemos hablado del poco apropiado concepto de la multiplicación
+matricial. Hemos olvidado de forma premeditada otra posibilidad para
+la multiplicación, la operación de producto elemento a elemento cuando
+los dos operandos tienen el mismo tamaño.
+
+Incomprensiblemente y haciendo gala de una tremenda falta de ingenio
+estos dos operadores críticos se diferencian únicamente por un
+punto. Lo mismo sucede con la división y la potencia. Esto es la
+fuente del 90% de los errores de programación en Matlab y es algo tan
+obvio que no entiendo cómo no se les pasó por la cabeza.
+Desgraciadamente es algo tan arraigado a Matlab que dudo que cambie
+nunca.  La alternativa es utilizar otro lenguaje.
+
 El punto y coma absurdo
 -----------------------
+
+Que el comportamiento por omisión de un comando sea mostrar el
+resultado en la salida estándar es otra de estas convenciones tan
+arraigadas como inútiles.  Es el único lenguaje de programación cuya
+salida no viene condicionada por una función o un comando, simplemente
+sucede.  Es mucho más común olvidarse de poner el punto y coma que
+ponerlo sin querer.
+
+Lo peor del asunto es que la solución no requiere demasiados cambios
+ni demasiadas discusiones.  Bastaría con sacar una nota antes de
+Matlab 8.0 diciendo que a partir de esta versión el comportamiento por
+omisión es no imprimir el resultado. ¿Por qué existe entonces la
+función ``disp``?
 
 Funciones y sentencias o cómo ahorrarse paréntesis
 --------------------------------------------------
@@ -361,3 +574,5 @@ sería
 .. [KNU] Donald E. Knuth. The Art Of Computer Programming. http://www-cs-faculty.stanford.edu/~knuth/taocp.html
 
 .. [OLI] Travis Oliphant.  Guide to Numpy.  http://scipy.org
+
+.. [SCH] P. Naughton, H. Scildt. Java, Manual de Referencia. McGraw Hill (2000)
