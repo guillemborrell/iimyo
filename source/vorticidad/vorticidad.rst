@@ -204,56 +204,6 @@ Puede esquematizarse como
 
    \partial_t \omega = - D(\omega) + L(\omega)
 
-La ecuación de Burgers.
------------------------
-
-Fijémonos ahora en la forma de la ecuación :eq:`esquema`.  Tiene un
-término no lineal y un término lineal.  El segundo no presenta ninguna
-dificultad puesto que la derivada es una operación lineal en el
-espacio de Fourier pero el término :math:`D(\omega)` contiene el
-producto de dos funciones que no es lineal en el espacio de Fourier.
-Provocará la aparición de un fenómeno llamado *aliasing* y hará que
-nuestro algoritmo tenga ciertas rarezas.
-
-Entrar a trapo con la vorticidad bidimensional puede ser algo excesivo
-así que ensayaremos antes los conceptos previos como los métodos de
-Fourier-Galerkin y el dealiasing con la ecuación de Burgers
-
-.. math::
-   :label: burgers
-
-   \partial_t u + u \cdot \nabla u = \nu \nabla^2 u
-
-En una dimensión
-
-.. math::
-   :label: burgers1d
-
-   \partial_t u + u \partial_x u = \nu \partial_{xx} u
-
-La ecuación se esquematiza de la siguiente manera
-
-.. math::
-   :label: esquemaburgers
-
-   \partial_t u = L(u) - D(u)
-
-El método para resolver esta
-ecuación para un dominio periódico es un poco exótica.  En vez de
-plantear la ecuación para la velocidad lo haremos para el espectro de
-la velocidad utilizando un planteamiento pseudoespectral.
-
-.. math::
-   :label: burgerse
-
-   \partial_t \hat u = L(\hat u) - D(\hat u)
-
-En este caso, la forma del operador lineal es
-
-.. math::
-   :label: L
-
-   L(\hat u) = -k^2 \hat u
 
 
 .. [JIM] Turbulence and Vortex Dynamics.  J. Jiménez

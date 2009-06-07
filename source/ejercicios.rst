@@ -9,4 +9,5 @@ Ejercicios resueltos
   difusion/difusion
   mallador/mallador
   fem/fem
+  burgers/burgers
   vorticidad/vorticidad
