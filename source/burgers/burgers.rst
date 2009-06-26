@@ -27,7 +27,7 @@ En una dimensión
 .. math::
    :label: burgers1d
 
-   u_t + u u_x = \nu u_{xx}
+   u_t  = \nu u_{xx} - u u_x
 
 La ecuación se esquematiza de la siguiente manera
 
@@ -37,7 +37,7 @@ La ecuación se esquematiza de la siguiente manera
    \partial_t u = L(u) - D(u)
 
 Como el dominio es periódico podemos suponer que la forma de la
-solución es :math:`u = \hat u exp(ikx)`. que es equivalente a plantear
+solución es :math:`u = \hat u \exp(ikx)`. que es equivalente a plantear
 la ecuación para el espectro de la velocidad, su transformada de
 Fourier.
 
@@ -73,5 +73,11 @@ transformarlo y sumarlo en el espacio de frecuencias.
    necesita :math:`N^2` operaciones o invertir una matriz, que
    requiere :math:`N^3`.
 
-El problema de operar en el espacio real es la aparición de un
-fenómeno no esperado: el aliasing. 
+La ecuación de Burgers nos reserva un fenómeno no esperado: el
+aliasing. Cuando un operador diferencial es lineal no se mezcla el
+espectro de ninguna manera.  Por ejemplo, el operador derivada segunda
+:math:`\partial_{xx} \hat u = -k_x^2 \hat u` no introduce ninguna
+operación entre cada uno de las componentes de :math:`\hat u`; lo
+mismo sucede con los filtros proporcionales como el pasa-altos o el
+pasa-bajos. El operador :math:`D(\hat u)` no es lineal e introducirá
+aliasing en :math:`\hat u`.
