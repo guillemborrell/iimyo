@@ -16,14 +16,14 @@ Lh = @(uhat) L(uhat,kx);
 Dh = @(uhat) D(uhat,kx,N);
 
 %%% Time integration setup
-CFL = 0.5;
+CFL = 0.9;
 h = CFL*2/(max(kx).^2+max(u0(x))) %step
 tend = 0.1;
 
 %%% Explicit Euler u(n+1) = u(n) + h(L(u(n))-D(u(n)))
 t = 0;
 while (t < tend)
-  uhat0 = uhat0 + h*(0.01*Lh(uhat0)-Dh(uhat0));
+  uhat0 = uhat0 + h*(Lh(uhat0)-Dh(uhat0));
   t = t + h;
 end
 
@@ -31,7 +31,7 @@ end
 
 figure(1)
 clf
-plot(abs(uhat0));
+plot(abs(fftshift(uhat0)));
 title('Power spectra of u at tend');
 ylabel('u');
 xlabel('kx');
