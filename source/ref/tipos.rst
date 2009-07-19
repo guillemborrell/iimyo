@@ -20,7 +20,9 @@ longitud, siempre que no empiece por un número ni contenga ninguno de
 los símbolos reservados para el propio lenguaje como ``+``, ``-``,
 ``:``... Se recomienda encarecidamente, y en esto Matlab no se
 distingue de ningún lenguaje de programación, utilizar nombres de
-variables descriptivos y tener mucho cuidado con la brevedad.
+variables descriptivos y tener mucho cuidado con la brevedad; no hay
+ningunal limitación práctica en el número de letras máximo para una
+variable.
 
 .. important::
 
@@ -50,22 +52,15 @@ bien ha podido pasar inadvertida, el punto y coma final.  Matlab
 dispone de convenciones para modificar ligeramente el comportamiento
 del intérprete.
 
-El más básico es el punto y coma.  Introducido al final de la línea
-inhibe al intérprete de mostrar el resultado por pantalla.  Esto no
-significa que el resultado práctico no sea el mismo.  La línea se
+El más básico es el punto y coma ``;``.  Introducido al final de la
+línea inhibe al intérprete de mostrar el resultado por pantalla.  Esto
+no significa que el resultado práctico no sea el mismo.  La línea se
 ejecuta sin ninguna diferencia y si no existe asignación el resultado
 se carga en la variable ``ans``.
 
 Los comentarios se introducen mediante el símbolo de porcentaje
 ``%``. No hay ninguna manera de especificar bloques comentados como en
 C.
-
-.. warning::
-
-   Octave conserva, de cuando no intentaba ser plenamente compatible
-   con Matlab, el antiguo símbolo de comentario ``#``. Debemos ser
-   conscientes que al utilizarlo estamos destruyendo la portabilidad
-   entre ambos intérpretes
 
 .. note::
 
@@ -105,12 +100,14 @@ Las continuaciones de línea se expresan con la sucesión de tres puntos
    entender más allá del caracter 80 porque era el ancho del terminal
    UNIX.
 
-.. warning::
+Nota sobre incompatibilidades entre Matlab y Octave
+...................................................
 
-   Octave también conserva su anterior símbolo de continuación de
-   línea por compatibilidad hacia atrás, la contrabarra ``\``.  Se
-   trata de un error sintáctico porque existe un operador que utiliza
-   el mismo símbolo.
+
+Octave conserva, para mantener su propia compatibilidad, sus antiguos
+símbolos de comentario ``#`` y de continuación de línea ``\``.
+Debemos evitar el uso de estos símbolos debido a que rompen la
+compatibilidad con Matlab.
 
 Literales
 ---------
@@ -141,7 +138,6 @@ funciones de conversión correspondientes.
    :arg argin: variable
    :rtype: el tipo de *argin* como cadena de caracteres
    
-
 Para los habituales de otros lenguajes de programación esta línea de
 código les parecerá sorprendente.
 
@@ -237,7 +233,7 @@ Escalares
 .........
 
 Matlab soporta los tipos escalares enteros y reales presentes en la
-mayoría de arqutecturas: enteros de 8, 16,32 y 64 bits y reales de
+mayoría de arqutecturas: enteros de 8, 16, 32 y 64 bits y reales de
 simple y doble precisión.
 
 .. warning::
@@ -253,7 +249,7 @@ de si éste soporta o no la aritmética en coma flotante de 64 bits de
 IEEE.  Esta colección de números debería ser suficiente para expresar
 cualquier cantidad con sentido físico puesto que los límites son
 superiores al número de átmos del universo y la precisión está cerca
-de la longitud de Planck.
+de la longitud de Planck en el sistema métrico decimal.
 
 .. important::
 
@@ -265,7 +261,16 @@ de la longitud de Planck.
    será siempre :math:`\varphi \pm \epsilon` donde :math:`\epsilon` es
    el error debido a la naturaleza finita de la mantissa. En Matlab,
    como en otros lenguajes de programación, esta constante es parte
-   del lenguaje y recibe el nombre de *eps*.
+   del lenguaje y recibe el nombre de *eps*. Técnicamente este *eps*
+   es un cero.  Existe una duda recurrente de por qué algunas
+   operaciones que deberían tener un cero estricto como resultado
+   devuelven un número muy pequeño pero distinto de cero.  El paso
+   siguiente es cometer el error de pensar que esto es un
+   funcionamiento anómalo.  Es muy importante que las operaciones en
+   las que se pierde precisión numérica (resta y división) dispongan
+   de un mecanismo para mostrar estos síntomas.  Convertir estos *eps*
+   en cero sería un error aún mayor porque algunas veces es importante
+   saber si se trata en realidad de un número muy pequeño.
 
 .. function:: eps(argin)
 
@@ -277,13 +282,20 @@ de la longitud de Planck.
 Para definir escalares enteros disponemos de una colección de
 funciones 
 
-
 .. function:: cast(argin)
    
-   A comentar
+   Cambia el tipo de la variable de entrada sin modificar los datos en
+   memoria.
 
 Matrices
 ........
+
+Una matriz es un grupo ordenado indexable de escalares.  Es importante
+enfatizar la propiedad de indexable porque es la que le confiere su
+carácter.
+
+Es difícil entender el concepto de matriz en Matlab sin conocimientos
+básicos de Álgebra Lineal.
 
 Contenedores
 ------------

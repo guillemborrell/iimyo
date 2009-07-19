@@ -15,39 +15,34 @@ errores del pasado.
 Matlab en la enseñanza
 ----------------------
 
-Soy un firme detractor del uso de Matlab como lenguaje de uso en
-cursos de programación. Esta es una opinión puramente personal pero
-está sólidamente fundamentada. 
+Soy un firme detractor del uso de Matlab en cursos de programación en
+los primeros cursos de una carrera de Ingeniería. Esta es una opinión
+puramente personal pero está sólidamente fundamentada.
 
 El objetivo primordial de un curso de programación no es ser
-productivo ni aprender cálculo numérico.  Desgraciadamente existe el
-empeño generalizado de intentar completar los tres objetivos a la
-vez. Cuando se cae en ese error se empieza a ver Matlab como una
-elección adecuada.
+productivo ni aprender Cálculo Numérico, es aprender a programar.
+Desgraciadamente existe el empeño generalizado de intentar completar
+los tres objetivos a la vez. Cuando se cae en ese error se empieza a
+ver Matlab como una elección adecuada.
 
 El arte o la práctica de programar es el de manipular datos con
-operaciones aritméticas para completar una tarea con un
-ordenador. Debemos fijarnos que en esta definición no aparecen
-lenguajes, cálculo numérico, matemáticas... Es algo que uno de los
-mayores expertos en el tema, Donald Knuth, sabe perfectamente.  En su
-obra enciclopédica *The Art of Computer Programming* utiliza un
-lenguaje inventado de semántica adecuada para la descripción de
-algoritmos. Si un lengaje no se le parece es porque el lenguaje está
-mal.
+mediante algoritmos para completar una tarea con un ordenador. Debemos
+fijarnos que en esta definición no aparecen lenguajes, cálculo
+numérico, matemáticas... Es algo que uno de los mayores expertos en el
+tema, Donald Knuth, sabe perfectamente.  En su obra enciclopédica *The
+Art of Computer Programming* utiliza un lenguaje inventado de
+semántica adecuada para la descripción de algoritmos. Si un lengaje no
+se le parece es porque el lenguaje está mal.
 
 Pero enseñar a programar sin un lenguaje de programación es
 terriblemente lento porque obliga a aprender dos veces lo mismo: cómo
-programar y cómo utilizar un lenguaje de programación.  Por brevedad
-la mayoría de cursos de programación se basan en aprender a programar
-con un lenguaje pero... ¿Qué lenguaje? Si tuviéramos que escoger uno
-tomaríamos el que tuviera una semántica lo más consistente posible,
-sin excepciones, para acercarnos a un lenguaje algorítmico.  Esta no
-es, de lejos, la mayor virtud de Matlab.  De hecho es su mayor
+describir algoritmos y cómo utilizar un lenguaje de programación.  Por
+brevedad la mayoría de cursos de programación se basan en aprender a
+programar con un lenguaje pero... ¿Qué lenguaje? Si tuviéramos que
+escoger uno tomaríamos el que tuviera una semántica lo más consistente
+posible, sin excepciones, para acercarnos a un lenguaje algorítmico.
+Esta no es, de lejos, la mayor virtud de Matlab.  De hecho es su mayor
 defecto.
-
-.. note::
-
-   Nota de estilo, no digas tantas veces lenguaje!
 
 Las lenguas más difíciles de aprender son las que, con pequeños
 cambios en las palabras o la sintaxis, generan resultados
@@ -73,6 +68,28 @@ lector. Mitificar cualquier herramienta por fabulosa que pueda parecer
 es un grave error.  Mucho más cuando la popularidad de Matab hace que
 vea usos totalmente inadecuados como la enseñanza de los fundamentos
 de la programación.
+
+El estándar Matlab
+------------------
+
+Matlab es como Mathworks le conviene que sea.  No existe ninguna
+referencia completa del lenguaje y no hay ningún comité que evalúe las
+revisiones. Esta característica no es en sí un defecto, la
+documentación que pudemos encontrar en la ayuda está fabulosamente
+bien escrita y un manual de referencia no se hace imprescindible.
+
+Pero hay efectos secundarios.  Si existiera una referencia, con su
+correspondiente versión, su historial de cambios y las características
+obsoletas, el programador de Matlab sabría cómo y cuándo un script
+quedaría obsoleto y actuaría en consecuencia.  Es difícil en la
+actualidad saber si el código que he escrito en Matlab 2008b ejecutará
+sin problemas en un Matlab 6.5.  Lo único que podemos hacer ahora es
+probarlo y cruzar los dedos.
+
+Para evitar que una nueva versión rompa todo el código escrito hasta
+la fecha nunca se declaran características obsoletas mientras siguen
+añadiéndose nuevas funcionalidades.  Matlab está condenado a crecer
+indefinidamente.
 
 La verdad sobre la indexación recursiva
 ---------------------------------------

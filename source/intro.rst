@@ -4,18 +4,29 @@ Introducción
 ¿Qué es Matlab?
 ===============
 
-Esta pregunta tiene varias respuestas dependiendo del detalle que se
-solicite.  Siendo informales se puede decir que Matlab es un producto
-de software orientado a Ciencia e Ingeniería que comercializa
-Mathworks. Esta definición es útil pero incorrecta porque Matlab es un
-lenguaje de programación, se está definiendo el todo por la
-parte. Este error es perfectamente comprensible porque con sólo un
-lenguaje de programación es imposible producir nada. Para convertir
-algoritmos en programas Matlab necesita como mínimo lo siguiente:
+Matlab es un lenguaje de programación específicamente diseñado para el
+Cálculo Numérico.  En la práctica podemos definirlo también diciendo
+que es el conjunto de herramientas que Mathworks distribuye para
+programar en Matlab.
 
-* Un intérprete
+A diferencia de la mayoría de lenguajes de programación no existe
+ningún estándar que lo rija, técnicamente el lenguaje Matlab es tal
+como se distribuye en su última versión.
 
-* Un editor
+Pero lo realmente valioso de Matlab no son sus capacidades como
+lenguaje sino las siguientes:
+
+* Existe un uso generalizado de Matlab en Ingeniería, es una
+  herramienta de gran popularidad y es útil para una carrera
+  profesional. Esto lo ha convertido en un estándar de-facto para la
+  escritura de pequeños programas de simulación.
+
+* Matlab cuenta con una extensa biblioteca de funciones que cubren
+  casi todas las disciplinas de la Ciencia y la Ingeniería
+  extensamente documentada y de fácil uso.
+
+El producto que recibe el nombre de Matlab consta esencialmente de dos
+partes: un intérprete y un editor.
 
 El intérprete
 -------------
@@ -169,9 +180,9 @@ El editor
 Un editor es un programa diseñado especialmente para escribir
 código. Escribir código fuente no se parece en nada a redactar un
 informe o escribir una novela, no parece lógico utilizar la misma
-herrameinta para todo.  Un buen editor nos ayudará a sangrar bloques,
-coloreará las palabras clave, nos avisará si cometemos algún error
-evidente...
+herrameinta para ambas tareas.  Un buen editor nos ayudará a sangrar
+bloques, coloreará las palabras clave, nos avisará si cometemos algún
+error evidente...
 
 Una parte muy importante del entorno de desarrollo Matlab es el editor
 diseñado específicamente para el lenguaje.  Esto no significa que sea
