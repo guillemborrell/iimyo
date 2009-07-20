@@ -4,12 +4,16 @@ La ecuación de Burgers.
 Este ejercicio tiene una finalidad puramente didáctica.  Veremos
 algunas de las particularidades de los métodos pseudoespectrales para
 la resolución de ecuaciones en derivadas parciales en dominios
-periodicos. Visto de un modo aislado el ejercicio no tiene mucho
-sentido porque la ecuación que resolveremos, la ecuación de Burgers,
-no tiene demasiada relevancia desde un punto de vista físico.  Sin
-embargo es un previo necesario al siguiente problema en el que se
-resolverán las ecuaciones de Navier Stokes en un dominio
-bidimensional.
+periódicos.  El uso de un método espectral, de formulación mucho más
+complicada, se justifica por ser mucho más rápido.  Aunque parezca
+sorprendente la transformada rápida de Fourier o FFT (por sus siglas
+en inglés Fast Fourier Transform) es una operación especialmente
+eficiente en términos computacionales.  En este primer ejemplo, en el
+que se resuelve una ecuación con términos de convección y difusión con
+un método explícito, no se hacen evidentes las ventajas.  Se hacen
+obvias cuando, resolviendo las ecuaciones de Navier Stokes en dominios
+bidimensionales o tridimensionales, se usan métodos de integración
+temporal un poco más sofisticados.
 
 He aquí la ecuación de Burgers
 
@@ -23,7 +27,7 @@ En una dimensión
 .. math::
    :label: burgers1d
 
-   u_t + u u_x = \nu u_{xx}
+   u_t  = \nu u_{xx} - u u_x
 
 La ecuación se esquematiza de la siguiente manera
 
@@ -32,9 +36,10 @@ La ecuación se esquematiza de la siguiente manera
 
    \partial_t u = L(u) - D(u)
 
-El método para resolver esta ecuación para un dominio periódico es un
-poco exótica.  En vez de plantear la ecuación para la velocidad lo
-haremos para su espectro, su transformada de Fourier.
+Como el dominio es periódico podemos suponer que la forma de la
+solución es :math:`u = \hat u \exp(ikx)`. que es equivalente a plantear
+la ecuación para el espectro de la velocidad, su transformada de
+Fourier.
 
 .. math::
    :label: burgerse
@@ -53,8 +58,8 @@ trivial.  Bastaría con transformar la condición inicial al espacio de
 frecuencias e integrar sobre él.
 
 No existe ninguna manera exacta de convertir la operación :math:`u
-u_t` en un operador :math:`D(\hat u)`, esta operación debe realizarse
-en el espacio real.  Para cada paso temporal será necesario
+u_t` en un operador :math:`D(\hat u)`, este cálculo debe realizarse en
+el espacio real.  Para cada paso temporal será necesario
 antitransformar la solución, calcular el operador :math:`D(u)`,
 transformarlo y sumarlo en el espacio de frecuencias.
 
@@ -62,9 +67,17 @@ transformarlo y sumarlo en el espacio de frecuencias.
 
    Podemos pensar que realizar dos transformadas de Fourier y
    multiplicar dos vectores es poco rentable.  Nada más lejos de la
-   realidad.  La ...
+   realidad.  La FFT necesita del orden de :math:`N \log N`
+   operaciones.  Para que este número sea significativo podemos
+   compararlo con resolver un sistema de ecuaciones lineales que
+   necesita :math:`N^2` operaciones o invertir una matriz, que
+   requiere :math:`N^3`.
 
-El problema de operar en el espacio real es la aparición de un
-fenómeno no esperado: el aliasing.
-
-Supongamos que queremos
+La ecuación de Burgers nos reserva un fenómeno no esperado: el
+aliasing. Cuando un operador diferencial es lineal no se mezcla el
+espectro de ninguna manera.  Por ejemplo, el operador derivada segunda
+:math:`\partial_{xx} \hat u = -k_x^2 \hat u` no introduce ninguna
+operación entre cada uno de las componentes de :math:`\hat u`; lo
+mismo sucede con los filtros proporcionales como el pasa-altos o el
+pasa-bajos. El operador :math:`D(\hat u)` no es lineal e introducirá
+aliasing en :math:`\hat u`.
