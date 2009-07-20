@@ -251,6 +251,22 @@ cualquier cantidad con sentido físico puesto que los límites son
 superiores al número de átmos del universo y la precisión está cerca
 de la longitud de Planck en el sistema métrico decimal.
 
+Los escalares pueden sumarse, restarse, dividirse, elevarse a la
+enésima potencia... Matlab proporciona prácticamente cualquier
+operación aritmética escalar imaginable.  Además, operar con escalares
+es una tarea muy intuitiva y puede tanto con literales como con
+variables.
+
+.. code-block:: matlab
+
+   >> 2+2 
+   ans =
+        4
+   >> a = 1234.1234^2;
+   >> sqrt(a+325.312) %Raíz cuadrada.
+   ans =
+      1.2343e+03
+   
 .. important::
 
    En el Cálculo Numérico no hay más remedio que expresar números
@@ -288,14 +304,27 @@ funciones
    memoria.
 
 Matrices
+--------
+
+El tipo de referencia en Matlab es la matriz.  Es algo que podemos
+deducir de su nombre.  Es bastante difícil dar una definición estricta
+puesto que conceptualmente se acerca más al Álgebra Lineal que a los
+otros lenguajes de programación.  Una definición intuitiva y simple es
+la siguiente: *en Matlab una matriz es un conjunto de escalares
+ordenados en columnas de igual longitud*.  Esta definición es dual
+puesto que puede decirse también que *en Matlab una matriz es un
+conjunto de escalares ordenados en filas de igual longitud*.
+
+Vectores
 ........
 
-Una matriz es un grupo ordenado indexable de escalares.  Es importante
-enfatizar la propiedad de indexable porque es la que le confiere su
-carácter.
+Técnicamente no existen los vectores en Matlab.  Son matrices con una
+única fila o una única columna.  No pensar en los vectores como un
+tipo a parte es importante para no cometer errores intentando operar
+variables con tamaños incompatibles.
 
-Es difícil entender el concepto de matriz en Matlab sin conocimientos
-básicos de Álgebra Lineal.
+Matrices de dimensiones mayores que 2
+.....................................
 
 Contenedores
 ------------
