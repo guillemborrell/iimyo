@@ -70,6 +70,20 @@ following symbols:
 
 There are many other operators.  We will know about them later.
 
+Matlab has support for complex numbers.  The imaginary constant
+:math:`i` is also a constant in Matlab named ``i``. Any complex number
+will be divided in two components, real and imaginary.  The imaginary
+one will be a number multiplied by the constant ``i``.  For example
+
+.. code-block:: matlab
+
+  > a = 1;
+  > b = 1*i;
+  > a+b
+  ans =  1 + 1i
+  > a*b
+  ans =  0 + 1i
+
 What makes Matlab a powerful tool is the huge library of
 functions. Any function has input and output arguments and Matlab
 deals with them in such a peculiar way.  Simple functions have only
@@ -132,11 +146,33 @@ example [2]_
    It should be noted that since `quad' is written in Fortran it
    cannot be called recursively.
 
+Most of functions operate with real and complex arguments:
+
+.. code-block:: matlab
+
+  > a = 1.6;
+  > sin(a)
+  > b = 3.4*i;
+  > exp(b)
+  ans = -0.96680 - 0.25554i
+  
 .. admonition:: Exercise
  
   Define three variables with the following values: a = 1.5, b = 3.4
   and c = 5.2.  Find the value of d for
   :math:`d=\frac{a}{\frac{b}{c^a}-\frac{c}{b^a}}`
+
+.. admonition:: Exercise
+
+  Mathematicians voted :math:`1=e^{-i\pi}` as the most beautiful
+  formula in Mathematics.  Check that the Maths in Matlab are not
+  broken. You may need a constant available in matlab called ``pi``.
+
+.. admonition:: Exercise
+
+  Check that the product of two complex numbers is equal to the
+  product of their magnitudes and the sum of their arguments. You may
+  need the functions ``angle`` and ``abs``.
 
 .. admonition:: Exercise
 
@@ -149,9 +185,42 @@ example [2]_
   infinity in Matlab you don't get a number that big.  Can you give an
   explanation?
 
+Now we can operate with scalars and use simple functions.  The next
+thing we must know is how to define our own functions.  There are two
+ways to define a function in Matlab.  We can create a separate file
+that starts with the keyword ``function`` and that should be written
+following some syntax rules. That is too complex at this moment.  If
+we are fine with only one output argument we can define a function
+using the ``@()`` operator:
+
+.. code-block:: matlab
+
+  > fsin = @(x) x - x.^3/6
+  fsin =
+  
+  @(x) x - x .^ 3 / 6
+  > fsin(pi)
+  ans =  8.3093
+
+[3]_ This new function can use other functions too
+
+.. code-block:: matlab
+
+  > comp = @(x) fsin(x) - sin(x)
+  comp =
+  
+  @(x) fsin (x) - sin (x)
+  > comp(0.1)
+  ans = 3.3325e-004
+  
+  
 .. [1] Technically you can save your progress using a log that records
        all your commands but never use it as a script because it is
        not.
 
 .. [2] Actually this help is not from Matlab but from Octave.  Both
        ``quad`` functions are used the same way in both interpreters
+
+.. [3] The dot before the wedge sign is very important when we define
+       scalar functions.  We will learn about this dot when we talk
+       about arrays and matrices.
