@@ -62,11 +62,11 @@ following symbols:
 * Substraction: ``-``.  The minus sign is used as a prefix to
   distinguish between positive and negative numbers
 
-* Product: ``*``.
+* Product: ``.*`` [3]_ .
 
-* Division: ``/``.
+* Division: ``./``.
 
-* Power: ``^``.
+* Power: ``.^``.
 
 There are many other operators.  We will know about them later.
 
@@ -185,6 +185,9 @@ Most of functions operate with real and complex arguments:
   infinity in Matlab you don't get a number that big.  Can you give an
   explanation?
 
+Function definition
+-------------------
+
 Now we can operate with scalars and use simple functions.  The next
 thing we must know is how to define our own functions.  There are two
 ways to define a function in Matlab.  We can create a separate file
@@ -202,7 +205,7 @@ using the ``@()`` operator:
   > fsin(pi)
   ans =  8.3093
 
-[3]_ This new function can use other functions too
+This new function can use other functions too.
 
 .. code-block:: matlab
 
@@ -213,14 +216,110 @@ using the ``@()`` operator:
   > comp(0.1)
   ans = 3.3325e-004
   
+.. note::
+
+  What this operator creates is not technically a function.  It is
+  called anonymous function and is slightly different from a true
+  function.
+
+Vectors
+-------
+
+The vector is the most basic built in type of Matlab. It is an array
+of numbers ordered in a single row.  The most important feature of a
+vector is that it is indexable, we can pick a single element or a
+slice.
+
+The easiest way to create a vector is using its literal:
+
+.. code-block:: matlab
+
+  > v = [11,12,13,14,15,16,17,18,19]
+  v =
   
+     11   12   13   14   15   16   ...
+
+We index a vector calling it as it was a function itself.
+
+.. code-block:: matlab
+  
+  > v(2)
+  ans =  12
+
+Slicing is as easy as indexing. Just write a colon between the first
+and the last index of the slice.
+
+.. code-block:: matlab
+
+  > v(2:4)
+  ans =
+  
+     12   13   14
+  
+We can use another vector to specify individual indices
+
+.. code-block:: matlab
+
+  > v([2,4,6,7])
+  ans =
+  
+     12   14   16   17
+
+We won't type a vector in a console or in a script often because there
+is a huge collection of functions to create vectors of any kind.  The
+most basic two are ``linspace`` and ``logspace``.
+
+.. function:: linspace(base, limit, N)
+
+  Return a row vector with *N* linearly spaced elements between *base*
+  and *limit*.
+
+  Example::
+
+    >> linspace(0,10,11)
+    ans = 
+
+        0  1  2  3  4  5  6  7  8  9 10
+
+
+.. function:: logspace(base, limit, N)
+
+  Similar to ``linspace`` except that the values are logarithmically
+  spaced from :math:`10^{base}` and :math:`10^{limit}`.
+
+Example
+-------
+
+The Taylor expansion is a power series that fit a given function with
+the desired order around a given point. The general formula is
+
+.. math::
+
+  f(x) = f(0) + \sum_{n=0}^{\infty} \frac{f^{(n)}(0)}{n!}x^n
+
+where :math:`f^{(n)}` means the *n* derivative of the function *f*.
+It is very helpful to know what is happening to a function where it is
+close to the point where we are computing the expansion. For example,
+the expansion of the :math:`e^x` function is 
+
+.. math::
+
+  e^x = 1 + \frac{x}{1!} + \frac{x^2}{2!} + \frac{x^3}{3!} +
+  \frac{x^4}{4!} + \cdots \forall x \in \Re
+
+There is no way to implement an infinite series for this function in
+Matlab but we can implement the truncated series to the order *n*
+using the ``@`` operator.
+
+To understand better what we are talking about it is helpful to plot
+
 .. [1] Technically you can save your progress using a log that records
        all your commands but never use it as a script because it is
-       not.
+       **not**.
 
 .. [2] Actually this help is not from Matlab but from Octave.  Both
        ``quad`` functions are used the same way in both interpreters
 
-.. [3] The dot before the wedge sign is very important when we define
-       scalar functions.  We will learn about this dot when we talk
-       about arrays and matrices.
+.. [3] The dot before the star, the slash and the wedge sign is very
+       important when we define scalar functions.  We will learn about
+       this dot when we talk about arrays and matrices.
