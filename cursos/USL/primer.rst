@@ -309,7 +309,18 @@ the expansion of the :math:`e^x` function is
 
 There is no way to implement an infinite series for this function in
 Matlab but we can implement the truncated series to the order *n*
-using the ``@`` operator.
+using the ``@`` operator. Any algorithm that involves summations is
+easily implemented using the function ``sum``
+
+.. function:: sum(x,dim)
+
+  Sum of elements along dimension *dim*.  If the argument *dim* is
+  omitted it defaults to 1, column-wise sum.
+
+The first step is to generate a vector where every term corresponds to
+a term in the expansion: the first element will be 1, the second
+:math:`\frac{x}{1!}`, the third :math:`\frac{x^2}{2!}`...  One trick
+to create that vector is 
 
 To understand better what we are talking about it is helpful to plot
 
