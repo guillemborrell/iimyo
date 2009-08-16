@@ -16,6 +16,7 @@ es siempre importante
    :maxdepth: 2
 
    intro
+   tutorial
 
 Indices and tables
 ==================
