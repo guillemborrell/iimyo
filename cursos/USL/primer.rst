@@ -151,7 +151,6 @@ Most of functions operate with real and complex arguments:
 .. code-block:: matlab
 
   > a = 1.6;
-  > sin(a)
   > b = 3.4*i;
   > exp(b)
   ans = -0.96680 - 0.25554i
