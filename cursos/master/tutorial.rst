@@ -284,6 +284,86 @@ diseñada para ello como ``linspace`` o ``logspace``.
   Similar a ``linspace`` excepto que los valores están espaciados
   logarítmicamente entre :math:`10^{base}` y :math:`10^{limit}`.
 
+Sobre el espacio de los vectores en :math:`\mathbb{R}^n` se definen
+las operaciones de suma, resta, producto por un escalar y producto
+escalar.
 
-Ejercicio de síntesis
----------------------
+Polinomios
+----------
+
+Se define un polinomio de grado *n* como
+
+.. math::
+  :label: poly
+
+  p(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_{n-1}x^{n-1} + a_n x^n
+
+
+No es más que una función en la que el valor de la variable se eleva
+sucesivamente a una potencia hasta *n* y se multiplica por una
+constante.  Utilizando el símbolo del sumatorio la expresión anterior
+puede compactarse a:
+
+.. math::
+
+  p(x) = \sum_{i=0}^n a_i x^i
+
+Si nos fijamos un momento en la expresión :eq:`poly` observaremos que
+un polinomio puede expresarse fácilmente en forma de vector utilizando
+sus coeficientes.  El orden puede deducirse fácilmente con el número
+de coeficientes.  Matlab utiliza vectores para expresar los polinomios
+con la única salvedad que los almacena del modo inverso al que hemos
+escrito :eq:`poly`.  El polinomio :math:`x^3-x+1` sería en Matlab
+
+.. code-block:: matlab
+
+  >> p = [1, 0, -1, 1];
+
+La importancia de los polinomios es que, siendo una función, todas las
+operaciones elementales (suma, resta, multiplicación y división)
+pueden reducirse sólo a operaciones con sus coeficientes.  De esta
+manera podemos convertir operaciones simbólicas en operaciones
+puramente numéricas.  Tomemos por ejemplo estas dos funciones:
+:math:`p(x) = 4x^3-x` y :math:`q(x) = x^2 + 6`. Sumar y restar estas
+dos funciones es trivial, pero no multiplicarlas.  Como se trata de
+una operación con coeficientes Matlab la hará sin inmutarse
+
+.. code-block:: matlab
+
+  >> p = [4, 0, -1, 0];
+  >> q = [1, 0, 6];
+  >> conv(p,q)
+  ans =
+      4    0   23    0   -6    0
+
+Efectivamente :math:`p(x)*q(x) = 4x^5+23x^3-6x`.
+
+Dividir dos polinomios nos servirá para aprender cómo tratar las
+funciones con dos argumentos de salida.  De define la división de dos
+polinomios como
+
+.. math::
+
+  p(x) = q(x)*c(x) + r(x)
+
+Entonces la división entre :math:`p(x)` y :math:`q(x)` tiene como
+resultado dos polinomios más, el cociente :math:`c(x)` y el residuo
+:math:`r(x)`.  Si a la salida de ``deconv`` se le asigna sólo una
+variable obtendremos el cociente
+
+.. code-block:: matlab
+
+  >> c = deconv(p,q)
+  c = 
+      4  0
+
+Si necesitamos también el residuo tendremos que hacer lo siguiente
+
+.. code-block:: matlab
+
+  >> [c,r] = deconv(p,q)
+  c = 
+      4  0
+
+  r = 
+      0  0  -25  0
