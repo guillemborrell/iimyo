@@ -26,6 +26,7 @@ help:
 	@echo " ================================================================="
 	@echo " Modificaciones para Matemáticas en Ingeniería con Matlab y Octave"
 	@echo " ================================================================="
+	@echo "  upload    sube todo el árbol al servidor web"
 	@echo "  pngfig    para convertir las figuras svg a png con inkscape"
 	@echo "  pdffig    para convertir las figuras svg a pdf con inkscape"
 
@@ -36,7 +37,19 @@ pdffig:
 	python makefigures.py pdf
 
 upload:
+	@ echo "Construyendo el tutorial"
+	make -C cursos/master html
+	cp -r cursos/master/_build/html/* build/html/tutorial/
+	make -C cursos/master latex
+	make -C cursos/master/_build/latex all-pdf
+	cp cursos/master/_build/latex/IntroduccinaMatlab.pdf \
+	build/html/tutorial/
+	@ echo "Construyendo el documento principal"
+	make html
+	make latex
+	make -C build/latex all-pdf
 	cp build/latex/iimyo2.pdf build/html/
+	@ echo "Subiendo el documento principal a rediris"
 	scp -r build/html/* iimyo@forja.rediris.es:/htdocs/
 
 clean:
