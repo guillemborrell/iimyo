@@ -105,7 +105,7 @@ intermedio y con él el compilador.  Ya no existe un compilador y una
 máquina virtual sino que sólo un programa, el intérprete, realiza todo
 el trabajo.  Este último planteamiento no es necesariamente superior
 en eficacia o rendimiento a una máquina virtual, simplemente es más
-fácil de diseñar e implementar.  Matlab pertenece a este último grupo.
+fácil de diseñar e implementar.  Matlab pertenece a este último grupo. 
 
 Lenguajes estáticos y dinámicos
 ...............................

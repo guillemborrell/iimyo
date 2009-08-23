@@ -151,25 +151,25 @@ indistintamente con números reales y complejos:
   >> exp(b)
   ans = -0.96680 - 0.25554i
 
-.. admonition:: Ejercicio
+.. admonition:: Ejercicio 1
 
   Define tres variables con los siguientes valores: a = 1.5, b = 3.4 y
   c = 5.2.  Calcula el valor de d para
   :math:`d=\frac{a}{\frac{b}{c^a}-\frac{c}{b^a}}`
 
-.. admonition:: Ejercicio
+.. admonition:: Ejercicio 2
 
   En un Congreso Internacional de Matemáticas se votó como la fórmula
   más bella :math:`1=e^{-i\pi}`.  Comprueba que Matlab piensa que esta
   fórmula es correcta.  Te conviene utilizar la constante ``pi``.
 
-.. admonition:: Ejercicio
+.. admonition:: Ejercicio 3
 
   Comprueba que el producto de dos números complejos es igual al
   producto de sus módulos y la suma de sus argumentos. Puede ser que
   necesites las funciones ``angle`` y ``abs``.
 
-.. admonition:: Ejercicio
+.. admonition:: Ejercicio 4
 
   No existe el infinito en Matlab porque sirve para el Cálculo
   Numérico, no para el Cálculo Simbólico. Pero hay una constante
@@ -330,7 +330,13 @@ escalar, que se define como.
 
   u \cdot v = \sum_i u_i v_i
 
-En Maltab puede calcularse con la función dot.
+En Maltab puede calcularse con la función ``dot``.
+
+.. function:: dot(u,v,dim)
+
+  Calcula el producto escalar de dos vectores.  El tercer argumento,
+  *dim* es de utilidad en el caso que alguno de los dos argumentos o
+  ambos sean matrices.
 
 .. code-block:: matlab
 
@@ -352,6 +358,17 @@ En Maltab puede calcularse con la función dot.
   sintaxis ambigua, no sabemos si ``u`` y ``v`` son vectores, además
   de ser una opreación mucho más propensa a fallar sin dar excesiva
   información del porqué.  Recordad que la belleza es importante.
+
+.. admonition:: Ejercicio 5
+
+  Cuando Gauss contaba siete años el profesor les puso un ejercicio
+  para tenerlos entretenidos un rato. ¿Cuánto es la suma de todos los
+  números enteros entre 1 y 100? Gauss llegó fácilmente al reultado en
+  sólo unos pocos segundos porque vio que sumando pares de números
+  1+99, 2+98, 3+97... La operación podía reducirse a 50*101. Con
+  Matlab se puede hacer la operación por fuerza bruta de muchas
+  maneras pero... ¿Eres capaz de hacerlo con sólo una línea de código?
+
     
 Polinomios
 ----------
@@ -401,6 +418,11 @@ una operación con coeficientes Matlab la hará sin inmutarse
   ans =
       4    0   23    0   -6    0
 
+.. function:: conv(u,v)
+
+  Calcula la convolución de dos vectores de coeficientes.  En el caso
+  de vectores, la convolución es la misma operación que el producto.
+
 Efectivamente :math:`p(x)*q(x) = 4x^5+23x^3-6x`.
 
 Dividir dos polinomios nos servirá para aprender cómo tratar las
@@ -415,6 +437,14 @@ Entonces la división entre :math:`p(x)` y :math:`q(x)` tiene como
 resultado dos polinomios más, el cociente :math:`c(x)` y el residuo
 :math:`r(x)`.  Si a la salida de ``deconv`` se le asigna sólo una
 variable obtendremos el cociente
+
+.. function:: deconv(u,v)
+
+  Calcula la deconvolución de dos vectores de coeficientes.  En el
+  caso de polinomios esta operación es equivalente al cociente del
+  primero por el segundo.
+
+  Devuelve dos argumentos, el cociente y el residuo.
 
 .. code-block:: matlab
 
@@ -432,3 +462,18 @@ Si necesitamos también el residuo tendremos que hacer lo siguiente
 
   r = 
       0  0  -25  0
+
+Ejercicio de síntesis
+---------------------
+
+Existe una manera de representar la forma de una función cualesquiera
+en un punto dado mediante un polinomio.  Dicho polinomio converge con
+mayor orden en los alrededores del punto a medida que se van añadiendo
+términos.  Se trata del desarrollo de Taylor.
+
+La única información que necesitamos de la función es su valor y el de
+sus derivadas en el punto dado :math:`x_0`.  La expresión general es
+
+.. math::
+
+  p(x-x_0) = f(x_0) + \sum_{i = 1}^N f^{(i)}\frac{(x-x_0)^i}{i!}
