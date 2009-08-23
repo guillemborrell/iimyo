@@ -1,5 +1,5 @@
-Introducción a Matlab
-=====================
+Introducción a Matlab y Octave
+==============================
 
 Esta es una breve introducción al lenguaje de programación Matlab
 orientada a alumnos que no han asistido nunca a un curso de
@@ -16,7 +16,7 @@ es siempre importante
    :maxdepth: 2
 
    intro
-   tutorial
+   vecpoly
 
 Indices and tables
 ==================

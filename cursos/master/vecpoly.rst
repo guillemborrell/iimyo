@@ -1,5 +1,5 @@
-Tutorial
-========
+Escalares, vectores y polinomios
+================================
 
 El siguiente paso en cualquier curso de programación es dar una visión
 general de las características del lenguaje.  Tratar todas las
@@ -92,10 +92,10 @@ componente imaginaria de un número complejo. Por ejemplo
 .. code-block:: matlab
 
   >> a = 1;
-  >> b = 1*i;
+  >> b = 1.*i;
   >> a + b
   ans = 1 + 1i
-  >> a * b
+  >> a .* b
   ans = 0 + 1i
 
 .. warning::
@@ -147,7 +147,7 @@ indistintamente con números reales y complejos:
 .. code-block::  matlab
 
   >> a = 1.6;
-  >> b = 3.4*i;
+  >> b = 3.4.*i;
   >> exp(b)
   ans = -0.96680 - 0.25554i
 
@@ -284,10 +284,75 @@ diseñada para ello como ``linspace`` o ``logspace``.
   Similar a ``linspace`` excepto que los valores están espaciados
   logarítmicamente entre :math:`10^{base}` y :math:`10^{limit}`.
 
-Sobre el espacio de los vectores en :math:`\mathbb{R}^n` se definen
-las operaciones de suma, resta, producto por un escalar y producto
-escalar.
+Cuando un vector se opere con un escalar se operará con cada uno de
+los elementos del vector.
 
+.. code-block:: matlab
+
+  >> v = [1,2,3,4];
+  >> 3+v
+  ans =
+  
+     4   5   6   7
+  >> 3.*v
+  ans =
+  
+      3    6    9   12
+
+Si los dos operandos son vectores el requisito fundamental es que
+ambos tengan el mismo tamaño.
+
+.. code-block:: matlab
+
+  >> w = [8,7,6,5];
+  >> v+w
+  ans =
+  
+     9   9   9   9
+  >> v.*w
+  ans =
+  
+      8   14   18   20
+
+.. important::
+
+  No existe una multiplicación de vectores, la operación anterior es
+  operar los vectores elemento elemento, lo que corresponde más a una
+  tabla que a lo que se esperaría de un vector.  De hecho en Cálculo
+  Numérico no hay ninguna diferencia entre un vector y una simple
+  lista de números.
+
+Una operación importante cuando se habla de vectores es el producto
+escalar, que se define como.
+
+.. math::
+  :label: dot
+
+  u \cdot v = \sum_i u_i v_i
+
+En Maltab puede calcularse con la función dot.
+
+.. code-block:: matlab
+
+  >> dot(v,w)
+  ans =  60
+
+.. warning::
+
+  En muchos programas escritos en Matlab encontraremos el producto
+  escalar escrito como
+
+  .. code-block:: matlab
+
+    >> u'*v
+
+  Es una operación válida, aunque aún no sepamos qué operaciones son
+  el apóstrofe y el asterisco sin punto respectivamente.  El problema
+  de no utilizar la función ``dot`` es que estamos utilizando una
+  sintaxis ambigua, no sabemos si ``u`` y ``v`` son vectores, además
+  de ser una opreación mucho más propensa a fallar sin dar excesiva
+  información del porqué.  Recordad que la belleza es importante.
+    
 Polinomios
 ----------
 

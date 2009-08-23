@@ -37,7 +37,7 @@ source_encoding = 'utf-8'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Introducción a Matlab'
+project = u'Introducción a Matlab y Octave'
 copyright = u'2009, Guillem Borrell i Nogueras'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -103,10 +103,10 @@ html_theme = 'default'
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-#html_title = None
+html_title = "Introducción a Matlab y Octave"
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+html_short_title = "Intro a M y O"
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -144,10 +144,10 @@ html_static_path = ['_static']
 #html_use_index = True
 
 # If true, the index is split into individual pages for each letter.
-#html_split_index = False
+html_split_index = False
 
 # If true, links to the reST sources are added to the pages.
-#html_show_sourcelink = True
+html_show_sourcelink = True
 
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
@@ -172,7 +172,7 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'IntroduccinaMatlab.tex', u'Introducción a Matlab',
+  ('index', 'IntroduccinaMatlab.tex', u'Introducción a Matlab y Octave',
    u'Guillem Borrell i Nogueras', 'manual'),
 ]
 

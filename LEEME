@@ -33,5 +33,9 @@ Organización de los archivos
 
 :cursos:
 
-  Parte del material de varios cursos de Matlab.
-
+  Parte del material de varios cursos de Matlab. En el directorio
+  llamado master se encuentra el curso introductorio.  Está en este
+  directorio porque originalmente era el material de un curso de
+  Matlab para el Máster de Ensayos en Vuelo y Certificación de
+  Aeronaves de la ETSI Aeronáuticos.  Para que luego digan que los
+  Máster oficiales son un engaño.
