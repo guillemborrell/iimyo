@@ -476,4 +476,32 @@ sus derivadas en el punto dado :math:`x_0`.  La expresión general es
 
 .. math::
 
-  p(x-x_0) = f(x_0) + \sum_{i = 1}^N f^{(i)}\frac{(x-x_0)^i}{i!}
+  p(x-x_0) = f(x_0) + \sum_{i = 1}^N f^{(i)}(x_0)\frac{(x-x_0)^i}{i!}
+
+Para entender mejor cómo este polinomio se ajusta a la función podemos
+utilizar el desarrollo de la función exponencial en :math:`x=0`.
+
+.. math::
+
+  e^x = 1 + x + \frac{1}{2} x^{2} + \frac{1}{6} x^{3} +
+  \frac{1}{24} x^{4} + \frac{1}{120} x^{5} +
+  \operatorname{\mathcal{O}}\left(x^{6}\right)
+
+Este polinomio puede crearse de muchas maneras pero vamos a utilizar
+un vector y vamos a hacer todas las operaciones a la vez para crear
+una función
+
+.. code-block:: matlab
+
+  >> exp_serie = @(x,n) 1 + sum((x.^linspace(1,n,n))./factorial(linspace(1,n,n)))
+  exp_serie =
+
+     @(x, n) 1 + sum ((x .^ linspace (1, n, n)) ./ factorial (linspace (1, n, n)))
+
+Sabemos que :math:`e^1 = e` así que podemos utilizar este resultado
+para demostrar que el error que comete el desarrollo de Taylor es del
+orden del exponente que se omite. Para ello representaremos
+gráficamente el error en :math:`x=1` en función de *n* con la función
+``plot``.  En unos pocos capítulos aprenderemos más sobre esta
+función.
+
