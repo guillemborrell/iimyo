@@ -38,11 +38,11 @@ pdffig:
 
 upload:
 	@ echo "Construyendo el tutorial"
-	make -C cursos/master html
-	cp -r cursos/master/_build/html/* build/html/tutorial/
-	make -C cursos/master latex
-	make -C cursos/master/_build/latex all-pdf
-	cp cursos/master/_build/latex/IntroduccinaMatlab.pdf \
+	make -C tutorial html
+	cp -r tutorial/_build/html/* build/html/tutorial/
+	make -C tutorial latex
+	make -C tutorial/_build/latex all-pdf
+	cp tutorial/_build/latex/IntroduccinaMatlab.pdf \
 	build/html/tutorial/
 	@ echo "Construyendo el documento principal"
 	make html

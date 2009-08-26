@@ -229,7 +229,7 @@ La manera más sencilla de definir un vector es utilizando un literal:
 
 .. code-block:: matlab
 
-  >> v = `[11,12,13,14,15,16,117,18,19]
+  >> v = [11,12,13,14,15,16,117,18,19]
   v = 
 
      11   12   13   14   15   16   17 ...
@@ -365,9 +365,10 @@ En Maltab puede calcularse con la función ``dot``.
   para tenerlos entretenidos un rato. ¿Cuánto es la suma de todos los
   números enteros entre 1 y 100? Gauss llegó fácilmente al reultado en
   sólo unos pocos segundos porque vio que sumando pares de números
-  1+99, 2+98, 3+97... La operación podía reducirse a 50*101. Con
-  Matlab se puede hacer la operación por fuerza bruta de muchas
-  maneras pero... ¿Eres capaz de hacerlo con sólo una línea de código?
+  1+99, 2+98, 3+97... La operación podía reducirse a 50 :math:`\times`
+  99+100. Con Matlab se puede hacer la operación por fuerza bruta de
+  muchas maneras pero... ¿Eres capaz de hacerlo con sólo una línea de
+  código?
 
     
 Polinomios
@@ -489,14 +490,25 @@ utilizar el desarrollo de la función exponencial en :math:`x=0`.
 
 Este polinomio puede crearse de muchas maneras pero vamos a utilizar
 un vector y vamos a hacer todas las operaciones a la vez para crear
-una función
+una función que calcule el desarrollo hasta el término enésimo.
 
 .. code-block:: matlab
 
-  >> exp_serie = @(x,n) 1 + sum((x.^linspace(1,n,n))./factorial(linspace(1,n,n)))
+  >> exp_serie = @(x,n) 1 + sum((x.^linspace(1,n,n))./...
+  factorial(linspace(1,n,n)))
   exp_serie =
 
      @(x, n) 1 + sum ((x .^ linspace (1, n, n)) ./ factorial (linspace (1, n, n)))
+
+.. note::
+
+  Esta línea de código sirve para aprender una regla muy importante
+  sobre cómo debemos escribir un programa.  Las líneas demasiado
+  largas son difíciles de leer, por lo tanto son un peligro incluso
+  para nosotros mismos.  Es recomendable romperlas en algún punto
+  donde romperíamos una operación matemática: después de un operador,
+  justo después de abrir un paréntesis.  Para hacerlo debemos escribir
+  tres puntos ``...``.
 
 Sabemos que :math:`e^1 = e` así que podemos utilizar este resultado
 para demostrar que el error que comete el desarrollo de Taylor es del
