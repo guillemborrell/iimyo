@@ -1,5 +1,5 @@
 \documentclass[12pt]{beamer}
-\usetheme{Pittsburgh}
+\usetheme{Warsaw}
 \usepackage{times}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -10,11 +10,8 @@
 %\usepackage{pgfpages}
 %\pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm]
 
-\renewcommand\shorthandsspanish{}
-\noextrasspanish
-
 \title{USL Matlab tutorial}
-\subtitle{Lesson 0}
+%\subtitle{Lesson 0}
 \author{Guillem Borrell i Nogueras}
 
 \begin{document}
@@ -31,5 +28,182 @@
 \begin{frame}
   \titlepage
 \end{frame}
+
+\begin{frame}
+  \tableofcontents[pausesections]
+\end{frame}
+
+
+\section{Course Outline}
+
+\begin{frame}
+\frametitle{Course Outline}
+\begin{itemize}
+\item Matlab Fundamentals.
+\item Functions.
+\item Limits and Derivatives.
+\item Applications of the Derivative.
+\item Integration.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Course Goals}
+  \begin{itemize}
+  \item Matlab basic skills.
+  \item Understanding symbolic operations.
+  \item Visualization.
+  \item Simple Real World applications.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{First things first}
+  \begin{Huge}
+    \begin{center}
+      Matlab is not a symbolic math tool.
+    \end{center}
+  \end{Huge}
+  Matlab will do the weightlifting, we will take care of the rest.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Matlab is a programming language}
+  \begin{itemize}
+  \item Designed for Numerical Analysis.
+  \item Numeric vs. Symbolic
+    \begin{itemize}
+    \item Matlab is a mind-numbing powerful calculator.
+    \end{itemize}
+  \item It is nothing but a programming language.
+    \begin{itemize}
+    \item Not a spreadsheet
+    \item Not a symbolic algebra engine
+    \item Not a solution for all your problems.
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+f = @(x) quad(@(y) exp(-y.^2),0,y)
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{¿Mind numbing?}
+This is advanced Matlab
+
+\[ f(x) = \int_0^x \exp(-y^2) dy \]
+
+\testcode
+
+BTW: this is not a symbolic operation.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Why Matlab?}
+
+  \begin{itemize}
+  \item Most extended tool in Science and Engineering
+  \item De-facto standard for short programs in Engineering
+  \item Huge Library of functions
+  \item Tool-boxes for almost everything.
+  \end{itemize}
+
+  Learning a bit of Matlab is a goal too.
+\end{frame}
+
+\section{Matlab Fundamentals}
+\subsection{Programming Fundamentals}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+a = 1;
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{Variables and Literals}
+\testcode
+\begin{itemize}
+\item \texttt{a} is a variable
+\item \texttt{=} is the assignment operator
+\item \texttt{1} is a literal for the scalar 1 in the default
+  precision.
+\end{itemize}
+\begin{center}
+  What does all this mean?
+\end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The meaning of all this}
+  \begin{itemize}
+  \item Variables store
+  \item The asignment operator assigns anything to a variable
+  \item All the computations are in the right hand side
+  \item Computation is any operation involving variables (stored) and
+    literals (new).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Variables}
+  \begin{itemize}
+  \item Any word can become a variable name.
+  \item Unless it uses a reserved character like \texttt{+},
+    \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\^}, \texttt{.}, ...
+  \item Or is a built in variable like \texttt{ans} or \texttt{pi}
+  \item A variable can store anything.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Literals}
+  \begin{itemize}
+  \item A literal is any valid Matlab value written by us.
+  \item There is a literal for almost every Matlab type: scalars,
+    vectors, matrices, functions...
+  \item Almost means that there are some types missing, but we won't
+    miss a literal for them.
+  \item We will use literals for scalars, vectors and functions.
+  \end{itemize}
+Now we can start coding.
+\end{frame}
+
+\subsection{The Matlab IDE}
+\begin{frame}
+  \frametitle{Tools}
+Pieces of the Matlab IDE
+\begin{itemize}
+\item The Matlab Console
+\item The Matlab Editor
+\item The Matlab Explorer
+\item The Matlab Debugger
+\end{itemize}
+We will use only the Console and the Editor.
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Matlab Console}
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Matlab Editor}
+\end{frame}
+
+\subsection{The Octave Interpreter}
+\begin{frame}
+  \frametitle{Octave}
+  \begin{itemize}
+  \item Octave is a free (as in freedom) interpreter for the Matlab
+    programming language.
+  \item Octave provides only the interpreter and the interactive
+    console. We must use an external source code editor.
+  \item Covers the 90\% of the language but only the 30\% of the
+    toolkits.
+  \end{itemize}
+
+\end{frame}
+
 
 \end{document}
