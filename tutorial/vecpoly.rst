@@ -176,7 +176,7 @@ indistintamente con números reales y complejos:
   propia llamada ``Inf`` que es un número lo suficientemente grande
   como para ser el infinito en la práctica (es un número más grande
   que el total de átomos de la masa conocida del Universo). La función
-  tangente, ``tan`` conecta el valor de :math:`pi` con el infinito:
+  tangente, ``tan`` conecta el valor de :math:`\pi` con el infinito:
   :math:`\infty = \tan(\frac{\pi}{2})`. Si utilizamos la expresión
   anterior para calcular el infinito en Matlab no llegamos a un número
   tan grande.  ¿Puedes dar una explicación?
