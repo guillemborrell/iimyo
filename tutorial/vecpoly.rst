@@ -343,6 +343,19 @@ En Maltab puede calcularse con la función ``dot``.
   >> dot(v,w)
   ans =  60
 
+Aunque sea mucho menos eficiente también podemos calcular ese producto
+escalar utilizando la definición de la operación y la función ``sum``.
+
+.. function:: sum(x,dim)
+
+   Suma los elementos de un vector. *dim* es de utilidad cuando el
+   argumento sea una matriz.
+
+.. code-block:: matlab
+
+  >> sum(v.*w)
+  ans =  60
+
 .. warning::
 
   En muchos programas escritos en Matlab encontraremos el producto
@@ -477,7 +490,7 @@ sus derivadas en el punto dado :math:`x_0`.  La expresión general es
 
 .. math::
 
-  p(x-x_0) = f(x_0) + \sum_{i = 1}^N f^{(i)}(x_0)\frac{(x-x_0)^i}{i!}
+  p_n(x-x_0) = f(x_0) + \sum_{i = 1}^n f^{(i)}(x_0)\frac{(x-x_0)^i}{i!}
 
 Para entender mejor cómo este polinomio se ajusta a la función podemos
 utilizar el desarrollo de la función exponencial en :math:`x=0`.
@@ -510,10 +523,32 @@ una función que calcule el desarrollo hasta el término enésimo.
   justo después de abrir un paréntesis.  Para hacerlo debemos escribir
   tres puntos ``...``.
 
-Sabemos que :math:`e^1 = e` así que podemos utilizar este resultado
-para demostrar que el error que comete el desarrollo de Taylor es del
-orden del exponente que se omite. Para ello representaremos
-gráficamente el error en :math:`x=1` en función de *n* con la función
-``plot``.  En unos pocos capítulos aprenderemos más sobre esta
-función.
+Podemos utilizar esta función para entender de un modo mucho más
+visual el concepto de convergencia de una serie.  Sabemos que a medida
+que añadamos términos el error que comete el desarrollo de Taylor
+cerca del punto se reduce.  ¿Pero en qué medida?  Utilizaremos la
+función ``plot``, de la que aprenderemos mucho más en breve, para
+representar gráficamente la función exponencial y sus desarrollos de
+Taylor en el Orígen para varios órdenes.
+
+.. only:: latex
+
+   .. figure:: desarrollo.pdf
+      :align: center
+      :scale: 70
+
+      La función exponencial y sus desarrollos de Taylor en el origen
+      hasta orden 5.
+
+.. only:: html
+
+   .. figure:: desarrollo.png
+      :align: center
+      :scale: 100
+
+      La función exponencial y sus desarrollos de Taylor en el origen
+      hasta orden 5.
+
+
+
 
