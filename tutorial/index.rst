@@ -16,7 +16,9 @@ es siempre importante
    :maxdepth: 2
 
    intro
+   gui
    vecpoly
+   programacion
 
 Indices and tables
 ==================

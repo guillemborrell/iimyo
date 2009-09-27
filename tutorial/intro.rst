@@ -1,5 +1,5 @@
-Primer contacto
-===============
+Introducción
+============
 
 Tras encender Matlab la sensación puede ser de saturación.  La
 interfaz gráfica de Matlab no se corresponde a la sencillez de uso
