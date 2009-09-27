@@ -415,6 +415,21 @@ escrito :eq:`poly`.  El polinomio :math:`x^3-x+1` sería en Matlab
 
   >> p = [1, 0, -1, 1];
 
+La operación más común con un polinomio es evaluarlo en un punto dado,
+para ello utilizaremos la función ``polyval``.
+
+.. function:: polyval(p,x)
+
+   Evalúa el polinomio *p* en el punto *x*
+
+   .. describe:: Ejemplo
+
+      .. code-block:: matlab 
+
+         >> p = [1, 0, -1, 1];
+         >> polyval(p,3)
+         ans =  25
+
 La importancia de los polinomios es que, siendo una función, todas las
 operaciones elementales (suma, resta, multiplicación y división)
 pueden reducirse sólo a operaciones con sus coeficientes.  De esta
@@ -497,21 +512,20 @@ utilizar el desarrollo de la función exponencial en :math:`x=0`.
 
 .. math::
 
-  e^x = 1 + x + \frac{1}{2} x^{2} + \frac{1}{6} x^{3} +
-  \frac{1}{24} x^{4} + \frac{1}{120} x^{5} +
+  e^x = 1 + x + \frac{1}{2} x^{2} + \frac{1}{6} x^{3} + \frac{1}{24}
+  x^{4} + \frac{1}{120} x^{5} +
   \operatorname{\mathcal{O}}\left(x^{6}\right)
 
-Este polinomio puede crearse de muchas maneras pero vamos a utilizar
-un vector y vamos a hacer todas las operaciones a la vez para crear
-una función que calcule el desarrollo hasta el término enésimo.
+Este polinomio puede crearse de muchas maneras pero posiblemente la
+más sencilla sea utilizar los polinomios en Matlab para tener que
+generar sólo los coeficientes.  
 
 .. code-block:: matlab
 
-  >> exp_serie = @(x,n) 1 + sum((x.^linspace(1,n,n))./...
-  factorial(linspace(1,n,n)))
-  exp_serie =
+   >> exp_serie = @(x,n) polyval(1./[factorial(linspace(n,1,n)),1],x)
+   exp_serie =
 
-     @(x, n) 1 + sum ((x .^ linspace (1, n, n)) ./ factorial (linspace (1, n, n)))
+   @(x, n) polyval (1 ./ [factorial(linspace (n, 1, n)), 1], x)
 
 .. note::
 
@@ -526,29 +540,62 @@ una función que calcule el desarrollo hasta el término enésimo.
 Podemos utilizar esta función para entender de un modo mucho más
 visual el concepto de convergencia de una serie.  Sabemos que a medida
 que añadamos términos el error que comete el desarrollo de Taylor
-cerca del punto se reduce.  ¿Pero en qué medida?  Utilizaremos la
-función ``plot``, de la que aprenderemos mucho más en breve, para
-representar gráficamente la función exponencial y sus desarrollos de
-Taylor en el Orígen para varios órdenes.
+cerca del punto se reduce.  ¿Pero de qué forma?  Una confusión
+habitual es pensar que al aumentar orden del desarrollo aumenta la
+región donde se acerca a la función pero esto sólo es cierto
+accidentalmente.  Sólo existe una mayor convergencia cerca del punto.
 
-.. only:: latex
+Para verlo mejor calcularemos el error de la aproximación en los
+puntos 0.2 y 0.1 para distintos órdenes.
 
-   .. figure:: desarrollo.pdf
-      :align: center
-      :scale: 70
+.. literalinclude:: _static/convergencia.m
+   :language: matlab
 
-      La función exponencial y sus desarrollos de Taylor en el origen
-      hasta orden 5.
+El programa anterior tiene la siguiente salida::
 
-.. only:: html
+   error en 0.1
+   err_01 =
+   
+      5.1709e-03
+      1.7092e-04
+      4.2514e-06
+      8.4742e-08
+      1.4090e-09
+      2.0092e-11
+      2.5091e-13
+   
+   error en 0.2
+   err_02 =
+   
+      2.1403e-02
+      1.4028e-03
+      6.9425e-05
+      2.7582e-06
+      9.1494e-08
+      2.6046e-09
+      6.4932e-11
+   
+   logaritmo del error en 0.1
+   logerr_01 =
+   
+      -5.2647
+      -8.6743
+     -12.3683
+     -16.2837
+     -20.3804
+     -24.6307
+     -29.0137
+   
+   logaritmo del error en 0.2
+   logerr_02 =
+   
+      -3.8442
+      -6.5693
+      -9.5753
+     -12.8009
+     -16.2070
+     -19.7660
+     -23.4577
 
-   .. figure:: desarrollo.png
-      :align: center
-      :scale: 100
-
-      La función exponencial y sus desarrollos de Taylor en el origen
-      hasta orden 5.
-
-
-
-
+Podemos ver que si tomamos logaritmos la diferencia entre los valores
+permanece aproximadamente constante.
