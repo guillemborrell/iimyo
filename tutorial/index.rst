@@ -18,6 +18,7 @@ es siempre importante
    intro
    gui
    vecpoly
+   algebra
    programacion
 
 Indices and tables
