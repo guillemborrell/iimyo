@@ -258,7 +258,7 @@ elementos individuales
 
 .. code-block:: matlab
 
-  >> v([2,4,6,7]
+  >> v([2,4,6,7])
   ans = 
 
      12   14   16   17
@@ -372,6 +372,24 @@ escalar utilizando la definición de la operación y la función ``sum``.
   de ser una opreación mucho más propensa a fallar sin dar excesiva
   información del porqué.  Recordad que la belleza es importante.
 
+Algunas veces necesitaermos definir una serie de datos como un vector
+y dicha serie no podrá generarse mediante una única llamada a una
+función como ``linspace``, ``ones``, ``zeros`` o ``eye``.  Una técnica
+importante en Matlab es la concatenación de dos vectores que puede
+hacerse simplemente pegándolos
+
+.. code-block:: matlab
+
+   >> a = [1,2,3];
+   >> b = [4,5,6];
+   >> [a,b]
+   ans =
+   
+      1   2   3   4   5   6
+
+o utilizando la función ``cat``.
+   
+
 .. admonition:: Ejercicio 5
 
   Cuando Gauss contaba siete años el profesor les puso un ejercicio
@@ -382,6 +400,18 @@ escalar utilizando la definición de la operación y la función ``sum``.
   99+100. Con Matlab se puede hacer la operación por fuerza bruta de
   muchas maneras pero... ¿Eres capaz de hacerlo con sólo una línea de
   código?
+
+.. admonition:: Ejercicio 6
+
+   El número :math:`pi` puede calcularse mediante la siguiente serie:
+
+   .. math::
+
+      \frac{\pi^2-8}{16} = \sum_{n=1}^\infty \frac{1}{(2n-1)^2(2n+1)^2}
+
+   ¿Cuántos términos son necesarios para llegar a una precisión de
+   :math:`10^{-12}`? ¿Cuánta es la precisión de la suma de 100
+   términos?
 
     
 Polinomios
