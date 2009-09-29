@@ -19,12 +19,6 @@ es siempre importante
    gui
    vecpoly
    algebra
+   graficos
    programacion
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 

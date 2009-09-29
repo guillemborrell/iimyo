@@ -422,7 +422,7 @@ Se define un polinomio de grado *n* como
 .. math::
   :label: poly
 
-  p(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_{n-1}x^{n-1} + a_n x^n
+  p_n(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_{n-1}x^{n-1} + a_n x^n
 
 
 No es más que una función en la que el valor de la variable se eleva
@@ -432,7 +432,7 @@ puede compactarse a:
 
 .. math::
 
-  p(x) = \sum_{i=0}^n a_i x^i
+  p_n(x) = \sum_{i=0}^n a_i x^i
 
 Si nos fijamos un momento en la expresión :eq:`poly` observaremos que
 un polinomio puede expresarse fácilmente en forma de vector utilizando

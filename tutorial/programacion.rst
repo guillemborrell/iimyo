@@ -64,3 +64,6 @@ sintaxis.
 
    Cualquier error en uno de los dos puntos anteriores hará que la
    función o bien de un error o no podamos llamarla correctamente.
+
+Ejercicio de síntesis
+---------------------
