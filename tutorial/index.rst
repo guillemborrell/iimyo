@@ -20,5 +20,6 @@ es siempre importante
    vecpoly
    algebra
    graficos
+   estadistica
    programacion
 

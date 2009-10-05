@@ -127,6 +127,9 @@ mediante el comando hold
    anterior y ``hold of`` borra la ventana antes de pintar en ella.
    Por omisión se encuentra en ``off``.
 
+.. index:: clf
+
+Un comando bastante útil es ``clf``, que borra la figura activa.
 
 Etiquetas
 ---------
@@ -219,17 +222,155 @@ ello podemos hacer lo siguiente:
 Otros comandos
 --------------
 
+No todas las curvas en el plano pueden representarse a partir del
+comando ``plot`` por los ejes que utiliza.  En algunos casos nos vemos
+obligados a utilizar otros sistemas de coordenadas o a cambiar las
+referencias de los ejes.  Estas funciones nos pueden ser de utilidad.
+
+.. function:: semilogx(...)
+
+   Su uso y funcionamiento es idéntico al de la función ``plot``.
+   Representa gráficamente una serie de puntos tomando logaritmos en
+   el eje *x*.
+
+.. function:: semilogy(...)
+
+   Su uso y funcionamiento es idéntico al de la función
+   ``plot``. Representa gráficamente una serie de puntos tomando
+   logaritmos en el eje *y*.
+
+.. function:: loglog(...)
+
+   Su uso y funcionamiento es idéntico al de la función ``plot``.
+   Representa gráficamente una serie de puntos tomando logaritmos en
+   ambos ejes.
+
+.. function:: polar(...)
+   
+   Su uso y funcionamiento es idéntico al de la función
+   ``plot``. Representa gráficamente una serie de datos en coordenadas
+   polares.  El primer argumento corresponde al ángulo respecto a la
+   dirección principal :math:`\theta` y el segundo a la distancia
+   respecto al centro de referencia :math:`\rho`.
+
+Un ejemplo de uso de la función ``polar`` es el siguiente
+
+.. code-block:: matlab
+
+   >> x = linspace(-pi,pi,100);
+   >> polar(x, cos(2.*x));
+
+.. only:: latex
+
+   .. figure:: _static/polar.pdf
+      :align: center
+      :scale: 70
+
+      Ejemplo de gráfica en coordenadas polares
+
+.. only:: html
+
+   .. figure:: _static/polar.png
+      :align: center
+      :scale: 100
+
+      Ejemplo de gráfica en coordenadas polares
 
 
 
 Plot handles
 ------------
 
-Cada comando
+Cada comando cuya salida se expresa en una figura puede también
+devolver un argumento llamado plot handle.  Utilicemos como ejemplo la
+figura anterior.
+
+.. code-block:: matlab
+
+   >> x = linspace(-pi,pi,100);
+   >> h = polar(x, cos(2.*x));
+   
+Entonces, a parte de representar la curva, `h` es una variable que
+contiene toda la información correspondiente a la misma y dentro del
+léxico de Matlab suele recibir el nombre de *handle*.  Con la función
+``get`` podemos obtener toda la información del *handle* y mediante la
+función ``set`` podemos cambiar sus propiedades según nuestras
+necesidades.  Lo más interesante es que no sólo las curvas devuelven
+un *handle*; todos los objetos gráficos, incluso los ejes o la propia
+figura genera un *handle*.
+
+.. function:: get(h)
+
+   Función que obtiene las características de un *handle* gráfico, ya
+   sea una curva, los ejes de la figura o la misma figura
+
+.. function:: set(h,attr,val)
+
+   Funcion que modifica las características de un *handle* gráfico, ya
+   sea una curva, los ejes de la figura o la misma figura.  Los
+   argumentos siempre son, por este orden:
+
+   :h: El *handle*
+
+   :attr: Un atributo válido del handle como cadena de caracteres
+
+   :val: El nuevo valor del atributo.
+
+
+En el caso de las curvas o de la propia figura es la propia función
+(``plot``, ``semilogx`` o ``figure``) la que genera el *handle* pero
+también podemos utilizar las funciones que devuelven *handles* como
+argumentos de salida.
+
+.. function:: gca()
+
+   No necesita ningún argumento.  Devuelve el *handle* de los ejes de
+   la figura activa.
+
+.. function:: gcf()
+
+   No necesita ningún argumento.  Devuelve el *handle* de la figura
+   activa
+
+Utilizamos algunos de estos comandos en el ejemplo siguiente:
+
+.. literalinclude:: _static/piramide.m
+
+.. only:: latex
+
+   .. figure:: _static/piramide.pdf
+      :align: center
+      :scale: 70
+
+      Ejemplo de uso de ``set``
+
+.. only:: html
+
+   .. figure:: _static/piramide.png
+      :align: center
+      :scale: 100
+
+      Ejemplo de uso de ``set``
+
 
 
 Ejercicio de síntesis
 ---------------------
+
+El objetivo de este ejercicio es volver al ejercicio de síntesis en el
+que estudiábamos la convergencia de las series de Taylor.  Vimos que,
+a medida que añadíamos términos a la serie esta se acercaba al valor
+de la función en las cercanías del punto en el que se calculaba.  El
+resultado al que llegamos era una serie de puntos que lo demostraba
+para la función exponencial.
+
+Aprovechando que ya disponemos de una función que genera las series
+vamos a representar gráficamente la función junto con una serie de
+desarrollos de Taylor con distinto orden.  Después representaremos el
+error de la aproximación restando el desarrollo a la función y
+finalmente el error en función del orden en dos puntos cercanos al
+origen.
+
 
 .. literalinclude:: _static/taylor.m
    :language: matlab

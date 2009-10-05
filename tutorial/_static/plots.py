@@ -30,4 +30,10 @@ P.plot(x,N.sinh(x),x,N.cosh(x))
 P.legend([u'Seno hiperbólico',u'Coseno hiperbólico'])
 P.savefig('legend.svg')
 
+P.figure(6)
+theta = P.linspace(-N.pi,N.pi,100)
+p1 = P.polar(theta,N.cos(2*theta))
+P.savefig('polar.svg')
+
+
 P.show()

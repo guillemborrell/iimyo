@@ -160,7 +160,7 @@ indistintamente con números reales y complejos:
 .. admonition:: Ejercicio 2
 
   En un Congreso Internacional de Matemáticas se votó como la fórmula
-  más bella :math:`1=e^{-i\pi}`.  Comprueba que Matlab piensa que esta
+  más bella :math:`e^{i\pi}=-1`.  Comprueba que Matlab piensa que esta
   fórmula es correcta.  Te conviene utilizar la constante ``pi``.
 
 .. admonition:: Ejercicio 3
