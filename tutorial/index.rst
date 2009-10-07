@@ -21,5 +21,6 @@ es siempre importante
    algebra
    graficos
    estadistica
+   integracion
    programacion
 

@@ -11,7 +11,8 @@ cálculos así que se suponen conocimientos básicos de Estadística.
    Algunas de las funcionalidades más específicas para el tratamiento
    estadístico de datos con Matlab se encuentran en el Statistics
    Toolbox y deben adquirirse a parte.  En el caso de Octave podemos
-   instalar el paquete extra de estadística de Octave-forge.
+   instalar el paquete extra de estadística de Octave-forge en
+   http://octave.sourceforge.net.
 
 Distribuciones de frecuencias
 -----------------------------
@@ -118,3 +119,8 @@ La definición alternativa es
 
    Calcula la varianza de una muestra.  Es el cuadrado de la
    desviación típica.
+
+Regresión
+---------
+
+Una aplicación 
