@@ -56,9 +56,9 @@ garganta y el área de salida
 .. math::
 
    \frac{A_s}{A_g} = \frac{\Gamma(\gamma)}{
-   \frac{p_s}{p_c}^{\frac{1}{\gamma}}} \sqrt{\frac{2
+   \frac{p_s}{p_c}^{\frac{1}{\gamma}} \sqrt{\frac{2
    \gamma}{\gamma-1} \left[ 1- \left( \frac{p_s}{p_c}
-   \right)^{\frac{\gamma-1}{\gamma}} \right]}
+   \right)^{\frac{\gamma-1}{\gamma}} \right]}}
 
 A su vez, el gasto másico del cohete se obtiene de la expresión de la
 velocidad de recesión de un combustible sólido dada por la siguiente

@@ -56,6 +56,8 @@ Espero y deseo que lo que encontréis aquí os sea de utilidad.
 :Versión: |release|
 :Fecha: |today|
 
+Más información en http://iimyo.forja.rediris.es
+
 .. toctree::
    :maxdepth: 3
 
