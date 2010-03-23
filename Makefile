@@ -42,7 +42,7 @@ upload:
 	cp -r tutorial/_build/html/* build/html/tutorial/
 	make -C tutorial latex
 	make -C tutorial/_build/latex all-pdf
-	cp tutorial/_build/latex/IntroduccinaMatlab.pdf \
+	cp tutorial/_build/latex/IntroduccionaMatlab.pdf \
 	build/html/tutorial/
 	@ echo "Construyendo el documento principal"
 	make html

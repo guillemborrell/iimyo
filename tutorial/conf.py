@@ -158,7 +158,7 @@ html_show_sourcelink = True
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'IntroduccinaMatlabdoc'
+htmlhelp_basename = 'IntroduccionaMatlabdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -172,7 +172,7 @@ latex_font_size = '10pt'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'IntroduccinaMatlab.tex', u'Introducción a Matlab y Octave',
+  ('index', 'IntroduccionaMatlab.tex', u'Introducción a Matlab y Octave',
    u'Guillem Borrell i Nogueras', 'manual'),
 ]
 

@@ -120,7 +120,21 @@ La definición alternativa es
    Calcula la varianza de una muestra.  Es el cuadrado de la
    desviación típica.
 
-Regresión
----------
+Momentos de mayor orden
+-----------------------
 
-Una aplicación 
+Hemos definido la desviación típica como la desviación media
+cuadrática respecto la media de nuestra muestra de datos.  A las
+desviaciones respecto a la media se las llama *momentos* de la
+distribución y su definición es la siguiente
+
+.. math::
+
+   m_k = E(x-\mu)^k
+
+Donde :math:`E` es el operador esperanza.  En el caso de una muestra
+de datos discreta como la del primer ejemplo
+
+.. math::
+
+   m_k = E(
