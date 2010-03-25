@@ -1,129 +1,89 @@
 Aumentar el rendimiento de Matlab
 =================================
 
-En Matlab, al igual que todos los lenguajes dinámicos, cualquier
-código necesitará entre una y mil veces más tiempo para ejecutarse
-respecto a la misma implementación en Fortran o C.  El motivo es que
-ciertas operaciones son, por su propia naturaleza, más lentas si no se
-conocen los tipos de datos de antemano. El uso abusivo de asignaciones
-o llamadas a funciones puede provocar un desastre.
+El objetivo principal de Matlab es resolver rápidamente problemas de
+Cálculo Numérico. Ser capaces de implementar el algoritmo en menos
+tiempo tiene un coste, la velocidad de ejecución suele ser menor que
+la que obtendríamos utilizando C, C++ o Fortran.  Sin embargo hay
+cierta confusión cuando se habla de rendimiento y Matlab.
 
-.. warning::
+Matlab es un lenguaje dinámico, esto es, las variables no se declaran
+y nunca existen de forma estática en una posición de memoria
+conocida.  En los lenguajes dinámicos es el intérprete el que decide
+dónde estarán realmente los datos y nunca tendremos un acceso directo
+a ellos a no ser que consigamos engañarlo.
 
-  Matlab no es la herramienta adecuada para realizar cálculo numérico
-  de fuerza bruta.  Es un lenguaje de prototipado muy versátil que
-  nunca fue diseñado para el *number crunching*.
+Lo que realmente hace que la velocidad de ejecución de los lenguajes
+estáticos sea mayor es que el programa sabe en cada momento dónde
+están los datos en la memoria.  En este caso podrá hacer sus cuentas
+sin tener que preguntarse constantemente a qué posición de memoria
+tiene que acceder.  En un lenguaje dinámico el intérprete lleva en
+tiempo de ejecución la gestión de la memoria y las posibilidades para
+optimizar el cálculo son más limitadas.
 
-Muchos de los problemas de rendimiento derivados de la propia
-arquitectura de Matlab pueden evitarse teniendo en cuenta sólo un par
-de factores:
+.. important::
 
-* Las operaciones vectoriales son mucho más rápidas que las puramente
-  escalares. Evitar los bucles como la peste caracteriza la
-  programación a la Matlab.  Esta afirmación no es siempre cierta
-  desde la introducción de un compilador JIT pero nunca está de más
-  tenerla en cuenta.
+  En los lenguajes estáticos la optimización depende en gran medida de
+  lo buenos que seamos programando y del conocimiento que tengamos
+  sobre el hardware.  En los lenguajes dinámicos el factor más
+  decisivo es la capacidad del intérprete en hacer lo mismo.
 
-* Muchas de las funciones disponibles en la biblioteca y los toolkits
-  están escritas en C, esto significa que su velocidad de ejecución
-  será mucho mayor que cualquier implementación que podamos hacer en
-  Matlab. Otra característica de la programación a la Matlab programar
-  poco y usar muchas funciones.
 
-Todas las estrategias de optimización tienen un precio, algunas en
-horas de trabajo, otras en precisión de cálculo. Si optimizar o no o
-qué estrategia seguir son siempre decisiones que requieren
-experiencia.
+Llegados a este punto es importante mencionar que los lenguajes
+interpretados pueden ser estáticos.  Java es un lenguaje interpretado
+que soporta la declaración de variables estáticas.  El intérprete
+compila el código y lo optimiza antes de proporcionarlo a la máquina
+virtual.  Si todas nuestras estructuras son estáticas y la máquina
+virtual funciona correctamente la velocidad de ejecución debería
+parecerse a la del mismo algoritmo implementado en Fortran o en C.
 
-Antes incluso de seguir leyendo este capítulo uno debe plantearse
-seriamente si necesita optimizar su código.  Para intentar
-sistematizar esta toma de decisión estas son las dos preguntas clave:
-
-#. ¿Se exactamente en qué parte necesito más velocidad?
-
-#. ¿Voy a tardar más en mejorarlo que el tiempo de más que estaría
-   ejecutándose?
-
-La primera pregunta tiene que ver con la manera correcta de
-programar.  Empezar un proyecto pensando en la velocidad de ejecución
-es un error reconocido por quienes lo han intentado alguna vez.  Los
-programas deben funcionar, luego funcionar correctamente y finalmente,
-sólo si es necesario y sobran recursos, ser eficientes.  Cuando uno
-implementa un algoritmo siempre habrá una o dos operaciones
-responsables de la mayor parte del tiempo de cálculo: una
-interpolación, resolver un sistema de ecuaciones, un proceso
-iterativo... Una vez identificada la operación más exigente debemos
-escoger una estrategia de optimización; es entonces cuando debemos
-hacernos la segunda pregunta.
-
-Para elegir una estrategia lo haremos por coste de implementación.  Si
-el tiempo y el esfuerzo son pocos la calificaremos como barata, en
-caso contrario será cara. Eliminar un bucle y utilizar bloques para
-calcular es una estrategia barata, no implica modificar el algoritmo y
-es una operación sencilla dentro de Matlab. Reescribir una función en
-C o C++ es una estrategia cara.
-
-En este capítulo trataremos los métodos más universales para hacer que
-los tiempos de ejecución se reduzcan entre uno y dos ordenes de
-magnitud.
-
-Eliminar bucles innecesarios
-----------------------------
-
-El bucle es de por sí una operación lenta en un lenguaje
-dinámico.  De un modo muy profano se podría asegurar que en este tipo
-de lenguajes la asignación, es decir, el operador ``=``, realiza en
-realidad muchas más operaciones que la de copiar un dato.
+Teniendo en cuenta lo anterior. ¿Cúan listos son los lenguajes
+dinámicos optimizando?  Sin duda cada vez más.  No todo el código de
+un programa es puramente dinámico, hay partes estáticas o que pueden
+serlo en algún momento.  La manera de conseguir que los lenguajes
+dinámicos sean más rápidos es tomar ciertas porciones de código,
+reescribirlas como estáticas y aplicar optimizaciones.  Este proceso
+sucede en tiempo de ejecución y se llama optimización Just in Time.
+La pieza del intérprete que se encarga de esta traducción se llama
+compilador Just in time (JIT).
 
 .. note::
 
-  Matlab cuenta con un compilador JIT para arquitecturas x86.  Un JIT
-  es un compilador intermedio que reconoce unas pocas estructuras de
-  código y las compila a lenguaje ensamblador para la arquitectura
-  objetivo.  Todo esto se hace en tiempo de ejecución cuando el código
-  se preprocesa.  Este tipo de operaciones consiguen velocidades
-  equivalentes a las que se obtendrían con C sin optimizar.
+  Un compilador JIT funciona traduciendo porciones de código a
+  ensamblador.  Pero cada arquitectura tiene sus propios comandos, el
+  código para x86 (Intel y AMD) no funcionará en un procesador POWER
+  ni en un SPARC.
 
-  No existen compiladores JIT perfectos.  Si bien cuando funcionan
-  correctamente son de gran ayuda no es una buena idea condicionar un
-  algoritmo a su existencia.  Uno de los motivos con más peso es que
-  los JIT no son portables.
+Estos compiladores son brillantes piezas de ingeniería y pueden
+aumentar la velocidad de ejecución hasta en dos ordenes de
+magnitud. Hace una década pocos intérpretes o máquinas virtuales
+contaban con un compilador JIT y éste sólo optimizaba unas pocas
+estructuras como los bucles con contador.  Actualmente se consideran
+como una parte esencial de la implementación de un lenguaje dinámico.
 
-Con la eliminación de bucles sucede algo parecido con las estructuras
-``goto``. Puede darse el caso que un problema se resuelva de manera
-mucho más elegante con un ``goto`` pero esto no significa que su uso
-indiscriminado sea una buena idea [#]_. En muchos casos el propio
-algoritmo pide a gritos un bucle y buscar una alternativa más
-eficiente es sólo cuestión de pericia.
+.. warning::
 
-.. [#] Una de las primeras discusiones sobre teoría de lenguajes de
-   programación fue si la cláusula ``goto`` era realmente necesaria
-   para implementar algoritmos. Edsger Dijkstra, uno de los pioneros
-   en dotar a la programación de formalidad argumentó por primera vez
-   en su artículo *Goto clause considered harmful* (cita) que cualquier
-   programa podía escribirse sin ninguna necesidad de conectar el
-   flujo de ejecución con las líneas. Dijkstra convenció al mundo de
-   la informática que los problemas derivados de la sentencia ``goto``
-   eran mucho mayores que los posibles beneficios.
+  Matlab dispone de un compilador JIT para x86. Dentro de las
+  alternativas libres FreeMat también dispone de uno mientras que
+  sigue siendo una asignatura pendiente para Octave.
 
+Nuestro objetivo es que el intérprete haga el trabajo estrictamente
+necesario porque mientras hace otras cosas no se dedica a operar con
+nuestros datos.  Ya hemos visto que gracias a la compilación JIT el
+inérprete es capaz de ahorrarse trabajo futuro.  También nosotros
+podemos ayudarle utilizando un determinado estilo de programación.  La
+manera más sencilla es utilizar las operaciones más rápidas, la más
+complicada es *extender el intérprete*.
 
-¿Cuán lento es un bucle?
-........................
+Matlab y Octave están programados en C y C++ respectivamente.  No son
+en esencia distintos de cualquier otro programa en C que dependa de
+librerías para Cálculo Numérico como BLAS o Lapack.  El intérprete
+puede extenderse escribiendo una librería y enlazándola al mismo
+cuando sea necesaria.  Al estar programada en un lenguaje estático y
+vivir fuera del inérprete podremos utilizar las estrategias de
+optimización que creamos necesarias porque el intérprete es incapaz de
+ver las variables internas de la librería.
 
-Gráficas.
-
-Estrategias a seguir
-....................
-
-uso de reshape y find.
-
-Aproximar en vez de evaluar
----------------------------
-
-Nunca hay que perder de vista que en el Cálculo Numérico el resultado
-exacto no existe.  Además en Ingeniería pocos modelos consiguen más de
-dos cifras significativas correctas. Aproximar una función cuando se
-puede calcular su resultado sólo evaluando una expresión parece un
-crimen pero en muchos casos es sólo un mal menor.
-
-Supongamos que estamos intentando resolver 
+En esta sección pondremos ejemplos sobre cómo sacar el máximo partido
+a Matlab, cómo no poner trabas al compilador JIT y cómo escribir
+extensiones para cada uno de los intérpretes.

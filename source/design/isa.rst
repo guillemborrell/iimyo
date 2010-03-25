@@ -10,20 +10,16 @@ exponencial de la temperatura con la altura.  Este modelo estático se
 conoce como atmósfera estándar o atmósfera ISA.  Está gobernada por
 las siguientes condiciones:
 
-* Constantes
+* Gradiente térmico :math:`\lambda = -6.5\cdot 10^{-3} \frac{K}{m}`
 
-  * Gradiente térmico :math:`\lambda = -6.5\cdot 10^{-3} \frac{K}{m}`
+* Gravedad a nivel del mar :math:`g=9.81`
 
-  * Gravedad a nivel del mar :math:`g=9.81`
+* La constante de los gases perfectos para el aire es 
+  :math:`R=287 \frac{J}{kg K}`
 
-  * La constante de los gases perfectos para el aire es 
-    :math:`R=287 \frac{J}{kg K}`
+* Temperatura a nivel del mar :math:`T_0`
 
-* Parámetros
-
-  * Temperatura a nivel del mar :math:`T_0`
-
-  * Presión a nivel del mar :math:`p_0`
+* Presión a nivel del mar :math:`p_0`
 
 .. math::
 
@@ -41,12 +37,11 @@ las siguientes condiciones:
 
 A estas ecuaciones hay que sumarle el modelo de gas perfecto.
 
-La incógnita del problema es la altitud :math:`h`.  Siguiendo las dos
-leyes, la atmósfera estándar podrá convertirse en un bloque
-sustituyendo las constantes por su valor, recibiendo los parámetros y
-tomando como argumentos de salida las funciones que tienen como
-argumento la incógnita.  Una posible implementación sería la
-siguiente:
+La variable del problema es la altitud :math:`h`.  Siguiendo las dos
+leyes, la atmósfera estándar podrá convertirse en un bloque que
+dependerá de los parámetros y que tendrá como argumentos de salida las
+funciones que dependen de las variables.  Una posible implementación
+sería la siguiente:
 
 .. literalinclude:: ISA.m
    :language: matlab

@@ -14,22 +14,23 @@ Matemáticas en Ingeniería con Matlab y Octave
 
 Este texto no es un libro, es un conglomerado de material relativo a
 la programación en Matlab que difícilmente encontraría su sitio. Parte
-de la idea que *Introducción Informal a Matlab y Octave* es un muy mal
+de la idea que *Introducción Informal a Matlab y Octave* es un mal
 libro con material que puede resultar útil. Cuando tomé conciencia de
 ello decidí cambiar completamente el planteamiento del texto; algo que
 obligaba a empezar desde cero.
 
 Si bien el texto anterior nacía de un año sabático y de la necesidad
-de poner por escrito todo lo que iba aprendiendo de Matlab este
-segundo título sí tiene una finalidad específica: enseñar a programar
-en Matlab. Decidí definitivamente el rumbo cuando muchos de mis
-compañeros en la Escuela de Aeronáuticos me pedían ayuda con el mismo
-problema. En el sentido puramente curricular sabían programar en
-Matlab, conocían la sintaxis del lenguaje y unas cuantas funciones.
-Pero cuando se sentaban a programar de verdad para resolver un
-problema de cierta entidad no sabían por donde empezar. Es más, muchos
-de ellos tenían experiencia con otros lenguajes de programación y
-tenían la sensación de no poder aplicar lo ya aprendido a Matlab.
+de poner por escrito todo lo que iba aprendiendo de Matlab esta
+monografía sí tiene una finalidad específica: profundizar en la
+programación en Matlab a base de ejemplos completos. Decidí
+definitivamente el rumbo cuando muchos de mis compañeros en la Escuela
+de Aeronáuticos me pedían ayuda con el mismo problema. En el sentido
+puramente curricular sabían programar en Matlab, conocían la sintaxis
+del lenguaje y unas cuantas funciones.  Pero cuando se sentaban a
+programar de verdad para resolver un problema de cierta entidad no
+sabían por donde empezar. Es más, muchos de ellos tenían experiencia
+con otros lenguajes de programación y tenían la sensación de no poder
+aplicar lo ya aprendido a Matlab.
 
 Llevo unos cuantos años peleándome con Matlab.  Un poco a mi pesar
 porque no es ni mucho menos mi primera opción como lenguaje de
@@ -56,7 +57,9 @@ Espero y deseo que lo que encontréis aquí os sea de utilidad.
 :Versión: |release|
 :Fecha: |today|
 
-Más información en http://iimyo.forja.rediris.es
+La página web de este proyecto es http://iimyo.forja.rediris.es donde
+puede encontrarse información detallada sobre cómo colaborar con el
+proyecto.
 
 .. toctree::
    :maxdepth: 3

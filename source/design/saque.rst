@@ -27,13 +27,13 @@ Finalmente nos definen el tiempo de vuelo como el tiempo que
 transcurre desde el impacto con la raqueta hasta que cruza la vertical
 del final de la pista en el lado del resto después de un bote
 completamente elástico en el cuadro de saque. Estiman también que un
-saque de Andy puede llegar a los 200 kilómetros por hora.
+saque de Andy sale de su raqueta a 200 kilómetros por hora.
 
 Este problema nos servirá no sólo para ejemplificar el significado de
 las dos leyes, también será un ejemplo sobre cómo debe afrontarse el
 problema de simular un sistema físico.  Esta recomendación es válida
 en prácticamente cualquier ocasión y puede tomarse como una tercera
-ley: *siempre hay que adimensinalizar todas las ecuaciones*.
+ley: *siempre hay que adimensionalizar todas las ecuaciones*.
 
 Empezamos planteando la tercera ley de Newton:
 
@@ -107,10 +107,15 @@ teniendo en cuenta además que
 
 De este modo toda la física del problema queda reducida a una
 ecuación, una incógnita :math:`(\xi,\eta,\dot \xi,\dot \eta)` y los
-parámetros :math:`\delta` y :math:`\gamma`.  Resolver el problema será
-expesar estos parámetros en función de las incógnitas y las constantes
-del problema tratando también el resto de parámetros que no han
-aparecido aún.
+parámetros :math:`\delta` y :math:`\gamma`.  Resolver el problema
+pasará por crear los bloques necesarios y utilizar las funciones para
+realizar los cálculos.
+
+La dificultad adicional de este caso es que estos parámetros pueden
+depender de otros parámetros con lo que el número de bloques crecerá a
+medida que nuestro algoritmo se vaya complicando.  Es más; podemos
+encontrarnos que algunos de estos parámetros dependan de la propia
+variable con lo que en realidad serán funciones.
 
 El primero que abordaremos será :math:`\delta=\frac{Dl}{mU_0^2}`. Es
 el parámetro dependiente de la resistencia aerodinámica de la pelota.
