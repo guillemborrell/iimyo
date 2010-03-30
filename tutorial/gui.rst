@@ -254,3 +254,24 @@ bien aparecerá lo siguiente.
 Nuestro primer programa en Octave
 ---------------------------------
 
+A diferencia de Matlab, Octave es programa diseñado para ser utilizado
+en la consola del sistema.  Dicho de esta manera parece que volvemos a
+los años 80 antes que se popularizara Windows pero si nos fijamos un
+poco en la interfaz de Matlab veremos que a medida que nos volvamos
+más hábiles en el uso del lenguaje de programación usaremos más el
+intérprete de comando y menos los accesorios que lo rodean.
+
+En Octave uno de los comandos más usados es edit, que también existe
+en Matlab.
+
+.. function:: edit
+
+  Función que controla el editor asociado al intérprete.  En el caso
+  de Matlab se trata del intérprete propio mientras que Octave utiliza
+  el intérprete predeterminado del sistema.  Por ejemplo, para editar
+  la función nueva ``aprsin.m`` escribiremos
+
+  .. code-block:: matlab
+
+    >> edit aprsin.m
+
