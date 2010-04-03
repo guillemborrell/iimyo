@@ -227,7 +227,7 @@ Abriremos el editor y en él escribiremos lo siguiente
 
    aprsin = @(x) x - x.^3/6;
    x = linspace(-pi,pi,100);
-   plot(x,[aprsin(x);sin(x)]);
+   plot(x,aprsin(x),x,sin(x));
    
 Guardaremos el script con el nombre que más nos apetezca, siempre con
 la extensión ``.m``.  Luego, en la consola, escribiremos el nombre que

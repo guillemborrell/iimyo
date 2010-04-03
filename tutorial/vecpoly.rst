@@ -372,11 +372,13 @@ escalar utilizando la definición de la operación y la función ``sum``.
   de ser una opreación mucho más propensa a fallar sin dar excesiva
   información del porqué.  Recordad que la belleza es importante.
 
-Algunas veces necesitaermos definir una serie de datos como un vector
-y dicha serie no podrá generarse mediante una única llamada a una
-función como ``linspace``, ``ones``, ``zeros`` o ``eye``.  Una técnica
-importante en Matlab es la concatenación de dos vectores que puede
-hacerse simplemente pegándolos
+.. function:: prod(x,dim)
+
+  Calcula el producto de los elementos de un vector.  *dim* es de
+  utilidad cuando el argumento sea una matriz.
+
+Una técnica importante en Matlab es la concatenación de dos vectores
+que puede hacerse simplemente pegándolos
 
 .. code-block:: matlab
 
@@ -389,7 +391,6 @@ hacerse simplemente pegándolos
 
 o utilizando la función ``cat``.
    
-
 .. admonition:: Ejercicio 5
 
   Cuando Gauss contaba siete años el profesor les puso un ejercicio
@@ -521,6 +522,82 @@ Si necesitamos también el residuo tendremos que hacer lo siguiente
 
   r = 
       0  0  -25  0
+
+Hay otras operaciones que son operadores lineales aplicados a los
+polinomios como por ejemplo la derivada y la integral.
+
+.. function:: polyderiv(p)
+
+  Calcula los coeficientes de la derivada del polinomio *p*.  Si le
+  proporcionamos un segundo argumento *q* calculará la derivada del
+  producto de polinomios.
+
+.. function:: polyinteg(p)
+
+  Calcula los coeficientes de la primitiva del polinomio *p*.
+
+Sabemos que los polinomios de orden *n* tienen el mismo número de
+raíces.  Esto nos permite descomponer cualquier polinomio de la
+siguiente manera:
+
+
+.. math::
+
+  p_n(x) = \sum_{i=0}^n a_i x^i = \prod_{i=0}^n (x-r_i)
+
+.. function:: roots(p)
+
+  Calcula las raíces del polinomio *p*.  
+
+Las raíces no son sólo importantes como solución de la ecuación
+:math:`p_n(x) = 0` sino que sirven, por ejemplo, para buscar factores
+comunes entre dos polinomios.  Otra función bastante útil para los que
+utilizan Matlab para el análisis de sistemas dinámicos lineales es la
+función residue que calcula la descomposición en fracciones parciales
+del cociente de dos polinomios
+
+.. function:: residue(p,q)
+
+  Calcula la descomposición en fracciones parciales del cociente de
+  dos polinomios *p* y *q* donde el primero es el numerador y el
+  segundo el denominador.
+
+  Por ejemplo
+
+  .. code-block:: matlab
+
+    >> b = [1, 1, 1];
+    >> a = [1, -5, 8, -4];
+    >> help residue
+    >> [r,p,k,e] = residue(b,a)
+    r =
+    
+      -2.0000
+       7.0000
+       3.0000
+    
+    p =
+    
+       2.00000
+       2.00000
+       1.00000
+    
+    k = [](0x0)
+    e =
+    
+       1
+       2
+       1
+
+  El vector *r* es el numerador de cada uno de los términos, el vector
+  p son los polos del sistema y el vector e es la multiplicidad de
+  cada uno de los polos. Entonces la descomposición en fracciones
+  parciales será:
+
+  .. math::
+
+    \frac{s^2+s+1}{s^3-5s^2+8s-4} = \frac{-2}{s-2} +
+    \frac{7}{(s-2)^2} + \frac{3}{s-1}
 
 Ejercicio de síntesis
 ---------------------

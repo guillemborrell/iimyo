@@ -30,6 +30,9 @@ clean:
 	-rm -rf _build/*
 
 html:
+	@echo "Copying data files"
+	cp _static/googopen.dat _build/html/
+	cp _static/googclse.dat _build/html/
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) _build/html
 	@echo
 	@echo "Build finished. The HTML pages are in _build/html."

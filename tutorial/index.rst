@@ -18,7 +18,7 @@ programación.  El único requisito para seguir este manual es una mente
 abierta. Matlab es útil y sencillo pero está lleno de sutilezas.
 Cualquiera puede escribir programas sencillos con Matlab después de un
 par de horas de práctica pero debemos tener siempre en cuenta que
-programar bien implica tener en cuenta las sutilezas. Se necesita una
+programar bien implica ser consciente de los detalles. Se necesita una
 mente abierta para entender que hacer las cosas bien es siempre
 importante.
 

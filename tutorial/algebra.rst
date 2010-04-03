@@ -69,6 +69,57 @@ coma como se ve en el ejemplo siguiente:
       4   5   6
       7   8   9
 
+.. warning::
+
+  Uno de los grandes defectos de Matlab es la ambiguedad al tratar
+  vectores fila y matrices con una única columna.  Esto es debido a
+  que, por omisión, un vector con un único índice es un vector fila
+  mientras que el primer índice de una matriz cuenta los elementos de
+  una misma columna.
+
+  Para ejemplificar este problema crearemos el vector *u* y el vector
+  *v* de la siguiente manera:
+
+  .. code-block:: matlab
+
+    >> u(3) = 1
+    u =
+    
+       0   0   1
+    
+    >> v(3,1) = 1
+    v =
+    
+       0
+       0
+       1
+
+  Si Matlab fuera consistente estas dos instrucciones deberían generar
+  el mismo vector, sin embargo en la primera generamos un vector fila
+  y en la otra un vector columna.  Para agravar los efectos de la
+  inconsistencia ambos vectores pueden utilizar la misma notación de
+  índices:
+
+  .. code-block:: matlab
+
+    >> u(3)
+    ans =  1
+    >> v(3)
+    ans =  1
+
+  La única manera de no cometer errores graves por culpa del hecho que
+  Matlab está mal pensado es recordar que existe un tipo *vector* y un
+  tipo *matriz* o *array* que no tienen absolutamente nada que ver
+  aunque Matlab sí sea capaz de operar entre ellos porque considera
+  que un *vector* es una *matriz* con una única fila:
+
+  .. code-block:: matlab
+
+    >> u*v %Esto es lo mismo que el producto escalar
+    ans =  1
+
+
+
 Rutinas de creación de matrices
 -------------------------------
 
@@ -374,6 +425,15 @@ confundir el operador traspuesta con el operador traspuesta conjugada.
 Cuando las matrices sean únicamente de números reales ambas
 operaciones serán equivalentes pero confundirlos en el caso de números
 complejos puede ser un error difícil de encontrar.
+
+.. tip::
+
+  Como hemos visto, existe el riesgo real de confundir operaciones
+  escalares y matriciales, lo que puede generar errores catastróficos
+  difíciles de solucionar.  Un truco útil para depurar estos errores
+  es sustituir las operaciones matriciales por las funciones
+  equivalentes correspondientes: ``mpow``, ``transpose``,
+  ``mldivide``...
 
 Ejercicio de Síntesis
 ---------------------
