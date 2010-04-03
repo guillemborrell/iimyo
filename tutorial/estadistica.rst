@@ -88,7 +88,7 @@ utilizando el comando ``plot``
       :align: center
       :scale: 70
 
-      Histograma de la altura
+      Histograma de los diferenciales del stock de Google
 
 .. only:: html
 
@@ -96,7 +96,7 @@ utilizando el comando ``plot``
       :align: center
       :scale: 100
 
-      Histograma de la altura
+      Histograma de los diferenciales del stock de Google
 
 El histograma está sólo a un paso de la FDP (Función Densidad de
 Probabilidad) obtenida a partir de los datos.  Para ello la función
@@ -142,9 +142,6 @@ central de una muestra.
    Funcionamiento idéntico a ``mean``. Calcula la mediana de una
    muestra.
 
-.. code-block:: matlab
-
-  mu = mean(dif)
 
 Medidas de dispersión
 ---------------------
@@ -202,6 +199,41 @@ ser comparar los diferenciales de las sesiones con la distribución
 normal.  Para ello aprovecharemos que ya hemos calculado la FDP de
 nuestrso datos y la representaremos junto con la normal.
 
+.. code-block:: matlab
+
+  plot(bins,pdf,bins,normpdf(bins,mu,sig));
+  xlabel('Diferenciales')
+  ylabel('Probabilidad')
+  legend('Histograma','Normal');
+
+.. only:: latex
+
+   .. figure:: _static/histnorm.pdf
+      :align: center
+      :scale: 70
+
+      Comparación con la FDP Normal
+
+.. only:: html
+
+   .. figure:: _static/histnorm.png
+      :align: center
+      :scale: 100
+
+      Comparación con la FDP Normal
+
+Hay dos maneras de acceder a las funciones densisdad de probabilidad,
+cada una tiene su propia función terminada en pdf, como ``betapdf`` o
+``lognpdf`` pero podemos utilizarlas todas con la función ``pdf``.
+
+.. function:: pdf(nombre,x,a,b,c)
+
+  Calcula el valor de la FDP de nombre *nombre* en el punto *x*.  El
+  número de parámetros necesarios para realizar el cálculo depende de
+  la FDP.  Por ejemplo, si *nombre* es ``'norm'`` tendremos que
+  proporcionar dos parámetros, si es ``'t'`` para la distribución t de
+  Student bastará con un parámetro.
+
 Ejercicio de Síntesis
 ---------------------
 
@@ -222,3 +254,37 @@ producto financiero a tiempos mayores a un mes es prácticamente
 imposible si únicamente se tiene información sobre su valor.  Para
 comprender mejor este ejercicio necesitamos conocer el concepto de
 "cola ancha" o "fat tail".
+
+Si hacemos el test :math:`\chi^2` a los diferenciales obtendremos, con
+un margen de error minúsculo, que los datos se ajustan a una
+distribución normal.  Sin embargo cualquier iniciado en Análisis
+Financiero sabe perfectamente que asumir que estos datos se ajustan a
+una distribución normal es algo cercano a un suicidio.  La diferencia
+entre las dos FDP no se encuentra tanto en el los valores centrales
+sino en las colas.  Es algo que se aprecia mucho mejor si, en vez de
+representar las FDP del modo convencional, utilizamos una gráfica
+semilogarítmica.
+
+.. only:: latex
+
+   .. figure:: _static/colas.pdf
+      :align: center
+      :scale: 70
+
+      Comparación de las colas de la FDP
+
+.. only:: html
+
+   .. figure:: _static/colas.png
+      :align: center
+      :scale: 100
+
+      Comparación de las colas de la FDP
+
+Lo que vemos es que, aunque las dos FDP parezcan parecidas, su
+comportamiento lejos de los valores centrales es completamente
+distinto.  Mientras la Normal se va rápidamente a valores muy
+pequeños, nuestra FDP parece no seguir la misma tendencia. *Este
+comportamiento es muy importante porque implica que la probabilidad de
+sucesos extremos es relevante*.  Es por este motivo que se asume que
+predecir en bolsa no es posible.

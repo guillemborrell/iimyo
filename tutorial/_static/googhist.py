@@ -22,4 +22,10 @@ xlabel('Diferencial')
 ylabel('Probabilidad')
 legend(('Histograma','Normal'))
 
+figure(3)
+semilogy(bins,pdf,bins,normpdf(bins,mu,sig))
+xlabel('Diferencial')
+ylabel('Probabilidad')
+legend(('Histograma','Normal'))
+
 show()
