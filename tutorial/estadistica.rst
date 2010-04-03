@@ -286,5 +286,34 @@ comportamiento lejos de los valores centrales es completamente
 distinto.  Mientras la Normal se va rápidamente a valores muy
 pequeños, nuestra FDP parece no seguir la misma tendencia. *Este
 comportamiento es muy importante porque implica que la probabilidad de
-sucesos extremos es relevante*.  Es por este motivo que se asume que
-predecir en bolsa no es posible.
+sucesos extremos es relevante*.  Este fenómeno, asociado a la
+intermitencia, se conoce como *cola ancha* o *fat tail* e implica que
+se corre un gran riesgo asumiendo que el siguiente valor va a ser
+cercano a la media.
+
+Para comprobar el efecto de la intermitencia representaremos la
+gráfica logarítmica de distintos histogramas en los que calcularemos
+el diferencial el mismo día y con 1, 4 y 9 días de diferencia.  Para
+ello nos crearemos la función *tailcheck*
+
+.. literalinclude:: _static/tailcheck.m
+   :language: matlab
+
+.. literalinclude:: _static/maintailcheck.m
+   :language: matlab
+
+.. only:: latex
+
+   .. figure:: _static/fattail.pdf
+      :align: center
+      :scale: 70
+
+      Colas anchas debidas a la intermitencia
+
+.. only:: html
+
+   .. figure:: _static/fattail.png
+      :align: center
+      :scale: 100
+
+      Colas anchas debidas a la intermitencia
