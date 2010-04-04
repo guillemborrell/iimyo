@@ -317,3 +317,49 @@ ello nos crearemos la función *tailcheck*
       :scale: 100
 
       Colas anchas debidas a la intermitencia
+
+Como se ve claramente, a medida que separamos el tiempo entre los
+diferenciales la probabilidad de obtener un valor más lejano de la
+media crece significativamente a la vez que desciende la probabilidad
+de lo contrario.  El fenómeno de *fat tail* crecería indefinidamente
+acercándose al suceso puramente aleatorio en un caso límite.
+
+Ejercicio propuesto
+-------------------
+
+Calcular y representar los caminos de un grupo de partículas con
+movimiento aleatorio confinadas por un par de barreras :math:`B^{+}` y
+:math:`B^{-}` unidades del orígen que es desde donde salen las
+partículas.  Un movimiento aleatorio se calcula mediante la fórmula
+
+.. math::
+  x_{j+1}=x_{j}+s 
+
+donde *s* es el número obtenido de una distribución normal
+estandarizada de números aleatorios según la función ``randn``
+
+Se cambiarán las condiciones de contorno de la siguiente manera:
+
+#. Reflexión. Cuando una partícula se encuentre fuera de la frontera
+   se devolverá al interior del dominio como si hubiera rebotado en una
+   pared
+
+#. Absorción. La partícula muere cuando entra en contacto con la
+   pared.
+
+#. Absorción parcial. Es la combinación de los dos casos previos.
+   La partícula rebota en la pared y la perfección de la colisión
+   depende de una determinada distribución de probabilidad.
+
+Calcular una serie relevante de trayectorias y calcular:
+
+#. La posición media de las partículas en función del tiempo.
+  
+#. La desviación típica de las posiciones de las partículas en
+   función del tiempo.
+  
+#. ¿Influyen las condiciones de contorno en las distribuciones?
+  
+#. Para los casos de absorción y absorción parcial representar
+   gráficamente el número de partículas supervivientes en función del
+   número de saltos temporales.

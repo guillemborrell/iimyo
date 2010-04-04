@@ -277,7 +277,6 @@ Un ejemplo de uso de la función ``polar`` es el siguiente
       Ejemplo de gráfica en coordenadas polares
 
 
-
 Plot handles
 ------------
 
@@ -352,7 +351,11 @@ Utilizamos algunos de estos comandos en el ejemplo siguiente:
 
       Ejemplo de uso de ``set``
 
+Subplots
+--------
 
+Representación de datos en el plano
+-----------------------------------
 
 Ejercicio de síntesis
 ---------------------
@@ -426,3 +429,4 @@ origen.
       :scale: 100
 
       Convergencia en función del orden.
+

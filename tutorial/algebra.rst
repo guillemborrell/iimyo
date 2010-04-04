@@ -540,3 +540,29 @@ Ahora supongamos que queremos el polinomio que pasa por los puntos
    ans =  3.0000
    >> polyval(p,5)
    ans = -7.8160e-14
+
+Ejercicio propuesto
+-------------------
+
+Un proceso para encriptar un mensaje secreto es usar cierta matriz
+cuadrada con elementos enteros y cuya inversa es también entera. Se
+asigna un número a cada letra (A=1, B=2... espacio=28) y se procede
+como sigue a continuación. Supongamos que la matriz es:
+
+.. math::
+
+  A=\left(\begin{array}{ccccc}
+      1 & 2 & -3 & 4 & 5\\
+      -2 & -5 & 8 & -8 & 9\\
+      1 & 2 & -2 & 7 & 9\\
+      1 & 1 & 0 & 6 & 12\\
+      2 & 4 & -6 & 8 & 11\end{array}\right)
+
+y el mensaje que queremos enviar es ``ALGEBRA LINEAL``. Para codificar
+el mensaje romperemos la cadena de números en vectores de cinco
+elementos y los codificaremos.
+
+* ¿Cuál será la cadena de datos encriptada que enviaremos?
+
+* Descifrar el mensaje: 48 64 -40 300 472 61 96 -90 346 538 16
+  -5 71 182 332 68 131 -176 322 411 66 125 -170 301 417.

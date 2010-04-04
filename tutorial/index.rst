@@ -33,6 +33,7 @@ Más información en http://iimyo.forja.rediris.es
    intro
    gui
    vecpoly
+   flujo
    algebra
    graficos
    estadistica
