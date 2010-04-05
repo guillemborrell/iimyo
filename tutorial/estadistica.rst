@@ -1,5 +1,5 @@
-Estadística Descriptiva
-=======================
+Estadística Descriptiva y análisis de datos
+===========================================
 
 En este capítulo nos centraremos en los cálculos más básicos de la
 Estadística Descriptiva y de los modelos de datos con Matlab. Esta
@@ -363,3 +363,7 @@ Calcular una serie relevante de trayectorias y calcular:
 #. Para los casos de absorción y absorción parcial representar
    gráficamente el número de partículas supervivientes en función del
    número de saltos temporales.
+
+Análisis de Datos
+-----------------
+
