@@ -12,8 +12,8 @@
 
 \title{Introducción a Matlab y Octave}
 %\subtitle{Lesson 0}
-\author{Guillem Borrell i Nogueras\\
-Laboratorio de Mecánica de Fluidos Computacional}
+\author{Guillem Borrell\\
+Lab. de Mecánica de Fluidos Computacional}
 
 \begin{document}
 
@@ -31,17 +31,30 @@ Laboratorio de Mecánica de Fluidos Computacional}
 \end{frame}
 
 \begin{frame}
-  \tableofcontents[pausesections]
+  \frametitle{Antes de empezar}
+  \begin{itemize}
+  \item Guillem Borrell i Nogueras.
+  \item  \url{http://iimyo.forja.rediris.es/}
+    \begin{itemize}
+      \item Introducción Informal a Matlab y Octave
+      \item Matemáticas en Ingeniería con Matlab y Octave
+      \item Transparencias y ejercicios de este curso
+      \item Material de otros cursos
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Recordad...}
+\begin{center}
+Ningún lenguaje se aprende por osmosis
+\end{center}
+\end{frame}
 
 
 \begin{frame}
-\frametitle{Contenidos}
-\begin{itemize}
-\item Introducción
-\end{itemize}
+  \tableofcontents[pausesections]
 \end{frame}
 
 \section{Introducción}
@@ -57,32 +70,44 @@ Laboratorio de Mecánica de Fluidos Computacional}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Antes de empezar}
   \begin{Huge}
     \begin{center}
       Matlab no es una herramienta de cálculo simbólico.
     \end{center}
   \end{Huge}
   \pause
-  Nada de integrales y derivadas.
+  Matlab es un lenguaje de programación
 \end{frame}
 
 \begin{frame}
-  \frametitle{Matlab is a programming language}
+  \frametitle{Matlab es un lenguaje de programación}
   \begin{itemize}
-  \item Designed for Numerical Analysis.
-  \item Numeric vs. Symbolic
+  \item Orientado a Cálculo Numérico
+  \item Nada de Cálculo Simbólico
     \begin{itemize}
-    \item Matlab is a mind-numbing powerful calculator.
+    \item Imaginadlo como una gran calculadora
     \end{itemize}
-  \item It is nothing but a programming language.
+  \item Si es un lengaje de programación
     \begin{itemize}
-    \item Not a spreadsheet
-    \item Not a symbolic algebra engine
-    \item Not a solution for all your problems.
+    \item No es una hoja de cálculo
+    \item No es un juguete
+    \item No es la solución a todos nuestros problemas.
     \end{itemize}
   \end{itemize}
 \end{frame}
+
+\begin{frame}
+  \frametitle{¿Qué es Matlab?}
+  \begin{itemize}
+    \item{Un lenguaje de programación}
+    \item{Un lenguaje de programación \emph{interpretado}}
+    \item{Un lenguaje de programación \emph{interactivo}}
+  \end{itemize}
+  \begin{center}
+    \textbf{Usar Matlab == Programar en Matlab}
+  \end{center}
+\end{frame}
+
 
 \defverbatim[colored]\testcode{
 \begin{lstlisting}
@@ -90,31 +115,29 @@ f = @(x) quad(@(y) exp(-y.^2),0,y)
 \end{lstlisting}
 }
 \begin{frame}
-  \frametitle{¿Mind numbing?}
-This is advanced Matlab
+  \frametitle{¿Cómo de potente?}
+Esto es Matlab avanzado
 
 \[ f(x) = \int_0^x \exp(-y^2) dy \]
 
 \testcode
 
-BTW: this is not a symbolic operation.
+Por cierto, esto es Cálculo Numérico
 \end{frame}
 
 \begin{frame}
-  \frametitle{Why Matlab?}
+  \frametitle{¿Por qué Matlab?}
 
   \begin{itemize}
-  \item Most extended tool in Science and Engineering
-  \item De-facto standard for short programs in Engineering
-  \item Huge Library of functions
-  \item Tool-boxes for almost everything.
+  \item Herramienta más extendida en Ciencia e Ingeniería
+  \item Estándar de facto para escribir pequeños programas.
+  \item Enorme librería estándar
+  \item Toolboxes para casi cualquier disciplina de la Ingeniería
   \end{itemize}
 
-  Learning a bit of Matlab is a goal too.
 \end{frame}
 
 \section{Fundamentos de Programación}
-\subsection{Programming Fundamentals}
 
 \defverbatim[colored]\testcode{
 \begin{lstlisting}
@@ -122,96 +145,130 @@ a = 1;
 \end{lstlisting}
 }
 \begin{frame}
-  \frametitle{Variables and Literals}
+  \frametitle{Variables y literales}
 \testcode
 \begin{itemize}
-\item \texttt{a} is a variable
-\item \texttt{=} is the assignment operator
-\item \texttt{1} is a literal for the scalar 1 in the default
-  precision.
+\item \texttt{a} es una variable
+\item \texttt{=} es el operador asignación
+\item \texttt{1} es el literal que significa el número 1
 \end{itemize}
 \begin{center}
-  What does all this mean?
+  ¿Qué significa todo esto?
 \end{center}
 \end{frame}
 
 \begin{frame}
-  \frametitle{The meaning of all this}
+  \frametitle{El significado de todo esto}
   \begin{itemize}
-  \item Variables store
-  \item The asignment operator assigns anything to a variable
-  \item All the computations are in the right hand side
-  \item Computation is any operation involving variables (stored) and
-    literals (new).
+  \item Las variables almacenan en memoria
+  \item El operador asignación asigna cualquier cosa a una variable
+  \item Todos los cálculos van a la derecha del operador
+  \item Los cálculos son cualquier operación entre variables y literales
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Variables}
   \begin{itemize}
-  \item Any word can become a variable name.
-  \item Unless it uses a reserved character like \texttt{+},
+  \item Cualquier palabra puede convertirse en variable
+  \item Siempre que no use un caracter reservado como \texttt{+},
     \texttt{-}, \texttt{*}, \texttt{/}, \texttt{\^}, \texttt{.}, ...
-  \item Or is a built in variable like \texttt{ans} or \texttt{pi}
-  \item A variable can store anything.
+  \item O no sea un nombre reservado como \texttt{ans} or \texttt{pi}
+  \item Una variable puede almacenar cualquier valor.
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Literals}
+  \frametitle{Literales}
   \begin{itemize}
-  \item A literal is any valid Matlab value written by us.
-  \item There is a literal for almost every Matlab type: scalars,
-    vectors, matrices, functions...
-  \item Almost means that there are some types missing, but we won't
-    miss a literal for them.
-  \item We will use literals for scalars, vectors and functions.
+  \item Es la manera que tenemos de introducir un valor.
+  \item Hay un literal para prácticamente cualquier valor en Matlab:
+    escalares, vectores, funciones...
+  \item Prácticamente significa que no están todos, pero los que
+    faltan no los echaremos de menos.
   \end{itemize}
-Now we can start coding.
+\pause
+Pero antes de programar, algo de evangelismo.
 \end{frame}
 
-\subsection{The Matlab IDE}
+\subsection{El entorno de desarrollo Matlab}
 \begin{frame}
-  \frametitle{Tools}
-Pieces of the Matlab IDE
+  \frametitle{Herramientas}
+Partes del entorno de escritorio Matlab
 \begin{itemize}
-\item The Matlab Console
-\item The Matlab Editor
-\item The Matlab Explorer
-\item The Matlab Debugger
+\item La consola
+\item El editor
+\item El explorador
+\item El debugger
 \end{itemize}
-We will use only the Console and the Editor.
+Aprenderemos sólo a utilizar la consola y el editor
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Matlab Console}
+  \frametitle{La consola}
 
-\pgfimage[width=\linewidth]{gui}
+\pgfimage[width=\linewidth]{../_static/principal_col}
 
 \end{frame}
 
 \begin{frame}
-  \frametitle{The Matlab Editor}
-\pgfimage[width=\linewidth]{editor}
-
+  \frametitle{El editor}
+\pgfimage[width=\linewidth]{../_static/editor}
 \end{frame}
 
-\subsection{The Octave Interpreter}
+\begin{frame}
+\frametitle{Scripts}
+\begin{itemize}
+\item Un script es un programa
+\item Un programa es una secuencia de instrucciones ejecutables
+\item Un programa no depende de variables externas
+\item Se guarda en un archivo \emph{.m} en el \emph{directorio
+  de trabajo}
+\item Se ejecuta escribiendo el nombre del archivo en la consola o
+  pulsando \texttt{F5} en el editor.
+\end{itemize}
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+aprsin = @(x) x - x.^3/6;
+x = linspace(-pi,pi,100);
+plot(x,aprsin(x),x,sin(x));
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Nuestro primer script}
+En un archivo nuevo del editor
+\testcode
+Lo guardamos con el nombre \texttt{comparar.m} \emph{en el directorio
+  de trabajo}. Luego pulsamos \texttt{F5}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \pgfimage[width=8cm]{../_static/aprsin.pdf}
+  \end{figure}
+\end{frame}
+
+\subsection{El intérprete Octave}
 \begin{frame}
   \frametitle{Octave}
   \begin{itemize}
-  \item Octave is a free (as in freedom) interpreter for the Matlab
-    programming language.
-  \item Octave provides only the interpreter and the interactive
-    console. We must use an external source code editor.
-  \item Covers the 90\% of the language but only the 30\% of the
-    toolkits.
+  \item Octave es un intérprete libre y gratuito del lenguaje Matlab
+  \item Proporciona el intérprete y la consola interactiva, nosotros
+    debemos proporcionar el resto
+  \item Proporciona aproximadamente el 90\% del lenguaje y el 30\% de
+    los toolkits.
   \end{itemize}
-
 \end{frame}
 
-\section{Matlab Fundamentals (Language)}
-\subsection{Matlab types and literals}
+\section{El lenguaje de programación Matlab}
+\subsection{Tipos y literales}
 
 \defverbatim[colored]\testcode{
 \begin{lstlisting}
@@ -219,15 +276,365 @@ a = 1.234;
 \end{lstlisting}
 }
 \begin{frame}
-  \frametitle{Scalars}
+  \frametitle{Escalar}
   \begin{itemize}
-  \item A scalar is a number.
+  \item Un escalar es un número.
     \pause
-  \item Seriously, it is just a number.
-  \item There are many other types that involve numbers...
-  \item The decimal point is a dot.
+  \item Sí, sólo un número.
+  \item Pero a partir del escalar generamos el resto de tipos
+  \item La coma decimal es un punto.
   \end{itemize}
   \testcode
 \end{frame}
+
+\begin{frame}
+  \frametitle{Operaciones escalares}
+  \begin{itemize}
+  \item Suma. \texttt{+}
+  \item Resta, Número negativo. \texttt{-}
+  \item Multiplicación. \texttt{.*}
+  \item División. \texttt{./}
+  \item Potencia. \texttt{.\^}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{funciones escalares}
+  \begin{itemize}
+  \item \texttt{exp},\texttt{log},\texttt{log10},\texttt{sqrt}...
+  \item \texttt{sin},\texttt{cos},\texttt{tan}...
+  \item \texttt{asin},\texttt{acos},\texttt{atan}...
+  \item \texttt{sinh},\texttt{cosh}...
+  \item \texttt{gamma},\texttt{beta},\texttt{erf},\texttt{sinc}...
+  \end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> exp(1.0i * pi) - 1
+\end{lstlisting}
+}
+
+\begin{frame}
+  \frametitle{Operaciones aritméticas}
+  \[ exp(i \pi) - 1 = 0  \]
+  \testcode
+\end{frame}
+
+\begin{frame}
+  \frametitle{Otros tipos}
+  \begin{itemize}
+  \item La unidad imaginaria es \emph{i}, \emph{j}, \emph{I} o \emph{J}
+  \item Las cadenas de texto se introducen entre comillas simples
+  \item Los tipos lógicos son \emph{true} y \emph{false}.  \emph{true}
+    es $\not \equiv 0$ y \emph{false} es $\equiv 0$
+  \end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> % Este comando sera ignorado
+>> 'hola' % 'Hola,Matlab!'
+ans = hola
+
+>> 'hola';
+>> 'hola', 'que tal'
+ans = hola
+ans = que tal
+
+>> 'hola', ...
+'que tal'
+ans = hola
+ans = que tal
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Caracteres especiales}
+\testcode
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+  >> a = pi
+  a = 3.1416
+  >> a(1)
+  ans = 3.1416
+  >> a(1,1)
+  ans = 3.1416
+  >> a(1,1,1)
+  ans = 3.1416
+\end{lstlisting}
+}
+
+\begin{frame}
+  \frametitle{Mira qué curioso}
+  \testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{Escribir matrices}
+\begin{itemize}
+  \item El espacio o la coma separan elementos de la misma fila
+  \item El retorno de carro o el punto y coma separa filas
+\end{itemize}
+\[ \left(
+\begin{array}{ccc}
+1&2&3\\
+4&5&6\\
+7&8&9
+\end{array} \right)
+\]
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+M=[1,2,3;4,5,6;7,8,9];
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Ejercicio 1}
+\testcode
+Escribir 
+\[ \left(
+\begin{array}{ccc}
+1&2&3\\
+4&5&6\\
+7&8&9
+\end{array} \right)
+\]
+de otros 3 modos posibles.
+\end{frame}
+
+\begin{frame}
+\frametitle{Subíndices}
+\begin{itemize}
+  \item En Matlab el primer índice cuenta elementos en la columna
+  \item El segundo índice cuenta elementos en la fila
+  \item \emph{Pero} un vector es siempre fila a no ser que se diga lo
+    contrario.
+  \item El truco es que no nos preocupen las filas y las columnas,
+    sólo los índices
+\end{itemize}
+\[ M_{ij} = M(i,j) \]
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> v(4)=2
+v =
+
+   0   0   0   2
+
+>> w(4,1)=2
+w =
+
+   0
+   0
+   0
+   2
+\end{lstlisting}
+}
+\begin{frame}
+\frametitle{No hay quien te entienda}
+\testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> v=[1,2,3,4,5];
+>> v(4)
+ans = 4
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Un vector...}
+\[v = (1,2,3,\textcolor{red}{4},5) \]
+\testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> M=[1,2,3;4,5,6;7,8,9];
+>> M(2,3)
+ans =  6
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Una matriz...}
+\[ \left(
+\begin{array}{ccc}
+1&2&3\\
+4&5&\textcolor{red}{6}\\
+7&8&9
+\end{array} \right)
+\]
+\testcode
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> M([1,2],[2,3])
+ans =
+
+   2   3
+   5   6
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Podemos indexar con vectores}
+\[ \left(
+\begin{array}{ccc}
+1&\textcolor{red}{2}&\textcolor{red}{3}\\
+4&\textcolor{red}{5}&\textcolor{red}{6}\\
+7&8&9
+\end{array} \right)
+\]
+\testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> M(2,:)
+ans =
+
+   4   5   6
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{O con índices mudos}
+\[ \left(
+\begin{array}{ccc}
+1&2&3\\
+\textcolor{red}{4}&\textcolor{red}{5}&\textcolor{red}{6}\\
+7&8&9
+\end{array} \right)
+\]
+\testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+\end{lstlisting}
+}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> 0:2:10
+ans =
+   0   2   4   6   8  10
+
+>> 0:5
+ans =
+  0  1  2  3  4  5
+\end{lstlisting}
+}
+
+
+\begin{frame}
+\frametitle{Secuencias}
+\begin{itemize}
+\item Es una abreviatura común para escribir un vector fila
+\item La sintaxis es \texttt{inicio:incremento:final}
+\end{itemize}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{Ejercicio 2} 
+Crear la matriz siguiente y extraer de ella la submatriz marcada en rojo.
+\[ \left( \begin{array}{ccccc}
+11&12&13&14&15\\
+21&22&23&24&25\\
+31&32&\textcolor{red}{33}&\textcolor{red}{34}&\textcolor{red}{35}\\
+41&42&\textcolor{red}{43}&\textcolor{red}{44}&\textcolor{red}{45}\\
+51&52&\textcolor{red}{53}&\textcolor{red}{54}&\textcolor{red}{55}
+\end{array} \right) \]
+\end{frame}
+
+\begin{frame}
+\frametitle{Otros tipos}
+\begin{itemize}
+\item La unidad imaginaria es \emph{i}, \emph{j}, \emph{I} o \emph{J}
+\item Las cadenas de texto se introducen entre comillas simples
+\item Los tipos lógicos son \emph{true} y \emph{false}.  \emph{true}
+  es $\not \equiv 0$ y \emph{false} es $\equiv 0$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Operadores}
+\begin{itemize}
+\item Operadores matriciales \texttt{+}, \texttt{-}, \texttt{*},
+  \texttt{/}, \texttt{\^}
+\item Operadores escalares \texttt{.*}, \texttt{./}, \texttt{.\^}
+\item Operadores lógios matriciales \texttt{\&}, \texttt{|}, \texttt{!}
+\item Relaciones de comparación \texttt{<}, \texttt{>}, \texttt{==},
+  \texttt{<=}, \texttt{>=}, \texttt{!=}
+\item Relaciones lógicas \texttt{\&\&}, \texttt{||}
+\end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> a=rand(3,3);
+>> a=rand(3,3);b=rand(3,3);
+>> a*b
+ans =
+    1.0297    0.9105    0.3293
+    0.9663    0.8267    0.4211
+    0.5355    0.4318    0.3279
+>> a.*b
+ans =
+    0.1824    0.3253    0.0563
+    0.5500    0.6003    0.1897
+    0.0458    0.0017    0.1822
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{El error más común de Matlab}
+\testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> a=[1,2,3;4,5,6;7,8,9];
+>> a.^pi
+ans =
+    1.0000    8.8250   31.5443
+   77.8802  156.9925  278.3776
+  451.8079  687.2913  995.0416
+>> a^pi
+ans =
+ 1.0e+03 *
+ 0.69 - 0.0004i 0.85 - 0.0001i 1.01 + 0.0002i
+ 1.57 - 0.0000i 1.93 - 0.0000i 2.29 + 0.0000i
+ 2.45 + 0.0003i 3.01 + 0.0001i 3.57 - 0.0002i
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{El error más común de Matlab}
+\testcode
+\end{frame}
+
+
+\subsection{Control de flujo}
+
+\subsection{Unidades de programa}
+
+\section{Introducción a la Biblioteca de funciones}
+
+\subsection{Álgebra Lineal}
+\subsection{R}
 
 \end{document}
