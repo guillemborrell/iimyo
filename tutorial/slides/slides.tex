@@ -1040,5 +1040,122 @@ en escala normal y en escala semilogarítmica en el eje x.
 \end{description}
 \end{frame}
 
+\subsection{Integración}
+
+\begin{frame}
+\frametitle{Integración numérica}
+\begin{description}
+\item[quad] Integración numérica. 3 argumentos de entrada
+\item[quadl] Algoritmo de integración mejorado
+\item[dblquad] Integración bidimensional de funciones de dos variables
+\item[trapz] Regla del trapecio
+\end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ejercicio}
+  Hacer la integral
+
+  \[ I=\int_{-10}^{10}\int_{-10}^{10}e^{-(x^2+y^2)}dx\ dy \]
+  
+  que tiene como solución una burda aproximación a $\pi$.  Se puede
+  hallar en una línea de código.
+\end{frame}
+
+\begin{frame}
+\frametitle{EDO}
+\begin{itemize}
+\item Es una de las aplicaciones más importantes del Cálculo Numérico
+\item Los problemas más comunes son los problemas de Cauchy no lineales
+\item En ese caso la solución numérica es esencial
+\item Lo más importante es saber si nuestro problema es stiff
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Stiff}
+\begin{itemize}
+\item Un problema es \emph{stiff} cuando el paso temporal viene
+  determinado por la estabilidad del esquema.
+\item Suelen relacionarse con problemas no lineales o condiciones de
+  contorno muy exigentes
+\item Requieren esquemas de integración temporal implícitos
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Funciones}
+  \begin{description}
+  \item[\texttt{ode45}] Runge-Kutta de paso variable orden 4-5
+  \item[\texttt{ode113}] Adams multipaso
+  \item[\texttt{ode23s}] Esquema implícito Rosenbrock
+  \item[\texttt{lsode}] Octave
+  \end{description}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Van der Pol}
+Un caso típico es la ecuación de Van der Pol
+
+\[ x'' + x +\mu(x^2-1)x' = 0 \]
+
+Dependiendo del valor de $\mu$ el problema va a ser \emph{stiff} o no.
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> [tout,xout]=ode45(@vdp1,[0 20],[2 0])
+>> plot(tout,xout(:,1))
+\end{lstlisting}
+}
+
+\begin{frame}\frametitle{Solución}
+\testcode
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Solución}
+  \begin{figure}[h]
+    \centering{}
+    \pgfimage[width=8cm]{../_static/vdp.pdf}
+  \end{figure}
+
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> [tout,xout]=ode23s(@vdp1000,[0 20],[2 0])
+>> plot(tout,xout(:,1))
+\end{lstlisting}
+}
+
+\begin{frame}\frametitle{Solución}
+\testcode
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Solución}
+  \begin{figure}[h]
+    \centering{}
+    \pgfimage[width=8cm]{../_static/vdp1000.pdf}
+  \end{figure}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Para los créditos}
+  Ejercicios propuestos de los apuntes.
+  \begin{enumerate}
+  \item El de estadística.
+  \item Dos de los tres restantes.
+    \begin{enumerate}
+    \item Álgebra lineal.
+    \item Integración.
+    \item Ecuación diferencial.
+    \end{enumerate}
+  \end{enumerate}
+\end{frame}
 
 \end{document}
