@@ -34,12 +34,17 @@ Lab. de Mecánica de Fluidos Computacional}
   \frametitle{Antes de empezar}
   \begin{itemize}
   \item Guillem Borrell i Nogueras.
+    \begin{itemize}
+    \item Ingeniero Aeronáutico.
+    \item DNS Flujos turbulentos.
+    \item Supercomputación.
+    \end{itemize}
   \item  \url{http://iimyo.forja.rediris.es/}
     \begin{itemize}
-      \item Introducción Informal a Matlab y Octave
-      \item Matemáticas en Ingeniería con Matlab y Octave
-      \item Transparencias y ejercicios de este curso
-      \item Material de otros cursos
+      \item Introducción Informal a Matlab y Octave.
+      \item Matemáticas en Ingeniería con Matlab y Octave.
+      \item Transparencias y ejercicios de este curso.
+      \item Material de otros cursos.
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -47,9 +52,12 @@ Lab. de Mecánica de Fluidos Computacional}
 
 \begin{frame}
 \frametitle{Recordad...}
-\begin{center}
-Ningún lenguaje se aprende por osmosis
-\end{center}
+\begin{itemize}
+\item Ningún lenguaje se aprende por osmosis \pause
+\item Cuando uno se hace mayor cada vez tiene menos paciencia \pause
+\end{itemize}
+
+
 \end{frame}
 
 
@@ -627,14 +635,410 @@ ans =
 \testcode
 \end{frame}
 
+\begin{frame}
+  \frametitle{Ejercicio}
+  Dadas las siguientes variables:
+
+\[
+A = \left( \begin{array}{ccc}
+1&2&3\\
+4&5&6\\
+7&8&9
+\end{array} \right) \quad
+b = \left( \begin{array}{c}
+1\\2\\3
+\end{array} \right) \quad
+c = \left( \begin{array}{ccc}
+1&2&3
+\end{array} \right) 
+\]
+
+realizar las siguientes operaciones
+
+\begin{enumerate}
+\item $A\cdot b$
+\item $\sum_i A_{ij}c_i$
+\end{enumerate}
+\end{frame}
 
 \subsection{Control de flujo}
 
+\begin{frame}
+\frametitle{Control de flujo}
+\begin{itemize}
+\item Las sentencias son palabras clave necesarias para programar
+\item Son comunes a la mayoría de lenguajes de programación
+\item Control de flujo es el uso de bucles, condicionales, casos...
+\item El control de flujo implica el encapsulamiento de una tarea.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Deberes}
+  La serie de Fibonacci se define mediante la siguiente regla de
+  recurrencia
+
+  \[
+  F_{n}=\left\{ \begin{array}{cc}
+      1 & n=1\\
+      1 & n=2\\
+      F_{n-1}+F_{n-2} & n>2\end{array}\right.\]
+  
+  \begin{enumerate}
+  \item Hallar el término 40 de la sucesión
+  \item Crear un vector con los 40 primeros términos de la sucesión
+  \end{enumerate}
+\end{frame}
+
 \subsection{Unidades de programa}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+function [y1,y2] = nombre(x1,x2)
+  y1 = ...
+  y2 = ...
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{Funciones}
+  \begin{itemize}
+  \item Es la única unidad de programa que hay en Matlab.
+  \item Debe guardarse en un archivo llamado \texttt{nombre.m} en el
+    directorio de trabajo.
+  \end{itemize}
+
+  \testcode
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+function y = aprsin(x)
+  y=x-(x.^3)/6
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{Nuestra primera función}
+Abrimos un archivo nuevo en el editor
+\testcode
+Y lo guardamos en el directorio de trabajo como \texttt{aprsin.m}.
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Conclusiones}
+\begin{itemize}
+\item El lenguaje Matlab es muy limitado
+\item Es sencilloy su sintaxis es clara
+\item Sus estructuras son muy matemáticas
+\item Está basdo en funcionesy no conocemos ninguna
+\item La biblioteca de funciones de Matlab es tan grande como quieras
+  pagarla.
+\end{itemize}
+\end{frame}
 
 \section{Introducción a la Biblioteca de funciones}
 
 \subsection{Álgebra Lineal}
-\subsection{R}
+\begin{frame}
+\frametitle{Creación de matrices}
+\begin{description}
+\item[eye] matriz de ceros con unos en la diagonal
+\item[linspace] Vector de elementos equiespaciados
+\item[logspace] Vector de elementos con el exponente equiespaciado
+\item[meshgrid] Matrices de elementos equiespaciados en 2D
+\item[ones] Matriz de unos
+\item[zeros] Matriz de ceros
+\item[rand] Matriz de números aleatorios
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Manipulación de matrices}
+\begin{description}
+\item[reshape] Cambia la forma de la matriz conservando el número de
+  elementos
+\item[transpose] Traspuesta. Equivale a .'
+\item[ctranspose] Matriz conjugada. Equivale a '
+\item[rot90] Gira la matriz 90 grados hacia la izquierda
+\end{description}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> A=[1,0;2,1];y=[2;4];
+>> x=A\y
+x =
+
+  2
+  0
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Resolución de SEL}
+
+Para resolver sistemas de ecuaciones lineales contamos con un operador
+universal
+\testcode
+\end{frame}
+
+\subsection{Análisis de datos}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> p = [1 1 0];
+>> polyval(p,1)
+ans =  2
+>> roots(p)
+ans =
+  -1
+   0
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Polinomios}
+\begin{itemize}
+\item Los coeficientes son los elementos de un vector
+\end{itemize}
+$x^2 + x$ es $1x^2+1x+0$, es decir [1 1 0]
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{Polinomios. Utilidades}
+\begin{description}
+\item[polyval] Obtiene el valor en un punto
+\item[roots] Obtiene las raíces del polinomio
+\item[polyder] Deriva un polinomio
+\item[polyinteg] Integra un polinomio
+\item[conv] Multiplica dos polinomios
+\item[residue] Desarrollo en fracciones parciales.
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Funciones que devuelven polinomios}
+\begin{description}
+\item[poly] Obtiene el polinomio característico de una matriz.
+\item[polyfit] Modelo polinómico de una serie de datos.
+\end{description}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=[1 2 3 4 5 6 7 8];
+>> y=[2 4 3 5 6 5 7 9];
+>> coeff=polyfit(x,y,3);
+>> plot(x,y,'k+',1:0.1:8,...
+polyval(coeff,1:0.1:8),'b-')
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{\texttt{polyfit}}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/polyfit.pdf}
+  \end{figure}
+\end{frame}
+
+\subsection{Representación Gráfica}
+
+
+\begin{frame}
+\frametitle{Representación gráfica}
+\begin{itemize}
+\item Representar datos es sencillo e intuitivo
+\item No hay que emocionarse con la representación gráfica
+\item Sólo veremos curvas en el plano
+\item ¿Necesitamos más?
+\end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=linspace(0,500,100000);
+>> plot(x,exp(-x/100).*sin(x))
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Plot}
+Representa curvas en el plano. $e^{-x/100}\sin x$ para $x\in[0,500]$
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/abanico.pdf}
+  \end{figure}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> title('Una funcion cualquiera')
+>> xlabel('Tiempo')
+>> ylabel('Amplitud')
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{Etiquetas}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/abanico2.pdf}
+  \end{figure}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x=linspace(-pi,pi,100);
+>> plot(x,sin(x),'m:',...
+x,cos(x),'k^',x,tan(x),'bx')
+>> axis([-pi,pi,-2,2])
+>> grid on
+>> legend('linea de puntos magenta',...
+          'triangulos negros',...
+          'cruces azules') 
+\end{lstlisting}
+}
+\begin{frame}
+\frametitle{Estilos}
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/trigplot.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{hold}
+\begin{itemize}
+\item La ventana gráfica se borra automáticamente cada vez que
+  dibujamos algo
+\item Para cambiar el comportamiento anterior se usa la función
+  \emph{hold}
+  \begin{itemize}
+    \item \texttt{hold on} mantiene todo lo dibujado en la pantalla
+    \item \texttt{hold off} vuelve al comportamiento inicial
+  \end{itemize}
+  \item Para borrar la ventana gráfica usamos \texttt{clf}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{\texttt{figure}}
+\begin{itemize}
+\item Las ventanas gráficas se manipulan con la función
+  \texttt{figure}
+\item Cada ventana gráfica tiene asociada un número entero
+  \begin{itemize}
+    \item \texttt{figure} se llama con un número que corresponde al de
+      la ventana
+    \item Si utilizamos un número que no corresponde a ninguna ventana
+      existente crearemos una nueva con este número asociado
+    \item Si utilizamos un número existente activaremos la ventana
+      correspondiente
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> x= linspace(-pi,pi,100);
+>> subplot(2,2,1)
+>> plot(x,sin(x))
+\end{lstlisting}
+}
+\begin{frame}
+  \frametitle{subplot}
+  Es el comando que permite poner varios ejes en una misma figura
+\testcode
+Primero de los cuatro sectores.
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/subplot1.pdf}
+  \end{figure}
+\end{frame}
+
+
+\defverbatim[colored]\testcode{
+\begin{lstlisting}
+>> subplot(2,2,2)
+>> plot(x,cos(x))
+>> subplot(2,2,3)
+>> plot(x,sinh(x))
+>> subplot(2,2,4)
+>> plot(x,cosh(x))
+\end{lstlisting}
+}
+
+\begin{frame}
+\frametitle{subplot}
+Ahora completamos los cuatro cuadrantes.
+\testcode
+\end{frame}
+
+\begin{frame}
+\frametitle{El resultado}
+  \begin{figure}[h]
+    \centering{}
+    \includegraphics[width=8cm, keepaspectratio]{fig/subplot2.pdf}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Otros comandos}
+\begin{description}
+\item[semilogx] Dibuja una curva con el eje x en escala logarítmica
+\item[semilogy] Dibuja una curva con el eje y en escala logarítmica
+\item[loglog] Dibuja una curva en escala logarítmica
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{Ejercicio}
+
+Representar en una misma ventana y dos frames (uno superior y otro
+inferior) la función
+
+\[ \sqrt{x} \sin(1/x)\ \ x \in[0.001,1]  \]
+
+en escala normal y en escala semilogarítmica en el eje x.
+\end{frame}
+
+\begin{frame}
+\frametitle{Comandos interesantes}
+\begin{description}
+\item[\texttt{get}, \texttt{set}] Cambia los atributos de un plot
+  handle
+\item[\texttt{text}] Pone texto en la figura
+\item[\texttt{contour}] Isolíneas de una matriz de datos en 3D
+\item[\texttt{griddata}] Interpola para el contour
+\end{description}
+\end{frame}
+
 
 \end{document}
