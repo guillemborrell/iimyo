@@ -61,6 +61,13 @@ La página web de este proyecto es http://iimyo.forja.rediris.es donde
 puede encontrarse información detallada sobre cómo colaborar con el
 proyecto.
 
+.. admonition:: Nota de Copyright
+
+  © 2005-2010 Guillem Borrell i Nogueras. Se permite la copia,
+  distribución y/o la modificación de este documento bajo los términos
+  de la licencia GNU Free Documentation License, versión 1.2 o posterior
+  publicada por la Free Software Foundation.
+
 .. toctree::
    :maxdepth: 3
 
