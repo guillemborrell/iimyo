@@ -37,6 +37,9 @@ pdffig:
 	python makefigures.py pdf
 
 upload:
+	@ echo "Construyendo las transparencias"
+	make -C cursos/basico09
+	cp cursos/basico09/basico.pdf build/html/tutorial/
 	@ echo "Construyendo el tutorial"
 	make -C tutorial html
 	cp -r tutorial/_build/html/* build/html/tutorial/
