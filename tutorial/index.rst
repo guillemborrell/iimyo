@@ -46,4 +46,5 @@ Más información en http://iimyo.forja.rediris.es
    estadistica
    integracion
    programacion
+   persistencia
 
