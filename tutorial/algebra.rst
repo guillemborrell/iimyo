@@ -546,8 +546,9 @@ Ejercicio propuesto
 
 Un proceso para encriptar un mensaje secreto es usar cierta matriz
 cuadrada con elementos enteros y cuya inversa es también entera. Se
-asigna un número a cada letra (A=1, B=2... espacio=28) y se procede
-como sigue a continuación. Supongamos que la matriz es:
+asigna un número a cada letra (A=1, B=2... espacio=27; sin eñe y con 0
+como relleno al final) y se procede como sigue a
+continuación. Supongamos que la matriz es:
 
 .. math::
 
@@ -564,5 +565,5 @@ elementos y los codificaremos.
 
 * ¿Cuál será la cadena de datos encriptada que enviaremos?
 
-* Descifrar el mensaje: 48 64 -40 300 472 61 96 -90 346 538 16
-  -5 71 182 332 68 131 -176 322 411 66 125 -170 301 417.
+* Descifrar el mensaje: 161, 215, 291, 375, 350, 21, 14, 28, 4, 9, 26,
+  161, 102, 167, 61, 120, -2, 232, 263, 252, 55, -103, 104, 96, 110
