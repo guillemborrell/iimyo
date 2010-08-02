@@ -1,3 +1,0 @@
-Orientación a Objetos
-=====================
-

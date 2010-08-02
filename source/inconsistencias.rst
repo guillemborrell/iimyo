@@ -373,7 +373,7 @@ operador asignación. Este sería un ejemplo del declaración.
 
 .. code-block:: matlab
 
-   function {x,y,z} = foo(p,q,r}
+   function {x,y,z} = foo(p,q,r)
      x = p;
      y = q;
      z = r;

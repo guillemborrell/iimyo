@@ -38,13 +38,6 @@ programación. He movido el suficiente código como para darme cuenta
 que es un bicho raro, una excepción que te obliga a utilizar una
 determinada metodología quizás demasiado particular.
 
-De todos los formatos posibles opté por una referencia más basada en
-los ejemplos que en la descripción estructurada de la teoría que se
-limita a tratar los aspectos teóricos con mayor relevancia en la
-práctica. Es un intento de reflejar toda la experiencia adquirida de
-modo temático para evitar dolores de cabeza y traumas para quien se
-encuentre en la misma situación.
-
 Este sigue siendo un libro que llama a la colaboración.  Quien crea
 que tiene una idea que merezca la pena convertirse en un capítulo o un
 ejemplo puede discutirla libremente conmigo. Estoy también abierto a
@@ -71,11 +64,15 @@ proyecto.
 .. toctree::
    :maxdepth: 3
 
-   Introducción <intro>
-   El lenguaje Matlab <matlab>
-   El intérprete Octave <octave>
-   Ejercicios <ejercicios>
-
+   design/design
+   persistencia
+   invpend/invpend
+   cohete/cohete
+   difusion/difusion
+   fem/fem
+   burgers/burgers
+   vorticidad/vorticidad
+   inconsistencias
 
 
 Índices y Tablas

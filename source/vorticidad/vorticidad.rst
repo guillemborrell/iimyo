@@ -8,10 +8,7 @@ Turbulencia bidimensional
    sólo aptos para lectores avanzados.
 
 El objetivo de este ejemplo no es aprender turbulencia sino plantear
-un problema numéricamente mucho más complicado.  El objetivo de este
-texto es ir aumentando la dificultad de los ejemplos para que pueda
-servir de soporte incluso para quien accede a Matlab como desafío
-intelectual.
+un problema numéricamente mucho más complicado.
 
 He tenido la gran suerte de coincidir con Javier Jiménez Sendín. Un
 absoluto genio gracias al que he aprendido lo poco que se sobre

@@ -102,8 +102,8 @@ Figura activa
 -------------
 
 Lo más importante de representar gráficos en Matlab es el concepto de
-figura activa.  Matlab puede tener abiertas centenares de ventanas
-abiertas pero sólo podrá representar datos en una a la vez: la figura
+figura activa.  Matlab puede tener abiertas centenares de ventanas al
+mismo tiempo pero sólo podrá representar datos en una: la figura
 activa. Podemos controlar dicha figura mediante el comando ``figure``
 
 .. function:: figure(n)
