@@ -34,8 +34,8 @@ durante cuatro años.
 
   .. raw:: latex
 
-    \embedfile{../../_static/googopen.dat}
-    \embedfile{../../_static/googclse.dat}
+    \embedfile{../../source/_static/googopen.dat}
+    \embedfile{../../source/_static/googclse.dat}
 
 
   .. note::
