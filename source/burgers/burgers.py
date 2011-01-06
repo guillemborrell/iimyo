@@ -28,10 +28,14 @@ def burgers(N,u0,tend,dt,Re):
     # Time integration
     eq = lambda t,uhat: L(uhat,kx)/Re-D(uhat,kx,N,filt) 
     r = integrate.ode(eq)
-    r.set_integrator('zvode')
+    r.set_integrator('zvode',method='bdf')
     r.set_initial_value(uhat0,0.0)
 
     # Plot setup
+    pylab.figure(1)
+    pylab.clf()
+    pylab.hold('on')
+
     pylab.figure(2)
     pylab.clf()
     pylab.hold('on')
@@ -39,6 +43,9 @@ def burgers(N,u0,tend,dt,Re):
     times = [0]
     tthres = tend/10
 
+    pylab.figure(1)
+    pylab.semilogy(abs(uhat0[:N/4]/N),'+-',label="t"+str(0))
+    pylab.figure(2)
     pylab.plot(x,real(fft.ifft(uhat0)),label="t"+str(0))
 
     while r.successful() and r.t < tend:
@@ -48,14 +55,20 @@ def burgers(N,u0,tend,dt,Re):
             uhat0 = r.y
             
             # Plot the results
-            pylab.plot(x,real(fft.ifft(uhat0)),
-                       label="t"+str(tthres))
+            pylab.figure(2)
+            pylab.plot(x,real(fft.ifft(r.y)),
+                       label="t"+str(r.t))
+
+            pylab.figure(1)
+            pylab.semilogy(abs(r.y[:N/4]/N),'+-',
+                           label="t"+str(r.t))
+
             tthres += tend/10
             times.append(r.t)
             print "plot at %f"%(r.t)
 
-    uhat0 = r.y
 
+    pylab.figure(2)
     t = pylab.title(r'$u(t)$')
     pylab.setp(t,'fontsize',16)
     y = pylab.ylabel(r'$u$')
@@ -63,10 +76,8 @@ def burgers(N,u0,tend,dt,Re):
     x = pylab.xlabel(r'$x$')
     pylab.setp(x,'fontsize',16)
 
-    pylab.figure(1)
-    pylab.clf()
-    pylab.plot(abs(fft.fftshift(uhat0)))            
-    t = pylab.title('Power spectra of u at tend')
+    pylab.figure(1)        
+    t = pylab.title('Power spectra of u(t)')
     y = pylab.ylabel(r'$\hat{u}$')
     pylab.setp(y,'fontsize',16)
     x = pylab.xlabel(r'$k_x$')
@@ -79,6 +90,6 @@ def burgers(N,u0,tend,dt,Re):
 if __name__ == '__main__':
     N = 128
     tend = 1
-    dt = 0.001
+    dt = 0.01
     u0 = lambda x: 10*sin(x)
     times = burgers(N,u0,tend,dt,1)

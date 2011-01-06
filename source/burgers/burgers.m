@@ -31,7 +31,7 @@ end
 
 figure(1)
 clf
-plot(abs(fftshift(uhat0)));
+semilogy(abs(uhat0(1:end/2-1)),'+');
 title('Power spectra of u at tend');
 ylabel('u');
 xlabel('kx');

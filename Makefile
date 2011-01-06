@@ -41,11 +41,11 @@ upload:
 	make -C cursos/basico09
 	cp cursos/basico09/basico.pdf build/html/tutorial/
 	@ echo "Construyendo el tutorial"
-	make -C tutorial html
-	cp -r tutorial/_build/html/* build/html/tutorial/
-	make -C tutorial latex
-	make -C tutorial/_build/latex all-pdf
-	cp tutorial/_build/latex/IntroduccionaMatlab.pdf \
+	make -C source/tutorial html
+	cp -r source/tutorial/_build/html/* build/html/tutorial/
+	make -C source/tutorial latex
+	make -C source/tutorial/_build/latex all-pdf
+	cp source/tutorial/_build/latex/IntroduccionaMatlab.pdf \
 	build/html/tutorial/
 	@ echo "Construyendo el documento principal"
 	make html

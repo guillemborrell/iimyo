@@ -56,7 +56,7 @@ proyecto.
 
 .. admonition:: Nota de Copyright
 
-  © 2005-2010 Guillem Borrell i Nogueras. Se permite la copia,
+  © 2005-2011 Guillem Borrell i Nogueras. Se permite la copia,
   distribución y/o la modificación de este documento bajo los términos
   de la licencia GNU Free Documentation License, versión 1.2 o posterior
   publicada por la Free Software Foundation.
@@ -64,6 +64,16 @@ proyecto.
 .. toctree::
    :maxdepth: 3
 
+
+   tutorial/intro
+   tutorial/gui
+   tutorial/vecpoly
+   tutorial/algebra
+   tutorial/flujo
+   tutorial/graficos
+   tutorial/estadistica
+   tutorial/integracion
+   tutorial/programacion
    design/design
    persistencia
    invpend/invpend
