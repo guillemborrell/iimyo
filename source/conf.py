@@ -36,7 +36,7 @@ master_doc = 'contenidos'
 
 # General information about the project.
 project = u'iimyo2'
-copyright = ur'2008-2009, Guillem Borrell i Nogueras'
+copyright = ur'2005-2011, Guillem Borrell i Nogueras'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -154,7 +154,7 @@ htmlhelp_basename = 'iimyodoc'
 # ------------------------
 
 # The paper size ('letter' or 'a4').
-#latex_paper_size = 'letter'
+latex_paper_size = 'a4'
 
 # The font size ('10pt', '11pt' or '12pt').
 latex_font_size = '10pt'

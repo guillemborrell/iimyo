@@ -30,7 +30,7 @@ mp = rho_c * Sf * k * p_c^0.7 ;  % consumo   [kg/s]
 Gam = sqrt(gair) * (2 / (gair+1))^((gair+1) / 2 / (gair-1));
 				% constante Gamma(gamma)
 
-ecuacion = @(p_s) As/Ag - Gam *...
+ecuacion = @(p_s) As/Ag - Gam /...
     sqrt( 2*gair * ...
 	 (1 - (p_s/p_c) ^ ((gair-1)/gair) ) /...
 	 (gair-1)...
@@ -71,8 +71,8 @@ acel2 = @(v,h,t) -D(v,h)./mcohe - g;       % sin combustible
 %%% NOTA: h = x(1), v = x(2);
 %%% Sistema: 1. dh/dt = v
 %%%          2. dv/dt = f(h,hp)
-F  = @(x,t) [ x(2); acel( x(2),x(1),t)];
-F2 = @(x,t) [ x(2); acel2(x(2),x(1),t)];
+F  = @(x,t) [ x(2);  abs(acel( x(2),x(1),t))];
+F2 = @(x,t) [ x(2); -abs(acel2(x(2),x(1),t))];
 
 %%% tiempo en el que se termina el combustible
 tcomb = linspace(0,mcomb/mp,1000); %[s]
@@ -99,13 +99,11 @@ clf;
 hold on
 plot(tcomb,x(:,1), '-b','LineWidth',2,...
      tfin, x2(:,1),'-r','LineWidth',2)
-plot(tcomb(end),x(end,1),'k*','MarkerSize',10)
+plot(tcomb(end),x(end,1),'ko','MarkerSize',10)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('h [m]', 'FontSize',11);
-print -deps 'h.eps'
-print -dpng 'h.png'
-
+print -dsvg 'h.svg'
 
 % v(km/s) frente a t(s)
 figure(2);
@@ -113,27 +111,22 @@ clf;
 hold on
 plot(tcomb,x(:,2)*1e-3,'-b','LineWidth',2,...
      tfin,x2(:,2)*1e-3,'-r','LineWidth',2)
-plot(tcomb(end),x(end,2)*1e-3,'k*','MarkerSize',10)
+plot(tcomb(end),x(end,2)*1e-3,'ko','MarkerSize',10)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('v [ km / s ]', 'FontSize',11);
-print -deps 'v.eps'
-print -dpng 'v.png'
-
+print -dsvg 'v.svg'
 
 % Mach frente a t(s)
 figure(3);
 clf;
 hold on
-plot(tcomb,Mach(x(:,2),x(:,1)), '-b','LineWidth',2,...
-     tfin,Mach(x2(:,2),x2(:,1)),'-r','LineWidth',2)
+plot(tcomb,Mach(x(:,2), x(:,1)), '-b','LineWidth',2,...
+     tfin ,Mach(x2(:,2),x2(:,1)),'-r','LineWidth',2)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('M', 'FontSize',11);
-print -deps 'M.eps'
-print -dpng 'M.png'
-
-
+print -dsvg 'M.svg'
 
 % a(km/s^2) frente a t(s)
 figure(4);
@@ -143,5 +136,4 @@ plot(tcomb, acel(x(:,2),x(:,1),tcomb')/g,'-b','LineWidth',2,...
 xlabel('t [s]', 'FontSize',11);
 ylabel('a/g', 'FontSize',11);
 axis([0,tfin(end),-20,100]);
-print -deps 'a.eps'
-print -dpng 'a.png'
+print -dsvg 'a.svg'

@@ -351,6 +351,23 @@ Vamos a aplicar estos conceptos al problema del motor cohete.
 .. literalinclude:: cohetem.m
   :language: matlab
 
+Una de las diferencias históricas entre Matlab y Octave es la
+integración de ODEs. Mientras Matlab dispone la colección de funciones
+ode*, siendo ode45 la más comúnmente utilizada, Octave utiliza la
+función lsode con una convención mucho más parecida a la rutina en
+fortran a la que llama.
+
+A parte de la llamada, si ode45 se encuentra un valor complejo, como
+puede ser la raíz cuadrada de un número negativo, integrará el valor
+absoluto de la función después de imprimir una advertencia por
+pantalla. En cambio Octave dará un error y cortará la ejecución.
+
+A continuación de lista la versión del mismo programa compatible con
+Octave en el que se pueden apreciar las diferencias.
+
+.. literalinclude:: cohete.m
+  :language: matlab
+
 En este ejercicio se aplica directamente la filosofía de las dos
 normas.  Todas las funciones, en este caso function handles, están
 definidas según su expresión teórica sin evaluar ninguna de sus
@@ -368,7 +385,7 @@ Estos son los resultados:
 
    .. figure:: h.pdf
       :align: center
-      :scale: 100
+      :scale: 80
 
       Altura en función del tiempo
 
@@ -384,7 +401,7 @@ Estos son los resultados:
 
    .. figure:: v.pdf
       :align: center
-      :scale: 100
+      :scale: 80
 
       Velocidad en función del tiempo
 
@@ -400,7 +417,7 @@ Estos son los resultados:
 
    .. figure:: M.pdf
       :align: center
-      :scale: 100
+      :scale: 80
 
       Número de Mach en función del tiempo
 
@@ -416,7 +433,7 @@ Estos son los resultados:
 
    .. figure:: a.pdf
       :align: center
-      :scale: 100
+      :scale: 80
 
       Aceleración en función del tiempo
 

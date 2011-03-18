@@ -73,7 +73,7 @@ klist = [0.9,1.1,1.2];
 for k = klist
   theta = lsode(genpend(k,0.1),[0.01 0],tau); %Integracion
   subplot(3,1,idx);
-  plot(tau,theta(:,1));
+  plot(theta(:,1),theta(:,2));
   xlabel('\tau');
   ylabel('\theta');
   title(['k=',+num2str(k)]);
@@ -82,3 +82,4 @@ end
 
 print -dpng 'convergencia.png'
 print -deps 'convergencia.eps'
+

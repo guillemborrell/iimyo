@@ -30,7 +30,7 @@ mp = rho_c * Sf * k * p_c^0.7 ;  % consumo   [kg/s]
 Gam = sqrt(gair) * (2 / (gair+1))^((gair+1) / 2 / (gair-1));
 				% constante Gamma(gamma)
 
-ecuacion = @(p_s) As/Ag - Gam *...
+ecuacion = @(p_s) As/Ag - Gam /...
     sqrt( 2*gair * ...
 	 (1 - (p_s/p_c) ^ ((gair-1)/gair) ) /...
 	 (gair-1)...
@@ -99,7 +99,7 @@ figure(1);
 hold on
 plot(tcomb,  x(:,1), '-b',...
      tfin, x2(:,1),'-r', 'LineWidth',1)
-plot(tcomb(end),x(end,1),'k*','MarkerSize',10)
+plot(tcomb(end),x(end,1),'ko','MarkerSize',10)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('h [m]', 'FontSize',11);
@@ -110,7 +110,7 @@ figure(2);
 hold on
 plot(tcomb,x(:,2)*1e-3, '-b',...
      tfin,x2(:,2)*1e-3,'-r', 'LineWidth',1)
-plot(tcomb(end),x(end,2)*1e-3,'k*','MarkerSize',10)
+plot(tcomb(end),x(end,2)*1e-3,'ko','MarkerSize',10)
 hold off
 xlabel('t [s]', 'FontSize',11);
 ylabel('v [ km / s ]', 'FontSize',11);

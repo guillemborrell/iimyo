@@ -78,10 +78,7 @@ proyecto.
    persistencia
    invpend/invpend
    cohete/cohete
-   difusion/difusion
-   fem/fem
    burgers/burgers
-   vorticidad/vorticidad
    inconsistencias
 
 
