@@ -152,7 +152,7 @@ Matlab, por defecto, la desviación típica será calculada con
 
 .. math::
 
-   s = \sqrt{\frac{1}{N-1}\sum_{i=1}^N(x_i - \bar x)^2 n_i}
+   s(x_i) = \sqrt{\frac{1}{N-1}\sum_{i=1}^N(x_i - \bar x)^2 n_i}
 
 .. function:: std(x,flag,dim)
 
@@ -165,7 +165,7 @@ La definición alternativa es
 
 .. math::
 
-   \sigma = \sqrt{\frac{1}{N}\sum_{i=1}^N(x_i - \bar x)^2 n_i}
+   \sigma(x_i) = \sqrt{\frac{1}{N}\sum_{i=1}^N(x_i - \bar x)^2 n_i}
 
 .. function:: var(x,flag,dim)
 
@@ -173,6 +173,104 @@ La definición alternativa es
    desviación típica.
 
 
+Ejemplo
+-------
+
+Las funciones de las que hemos hablado sólo sirven en el caso que ya
+dispongamos de todos los datos almacenados en un vector o una matriz,
+algo que no siempre es posible.  Supongamos que queremos calcular la
+media de un vector que cambia durante una gran cantidad de
+iteraciones. Si el vector es largo, el número de iteraciones es grande
+y queremos utilizar alguna de estas funciones entonces deberemos
+guardar en la memoria una enorme matriz. No parece una buena decisión.
+
+Un truco bastante usual en Cálculo Numérico es el de acumular la media
+y la desviación típica a medida que se suceden las iteraciones.  La
+fórmula de la media no tiene ningún misterio, simplemente se van
+sumando todos los valores y al final se divide por la cantidad. Sin
+embargo la desviación típica debe calcularse con una fórmula
+alternativa.
+
+Se demuestra que la desviación típica es también la esperanza del
+valor cuadrático menos el cuadrado de la esperanza de la medida:
+
+.. math::
+
+  \sigma(x) = \sqrt{E(x^2)-[E(x)].^2}
+
+Vamos a aplicarlo a un caso sencillo. Un croupier del casino de
+Torrelodones nos dice que una de las ruletas del casino está
+ligeramente desviada al color rojo, exactamente un 1/30 más de las
+veces esperadas.  Esto significa que, si la probabilidad de ganar al
+rojo normalmente sería de 18/37, en este caso es 18/37(1+1/30).
+Queremos hacer una simulación Montecarlo para poder predecir nuestras
+ganancias y su desviación típica en función del número de jugadas que
+hagamos en la ruleta. De este modo, esperamos que si jugamos más veces
+al rojo podamos obtener mayores beneficios.
+
+Una simulación Montecarlo reproduce un experimento en el ordenador un
+gran número de veces, infinitas desde el punto de vista estadístico.
+Una vez se tienen todos los resultados de los experimentos se pueden
+hacer estadísticas de los resultados para obtener el resultado más
+probable. Este método, que ha ganado popularidad a medida que los
+ordenadores se han hecho más potentes, es muy útil cuando el sistema a
+simular tiene un gran número de grados de libertad.
+
+Lo que haremos entonces es jugar una cantidad muy grande de partidas
+de ruleta en la que apostaremos una vez tras otra una cantidad fija al
+rojo. No sólo calcularemos muchas partidas, en este caso 1000, sino
+que estas partidas serán muy largas, de unas 10000 apuestas.  Si
+intentáramos guardar todos los resultados en memoria para hacer
+estadísticas necesitaríamos aproximadamente unos 100 MB de memoria. No
+es demasiado para los ordenadores modernos pero si nos la podemos
+aprovechar mucho mejor.
+
+.. literalinclude:: _static/ruleta.m
+   :language: matlab
+
+El paso siguiente es representar gráficamente la media y la desviación
+típica acumulada de todos los "disparos" de la simulación Montecarlo
+para llegar a un valor asintótico
+
+.. code-block:: matlab
+
+   >> [avret,stdret] = ruleta(1/30,10000,1000,1);
+   >> plot(1:10000,avret,'linewidth',2,1:10000,stdret,'linewidth',2)
+   >> xlabel('N de apuestas al rojo')
+   >> ylabel('Retorno [cantidad apostada]')
+   >> legend('media','\sigma')
+
+
+.. only:: latex
+
+   .. figure:: _static/ruleta.pdf
+      :align: center
+      :scale: 70
+
+      Media y desviación típica en función del tiempo de juego
+
+.. only:: html
+
+   .. figure:: _static/ruleta.png
+      :align: center
+      :scale: 100
+
+      Media y desviación típica en función del tiempo de juego.
+
+Como se puede ver en la figura, al cabo de 10000 apuestas en la ruleta
+defectuosa hemos conseguido unas 45 veces la cantidad apostada cada
+vez. Pero aunque las estadísticas con 1000 disparos con el método
+Montecarlo parezcan muy dóciles la realidad es un poco más
+complicada. Si nos fijamos en la desviación típica su valor es de 100
+veces la cantidad apostada, lo que siginfica que las cantidades
+ganadas o perdidas en cada juego individual presentan enormes
+fluctuaciones.
+
+De hecho es difícil ganar grandes cantidades de dinero de esta manera
+incluso conociendo los defectos de las ruletas. Para mejorar el
+rendimiento se suelen aplicar esquemas de decisión que incorporan la
+posible existencia de grandes fluctuaciones sobre la media y que se
+aprovechan de ellas.
 
 Funciones de densidad de probabilidad conocidas
 -----------------------------------------------
