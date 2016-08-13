@@ -36,7 +36,7 @@ master_doc = 'contenidos'
 
 # General information about the project.
 project = u'iimyo2'
-copyright = ur'2005-2011, Guillem Borrell i Nogueras'
+copyright = ur'2005-2016, Guillem Borrell i Nogueras'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
